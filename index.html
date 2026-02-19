@@ -1524,6 +1524,36 @@
             </div>
         </div>
 
+        <!-- ========== قسم تسجيل الدخول الجديد ========== -->
+        <div class="settings-section">
+            <div class="settings-section-title">
+                <i data-lucide="log-in"></i>
+                <span>تسجيل الدخول</span>
+            </div>
+            <!-- عناصر تسجيل الدخول (جاهزة للربط مع Firebase لاحقاً) -->
+            <!-- زر تسجيل الدخول باستخدام Google -->
+            <button id="googleSignInBtn" class="settings-menu-item" onclick="simulateGoogleSignIn()">
+                <i data-lucide="mail" style="color: #DB4437;"></i>
+                <span>تسجيل الدخول باستخدام Google</span>
+            </button>
+            <!-- مكان عرض بيانات المستخدم (يظهر بعد تسجيل الدخول) -->
+            <div id="userInfoSection" style="display: none;">
+                <div class="glass-card rounded-xl p-4 mt-2 flex items-center gap-3">
+                    <img id="userAvatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%231e293b'/%3E%3Ccircle cx='50' cy='35' r='20' fill='%2300d4ff'/%3E%3Cellipse cx='50' cy='80' rx='30' ry='25' fill='%2300d4ff'/%3E%3C/svg%3E" alt="User Avatar" class="profile-img-small">
+                    <div class="flex-1">
+                        <div id="userDisplayName" class="font-bold text-white">اسم المستخدم</div>
+                        <div id="userEmail" class="text-xs" style="color: var(--text-secondary);">user@example.com</div>
+                    </div>
+                </div>
+            </div>
+            <!-- زر تسجيل الخروج (يظهر بعد تسجيل الدخول) -->
+            <button id="logoutBtn" class="settings-menu-item" style="display: none; background: rgba(255,51,102,0.1); border-color: rgba(255,51,102,0.3);" onclick="simulateLogout()">
+                <i data-lucide="log-out" style="color: var(--accent-secondary);"></i>
+                <span style="color: var(--accent-secondary);">تسجيل الخروج</span>
+            </button>
+        </div>
+        <!-- ========== نهاية قسم تسجيل الدخول ========== -->
+
         <!-- Music Player Section -->
         <div class="settings-section">
             <div class="settings-section-title">
@@ -3147,6 +3177,10 @@
             winningLine: null,
             isComputerTurn: false,
             gameStartTime: null,
+
+            // ========== حالة تسجيل الدخول المؤقتة (للهيكل فقط) ==========
+            isLoggedIn: false,
+            userData: { name: 'محمد العربي', email: 'mohamed@example.com', avatar: null }
         };
 
         // Audio Context
@@ -3174,6 +3208,51 @@
             setTimeout(() => navigateTo(pageId), 300);
         }
 
+        // ==================== محاكاة تسجيل الدخول / الخروج (للهيكل فقط) ====================
+        // زر تسجيل الدخول - يظهر رسالة فشل مؤقتة
+        function simulateGoogleSignIn() {
+            // لا يعرض نجاح أبداً - فقط رسالة فشل كما هو مطلوب
+            showNotification('فشل تسجيل الدخول. يرجى المحاولة لاحقاً (سيتم ربطه بـ Firebase قريباً).', 'error');
+            playSound('lose');
+            // ملاحظة: لاحقاً عند ربط Firebase، هنا سيتم تفعيل 30,000 XP مرة واحدة
+        }
+
+        // زر تسجيل الخروج - يخفي البيانات ويعيد الأزرار لحالتها الأصلية
+        function simulateLogout() {
+            state.isLoggedIn = false;
+            updateLoginUI();
+            showNotification('تم تسجيل الخروج', 'success');
+        }
+
+        // دالة لتحديث واجهة المستخدم حسب حالة الدخول
+        function updateLoginUI() {
+            const userInfoSection = document.getElementById('userInfoSection');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const googleBtn = document.getElementById('googleSignInBtn');
+            const userDisplayName = document.getElementById('userDisplayName');
+            const userEmail = document.getElementById('userEmail');
+            const userAvatar = document.getElementById('userAvatar');
+
+            if (state.isLoggedIn) {
+                // عرض بيانات المستخدم وإخفاء زر الدخول
+                if (userInfoSection) userInfoSection.style.display = 'block';
+                if (logoutBtn) logoutBtn.style.display = 'flex';
+                if (googleBtn) googleBtn.style.display = 'none';
+
+                // تعبئة البيانات الوهمية
+                if (userDisplayName) userDisplayName.textContent = state.userData.name;
+                if (userEmail) userEmail.textContent = state.userData.email;
+                if (userAvatar && state.userData.avatar) userAvatar.src = state.userData.avatar;
+                else if (userAvatar) userAvatar.src = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%231e293b\'/%3E%3Ccircle cx=\'50\' cy=\'35\' r=\'20\' fill=\'%2300d4ff\'/%3E%3Cellipse cx=\'50\' cy=\'80\' rx=\'30\' ry=\'25\' fill=\'%2300d4ff\'/%3E%3C/svg%3E';
+            } else {
+                // إخفاء بيانات المستخدم وإظهار زر الدخول
+                if (userInfoSection) userInfoSection.style.display = 'none';
+                if (logoutBtn) logoutBtn.style.display = 'none';
+                if (googleBtn) googleBtn.style.display = 'flex';
+            }
+            lucide.createIcons(); // لتحديث الأيقونات
+        }
+
         // ==================== INIT ====================
 
         function init() {
@@ -3196,6 +3275,9 @@
             
             // Initialize music
             initMusic();
+
+            // تحديث واجهة تسجيل الدخول عند البداية
+            updateLoginUI();
         }
 
         function updateSocialLinks() {
@@ -3238,6 +3320,7 @@
                 divisionPoints: state.divisionPoints,
                 completedDivisions: state.completedDivisions,
                 completedDivision1: state.completedDivision1,
+                // لا نحفظ حالة تسجيل الدخول، فقط الهيكل
             };
             localStorage.setItem('xo-arena-v1', JSON.stringify(toSave));
         }
@@ -3491,6 +3574,7 @@
             notif.style.background = type === 'success' ? 'linear-gradient(135deg, rgba(0,255,136,0.9), rgba(0,200,100,0.9))' :
                                     type === 'achievement' ? 'linear-gradient(135deg, rgba(168,85,247,0.9), rgba(139,69,219,0.9))' :
                                     type === 'reward' ? 'linear-gradient(135deg, rgba(255,215,0,0.9), rgba(255,170,0,0.9))' :
+                                    type === 'error' ? 'linear-gradient(135deg, rgba(255,51,102,0.9), rgba(200,0,50,0.9))' :
                                     'linear-gradient(135deg, rgba(0,212,255,0.9), rgba(0,150,200,0.9))';
             notif.style.color = type === 'reward' ? '#1a1a2e' : 'white';
             notif.classList.add('show');
@@ -4656,6 +4740,9 @@
         window.setRarityFilter = setRarityFilter;
         window.filterStore = filterStore;
         window.sortByPrice = sortByPrice;
+        // دوال تسجيل الدخول المؤقتة
+        window.simulateGoogleSignIn = simulateGoogleSignIn;
+        window.simulateLogout = simulateLogout;
     </script>
 </body>
 </html>

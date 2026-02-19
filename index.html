@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1792516517266134"
+     crossorigin="anonymous"></script>
+    
     <!-- تحسين SEO الأساسي -->
-    <title>XO Hub Dark Edition - أقوى لعبة إكس أو عربية مع الذكاء الاصطناعي ونظام الديفيجن</title>
-    <meta name="description" content="XO Hub: أول لعبة إكس أو عربية احترافية. 4 مستويات ذكاء اصطناعي، نظام إنجازات، متجر سكنات، وإحصائيات متقدمة. لعبة استراتيجية مجانية لجميع الأعمار.">
+    <title>XO Arena - أقوى لعبة إكس أو عربية مع الذكاء الاصطناعي ونظام الديفيجن</title>
+    <meta name="description" content="XO Arena: أول لعبة إكس أو عربية احترافية. 4 مستويات ذكاء اصطناعي، نظام إنجازات، متجر سكنات، وإحصائيات متقدمة. لعبة استراتيجية مجانية لجميع الأعمار.">
     <meta name="keywords" content="لعبة XO, إكس أو, tic tac toe, لعبة ذكاء, العاب استراتيجية, العاب عربية, تحدي الذكاء, eclipse games, العاب كمبيوتر, العاب مجانية">
     <meta name="author" content="Eclipse Games">
     <meta name="robots" content="index, follow">
@@ -15,16 +19,16 @@
     <meta name="language" content="Arabic">
     
     <!-- Open Graph / فيسبوك -->
-    <meta property="og:title" content="XO Hub Dark Edition - لعبة إكس أو الإستراتيجية">
+    <meta property="og:title" content="XO Arena - لعبة إكس أو الإستراتيجية">
     <meta property="og:description" content="لعبة إكس أو احترافية مع 4 مستويات صعوبة ونظام إنجازات متطور. العب ضد الكمبيوتر أو مع الأصدقاء مجاناً.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://eclipsegames1.netlify.app">
+    <meta property="og:url" content="https://xo-arena-1.github.io/XO-Arena/">
     <meta property="og:image" content="https://files.catbox.moe/f28twh.png">
     <meta property="og:site_name" content="Eclipse Games">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="XO Hub Dark Edition - لعبة إكس أو">
+    <meta name="twitter:title" content="XO Arena - لعبة إكس أو">
     <meta name="twitter:description" content="اختبر ذكائك في أقوى لعبة إكس أو عربية مع 4 مستويات صعوبة">
     <meta name="twitter:image" content="https://files.catbox.moe/f28twh.png">
     
@@ -33,23 +37,7 @@
     <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2300d4ff'/%3E%3Ctext x='50' y='70' font-size='70' text-anchor='middle' fill='white' font-family='Arial'%3EXO%3C/text%3E%3C/svg%3E">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://eclipsegames1.netlify.app">
-    
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XXXXXXXXXX', {
-            'anonymize_ip': true,
-            'cookie_flags': 'max-age=7200;secure;samesite=none'
-        });
-    </script>
-
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1792516517266134"
-     crossorigin="anonymous"></script>
+    <link rel="canonical" href="https://xo-arena-1.github.io/XO-Arena/">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -632,33 +620,9 @@
             border: 2px solid var(--accent-color);
         }
 
-        /* User Info in Settings */
+        /* User Info in Settings - تم إخفاؤها بعد إزالة Firebase */
         .user-info-settings {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            margin-bottom: 15px;
-        }
-        
-        .user-info-settings img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: 2px solid var(--accent-color);
-        }
-        
-        .user-stats-settings {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-        
-        .user-stats-settings span {
-            color: #ffd700;
-            font-weight: bold;
+            display: none;
         }
 
         /* Music Player */
@@ -1560,38 +1524,6 @@
             </div>
         </div>
 
-        <!-- User Info Section -->
-        <div class="settings-section">
-            <div class="settings-section-title">
-                <i data-lucide="user"></i>
-                <span>حسابي</span>
-            </div>
-            
-            <!-- Firebase User Info -->
-            <div id="userInfoSettings" style="display: none;" class="user-info-settings">
-                <img id="userPhotoSettings" src="" alt="User">
-                <div>
-                    <div id="userNameSettings" style="color: var(--text-primary); font-size: 1rem; font-weight: bold;"></div>
-                    <div class="user-stats-settings">
-                        <i data-lucide="coins" class="w-3 h-3 inline"></i> <span id="userCoinsSettings">0</span> | 
-                        <i data-lucide="trophy" class="w-3 h-3 inline"></i> <span id="userLevelSettings">1</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Google Login Button -->
-            <button id="googleLoginSettings" class="settings-menu-item">
-                <i data-lucide="log-in"></i>
-                <span>تسجيل الدخول بحساب Google</span>
-            </button>
-            
-            <!-- Logout Button -->
-            <button id="logoutSettings" class="settings-menu-item" style="display: none;">
-                <i data-lucide="log-out"></i>
-                <span>تسجيل خروج</span>
-            </button>
-        </div>
-
         <!-- Music Player Section -->
         <div class="settings-section">
             <div class="settings-section-title">
@@ -1624,7 +1556,7 @@
                     <option value="10">The Real Slim Shady - Eminem</option>
                     <option value="11">Lovely - Billie Eilish</option>
                     <option value="12">MOONLIGHT - XXXTentacion</option>
-                    <option value="13">Dorak Gai - ???</option>
+                    <option value="13">Dorak Gai - Wegz</option>
                     <option value="14">Birds of a Feather - Billie Eilish</option>
                 </select>
                 <div id="nowPlaying" class="now-playing">غير مشغلة</div>
@@ -1792,7 +1724,7 @@
             <!-- Title -->
             <div class="text-center mb-8 animate-slide-up" style="animation-delay: 0.3s;">
                 <h1 class="text-5xl md:text-6xl font-display font-bold mb-2" style="color: var(--accent-color); text-shadow: 0 0 30px var(--glow-color);">
-                    XO HUB
+                    XO ARENA
                 </h1>
                 <p class="text-lg tracking-widest" style="color: var(--text-secondary);">DARK EDITION</p>
             </div>
@@ -1828,15 +1760,15 @@
 
             <!-- قسم المحتوى النصي الغني الجديد -->
             <div class="glass-card rounded-2xl p-6 mt-8 animate-slide-up" style="animation-delay: 0.5s;">
-                <h2 class="text-2xl font-bold mb-4" style="color: var(--accent-color);">🎮 مرحبًا بك في XO Hub - أفضل لعبة إكس أو عربية</h2>
+                <h2 class="text-2xl font-bold mb-4" style="color: var(--accent-color);">🎮 مرحبًا بك في XO Arena - أفضل لعبة إكس أو عربية</h2>
                 
                 <div class="space-y-4 text-right">
                     <p class="leading-relaxed" style="color: var(--text-primary);">
-                        <strong style="color: var(--accent-color);">XO Hub</strong> هي أول منصة عربية متكاملة للعبة إكس أو مع <strong style="color: #00ff88;">4 مستويات ذكاء اصطناعي</strong> مختلفة: مبتدئ، متوسط، صعب، وعبقري. صممنا اللعبة لتكون مناسبة لجميع الأعمار والمستويات، من الأطفال الصغار إلى الخبراء المحترفين.
+                        <strong style="color: var(--accent-color);">XO Arena</strong> هي أول منصة عربية متكاملة للعبة إكس أو مع <strong style="color: #00ff88;">4 مستويات ذكاء اصطناعي</strong> مختلفة: مبتدئ، متوسط، صعب، وعبقري. صممنا اللعبة لتكون مناسبة لجميع الأعمار والمستويات، من الأطفال الصغار إلى الخبراء المحترفين.
                     </p>
                     
                     <p class="leading-relaxed" style="color: var(--text-primary);">
-                        ما يميز <strong style="color: var(--accent-color);">XO Hub</strong> عن غيرها من ألعاب إكس أو هو نظام التطوير المتكامل: اجمع النقاط (XP) مع كل فوز، افتح <strong style="color: #ffd700;">سكنات جديدة</strong> ملونة (ذهبي، أحمر، بنفسجي، أخضر)، احصل على <strong style="color: #ff6b35;">إنجازات</strong> مميزة، وتابع تقدمك من خلال الإحصائيات التفصيلية. هل تستطيع هزيمة الكمبيوتر في مستوى "عبقري"؟
+                        ما يميز <strong style="color: var(--accent-color);">XO Arena</strong> عن غيرها من ألعاب إكس أو هو نظام التطوير المتكامل: اجمع النقاط (XP) مع كل فوز، افتح <strong style="color: #ffd700;">سكنات جديدة</strong> ملونة (ذهبي، أحمر، بنفسجي، أخضر)، احصل على <strong style="color: #ff6b35;">إنجازات</strong> مميزة، وتابع تقدمك من خلال الإحصائيات التفصيلية. هل تستطيع هزيمة الكمبيوتر في مستوى "عبقري"؟
                     </p>
 
                     <div class="grid grid-cols-2 gap-3 mt-4">
@@ -1858,7 +1790,7 @@
                         </div>
                     </div>
 
-                    <h3 class="text-lg font-bold mt-4" style="color: var(--accent-color);">لماذا تختار XO Hub؟</h3>
+                    <h3 class="text-lg font-bold mt-4" style="color: var(--accent-color);">لماذا تختار XO Arena؟</h3>
                     <ul class="space-y-2 pr-4">
                         <li class="flex items-start gap-2" style="color: var(--text-primary);">
                             <span style="color: #00ff88;">✓</span>
@@ -1879,7 +1811,7 @@
                     </ul>
 
                     <p class="leading-relaxed mt-4 text-sm" style="color: var(--text-secondary);">
-                        * أكثر من 10,000 مباراة تم لعبها على منصتنا حتى الآن. انضم إلى عائلة XO Hub واستمتع بأفضل تجربة إكس أو عربية.
+                        * أكثر من 10,000 مباراة تم لعبها على منصتنا حتى الآن. انضم إلى عائلة XO Arena واستمتع بأفضل تجربة إكس أو عربية.
                     </p>
                 </div>
             </div>
@@ -2212,7 +2144,7 @@
                         <option value="10">The Real Slim Shady - Eminem</option>
                         <option value="11">Lovely - Billie Eilish</option>
                         <option value="12">MOONLIGHT - XXXTentacion</option>
-                        <option value="13">Dorak Gai - ???</option>
+                        <option value="13">Dorak Gai - Wegz</option>
                         <option value="14">Birds of a Feather - Billie Eilish</option>
                     </select>
                     <div id="nowPlayingSettings" class="now-playing">غير مشغلة</div>
@@ -2321,7 +2253,7 @@
                 </p>
                 
                 <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    <strong>XO Hub Dark Edition</strong> هو أول مشاريعنا، وقد عملنا عليه لأكثر من 6 أشهر لضمان أفضل تجربة ممكنة. اللعبة ليست مجرد نسخة مكررة من ألعاب إكس أو التقليدية، بل هي منصة متكاملة تحتوي على نظام تطور ومكافآت وإنجازات تجعل اللعبة أكثر تشويقاً وإدماناً.
+                    <strong>XO Arena Dark Edition</strong> هو أول مشاريعنا، وقد عملنا عليه لأكثر من 6 أشهر لضمان أفضل تجربة ممكنة. اللعبة ليست مجرد نسخة مكررة من ألعاب إكس أو التقليدية، بل هي منصة متكاملة تحتوي على نظام تطور ومكافآت وإنجازات تجعل اللعبة أكثر تشويقاً وإدماناً.
                 </p>
 
                 <h3 class="text-lg font-bold text-white mb-3 mt-4">رؤيتنا</h3>
@@ -2377,7 +2309,7 @@
             </div>
 
             <div class="glass-card rounded-2xl p-6">
-                <h2 class="text-xl font-bold text-white mb-4">XO Hub في أرقام</h2>
+                <h2 class="text-xl font-bold text-white mb-4">XO Arena في أرقام</h2>
                 <div class="grid grid-cols-2 gap-4">
                     <div class="text-center p-4 rounded-xl" style="background: rgba(0,0,0,0.3);">
                         <div class="text-3xl font-bold" style="color: #00ff88;">10k+</div>
@@ -2413,9 +2345,9 @@
             <div class="glass-card rounded-2xl p-6 mb-6">
                 <p class="mb-4 text-sm" style="color: var(--text-secondary);">آخر تحديث: 20 يناير 2026</p>
                 
-                <h2 class="text-xl font-bold text-white mb-4">سياسة الخصوصية لـ XO Hub</h2>
+                <h2 class="text-xl font-bold text-white mb-4">سياسة الخصوصية لـ XO Arena</h2>
                 <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    نحن في <strong>Eclipse Games</strong> (من خلال لعبة XO Hub) نحترم خصوصيتك ونلتزم بحماية بياناتك الشخصية. توضح هذه السياسة كيفية تعاملنا مع معلوماتك.
+                    نحن في <strong>Eclipse Games</strong> (من خلال لعبة XO Arena) نحترم خصوصيتك ونلتزم بحماية بياناتك الشخصية. توضح هذه السياسة كيفية تعاملنا مع معلوماتك.
                 </p>
 
                 <h3 class="text-lg font-bold text-white mb-3">1. جمع البيانات</h3>
@@ -2498,9 +2430,9 @@
             <div class="glass-card rounded-2xl p-6 mb-6">
                 <p class="mb-4 text-sm" style="color: var(--text-secondary);">آخر تحديث: 20 يناير 2026</p>
                 
-                <h2 class="text-xl font-bold text-white mb-4">شروط استخدام XO Hub</h2>
+                <h2 class="text-xl font-bold text-white mb-4">شروط استخدام XO Arena</h2>
                 <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    مرحباً بك في XO Hub. باستخدامك لهذه اللعبة، فإنك توافق على هذه الشروط. يرجى قراءتها بعناية.
+                    مرحباً بك في XO Arena. باستخدامك لهذه اللعبة، فإنك توافق على هذه الشروط. يرجى قراءتها بعناية.
                 </p>
 
                 <h3 class="text-lg font-bold text-white mb-3">1. قبول الشروط</h3>
@@ -2986,264 +2918,7 @@
         <button onclick="closeDivisionComplete()" class="neon-btn w-full py-3 rounded-xl font-bold">رائع!</button>
     </div>
 
-    <!-- ========== FIREBASE SDK + SCRIPTS ========== -->
-    
-    <!-- Firebase SDK (modular) -->
-    <script type="module">
-        // استيراد مكتبات Firebase
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-        import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
-
-        // إعدادات Firebase الخاصة بمشروعك
-        const firebaseConfig = {
-            apiKey: "AIzaSyA2WMSpypyylJYqBeJa0uf0GHUgw7mbXzs",
-            authDomain: "eclipse-games-e7af5.firebaseapp.com",
-            projectId: "eclipse-games-e7af5",
-            storageBucket: "eclipse-games-e7af5.firebasestorage.app",
-            messagingSenderId: "1043658285743",
-            appId: "1:1043658285743:web:8752d3a6c1e14c01f3aa5a"
-        };
-
-        // تهيئة Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        const provider = new GoogleAuthProvider();
-
-        // ==================== FUNCTIONS ====================
-
-        // تسجيل الدخول بجوجل
-        window.loginWithGoogle = async function() {
-            try {
-                // إظهار مؤشر التحميل
-                showNotification('جاري تسجيل الدخول...', 'info');
-                
-                const result = await signInWithPopup(auth, provider);
-                const user = result.user;
-                
-                // التحقق من وجود المستخدم في Firestore
-                const userRef = doc(db, "users", user.uid);
-                const userSnap = await getDoc(userRef);
-
-                if (!userSnap.exists()) {
-                    // مستخدم جديد - إنشاء مستند جديد
-                    await setDoc(userRef, {
-                        username: user.displayName || 'Player',
-                        email: user.email || '',
-                        photoURL: user.photoURL || '',
-                        xp: 0,
-                        level: 1,
-                        division: 10,
-                        divisionPoints: 0,
-                        wins: 0,
-                        losses: 0,
-                        draws: 0,
-                        totalMatches: 0,
-                        winStreak: 0,
-                        bestStreak: 0,
-                        avatar: "default",
-                        currentSkin: "default",
-                        currentFrame: "frame-default",
-                        unlockedSkins: ["default"],
-                        unlockedFrames: ["frame-default"],
-                        achievements: [],
-                        completedDivisions: 0,
-                        completedDivision1: false,
-                        beatenGenius: false,
-                        dailyStreak: 0,
-                        lastClaimDate: null,
-                        soundEnabled: true,
-                        musicEnabled: false,
-                        createdAt: serverTimestamp(),
-                        lastLogin: serverTimestamp(),
-                        lastUpdated: serverTimestamp()
-                    });
-                    
-                    showNotification('🎉 مرحباً بك في XO Hub! تم إنشاء ملفك الشخصي', 'success');
-                } else {
-                    // مستخدم موجود - تحديث آخر تسجيل دخول
-                    await updateDoc(userRef, {
-                        lastLogin: serverTimestamp(),
-                        username: user.displayName || 'Player',
-                        photoURL: user.photoURL || ''
-                    });
-                    
-                    showNotification(`مرحباً بعودتك ${user.displayName || 'Player'}!`, 'success');
-                }
-                
-                // تحديث واجهة المستخدم
-                await updateUserUI(user.uid);
-                
-            } catch (error) {
-                console.error("Login error:", error);
-                showNotification('حدث خطأ في تسجيل الدخول: ' + error.message, 'error');
-            }
-        };
-
-        // تسجيل الخروج
-        window.logoutUser = async function() {
-            try {
-                await signOut(auth);
-                showNotification('تم تسجيل الخروج', 'success');
-                
-                // إعادة تعيين الواجهة للوضع الافتراضي
-                resetUIToDefault();
-                
-            } catch (error) {
-                console.error("Logout error:", error);
-                showNotification('حدث خطأ في تسجيل الخروج', 'error');
-            }
-        };
-
-        // تحديث واجهة المستخدم ببيانات اللاعب
-        async function updateUserUI(uid) {
-            try {
-                const userRef = doc(db, "users", uid);
-                const userSnap = await getDoc(userRef);
-                
-                if (userSnap.exists()) {
-                    const data = userSnap.data();
-                    
-                    // تحديث عناصر الواجهة في الإعدادات
-                    document.getElementById('userNameSettings').textContent = data.username || 'Player';
-                    document.getElementById('userCoinsSettings').textContent = data.xp || 0;
-                    document.getElementById('userLevelSettings').textContent = data.level || 1;
-                    
-                    // تحديث صورة المستخدم
-                    if (data.photoURL) {
-                        document.getElementById('userPhotoSettings').src = data.photoURL;
-                    }
-                    
-                    // تحديث الصفحة الرئيسية
-                    document.getElementById('home-username').textContent = data.username || 'Player';
-                    document.getElementById('home-xp').textContent = data.xp + ' XP';
-                    
-                    if (data.photoURL) {
-                        document.getElementById('home-profile-img').src = data.photoURL;
-                        document.getElementById('profile-img').src = data.photoURL;
-                    }
-                    
-                    // تحديث الإحصائيات في الصفحة الرئيسية
-                    document.getElementById('home-wins').textContent = data.wins || 0;
-                    document.getElementById('home-losses').textContent = data.losses || 0;
-                    document.getElementById('home-draws').textContent = data.draws || 0;
-                    
-                    // تحديث صفحة الملف الشخصي
-                    document.getElementById('profile-xp').textContent = data.xp + ' XP';
-                    document.getElementById('stat-total').textContent = data.totalMatches || 0;
-                    document.getElementById('stat-wins').textContent = data.wins || 0;
-                    document.getElementById('stat-losses').textContent = data.losses || 0;
-                    document.getElementById('stat-draws').textContent = data.draws || 0;
-                    document.getElementById('stat-streak').textContent = data.winStreak || 0;
-                    document.getElementById('stat-best').textContent = data.bestStreak || 0;
-                    
-                    // تحديث الديفيجن
-                    document.getElementById('currentDivision').textContent = data.division || 10;
-                    document.getElementById('divisionPoints').textContent = data.divisionPoints || 0;
-                    document.getElementById('bestDivision').textContent = 10 - (data.completedDivisions || 0);
-                    
-                    // تحديث المتجر
-                    document.getElementById('store-xp').textContent = data.xp || 0;
-                    
-                    // تحديث الحالة المحلية للعبة
-                    state.xp = data.xp || 0;
-                    state.currentDivision = data.division || 10;
-                    state.divisionPoints = data.divisionPoints || 0;
-                    state.completedDivisions = data.completedDivisions || 0;
-                    state.completedDivision1 = data.completedDivision1 || false;
-                    
-                    state.stats = {
-                        totalMatches: data.totalMatches || 0,
-                        wins: data.wins || 0,
-                        losses: data.losses || 0,
-                        draws: data.draws || 0,
-                        winStreak: data.winStreak || 0,
-                        bestStreak: data.bestStreak || 0
-                    };
-                    
-                    state.unlockedSkins = data.unlockedSkins || ['default'];
-                    state.unlockedFrames = data.unlockedFrames || ['frame-default'];
-                    state.currentSkin = data.currentSkin || 'default';
-                    state.currentFrame = data.currentFrame || 'frame-default';
-                    state.achievements = data.achievements || [];
-                    state.beatenGenius = data.beatenGenius || false;
-                    state.dailyStreak = data.dailyStreak || 0;
-                    state.lastClaimDate = data.lastClaimDate || null;
-                    
-                    // إعادة رسم جميع المكونات
-                    renderAll();
-                }
-            } catch (error) {
-                console.error("Error updating UI:", error);
-            }
-        }
-
-        // إعادة تعيين الواجهة للوضع الافتراضي بعد تسجيل الخروج
-        function resetUIToDefault() {
-            document.getElementById('userInfoSettings').style.display = 'none';
-            document.getElementById('googleLoginSettings').style.display = 'flex';
-            document.getElementById('logoutSettings').style.display = 'none';
-            
-            document.getElementById('home-username').textContent = 'Player';
-            document.getElementById('home-xp').textContent = '0 XP';
-            document.getElementById('home-wins').textContent = '0';
-            document.getElementById('home-losses').textContent = '0';
-            document.getElementById('home-draws').textContent = '0';
-            
-            // إعادة الصور الافتراضية
-            const defaultImg = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%231e293b\'/%3E%3Ccircle cx=\'50\' cy=\'35\' r=\'20\' fill=\'%2300d4ff\'/%3E%3Cellipse cx=\'50\' cy=\'80\' rx=\'30\' ry=\'25\' fill=\'%2300d4ff\'/%3E%3C/svg%3E';
-            document.getElementById('home-profile-img').src = defaultImg;
-            document.getElementById('profile-img').src = defaultImg;
-            document.getElementById('userPhotoSettings').src = defaultImg;
-            
-            // إعادة تعيين الإحصائيات المحلية
-            state.xp = 0;
-            state.currentDivision = 10;
-            state.divisionPoints = 0;
-            state.completedDivisions = 0;
-            state.completedDivision1 = false;
-            
-            renderAll();
-        }
-
-        // مراقبة حالة تسجيل الدخول
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                // مستخدم مسجل دخول
-                document.getElementById('userInfoSettings').style.display = 'flex';
-                document.getElementById('googleLoginSettings').style.display = 'none';
-                document.getElementById('logoutSettings').style.display = 'flex';
-                
-                // تحديث بيانات المستخدم
-                await updateUserUI(user.uid);
-                
-            } else {
-                // لا يوجد مستخدم
-                resetUIToDefault();
-            }
-        });
-
-        // ربط الأزرار بوظائف Firebase
-        document.addEventListener('DOMContentLoaded', () => {
-            const googleLoginBtn = document.getElementById('googleLoginSettings');
-            const logoutBtn = document.getElementById('logoutSettings');
-            
-            if (googleLoginBtn) {
-                googleLoginBtn.addEventListener('click', window.loginWithGoogle);
-            }
-            
-            if (logoutBtn) {
-                logoutBtn.addEventListener('click', window.logoutUser);
-            }
-        });
-
-        // جعل الدوال متاحة عالمياً
-        window.firebaseAuth = auth;
-        window.firebaseDB = db;
-    </script>
-
-    <!-- باقي كود اللعبة -->
+    <!-- ========== SCRIPTS ========== -->
     <script>
         // ==================== DATA ====================
 
@@ -3279,7 +2954,7 @@
             'The Real Slim Shady - Eminem',
             'Lovely - Billie Eilish',
             'MOONLIGHT - XXXTentacion',
-            'Dorak Gai - ???',
+            'Dorak Gai - Wegz',
             'Birds of a Feather - Billie Eilish'
         ];
 
@@ -3530,7 +3205,7 @@
         }
 
         function loadState() {
-            const saved = localStorage.getItem('xo-hub-v6');
+            const saved = localStorage.getItem('xo-arena-v1');
             if (saved) {
                 try {
                     const parsed = JSON.parse(saved);
@@ -3564,7 +3239,7 @@
                 completedDivisions: state.completedDivisions,
                 completedDivision1: state.completedDivision1,
             };
-            localStorage.setItem('xo-hub-v6', JSON.stringify(toSave));
+            localStorage.setItem('xo-arena-v1', JSON.stringify(toSave));
         }
 
         // ==================== COOKIES ====================
@@ -3574,26 +3249,12 @@
             saveState();
             document.getElementById('cookie-consent').classList.remove('show');
             showNotification('شكراً لك!', 'success');
-            
-            if (typeof gtag !== 'undefined') {
-                gtag('consent', 'update', {
-                    'ad_storage': 'granted',
-                    'analytics_storage': 'granted'
-                });
-            }
         }
 
         function declineCookies() {
             state.cookiesAccepted = false;
             saveState();
             document.getElementById('cookie-consent').classList.remove('show');
-            
-            if (typeof gtag !== 'undefined') {
-                gtag('consent', 'update', {
-                    'ad_storage': 'denied',
-                    'analytics_storage': 'denied'
-                });
-            }
         }
 
         // ==================== MUSIC SYSTEM ====================
@@ -4844,7 +4505,7 @@
 
         function resetProgress() {
             if (confirm('هل أنت متأكد من حذف كل التقدم؟ هذا لا يمكن التراجع عنه.')) {
-                localStorage.removeItem('xo-hub-v6');
+                localStorage.removeItem('xo-arena-v1');
                 location.reload();
             }
         }

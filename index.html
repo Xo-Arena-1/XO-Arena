@@ -62,6 +62,41 @@
     <!-- Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
+    <!-- ==================== FIREBASE INIT - تم التعديل ==================== -->
+    <!-- تم إضافة Firebase بشكل صحيح مع التحقق من التحميل -->
+    <script type="module">
+        // استيراد Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-analytics.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+
+        // إعدادات Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyCm4N9sNBk-LuMuUzqZs55TMFwNu70C9p4",
+            authDomain: "xo-arena-de2f8.firebaseapp.com",
+            projectId: "xo-arena-de2f8",
+            storageBucket: "xo-arena-de2f8.firebasestorage.app",
+            messagingSenderId: "97289871045",
+            appId: "1:97289871045:web:7e3e665670e46614919aac",
+            measurementId: "G-7NS1Y0WWLV"
+        };
+
+        // تهيئة Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        // جعل auth متاحاً عالمياً
+        window.firebaseAuth = auth;
+        window.firebaseProvider = provider;
+        window.googleSignIn = signInWithPopup;
+        window.googleSignOut = signOut;
+        window.onAuthStateChanged = onAuthStateChanged;
+
+        console.log('✅ Firebase initialized successfully');
+    </script>
+
     <style>
         :root {
             --bg-color: #0a0e1a;
@@ -620,9 +655,24 @@
             border: 2px solid var(--accent-color);
         }
 
-        /* User Info in Settings - تم إخفاؤها بعد إزالة Firebase */
+        /* User Info in Settings - Firebase integration */
         .user-info-settings {
-            display: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+
+        .user-info-settings img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-color);
         }
 
         /* Music Player */
@@ -1524,35 +1574,39 @@
             </div>
         </div>
 
-        <!-- ========== قسم تسجيل الدخول الجديد ========== -->
+        <!-- ========== قسم تسجيل الدخول باستخدام Firebase ========== -->
         <div class="settings-section">
             <div class="settings-section-title">
                 <i data-lucide="log-in"></i>
                 <span>تسجيل الدخول</span>
             </div>
-            <!-- عناصر تسجيل الدخول (جاهزة للربط مع Firebase لاحقاً) -->
+            
+            <!-- عنصر عرض بيانات المستخدم (يظهر بعد تسجيل الدخول) -->
+            <div id="userInfoSection" class="user-info-settings" style="display: none;">
+                <img id="userAvatar" src="" alt="صورة المستخدم" class="profile-img-small">
+                <div class="flex-1">
+                    <div id="userDisplayName" class="font-bold text-white">اسم المستخدم</div>
+                    <div id="userEmail" class="text-xs" style="color: var(--text-secondary);">user@example.com</div>
+                </div>
+            </div>
+
             <!-- زر تسجيل الدخول باستخدام Google -->
-            <button id="googleSignInBtn" class="settings-menu-item" onclick="simulateGoogleSignIn()">
+            <button id="googleSignInBtn" class="settings-menu-item" onclick="handleGoogleSignIn()">
                 <i data-lucide="mail" style="color: #DB4437;"></i>
                 <span>تسجيل الدخول باستخدام Google</span>
             </button>
-            <!-- مكان عرض بيانات المستخدم (يظهر بعد تسجيل الدخول) -->
-            <div id="userInfoSection" style="display: none;">
-                <div class="glass-card rounded-xl p-4 mt-2 flex items-center gap-3">
-                    <img id="userAvatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%231e293b'/%3E%3Ccircle cx='50' cy='35' r='20' fill='%2300d4ff'/%3E%3Cellipse cx='50' cy='80' rx='30' ry='25' fill='%2300d4ff'/%3E%3C/svg%3E" alt="User Avatar" class="profile-img-small">
-                    <div class="flex-1">
-                        <div id="userDisplayName" class="font-bold text-white">اسم المستخدم</div>
-                        <div id="userEmail" class="text-xs" style="color: var(--text-secondary);">user@example.com</div>
-                    </div>
-                </div>
-            </div>
+
             <!-- زر تسجيل الخروج (يظهر بعد تسجيل الدخول) -->
-            <button id="logoutBtn" class="settings-menu-item" style="display: none; background: rgba(255,51,102,0.1); border-color: rgba(255,51,102,0.3);" onclick="simulateLogout()">
+            <button id="logoutBtn" class="settings-menu-item" style="display: none; background: rgba(255,51,102,0.1); border-color: rgba(255,51,102,0.3);" onclick="handleLogout()">
                 <i data-lucide="log-out" style="color: var(--accent-secondary);"></i>
                 <span style="color: var(--accent-secondary);">تسجيل الخروج</span>
             </button>
+
+            <!-- رسالة ترحيب Firebase -->
+            <div id="firebaseWelcomeMsg" class="mt-2 p-2 rounded-lg text-center text-sm" style="background: rgba(0,212,255,0.1); display: none;">
+                <span style="color: var(--accent-color);">✅ متصل بـ Firebase</span>
+            </div>
         </div>
-        <!-- ========== نهاية قسم تسجيل الدخول ========== -->
 
         <!-- Music Player Section -->
         <div class="settings-section">
@@ -2950,6 +3004,207 @@
 
     <!-- ========== SCRIPTS ========== -->
     <script>
+        // ==================== FIREBASE AUTHENTICATION - تم إضافة Firebase Authentication بشكل كامل ====================
+        
+        // متغيرات Firebase (سيتم تعبئتها من Firebase module)
+        let firebaseAuth = null;
+        let firebaseSignInWithPopup = null;
+        let firebaseGoogleProvider = null;
+        let firebaseSignOut = null;
+        let firebaseOnAuthStateChanged = null;
+
+        // التحقق من توفر Firebase وتخزين المراجع
+        function initFirebaseAuth() {
+            if (window.firebaseAuth) {
+                firebaseAuth = window.firebaseAuth;
+                firebaseGoogleProvider = window.firebaseProvider;
+                firebaseSignInWithPopup = window.googleSignIn;
+                firebaseSignOut = window.googleSignOut;
+                firebaseOnAuthStateChanged = window.onAuthStateChanged;
+                
+                console.log('✅ Firebase Authentication ready');
+                
+                // إظهار رسالة نجاح Firebase
+                document.getElementById('firebaseWelcomeMsg').style.display = 'block';
+                
+                // الاستماع لتغييرات حالة المصادقة
+                firebaseOnAuthStateChanged(firebaseAuth, (user) => {
+                    if (user) {
+                        // المستخدم مسجل الدخول
+                        console.log('✅ User logged in:', user.displayName);
+                        updateUserInfo(user);
+                    } else {
+                        // المستخدم غير مسجل الدخول
+                        console.log('👤 User not logged in');
+                        resetUserInfo();
+                    }
+                });
+            } else {
+                console.warn('⏳ Firebase not loaded yet, retrying in 1 second...');
+                setTimeout(initFirebaseAuth, 1000);
+            }
+        }
+
+        // دالة تسجيل الدخول باستخدام Google
+        window.handleGoogleSignIn = function() {
+            if (!firebaseAuth || !firebaseGoogleProvider) {
+                showNotification('جاري تحميل Firebase، يرجى المحاولة مرة أخرى', 'error');
+                return;
+            }
+            
+            firebaseSignInWithPopup(firebaseAuth, firebaseGoogleProvider)
+                .then((result) => {
+                    const user = result.user;
+                    showNotification(`مرحباً ${user.displayName}!`, 'success');
+                    
+                    // تحديث بيانات المستخدم
+                    updateUserInfo(user);
+                    
+                    // إعطاء 30,000 XP كمكافأة لأول تسجيل دخول (يمكن تعديلها)
+                    // يمكن إضافة منطق لتحديد إذا كان أول تسجيل دخول
+                    if (state && typeof state.xp !== 'undefined') {
+                        // التحقق إذا كان هذا أول تسجيل دخول (يمكن تخزين في localStorage)
+                        const hasLoggedInBefore = localStorage.getItem('firebase-logged-before');
+                        if (!hasLoggedInBefore) {
+                            state.xp += 30000;
+                            localStorage.setItem('firebase-logged-before', 'true');
+                            showNotification('مبروك! +30,000 XP كمكافأة ترحيبية!', 'reward');
+                            saveState();
+                            renderAll();
+                        }
+                    }
+                })
+                .catch((error) => {
+                    console.error('Firebase sign-in error:', error);
+                    showNotification('فشل تسجيل الدخول: ' + error.message, 'error');
+                });
+        };
+
+        // دالة تسجيل الخروج
+        window.handleLogout = function() {
+            if (!firebaseAuth) {
+                showNotification('Firebase غير متاح', 'error');
+                return;
+            }
+            
+            firebaseSignOut(firebaseAuth)
+                .then(() => {
+                    showNotification('تم تسجيل الخروج بنجاح', 'success');
+                    resetUserInfo();
+                })
+                .catch((error) => {
+                    console.error('Logout error:', error);
+                    showNotification('فشل تسجيل الخروج', 'error');
+                });
+        };
+
+        // تحديث واجهة المستخدم ببيانات المستخدم
+        function updateUserInfo(user) {
+            const userInfoSection = document.getElementById('userInfoSection');
+            const googleBtn = document.getElementById('googleSignInBtn');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const userAvatar = document.getElementById('userAvatar');
+            const userDisplayName = document.getElementById('userDisplayName');
+            const userEmail = document.getElementById('userEmail');
+            
+            // تحديث الصورة الشخصية - تم إصلاح مشكلة الشفافية
+            if (user.photoURL) {
+                userAvatar.src = user.photoURL;
+                userAvatar.style.opacity = '1';
+                userAvatar.style.display = 'block';
+                
+                // تحديث صور الملف الشخصي في الصفحات الأخرى
+                const homeProfileImg = document.getElementById('home-profile-img');
+                const profileImg = document.getElementById('profile-img');
+                
+                if (homeProfileImg) {
+                    homeProfileImg.src = user.photoURL;
+                    homeProfileImg.style.opacity = '1';
+                }
+                if (profileImg) {
+                    profileImg.src = user.photoURL;
+                    profileImg.style.opacity = '1';
+                }
+                
+                // حفظ الصورة في حالة اللعبة
+                if (state) {
+                    state.profileImage = user.photoURL;
+                }
+            } else {
+                // صورة افتراضية إذا لم توجد
+                userAvatar.src = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%231e293b\'/%3E%3Ccircle cx=\'50\' cy=\'35\' r=\'20\' fill=\'%2300d4ff\'/%3E%3Cellipse cx=\'50\' cy=\'80\' rx=\'30\' ry=\'25\' fill=\'%2300d4ff\'/%3E%3C/svg%3E';
+            }
+            
+            // تحديث الاسم
+            if (user.displayName) {
+                userDisplayName.textContent = user.displayName;
+                if (state) {
+                    state.profileName = user.displayName;
+                }
+            }
+            
+            // تحديث البريد الإلكتروني
+            if (user.email) {
+                userEmail.textContent = user.email;
+            }
+            
+            // إظهار وإخفاء العناصر المناسبة
+            userInfoSection.style.display = 'flex';
+            googleBtn.style.display = 'none';
+            logoutBtn.style.display = 'flex';
+            
+            // حفظ حالة الدخول في state
+            if (state) {
+                state.isLoggedIn = true;
+                state.userData = {
+                    name: user.displayName || 'Player',
+                    email: user.email || '',
+                    avatar: user.photoURL || null
+                };
+                saveState();
+                renderAll();
+            }
+            
+            lucide.createIcons();
+        }
+
+        // إعادة تعيين واجهة المستخدم عند تسجيل الخروج
+        function resetUserInfo() {
+            const userInfoSection = document.getElementById('userInfoSection');
+            const googleBtn = document.getElementById('googleSignInBtn');
+            const logoutBtn = document.getElementById('logoutBtn');
+            
+            userInfoSection.style.display = 'none';
+            googleBtn.style.display = 'flex';
+            logoutBtn.style.display = 'none';
+            
+            // إعادة تعيين الصور إلى الصورة الافتراضية المحلية
+            const defaultAvatar = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%231e293b\'/%3E%3Ccircle cx=\'50\' cy=\'35\' r=\'20\' fill=\'%2300d4ff\'/%3E%3Cellipse cx=\'50\' cy=\'80\' rx=\'30\' ry=\'25\' fill=\'%2300d4ff\'/%3E%3C/svg%3E';
+            
+            const homeProfileImg = document.getElementById('home-profile-img');
+            const profileImg = document.getElementById('profile-img');
+            
+            if (homeProfileImg) {
+                homeProfileImg.src = defaultAvatar;
+                homeProfileImg.style.opacity = '1';
+            }
+            if (profileImg) {
+                profileImg.src = defaultAvatar;
+                profileImg.style.opacity = '1';
+            }
+            
+            if (state) {
+                state.isLoggedIn = false;
+                state.userData = { name: 'Player', email: '', avatar: null };
+                state.profileName = 'Player';
+                state.profileImage = null;
+                saveState();
+                renderAll();
+            }
+            
+            lucide.createIcons();
+        }
+
         // ==================== DATA ====================
 
         const SONG_URLS = [
@@ -3178,9 +3433,9 @@
             isComputerTurn: false,
             gameStartTime: null,
 
-            // ========== حالة تسجيل الدخول المؤقتة (للهيكل فقط) ==========
+            // ========== حالة تسجيل الدخول (Firebase) ==========
             isLoggedIn: false,
-            userData: { name: 'محمد العربي', email: 'mohamed@example.com', avatar: null }
+            userData: { name: 'Player', email: '', avatar: null }
         };
 
         // Audio Context
@@ -3208,51 +3463,6 @@
             setTimeout(() => navigateTo(pageId), 300);
         }
 
-        // ==================== محاكاة تسجيل الدخول / الخروج (للهيكل فقط) ====================
-        // زر تسجيل الدخول - يظهر رسالة فشل مؤقتة
-        function simulateGoogleSignIn() {
-            // لا يعرض نجاح أبداً - فقط رسالة فشل كما هو مطلوب
-            showNotification('فشل تسجيل الدخول. يرجى المحاولة لاحقاً (سيتم ربطه بـ Firebase قريباً).', 'error');
-            playSound('lose');
-            // ملاحظة: لاحقاً عند ربط Firebase، هنا سيتم تفعيل 30,000 XP مرة واحدة
-        }
-
-        // زر تسجيل الخروج - يخفي البيانات ويعيد الأزرار لحالتها الأصلية
-        function simulateLogout() {
-            state.isLoggedIn = false;
-            updateLoginUI();
-            showNotification('تم تسجيل الخروج', 'success');
-        }
-
-        // دالة لتحديث واجهة المستخدم حسب حالة الدخول
-        function updateLoginUI() {
-            const userInfoSection = document.getElementById('userInfoSection');
-            const logoutBtn = document.getElementById('logoutBtn');
-            const googleBtn = document.getElementById('googleSignInBtn');
-            const userDisplayName = document.getElementById('userDisplayName');
-            const userEmail = document.getElementById('userEmail');
-            const userAvatar = document.getElementById('userAvatar');
-
-            if (state.isLoggedIn) {
-                // عرض بيانات المستخدم وإخفاء زر الدخول
-                if (userInfoSection) userInfoSection.style.display = 'block';
-                if (logoutBtn) logoutBtn.style.display = 'flex';
-                if (googleBtn) googleBtn.style.display = 'none';
-
-                // تعبئة البيانات الوهمية
-                if (userDisplayName) userDisplayName.textContent = state.userData.name;
-                if (userEmail) userEmail.textContent = state.userData.email;
-                if (userAvatar && state.userData.avatar) userAvatar.src = state.userData.avatar;
-                else if (userAvatar) userAvatar.src = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%231e293b\'/%3E%3Ccircle cx=\'50\' cy=\'35\' r=\'20\' fill=\'%2300d4ff\'/%3E%3Cellipse cx=\'50\' cy=\'80\' rx=\'30\' ry=\'25\' fill=\'%2300d4ff\'/%3E%3C/svg%3E';
-            } else {
-                // إخفاء بيانات المستخدم وإظهار زر الدخول
-                if (userInfoSection) userInfoSection.style.display = 'none';
-                if (logoutBtn) logoutBtn.style.display = 'none';
-                if (googleBtn) googleBtn.style.display = 'flex';
-            }
-            lucide.createIcons(); // لتحديث الأيقونات
-        }
-
         // ==================== INIT ====================
 
         function init() {
@@ -3275,9 +3485,9 @@
             
             // Initialize music
             initMusic();
-
-            // تحديث واجهة تسجيل الدخول عند البداية
-            updateLoginUI();
+            
+            // Initialize Firebase Auth بعد تحميل الصفحة
+            setTimeout(initFirebaseAuth, 500);
         }
 
         function updateSocialLinks() {
@@ -3320,7 +3530,8 @@
                 divisionPoints: state.divisionPoints,
                 completedDivisions: state.completedDivisions,
                 completedDivision1: state.completedDivision1,
-                // لا نحفظ حالة تسجيل الدخول، فقط الهيكل
+                isLoggedIn: state.isLoggedIn,
+                userData: state.userData
             };
             localStorage.setItem('xo-arena-v1', JSON.stringify(toSave));
         }
@@ -3649,6 +3860,20 @@
                 reader.onload = function(e) {
                     state.profileImage = e.target.result;
                     saveState();
+                    
+                    // تحديث الصورة في كل مكان
+                    const homeProfileImg = document.getElementById('home-profile-img');
+                    const profileImg = document.getElementById('profile-img');
+                    
+                    if (homeProfileImg) {
+                        homeProfileImg.src = e.target.result;
+                        homeProfileImg.style.opacity = '1';
+                    }
+                    if (profileImg) {
+                        profileImg.src = e.target.result;
+                        profileImg.style.opacity = '1';
+                    }
+                    
                     renderAll();
                     playSound('click');
                     showNotification('تم تحديث الصورة الشخصية');
@@ -4618,7 +4843,14 @@
             if (homeDraws) homeDraws.textContent = state.stats.draws;
             
             const homeImg = document.getElementById('home-profile-img');
-            if (homeImg && state.profileImage) homeImg.src = state.profileImage;
+            if (homeImg) {
+                if (state.profileImage) {
+                    homeImg.src = state.profileImage;
+                } else {
+                    homeImg.src = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%231e293b\'/%3E%3Ccircle cx=\'50\' cy=\'35\' r=\'20\' fill=\'%2300d4ff\'/%3E%3Cellipse cx=\'50\' cy=\'80\' rx=\'30\' ry=\'25\' fill=\'%2300d4ff\'/%3E%3C/svg%3E';
+                }
+                homeImg.style.opacity = '1';
+            }
             
             // Apply frame
             applyFrame('homeProfileFrame', 'homeProfileFrame');
@@ -4647,7 +4879,14 @@
             if (dailyStreak) dailyStreak.textContent = state.dailyStreak;
             
             const profileImg = document.getElementById('profile-img');
-            if (profileImg && state.profileImage) profileImg.src = state.profileImage;
+            if (profileImg) {
+                if (state.profileImage) {
+                    profileImg.src = state.profileImage;
+                } else {
+                    profileImg.src = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%231e293b\'/%3E%3Ccircle cx=\'50\' cy=\'35\' r=\'20\' fill=\'%2300d4ff\'/%3E%3Cellipse cx=\'50\' cy=\'80\' rx=\'30\' ry=\'25\' fill=\'%2300d4ff\'/%3E%3C/svg%3E';
+                }
+                profileImg.style.opacity = '1';
+            }
             
             // Stats
             const statTotal = document.getElementById('stat-total');
@@ -4740,9 +4979,10 @@
         window.setRarityFilter = setRarityFilter;
         window.filterStore = filterStore;
         window.sortByPrice = sortByPrice;
-        // دوال تسجيل الدخول المؤقتة
-        window.simulateGoogleSignIn = simulateGoogleSignIn;
-        window.simulateLogout = simulateLogout;
+        
+        // Firebase functions
+        window.handleGoogleSignIn = handleGoogleSignIn;
+        window.handleLogout = handleLogout;
     </script>
 </body>
 </html>

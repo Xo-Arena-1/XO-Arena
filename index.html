@@ -4024,7 +4024,7 @@
             // Special rewards for Division 1
             if (state.currentDivision === 1 && !state.completedDivision1) {
                 state.completedDivision1 = true;
-                state.xp += 50000;
+                state.xp += 100000;
                 
                 // Unlock rainbow skin if not already
                 if (!state.unlockedSkins.includes('rainbow')) {
@@ -4037,7 +4037,7 @@
                 }
                 
                 // Show Division 1 completion modal
-                showDivisionCompleteModal(1, 50000);
+                showDivisionCompleteModal(1, 100000);
                 
             } else {
                 // Show normal division completion
@@ -4073,7 +4073,7 @@
             } else if (division === 1) {
                 title.textContent = '🏆 أسطورة! 🏆';
                 message.textContent = 'لقد أكملت Division 1!';
-                rewardText.innerHTML = '50000 XP<br>سكن Rainbow Master<br>إطار Division 1 الأسطوري';
+                rewardText.innerHTML = '100000 XP<br>سكن Rainbow Master<br>إطار Division 1 الأسطوري';
             } else {
                 title.textContent = 'تهانينا!';
                 message.textContent = `لقد أكملت Division ${division}`;
@@ -4325,7 +4325,7 @@
                         state.stats.bestStreak = state.stats.winStreak;
                     }
                     
-                    const rewards = { beginner: 30, medium: 50, hard: 80, genius: 150 };
+                    const rewards = { beginner: 150, medium: 300, hard: 500, genius: 800 };
                     const reward = rewards[state.difficulty] || 30;
                     state.xp += reward;
                     

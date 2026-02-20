@@ -620,26 +620,6 @@
             border: 2px solid var(--accent-color);
         }
 
-        /* User Info in Settings - Firebase integration */
-        .user-info-settings {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 15px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            margin-bottom: 15px;
-        }
-
-        .user-info-settings img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--accent-color);
-        }
-
         /* Music Player */
         .music-player {
             background: linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.8) 100%);
@@ -1530,7 +1510,7 @@
         <i data-lucide="settings"></i>
     </button>
 
-    <!-- Settings Panel (يحتوي على كل محتوى الحواف) -->
+    <!-- Settings Panel -->
     <div id="settingsPanel" class="settings-panel">
         <div class="settings-header">
             <h2 class="text-2xl font-display font-bold" style="color: var(--accent-color);">القائمة</h2>
@@ -1539,38 +1519,24 @@
             </div>
         </div>
 
-        <!-- ========== قسم تسجيل الدخول باستخدام Firebase ========== -->
+        <!-- قسم تسجيل الدخول (معطل مؤقتاً) -->
         <div class="settings-section">
             <div class="settings-section-title">
                 <i data-lucide="log-in"></i>
                 <span>تسجيل الدخول</span>
             </div>
             
-            <!-- عنصر عرض بيانات المستخدم (يظهر بعد تسجيل الدخول) -->
-            <div id="userInfoSection" class="user-info-settings" style="display: none;">
-                <img id="userAvatar" src="" alt="صورة المستخدم" class="profile-img-small">
-                <div class="flex-1">
-                    <div id="userDisplayName" class="font-bold text-white">اسم المستخدم</div>
-                    <div id="userEmail" class="text-xs" style="color: var(--text-secondary);">user@example.com</div>
-                </div>
-            </div>
-
-            <!-- زر تسجيل الدخول باستخدام Google -->
-            <button id="googleSignInBtn" class="settings-menu-item" onclick="handleGoogleSignIn()">
+            <!-- زر تسجيل الدخول باستخدام Google (معطل مؤقتاً) -->
+            <button id="googleSignInBtn" class="settings-menu-item" onclick="showNotification('سيتم تفعيل تسجيل الدخول قريباً', 'info')">
                 <i data-lucide="mail" style="color: #DB4437;"></i>
                 <span>تسجيل الدخول باستخدام Google</span>
             </button>
 
-            <!-- زر تسجيل الخروج (يظهر بعد تسجيل الدخول) -->
-            <button id="logoutBtn" class="settings-menu-item" style="display: none; background: rgba(255,51,102,0.1); border-color: rgba(255,51,102,0.3);" onclick="handleLogout()">
+            <!-- زر تسجيل الخروج (معطل مؤقتاً) -->
+            <button id="logoutBtn" class="settings-menu-item" style="display: flex; background: rgba(255,51,102,0.1); border-color: rgba(255,51,102,0.3);" onclick="showNotification('سيتم تفعيل تسجيل الخروج قريباً', 'info')">
                 <i data-lucide="log-out" style="color: var(--accent-secondary);"></i>
                 <span style="color: var(--accent-secondary);">تسجيل الخروج</span>
             </button>
-
-            <!-- رسالة ترحيب Firebase -->
-            <div id="firebaseWelcomeMsg" class="mt-2 p-2 rounded-lg text-center text-sm" style="background: rgba(0,212,255,0.1); display: none;">
-                <span style="color: var(--accent-color);">✅ متصل بـ Firebase</span>
-            </div>
         </div>
 
         <!-- Music Player Section -->
@@ -2151,7 +2117,7 @@
         </div>
     </div>
 
-    <!-- SETTINGS PAGE (تم تحويلها إلى لوحة الإعدادات العائمة) -->
+    <!-- SETTINGS PAGE -->
     <div id="page-settings" class="page flex-col items-center px-4 py-8">
         <div class="w-full max-w-lg relative z-10">
             <div class="flex items-center gap-4 mb-6">
@@ -2967,117 +2933,7 @@
         <button onclick="closeDivisionComplete()" class="neon-btn w-full py-3 rounded-xl font-bold">رائع!</button>
     </div>
 
-    <!-- ========== FIREBASE MODULE ========== -->
-    <script type="module">
-        // ==================== FIREBASE INIT - تم الإصلاح بالكامل ====================
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-analytics.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
-
-        // إعدادات Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyCm4N9sNBk-LuMuUzqZs55TMFwNu70C9p4",
-            authDomain: "xo-arena-de2f8.firebaseapp.com",
-            projectId: "xo-arena-de2f8",
-            storageBucket: "xo-arena-de2f8.firebasestorage.app",
-            messagingSenderId: "97289871045",
-            appId: "1:97289871045:web:7e3e665670e46614919aac",
-            measurementId: "G-7NS1Y0WWLV"
-        };
-
-        // تهيئة Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const auth = getAuth(app);
-        const provider = new GoogleAuthProvider();
-
-        // جعل Firebase متاحاً للنطاق العام (window)
-        window.firebaseAuth = auth;
-        window.firebaseProvider = provider;
-        window.firebaseSignInWithPopup = signInWithPopup;
-        window.firebaseSignOut = signOut;
-        window.firebaseOnAuthStateChanged = onAuthStateChanged;
-
-        console.log('✅ Firebase initialized successfully');
-
-        // دالة تسجيل الدخول (ستكون متاحة عالمياً)
-        window.handleGoogleSignIn = function() {
-            if (!window.firebaseAuth || !window.firebaseProvider) {
-                showNotification('جاري تحميل Firebase، يرجى المحاولة مرة أخرى', 'error');
-                return;
-            }
-            
-            window.firebaseSignInWithPopup(window.firebaseAuth, window.firebaseProvider)
-                .then((result) => {
-                    const user = result.user;
-                    showNotification(`مرحباً ${user.displayName}!`, 'success');
-                    
-                    // تحديث واجهة المستخدم
-                    if (typeof updateUserInfo === 'function') {
-                        updateUserInfo(user);
-                    }
-                    
-                    // إضافة XP للمستخدم الجديد
-                    if (state && typeof state.xp !== 'undefined') {
-                        const hasLoggedInBefore = localStorage.getItem('firebase-logged-before');
-                        if (!hasLoggedInBefore) {
-                            state.xp += 30000;
-                            localStorage.setItem('firebase-logged-before', 'true');
-                            showNotification('مبروك! +30,000 XP كمكافأة ترحيبية!', 'reward');
-                            if (typeof saveState === 'function') saveState();
-                            if (typeof renderAll === 'function') renderAll();
-                        }
-                    }
-                })
-                .catch((error) => {
-                    console.error('Firebase sign-in error:', error);
-                    showNotification('فشل تسجيل الدخول: ' + error.message, 'error');
-                });
-        };
-
-        // دالة تسجيل الخروج
-        window.handleLogout = function() {
-            if (!window.firebaseAuth) {
-                showNotification('Firebase غير متاح', 'error');
-                return;
-            }
-            
-            window.firebaseSignOut(window.firebaseAuth)
-                .then(() => {
-                    showNotification('تم تسجيل الخروج بنجاح', 'success');
-                    if (typeof resetUserInfo === 'function') {
-                        resetUserInfo();
-                    }
-                })
-                .catch((error) => {
-                    console.error('Logout error:', error);
-                    showNotification('فشل تسجيل الخروج', 'error');
-                });
-        };
-
-        // مراقبة حالة المصادقة
-        window.firebaseOnAuthStateChanged(window.firebaseAuth, (user) => {
-            if (user) {
-                console.log('✅ User logged in:', user.displayName);
-                if (typeof updateUserInfo === 'function') {
-                    updateUserInfo(user);
-                }
-            } else {
-                console.log('👤 User not logged in');
-                if (typeof resetUserInfo === 'function') {
-                    resetUserInfo();
-                }
-            }
-        });
-
-        // إظهار رسالة نجاح Firebase بعد تحميل الصفحة
-        setTimeout(() => {
-            const welcomeMsg = document.getElementById('firebaseWelcomeMsg');
-            if (welcomeMsg) welcomeMsg.style.display = 'block';
-        }, 1000);
-    </script>
-
-    <!-- ========== MAIN SCRIPT ========== -->
+    <!-- ========== SCRIPTS ========== -->
     <script>
         // ==================== DATA ====================
 
@@ -3305,11 +3161,7 @@
             winner: null,
             winningLine: null,
             isComputerTurn: false,
-            gameStartTime: null,
-
-            // ========== حالة تسجيل الدخول (Firebase) ==========
-            isLoggedIn: false,
-            userData: { name: 'Player', email: '', avatar: null }
+            gameStartTime: null
         };
 
         // Audio Context
@@ -3359,19 +3211,6 @@
             
             // Initialize music
             initMusic();
-            
-            // التحقق من Firebase بعد التحميل
-            setTimeout(checkFirebaseStatus, 1000);
-        }
-
-        function checkFirebaseStatus() {
-            if (window.firebaseAuth) {
-                console.log('✅ Firebase is available');
-                const welcomeMsg = document.getElementById('firebaseWelcomeMsg');
-                if (welcomeMsg) welcomeMsg.style.display = 'block';
-            } else {
-                console.warn('⚠️ Firebase not available yet');
-            }
         }
 
         function updateSocialLinks() {
@@ -3413,124 +3252,9 @@
                 currentDivision: state.currentDivision,
                 divisionPoints: state.divisionPoints,
                 completedDivisions: state.completedDivisions,
-                completedDivision1: state.completedDivision1,
-                isLoggedIn: state.isLoggedIn,
-                userData: state.userData
+                completedDivision1: state.completedDivision1
             };
             localStorage.setItem('xo-arena-v1', JSON.stringify(toSave));
-        }
-
-        // ==================== FIREBASE UI FUNCTIONS ====================
-
-        // تحديث واجهة المستخدم ببيانات المستخدم
-        function updateUserInfo(user) {
-            const userInfoSection = document.getElementById('userInfoSection');
-            const googleBtn = document.getElementById('googleSignInBtn');
-            const logoutBtn = document.getElementById('logoutBtn');
-            const userAvatar = document.getElementById('userAvatar');
-            const userDisplayName = document.getElementById('userDisplayName');
-            const userEmail = document.getElementById('userEmail');
-            
-            if (!userInfoSection || !googleBtn || !logoutBtn) return;
-            
-            // تحديث الصورة الشخصية
-            if (user.photoURL) {
-                userAvatar.src = user.photoURL;
-                userAvatar.style.opacity = '1';
-                userAvatar.style.display = 'block';
-                
-                // تحديث صور الملف الشخصي في الصفحات الأخرى
-                const homeProfileImg = document.getElementById('home-profile-img');
-                const profileImg = document.getElementById('profile-img');
-                
-                if (homeProfileImg) {
-                    homeProfileImg.src = user.photoURL;
-                    homeProfileImg.style.opacity = '1';
-                }
-                if (profileImg) {
-                    profileImg.src = user.photoURL;
-                    profileImg.style.opacity = '1';
-                }
-                
-                // حفظ الصورة في حالة اللعبة
-                if (state) {
-                    state.profileImage = user.photoURL;
-                }
-            } else {
-                // صورة افتراضية إذا لم توجد
-                userAvatar.src = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%231e293b\'/%3E%3Ccircle cx=\'50\' cy=\'35\' r=\'20\' fill=\'%2300d4ff\'/%3E%3Cellipse cx=\'50\' cy=\'80\' rx=\'30\' ry=\'25\' fill=\'%2300d4ff\'/%3E%3C/svg%3E';
-            }
-            
-            // تحديث الاسم
-            if (user.displayName) {
-                userDisplayName.textContent = user.displayName;
-                if (state) {
-                    state.profileName = user.displayName;
-                }
-            }
-            
-            // تحديث البريد الإلكتروني
-            if (user.email) {
-                userEmail.textContent = user.email;
-            }
-            
-            // إظهار وإخفاء العناصر المناسبة
-            userInfoSection.style.display = 'flex';
-            googleBtn.style.display = 'none';
-            logoutBtn.style.display = 'flex';
-            
-            // حفظ حالة الدخول في state
-            if (state) {
-                state.isLoggedIn = true;
-                state.userData = {
-                    name: user.displayName || 'Player',
-                    email: user.email || '',
-                    avatar: user.photoURL || null
-                };
-                saveState();
-                renderAll();
-            }
-            
-            lucide.createIcons();
-        }
-
-        // إعادة تعيين واجهة المستخدم عند تسجيل الخروج
-        function resetUserInfo() {
-            const userInfoSection = document.getElementById('userInfoSection');
-            const googleBtn = document.getElementById('googleSignInBtn');
-            const logoutBtn = document.getElementById('logoutBtn');
-            
-            if (!userInfoSection || !googleBtn || !logoutBtn) return;
-            
-            userInfoSection.style.display = 'none';
-            googleBtn.style.display = 'flex';
-            logoutBtn.style.display = 'none';
-            
-            // إعادة تعيين الصور إلى الصورة الافتراضية المحلية
-            const defaultAvatar = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%231e293b\'/%3E%3Ccircle cx=\'50\' cy=\'35\' r=\'20\' fill=\'%2300d4ff\'/%3E%3Cellipse cx=\'50\' cy=\'80\' rx=\'30\' ry=\'25\' fill=\'%2300d4ff\'/%3E%3C/svg%3E';
-            
-            const homeProfileImg = document.getElementById('home-profile-img');
-            const profileImg = document.getElementById('profile-img');
-            
-            if (homeProfileImg) {
-                homeProfileImg.src = defaultAvatar;
-                homeProfileImg.style.opacity = '1';
-            }
-            if (profileImg) {
-                profileImg.src = defaultAvatar;
-                profileImg.style.opacity = '1';
-            }
-            
-            if (state) {
-                state.isLoggedIn = false;
-                state.userData = { name: 'Player', email: '', avatar: null };
-                state.profileName = 'Player';
-                state.profileImage = null;
-                saveState();
-                renderAll();
-            }
-            
-            lucide.createIcons();
         }
 
         // ==================== COOKIES ====================
@@ -3783,6 +3507,7 @@
                                     type === 'achievement' ? 'linear-gradient(135deg, rgba(168,85,247,0.9), rgba(139,69,219,0.9))' :
                                     type === 'reward' ? 'linear-gradient(135deg, rgba(255,215,0,0.9), rgba(255,170,0,0.9))' :
                                     type === 'error' ? 'linear-gradient(135deg, rgba(255,51,102,0.9), rgba(200,0,50,0.9))' :
+                                    type === 'info' ? 'linear-gradient(135deg, rgba(0,212,255,0.9), rgba(0,150,200,0.9))' :
                                     'linear-gradient(135deg, rgba(0,212,255,0.9), rgba(0,150,200,0.9))';
             notif.style.color = type === 'reward' ? '#1a1a2e' : 'white';
             notif.classList.add('show');
@@ -4976,9 +4701,7 @@
         window.setRarityFilter = setRarityFilter;
         window.filterStore = filterStore;
         window.sortByPrice = sortByPrice;
-        
-        // دوال Firebase (ستتم كتابتها من الـ module)
-        // تم تعريفها بالفعل في الـ module أعلاه
+        window.showNotification = showNotification;
     </script>
 </body>
 </html>

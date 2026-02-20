@@ -2988,17 +2988,18 @@
             'Birds of a Feather - Billie Eilish'
         ];
 
+        // تعديل جوائز الديفيجن حسب الطلب
         const DIVISIONS = [
-            { level: 10, difficulty: 'beginner', required: 6, reward: 100, name: 'Division 10' },
-            { level: 9, difficulty: 'beginner', required: 9, reward: 150, name: 'Division 9' },
-            { level: 8, difficulty: 'beginner', required: 9, reward: 200, name: 'Division 8' },
-            { level: 7, difficulty: 'medium', required: 10, reward: 250, name: 'Division 7' },
-            { level: 6, difficulty: 'medium', required: 10, reward: 250, name: 'Division 6' },
-            { level: 5, difficulty: 'hard', required: 15, reward: 400, name: 'Division 5' },
-            { level: 4, difficulty: 'hard', required: 21, reward: 500, name: 'Division 4' },
-            { level: 3, difficulty: 'genius', required: 21, reward: 1000, name: 'Division 3' },
-            { level: 2, difficulty: 'genius', required: 21, reward: 2000, name: 'Division 2' },
-            { level: 1, difficulty: 'genius', required: 30, reward: 50000, name: 'Division 1' },
+            { level: 10, difficulty: 'beginner', required: 6, reward: 2000, name: 'Division 10' },
+            { level: 9, difficulty: 'beginner', required: 9, reward: 3000, name: 'Division 9' },
+            { level: 8, difficulty: 'beginner', required: 9, reward: 4000, name: 'Division 8' },
+            { level: 7, difficulty: 'medium', required: 10, reward: 4500, name: 'Division 7' },
+            { level: 6, difficulty: 'medium', required: 10, reward: 6000, name: 'Division 6' },
+            { level: 5, difficulty: 'hard', required: 15, reward: 8000, name: 'Division 5' },
+            { level: 4, difficulty: 'hard', required: 21, reward: 9000, name: 'Division 4' },
+            { level: 3, difficulty: 'genius', required: 21, reward: 10000, name: 'Division 3' },
+            { level: 2, difficulty: 'genius', required: 21, reward: 20000, name: 'Division 2' },
+            { level: 1, difficulty: 'genius', required: 30, reward: 100000, name: 'Division 1' },
         ];
 
         const SKINS = [
@@ -3133,7 +3134,7 @@
             'تاريخ لعبة إكس أو يعود لأكثر من 3000 سنة!',
             'العب 10 دقائق يومياً لتحسين تركيزك وذاكرتك.',
             'في طور الديفيجن، كل نقطة مهمة. لا تخاطر بخسارة 3 نقاط بسهولة!',
-            'الديفيجن 1 يمنحك مكافأة أسطورية 50000 XP وسكن قوس قزح!',
+            'الديفيجن 1 يمنحك مكافأة أسطورية 100000 XP وسكن قوس قزح!',
             'الخسارة في الديفيجن تكلفك -3 نقاط، فكر جيداً قبل كل حركة.',
             'الإطارات الأسطورية تعطي مظهراً مميزاً لملفك الشخصي.',
         ];
@@ -4024,7 +4025,7 @@
             // Special rewards for Division 1
             if (state.currentDivision === 1 && !state.completedDivision1) {
                 state.completedDivision1 = true;
-                state.xp += 100000;
+                state.xp += 100000; // مكافأة إضافية لإنهاء الديفيجن 1
                 
                 // Unlock rainbow skin if not already
                 if (!state.unlockedSkins.includes('rainbow')) {
@@ -4037,7 +4038,7 @@
                 }
                 
                 // Show Division 1 completion modal
-                showDivisionCompleteModal(1, 100000);
+                showDivisionCompleteModal(1, 100000 + currentDivisionData.reward);
                 
             } else {
                 // Show normal division completion
@@ -4073,7 +4074,7 @@
             } else if (division === 1) {
                 title.textContent = '🏆 أسطورة! 🏆';
                 message.textContent = 'لقد أكملت Division 1!';
-                rewardText.innerHTML = '100000 XP<br>سكن Rainbow Master<br>إطار Division 1 الأسطوري';
+                rewardText.innerHTML = `${reward} XP<br>سكن Rainbow Master<br>إطار Division 1 الأسطوري`;
             } else {
                 title.textContent = 'تهانينا!';
                 message.textContent = `لقد أكملت Division ${division}`;

@@ -4719,11 +4719,15 @@
         window.showNotification = showNotification;
     </script>
 
-    <!-- ========== FIREBASE INITIALIZATION WITH AUTH ========== -->
+    <!-- ========== FIREBASE INITIALIZATION WITH AUTH AND FIRESTORE ========== -->
     <script type="module">
+        // استيراد مكتبات Firebase الأساسية
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+        // استيراد مكتبة Firestore
+        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
+        // إعدادات Firebase (خاصة بمشروعك)
         const firebaseConfig = {
             apiKey: "AIzaSyC6R4pN1jidNd3bd0U9_hPTAD6d-YA3CP8",
             authDomain: "xo-arena-5f15d.firebaseapp.com",
@@ -4733,14 +4737,86 @@
             appId: "1:271480047003:web:b8215ce214f68502fc4d3e"
         };
 
+        // تهيئة Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+        const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
 
+        // دالة للتحقق من حالة هدية التسجيل للمستخدم
+        async function checkAndAwardWelcomeBonus(user) {
+            if (!user) return false;
+
+            try {
+                // إنشاء مرجع للمستند في مجموعة 'users' باستخدام UID الخاص بالمستخدم
+                const userDocRef = doc(db, "users", user.uid);
+                const userDocSnap = await getDoc(userDocRef);
+
+                let bonusAwarded = false;
+
+                if (!userDocSnap.exists()) {
+                    // هذا المستخدم (بناءً على UID) لم يسجل من قبل مطلقًا في Firebase
+                    console.log("مستخدم جديد (UID جديد)، يتم إضافة 30,000 XP كهدية ترحيب.");
+                    
+                    // إضافة 30,000 XP للحالة المحلية
+                    const currentXP = state.xp || 0;
+                    state.xp = currentXP + 30000;
+                    
+                    // تحديث اسم المستخدم والصورة
+                    state.profileName = user.displayName || 'Player';
+                    if (user.photoURL) {
+                        state.profileImage = user.photoURL;
+                    }
+                    
+                    // حفظ التغييرات المحلية
+                    saveState();
+                    
+                    // إنشاء مستند جديد للمستخدم في Firestore مع علامة استلام الهدية
+                    await setDoc(userDocRef, {
+                        uid: user.uid,
+                        email: user.email,
+                        displayName: user.displayName,
+                        photoURL: user.photoURL,
+                        hasClaimedWelcomeBonus: true, // تم استلام الهدية
+                        claimedAt: new Date().toISOString(),
+                    });
+                    
+                    bonusAwarded = true;
+                    showNotification(`🎉 مرحباً ${user.displayName}! تم إضافة 30,000 XP هدية التسجيل الأولى!`, 'reward');
+                    
+                } else {
+                    // المستخدم موجود في Firestore (سجل من قبل)
+                    const userData = userDocSnap.data();
+                    
+                    // تحديث الاسم والصورة في الحالة المحلية (قد يكونا مختلفين)
+                    state.profileName = user.displayName || state.profileName;
+                    if (user.photoURL) {
+                        state.profileImage = user.photoURL;
+                    }
+                    
+                    // يمكنك هنا تحديث البيانات الأخرى من Firestore إذا أردت
+                    // على سبيل المثال، استعادة XP من الخادم، لكن هذا يتطلب تصميمًا مختلفًا.
+                    // للتبسيط، نستخدم التخزين المحلي فقط للبيانات غير الحرجة.
+                    
+                    saveState();
+                    showNotification(`مرحباً بعودتك ${user.displayName}!`, 'success');
+                }
+                
+                renderAll(); // تحديث الواجهة بعد إضافة XP
+                return bonusAwarded;
+                
+            } catch (error) {
+                console.error("خطأ في الوصول إلى Firestore:", error);
+                showNotification("حدث خطأ في الاتصال بالخادم.", 'error');
+                return false;
+            }
+        }
+
         // التحقق من حالة تسجيل الدخول عند تحميل الصفحة
-        onAuthStateChanged(auth, (user) => {
+        onAuthStateChanged(auth, async (user) => {
             if (user) {
-                // المستخدم مسجل دخوله
+                // المستخدم مسجل دخوله - نتحقق من حالته في Firestore
+                await checkAndAwardWelcomeBonus(user);
                 updateUIForLoggedInUser(user);
             } else {
                 // المستخدم غير مسجل
@@ -4749,73 +4825,33 @@
         });
 
         // دالة تسجيل الدخول
-        window.googleSignIn = function() {
-            signInWithPopup(auth, provider)
-                .then((result) => {
-                    const user = result.user;
-                    
-                    // التحقق من أول مرة تسجيل
-                    const firstTimeKey = `first_time_${user.uid}`;
-                    const isFirstTime = !localStorage.getItem(firstTimeKey);
-                    
-                    if (isFirstTime) {
-                        // إضافة 30,000 XP كهدية لأول مرة فقط
-                        const currentXP = state.xp || 0;
-                        state.xp = currentXP + 30000;
-                        
-                        // تحديث اسم المستخدم
-                        state.profileName = user.displayName || 'Player';
-                        
-                        // حفظ صورة المستخدم
-                        if (user.photoURL) {
-                            state.profileImage = user.photoURL;
-                        }
-                        
-                        // حفظ أن المستخدم استلم الهدية
-                        localStorage.setItem(firstTimeKey, 'true');
-                        
-                        // حفظ التغييرات
-                        saveState();
-                        
-                        // تحديث الواجهة
-                        renderAll();
-                        
-                        showNotification(`🎉 مرحباً ${user.displayName}! تم إضافة 30,000 XP هدية التسجيل الأولى!`, 'reward');
-                    } else {
-                        // مستخدم سابق - تحديث البيانات فقط
-                        state.profileName = user.displayName || state.profileName;
-                        if (user.photoURL) {
-                            state.profileImage = user.photoURL;
-                        }
-                        saveState();
-                        renderAll();
-                        showNotification(`مرحباً بعودتك ${user.displayName}!`, 'success');
-                    }
-                    
-                    updateUIForLoggedInUser(user);
-                })
-                .catch((error) => {
-                    console.error('خطأ في تسجيل الدخول:', error);
-                    showNotification('فشل تسجيل الدخول. حاول مرة أخرى.', 'error');
-                });
+        window.googleSignIn = async function() {
+            try {
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+                // after sign-in, onAuthStateChanged will handle the check
+            } catch (error) {
+                console.error('خطأ في تسجيل الدخول:', error);
+                showNotification('فشل تسجيل الدخول. حاول مرة أخرى.', 'error');
+            }
         };
 
         // دالة تسجيل الخروج
-        window.googleSignOut = function() {
-            signOut(auth).then(() => {
-                // إعادة تعيين البيانات المحلية (اختياري)
-                // لو عاوز تحتفظ بالتقدم، امسح السطرين دول
+        window.googleSignOut = async function() {
+            try {
+                await signOut(auth);
+                // بعد تسجيل الخروج، onAuthStateChanged سيعيد تحديث الواجهة
+                // يمكن إعادة تعيين البيانات المحلية أو الاحتفاظ بها - هنا سنحتفظ بها
+                // حتى لا يفقد اللاعب تقدمه كلاعب ضيف.
                 // state.profileImage = null;
                 // state.profileName = 'Player';
                 // saveState();
-                
-                updateUIForLoggedOutUser();
-                renderAll();
+                // renderAll();
                 showNotification('تم تسجيل الخروج بنجاح', 'info');
-            }).catch((error) => {
+            } catch (error) {
                 console.error('خطأ في تسجيل الخروج:', error);
                 showNotification('فشل تسجيل الخروج', 'error');
-            });
+            }
         };
 
         // تحديث الواجهة للمستخدم المسجل
@@ -4859,7 +4895,7 @@
             lucide.createIcons();
         }
 
-        console.log('🔥 Firebase initialized with Authentication');
+        console.log('🔥 Firebase initialized with Authentication & Firestore for One-Time Bonus');
     </script>
 </body>
 </html>

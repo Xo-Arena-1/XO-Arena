@@ -9,9 +9,9 @@
      crossorigin="anonymous"></script>
     
     <!-- تحسين SEO الأساسي -->
-    <title>XO Arena - أقوى لعبة إكس أو عربية مع نظام أونلاين متكامل</title>
-    <meta name="description" content="XO Arena: أول لعبة إكس أو عربية احترافية مع نظام أونلاين متكامل. العب مع الأصدقاء أونلاين، نظام Matchmaking، طور الديفيجن أونلاين، 5 مستويات ذكاء اصطناعي، نظام إنجازات، متجر سكنات، وإحصائيات متقدمة.">
-    <meta name="keywords" content="لعبة XO, إكس أو, tic tac toe, لعبة ذكاء, العاب استراتيجية, العاب عربية, تحدي الذكاء, eclipse games, العاب كمبيوتر, العاب مجانية, العاب اونلاين">
+    <title>XO Arena - أقوى لعبة إكس أو عربية مع الذكاء الاصطناعي ونظام الديفيجن</title>
+    <meta name="description" content="XO Arena: أول لعبة إكس أو عربية احترافية. 5 مستويات ذكاء اصطناعي، نظام إنجازات، متجر سكنات، وإحصائيات متقدمة. لعبة استراتيجية مجانية لجميع الأعمار.">
+    <meta name="keywords" content="لعبة XO, إكس أو, tic tac toe, لعبة ذكاء, العاب استراتيجية, العاب عربية, تحدي الذكاء, eclipse games, العاب كمبيوتر, العاب مجانية">
     <meta name="author" content="Eclipse Games">
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
@@ -19,8 +19,8 @@
     <meta name="language" content="Arabic">
     
     <!-- Open Graph / فيسبوك -->
-    <meta property="og:title" content="XO Arena - لعبة إكس أو الإستراتيجية مع نظام أونلاين">
-    <meta property="og:description" content="لعبة إكس أو احترافية مع 5 مستويات صعوبة ونظام أونلاين متكامل. العب ضد الأصدقاء أونلاين أو في طور الديفيجن.">
+    <meta property="og:title" content="XO Arena - لعبة إكس أو الإستراتيجية">
+    <meta property="og:description" content="لعبة إكس أو احترافية مع 5 مستويات صعوبة ونظام إنجازات متطور. العب ضد الكمبيوتر أو مع الأصدقاء مجاناً.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://xo-arena-1.github.io/XO-Arena/">
     <meta property="og:image" content="https://files.catbox.moe/f28twh.png">
@@ -29,7 +29,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="XO Arena - لعبة إكس أو">
-    <meta name="twitter:description" content="اختبر ذكائك في أقوى لعبة إكس أو عربية مع 5 مستويات صعوبة ونظام أونلاين">
+    <meta name="twitter:description" content="اختبر ذكائك في أقوى لعبة إكس أو عربية مع 5 مستويات صعوبة">
     <meta name="twitter:image" content="https://files.catbox.moe/f28twh.png">
     
     <!-- Favicon -->
@@ -268,12 +268,6 @@
             100% { background-position: 0% 0%; }
         }
 
-        @keyframes countdown {
-            0% { transform: scale(1.5); opacity: 0; }
-            50% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(0.5); opacity: 0; }
-        }
-
         .animate-float { animation: float 6s ease-in-out infinite; }
         .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
         .animate-pop-in { animation: pop-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
@@ -288,7 +282,6 @@
         .animate-fire { animation: fire-animation 3s ease-in-out infinite; }
         .animate-ice { animation: ice-animation 3s ease-in-out infinite; }
         .animate-electric { animation: electric-animation 1s ease-in-out infinite; }
-        .animate-countdown { animation: countdown 1s ease-out forwards; }
 
         /* Components */
         .glass-card {
@@ -351,345 +344,6 @@
         .game-cell.disabled {
             cursor: not-allowed;
             opacity: 0.8;
-        }
-
-        /* Timer Styles */
-        .timer-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 10px 0;
-        }
-
-        .timer-circle {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: rgba(0,0,0,0.4);
-            border: 3px solid var(--accent-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--accent-color);
-            box-shadow: 0 0 20px var(--glow-color);
-            transition: all 0.3s ease;
-        }
-
-        .timer-circle.warning {
-            border-color: #ffaa00;
-            color: #ffaa00;
-            box-shadow: 0 0 20px rgba(255,170,0,0.5);
-        }
-
-        .timer-circle.danger {
-            border-color: #ff3366;
-            color: #ff3366;
-            box-shadow: 0 0 20px rgba(255,51,102,0.5);
-            animation: pulse 0.5s ease-in-out infinite;
-        }
-
-        /* Room Code Styles */
-        .room-code-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin: 20px 0;
-            padding: 15px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 15px;
-            border: 2px dashed var(--accent-color);
-        }
-
-        .room-code {
-            font-size: 32px;
-            font-weight: bold;
-            font-family: 'Orbitron', monospace;
-            letter-spacing: 5px;
-            color: var(--accent-color);
-            text-shadow: 0 0 15px var(--glow-color);
-        }
-
-        .copy-btn {
-            padding: 8px 16px;
-            border-radius: 8px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid var(--border-color);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .copy-btn:hover {
-            background: var(--accent-color);
-            color: var(--bg-color);
-        }
-
-        /* Scoreboard Styles */
-        .scoreboard {
-            display: flex;
-            justify-content: space-around;
-            margin: 20px 0;
-            padding: 15px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 15px;
-        }
-
-        .score-item {
-            text-align: center;
-        }
-
-        .score-value {
-            font-size: 28px;
-            font-weight: bold;
-            color: #ffd700;
-            text-shadow: 0 0 10px rgba(255,215,0,0.5);
-        }
-
-        .score-label {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-
-        .round-indicator {
-            text-align: center;
-            margin: 10px 0;
-            padding: 8px;
-            background: rgba(0,212,255,0.1);
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-        }
-
-        /* Player Card */
-        .player-card {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 12px;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        .player-card.active {
-            border-color: var(--accent-color);
-            box-shadow: 0 0 20px var(--glow-color);
-        }
-
-        .player-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--accent-color);
-        }
-
-        .player-info {
-            flex: 1;
-        }
-
-        .player-name {
-            font-weight: bold;
-            color: var(--text-primary);
-        }
-
-        .player-level {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-
-        .player-xp {
-            font-size: 11px;
-            color: #ffd700;
-        }
-
-        .player-symbol {
-            font-size: 24px;
-            font-weight: bold;
-            margin-right: 5px;
-        }
-
-        .player-symbol.X {
-            color: var(--accent-color);
-            text-shadow: 0 0 10px var(--glow-color);
-        }
-
-        .player-symbol.O {
-            color: var(--accent-secondary);
-            text-shadow: 0 0 10px var(--glow-secondary);
-        }
-
-        /* Settings inside room */
-        .room-settings-panel {
-            margin-top: 20px;
-            padding: 15px;
-            background: rgba(0,0,0,0.4);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-        }
-
-        .setting-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            padding: 8px;
-            background: rgba(255,255,255,0.02);
-            border-radius: 8px;
-        }
-
-        .setting-label {
-            color: var(--text-primary);
-            font-size: 14px;
-        }
-
-        .setting-control {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .setting-control input[type="number"] {
-            width: 60px;
-            padding: 5px;
-            border-radius: 5px;
-            background: rgba(0,0,0,0.3);
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            text-align: center;
-        }
-
-        .setting-control input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-        }
-
-        .kick-btn {
-            padding: 5px 10px;
-            border-radius: 5px;
-            background: rgba(255,51,102,0.2);
-            border: 1px solid #ff3366;
-            color: #ff3366;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 12px;
-        }
-
-        .kick-btn:hover {
-            background: #ff3366;
-            color: white;
-        }
-
-        /* Matchmaking Queue */
-        .queue-container {
-            text-align: center;
-            padding: 30px;
-        }
-
-        .queue-spinner {
-            width: 60px;
-            height: 60px;
-            border: 4px solid var(--border-color);
-            border-top-color: var(--accent-color);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-
-        .queue-text {
-            font-size: 18px;
-            color: var(--text-secondary);
-            margin: 20px 0;
-        }
-
-        .xp-bet-selector {
-            margin: 20px 0;
-            padding: 15px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 12px;
-        }
-
-        .xp-range {
-            width: 100%;
-            margin: 10px 0;
-            -webkit-appearance: none;
-            height: 5px;
-            background: linear-gradient(90deg, #00ff88, #ffd700);
-            border-radius: 5px;
-            outline: none;
-        }
-
-        .xp-range::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: var(--accent-color);
-            cursor: pointer;
-            box-shadow: 0 0 10px var(--glow-color);
-        }
-
-        .xp-value {
-            font-size: 24px;
-            font-weight: bold;
-            color: #ffd700;
-        }
-
-        /* Disconnected Message */
-        .disconnected-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(10px);
-            z-index: 2000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .disconnected-overlay.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .disconnected-message {
-            text-align: center;
-            padding: 30px;
-            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
-            border: 2px solid var(--accent-secondary);
-            border-radius: 24px;
-            box-shadow: 0 0 50px var(--glow-secondary);
-        }
-
-        .disconnected-icon {
-            font-size: 60px;
-            margin-bottom: 20px;
-        }
-
-        .disconnected-title {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--accent-secondary);
-            margin-bottom: 10px;
-        }
-
-        .disconnected-timer {
-            font-size: 48px;
-            font-weight: bold;
-            color: var(--accent-secondary);
-            margin: 20px 0;
         }
 
         /* Screen Management */
@@ -2382,15 +2036,6 @@
                 height: 30px;
                 font-size: 0.8rem;
             }
-
-            .room-code {
-                font-size: 24px;
-            }
-
-            .player-card {
-                flex-direction: column;
-                text-align: center;
-            }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -2427,16 +2072,6 @@
 
     <!-- Notification Container -->
     <div id="notification" class="notification glass-card"></div>
-
-    <!-- Disconnected Overlay -->
-    <div id="disconnected-overlay" class="disconnected-overlay">
-        <div class="disconnected-message">
-            <div class="disconnected-icon">🔌</div>
-            <div class="disconnected-title">الخصم انفصل</div>
-            <div class="disconnected-text" style="color: var(--text-secondary); margin-bottom: 20px;">سيتم احتسابك فائزاً بعد 5 ثوانٍ</div>
-            <div id="disconnected-timer" class="disconnected-timer">5</div>
-        </div>
-    </div>
 
     <!-- End Game Screen -->
     <div id="end-game-screen" class="end-game-screen">
@@ -2538,10 +2173,6 @@
             <li class="whats-new-item">
                 <div class="whats-new-icon"><i data-lucide="tv"></i></div>
                 <div class="whats-new-text">إضافة ميزة الإعلانات</div>
-            </li>
-            <li class="whats-new-item">
-                <div class="whats-new-icon"><i data-lucide="globe"></i></div>
-                <div class="whats-new-text">نظام أونلاين متكامل (أصدقاء - Matchmaking - Division)</div>
             </li>
             <li class="whats-new-item">
                 <div class="whats-new-icon"><i data-lucide="gift"></i></div>
@@ -2846,19 +2477,14 @@
 
             <!-- Menu Buttons -->
             <div class="space-y-4 animate-slide-up" style="animation-delay: 0.4s;">
-                <button onclick="showFriendOptions()" class="neon-btn w-full rounded-xl p-5 flex items-center justify-center gap-3 text-lg font-bold">
+                <button onclick="startGame('friend')" class="neon-btn w-full rounded-xl p-5 flex items-center justify-center gap-3 text-lg font-bold">
                     <i data-lucide="users" class="w-6 h-6" style="color: var(--accent-color);"></i>
-                    <span style="color: var(--text-primary);">العب مع الأصدقاء</span>
+                    <span style="color: var(--text-primary);">العب ضد صديق</span>
                 </button>
 
-                <button onclick="showOnlineMatches()" class="neon-btn w-full rounded-xl p-5 flex items-center justify-center gap-3 text-lg font-bold" style="box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);">
-                    <i data-lucide="globe" class="w-6 h-6" style="color: #ffd700;"></i>
-                    <span style="color: #ffd700;">مباريات أونلاين (XP)</span>
-                </button>
-
-                <button onclick="navigateTo('levels')" class="neon-btn w-full rounded-xl p-5 flex items-center justify-center gap-3 text-lg font-bold" style="box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);">
-                    <i data-lucide="cpu" class="w-6 h-6" style="color: var(--accent-color);"></i>
-                    <span style="color: var(--text-primary);">ضد ذكاء اصطناعي</span>
+                <button onclick="navigateTo('levels')" class="neon-btn w-full rounded-xl p-5 flex items-center justify-center gap-3 text-lg font-bold" style="box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);">
+                    <i data-lucide="cpu" class="w-6 h-6" style="color: #ffd700;"></i>
+                    <span style="color: #ffd700;">العب ضد ذكاء اصطناعي</span>
                 </button>
 
                 <button onclick="navigateTo('division')" class="neon-btn w-full rounded-xl p-5 flex items-center justify-center gap-3 text-lg font-bold" style="background: linear-gradient(135deg, #ff3366, #ff6b35);">
@@ -2884,14 +2510,14 @@
                 
                 <div class="space-y-4 text-right">
                     <p class="leading-relaxed" style="color: var(--text-primary);">
-                        <strong style="color: var(--accent-color);">XO Arena</strong> هي أول منصة عربية متكاملة للعبة إكس أو مع <strong style="color: #00ff88;">نظام أونلاين متكامل</strong> و <strong style="color: #ffd700;">5 مستويات ذكاء اصطناعي</strong> مختلفة: مبتدئ، متوسط، صعب، عبقري، وتكيفي. صممنا اللعبة لتكون مناسبة لجميع الأعمار والمستويات، من الأطفال الصغار إلى الخبراء المحترفين.
+                        <strong style="color: var(--accent-color);">XO Arena</strong> هي أول منصة عربية متكاملة للعبة إكس أو مع <strong style="color: #00ff88;">5 مستويات ذكاء اصطناعي</strong> مختلفة: مبتدئ، متوسط، صعب، عبقري، وتكيفي. صممنا اللعبة لتكون مناسبة لجميع الأعمار والمستويات، من الأطفال الصغار إلى الخبراء المحترفين.
                     </p>
                     
                     <p class="leading-relaxed" style="color: var(--text-primary);">
-                        ما يميز <strong style="color: var(--accent-color);">XO Arena</strong> عن غيرها من ألعاب إكس أو هو نظام الأونلاين المتكامل: العب مع أصدقائك عن طريق كود الغرفة، تحدَّ لاعبين عشوائيين في <strong style="color: #ffd700;">Online Matches</strong> واربح XP، أو ادخل <strong style="color: #ff6b35;">طور الديفيجن أونلاين</strong> وتحدى لاعبين من نفس مستواك.
+                        ما يميز <strong style="color: var(--accent-color);">XO Arena</strong> عن غيرها من ألعاب إكس أو هو نظام التطوير المتكامل: اجمع النقاط (XP) مع كل فوز، افتح <strong style="color: #ffd700;">سكنات جديدة</strong> ملونة (ذهبي، أحمر، بنفسجي، أخضر)، احصل على <strong style="color: #ff6b35;">إنجازات</strong> مميزة، وتابع تقدمك من خلال الإحصائيات التفصيلية. هل تستطيع هزيمة الكمبيوتر في مستوى "عبقري"؟
                     </p>
 
-                    <div class="grid grid-cols-3 gap-3 mt-4">
+                    <div class="grid grid-cols-2 gap-3 mt-4">
                         <div class="p-3 rounded-lg text-center" style="background: rgba(0, 212, 255, 0.1); border: 1px solid var(--border-color);">
                             <div class="text-2xl font-bold" style="color: #00ff88;">+5</div>
                             <div class="text-xs" style="color: var(--text-secondary);">مستويات ذكاء</div>
@@ -2908,22 +2534,10 @@
                             <div class="text-2xl font-bold" style="color: #a855f7;">+21</div>
                             <div class="text-xs" style="color: var(--text-secondary);">إطار للملف</div>
                         </div>
-                        <div class="p-3 rounded-lg text-center" style="background: rgba(255, 215, 0, 0.1); border: 1px solid var(--border-color);">
-                            <div class="text-2xl font-bold" style="color: #ffd700;">+3</div>
-                            <div class="text-xs" style="color: var(--text-secondary);">أطوار أونلاين</div>
-                        </div>
-                        <div class="p-3 rounded-lg text-center" style="background: rgba(0, 212, 255, 0.1); border: 1px solid var(--border-color);">
-                            <div class="text-2xl font-bold" style="color: var(--accent-color);">∞</div>
-                            <div class="text-xs" style="color: var(--text-secondary);">مباريات أونلاين</div>
-                        </div>
                     </div>
 
                     <h3 class="text-lg font-bold mt-4" style="color: var(--accent-color);">لماذا تختار XO Arena؟</h3>
                     <ul class="space-y-2 pr-4">
-                        <li class="flex items-start gap-2" style="color: var(--text-primary);">
-                            <span style="color: #00ff88;">✓</span>
-                            <strong>نظام أونلاين متكامل:</strong> العب مع الأصدقاء، مباريات عشوائية، وديفيجن أونلاين.
-                        </li>
                         <li class="flex items-start gap-2" style="color: var(--text-primary);">
                             <span style="color: #00ff88;">✓</span>
                             <strong>طور الديفيجن الجديد:</strong> 10 مستويات من التحدي مع مكافآت أسطورية.
@@ -3088,20 +2702,14 @@
                 </div>
             </div>
 
-            <!-- Division Mode Selector -->
-            <div class="grid grid-cols-2 gap-4 mb-6">
-                <button onclick="startDivisionOffline()" class="neon-btn rounded-xl p-5 flex flex-col items-center gap-2">
-                    <i data-lucide="bot" class="w-8 h-8" style="color: var(--accent-color);"></i>
-                    <span style="color: var(--text-primary);">ضد الروبوت</span>
-                </button>
-                <button onclick="startDivisionOnline()" class="neon-btn rounded-xl p-5 flex flex-col items-center gap-2" style="background: linear-gradient(135deg, #ff3366, #ff6b35);">
-                    <i data-lucide="globe" class="w-8 h-8" style="color: white;"></i>
-                    <span style="color: white;">أونلاين</span>
-                </button>
-            </div>
-
             <!-- Division Grid -->
             <div id="divisionContainer" class="space-y-4 mb-6"></div>
+
+            <!-- Start Division Match Button -->
+            <button onclick="startDivisionMatch()" class="neon-btn w-full rounded-xl p-5 flex items-center justify-center gap-3 text-lg font-bold mb-4" style="background: linear-gradient(135deg, #ff3366, #ff6b35);">
+                <i data-lucide="play" class="w-6 h-6" style="color: white;"></i>
+                <span style="color: white;">ابدأ مباراة الديفيجن</span>
+            </button>
 
             <!-- Division Info -->
             <div class="glass-card rounded-xl p-4">
@@ -3120,262 +2728,6 @@
                         <span>الخسارة: -3 نقاط</span>
                     </li>
                 </ul>
-                <div class="mt-4 p-3 rounded-lg" style="background: rgba(0,0,0,0.3);">
-                    <p class="text-sm" style="color: var(--text-secondary);">في طور الأونلاين: لا يوجد تعادل - يتم إعادة الجولة حتى الفوز</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ONLINE MATCHES PAGE (جديد) -->
-    <div id="page-online-matches" class="page flex-col items-center px-4 py-8">
-        <div class="w-full max-w-lg relative z-10">
-            <div class="flex items-center gap-4 mb-6">
-                <button onclick="navigateTo('home')" class="p-2 rounded-lg hover:bg-white/10 transition-colors">
-                    <i data-lucide="arrow-right" class="w-6 h-6" style="color: var(--text-secondary);"></i>
-                </button>
-                <h1 class="text-2xl font-display font-bold" style="color: var(--accent-color);">مباريات أونلاين</h1>
-            </div>
-
-            <!-- XP Bet Selector -->
-            <div class="glass-card rounded-xl p-6 mb-6">
-                <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                    <i data-lucide="dollar-sign" class="w-5 h-5" style="color: #ffd700;"></i>
-                    <span>حدد الـ XP للمراهنة</span>
-                </h3>
-                <div class="xp-bet-selector">
-                    <input type="range" id="xp-bet-range" class="xp-range" min="100" max="20000" step="100" value="500" oninput="updateXpBetValue(this.value)">
-                    <div class="text-center mt-3">
-                        <span id="xp-bet-value" class="xp-value">500</span>
-                        <span style="color: var(--text-secondary);"> XP</span>
-                    </div>
-                </div>
-                <button onclick="joinOnlineMatchmaking()" class="neon-btn w-full py-4 rounded-xl font-bold text-lg mt-4">
-                    <i data-lucide="search" class="inline w-5 h-5 ml-2"></i>
-                    بدء البحث
-                </button>
-            </div>
-
-            <!-- Queue Status (hidden initially) -->
-            <div id="queue-container" class="queue-container glass-card rounded-xl" style="display: none;">
-                <div class="queue-spinner"></div>
-                <div class="queue-text">جار البحث عن لاعب...</div>
-                <button onclick="cancelMatchmaking()" class="neon-btn px-6 py-3 rounded-xl">
-                    <i data-lucide="x" class="inline w-4 h-4 ml-2"></i>
-                    إلغاء
-                </button>
-            </div>
-
-            <!-- Online Stats -->
-            <div class="glass-card rounded-xl p-4">
-                <h3 class="text-lg font-bold text-white mb-3">إحصائيات المباريات الأونلاين</h3>
-                <div class="flex justify-between mb-2">
-                    <span style="color: var(--text-secondary);">مباريات أونلاين:</span>
-                    <span id="online-matches-count" style="color: #ffd700;">0</span>
-                </div>
-                <div class="flex justify-between mb-2">
-                    <span style="color: var(--text-secondary);">فوز:</span>
-                    <span id="online-wins" style="color: #00ff88;">0</span>
-                </div>
-                <div class="flex justify-between">
-                    <span style="color: var(--text-secondary);">خسارة:</span>
-                    <span id="online-losses" style="color: #ff3366;">0</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- FRIENDS ONLINE PAGE (جديد) -->
-    <div id="page-friends-online" class="page flex-col items-center px-4 py-8">
-        <div class="w-full max-w-lg relative z-10">
-            <div class="flex items-center gap-4 mb-6">
-                <button onclick="navigateTo('home')" class="p-2 rounded-lg hover:bg-white/10 transition-colors">
-                    <i data-lucide="arrow-right" class="w-6 h-6" style="color: var(--text-secondary);"></i>
-                </button>
-                <h1 class="text-2xl font-display font-bold" style="color: var(--accent-color);">العب مع الأصدقاء</h1>
-            </div>
-
-            <!-- Friends Mode Options -->
-            <div class="grid grid-cols-2 gap-4 mb-6">
-                <button onclick="navigateTo('friends-offline')" class="neon-btn rounded-xl p-5 flex flex-col items-center gap-2">
-                    <i data-lucide="wifi-off" class="w-8 h-8" style="color: var(--accent-secondary);"></i>
-                    <span style="color: var(--text-primary);">Offline</span>
-                </button>
-                <button onclick="showFriendsOnlineOptions()" class="neon-btn rounded-xl p-5 flex flex-col items-center gap-2" style="background: linear-gradient(135deg, var(--accent-color), var(--accent-secondary));">
-                    <i data-lucide="wifi" class="w-8 h-8" style="color: white;"></i>
-                    <span style="color: white;">Online</span>
-                </button>
-            </div>
-
-            <!-- Online Options (hidden initially) -->
-            <div id="friends-online-options" class="space-y-4" style="display: none;">
-                <button onclick="createRoom()" class="neon-btn w-full rounded-xl p-5 flex items-center justify-center gap-3 text-lg font-bold">
-                    <i data-lucide="plus-circle" class="w-6 h-6" style="color: var(--accent-color);"></i>
-                    <span style="color: var(--text-primary);">إنشاء غرفة</span>
-                </button>
-                
-                <div class="relative">
-                    <div class="absolute inset-0 flex items-center">
-                        <div class="w-full border-t" style="border-color: var(--border-color);"></div>
-                    </div>
-                    <div class="relative flex justify-center text-sm">
-                        <span class="px-4" style="background: var(--bg-color); color: var(--text-secondary);">أو</span>
-                    </div>
-                </div>
-
-                <div class="flex gap-3">
-                    <input type="text" id="room-code-input" class="flex-1 p-4 rounded-xl bg-transparent border focus:outline-none text-center font-mono text-xl" style="border-color: var(--border-color); color: var(--text-primary);" placeholder="كود الغرفة" maxlength="6">
-                    <button onclick="joinRoom()" class="neon-btn px-6 rounded-xl flex items-center gap-2">
-                        <i data-lucide="log-in" class="w-5 h-5"></i>
-                        <span>انضمام</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Room Display (when in room) -->
-            <div id="room-display" class="space-y-6" style="display: none;">
-                <!-- Room Code -->
-                <div class="room-code-container glass-card">
-                    <span class="room-code" id="room-code-display"></span>
-                    <button class="copy-btn" onclick="copyRoomCode()">
-                        <i data-lucide="copy" class="w-4 h-4"></i>
-                        <span>نسخ</span>
-                    </button>
-                </div>
-
-                <!-- Room Settings (Host Only) -->
-                <div id="room-settings-host" class="room-settings-panel" style="display: none;">
-                    <h3 class="text-lg font-bold text-white mb-4">إعدادات الغرفة</h3>
-                    
-                    <div class="setting-item">
-                        <span class="setting-label">عدد الجولات</span>
-                        <div class="setting-control">
-                            <button onclick="adjustRounds(-1)" class="px-3 py-1 rounded" style="background: rgba(255,255,255,0.1);">-</button>
-                            <span id="rounds-value" class="mx-3">3</span>
-                            <button onclick="adjustRounds(1)" class="px-3 py-1 rounded" style="background: rgba(255,255,255,0.1);">+</button>
-                        </div>
-                    </div>
-
-                    <div class="setting-item">
-                        <span class="setting-label">مدة التايمر (ثواني)</span>
-                        <div class="setting-control">
-                            <input type="number" id="timer-seconds" min="3" max="30" value="5" onchange="updateTimerSetting(this.value)">
-                        </div>
-                    </div>
-
-                    <div class="setting-item">
-                        <span class="setting-label">السماح بالتعادل</span>
-                        <div class="setting-control">
-                            <input type="checkbox" id="allow-draw" checked onchange="updateDrawSetting(this.checked)">
-                        </div>
-                    </div>
-
-                    <div class="setting-item">
-                        <span class="setting-label">مؤثرات صوتية</span>
-                        <div class="setting-control">
-                            <input type="checkbox" id="room-sound" checked onchange="updateSoundSetting(this.checked)">
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-3 mt-4">
-                        <button onclick="restartMatch()" class="neon-btn py-3 rounded-xl text-sm">
-                            <i data-lucide="refresh-cw" class="inline w-4 h-4 ml-2"></i>
-                            إعادة المباراة
-                        </button>
-                        <button onclick="kickPlayer()" class="kick-btn py-3 rounded-xl text-sm">
-                            <i data-lucide="user-x" class="inline w-4 h-4 ml-2"></i>
-                            طرد اللاعب
-                        </button>
-                        <button onclick="closeRoom()" class="py-3 rounded-xl text-sm" style="background: rgba(255,51,102,0.2); border: 1px solid #ff3366; color: #ff3366;">
-                            <i data-lucide="x-circle" class="inline w-4 h-4 ml-2"></i>
-                            إغلاق الغرفة
-                        </button>
-                        <button onclick="leaveRoom()" class="neon-btn py-3 rounded-xl text-sm">
-                            <i data-lucide="log-out" class="inline w-4 h-4 ml-2"></i>
-                            خروج
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Room Settings (Guest View) -->
-                <div id="room-settings-guest" class="room-settings-panel" style="display: none;">
-                    <h3 class="text-lg font-bold text-white mb-4">معلومات الغرفة</h3>
-                    <p style="color: var(--text-secondary); text-align: center;">أنت ضيف - الإعدادات متاحة فقط للمضيف</p>
-                    <button onclick="leaveRoom()" class="neon-btn w-full py-3 rounded-xl mt-4">
-                        <i data-lucide="log-out" class="inline w-4 h-4 ml-2"></i>
-                        خروج
-                    </button>
-                </div>
-
-                <!-- Players Info -->
-                <div class="grid grid-cols-2 gap-4">
-                    <div id="host-card" class="player-card">
-                        <div class="player-symbol X">X</div>
-                        <img id="host-avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%231e293b'/%3E%3C/svg%3E" class="player-avatar">
-                        <div class="player-info">
-                            <div id="host-name" class="player-name">المضيف</div>
-                            <div id="host-level" class="player-level">المستوى 1</div>
-                            <div id="host-xp" class="player-xp">0 XP</div>
-                        </div>
-                    </div>
-                    <div id="guest-card" class="player-card">
-                        <div class="player-symbol O">O</div>
-                        <img id="guest-avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%231e293b'/%3E%3C/svg%3E" class="player-avatar">
-                        <div class="player-info">
-                            <div id="guest-name" class="player-name">ينتظر...</div>
-                            <div id="guest-level" class="player-level">-</div>
-                            <div id="guest-xp" class="player-xp">-</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Scoreboard -->
-                <div class="scoreboard glass-card">
-                    <div class="score-item">
-                        <div id="host-wins" class="score-value">0</div>
-                        <div class="score-label">المضيف</div>
-                    </div>
-                    <div class="score-item">
-                        <div id="draws-count" class="score-value">0</div>
-                        <div class="score-label">تعادل</div>
-                    </div>
-                    <div class="score-item">
-                        <div id="guest-wins" class="score-value">0</div>
-                        <div class="score-label">الضيف</div>
-                    </div>
-                </div>
-
-                <!-- Round Indicator -->
-                <div class="round-indicator">
-                    <span>الجولة <span id="current-round">1</span> / <span id="total-rounds">3</span></span>
-                </div>
-
-                <!-- Timer -->
-                <div class="timer-container">
-                    <div id="game-timer" class="timer-circle">5</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- FRIENDS OFFLINE PAGE (موجود) -->
-    <div id="page-friends-offline" class="page flex-col items-center px-4 py-8">
-        <div class="w-full max-w-lg relative z-10">
-            <div class="flex items-center gap-4 mb-6">
-                <button onclick="navigateTo('home')" class="p-2 rounded-lg hover:bg-white/10 transition-colors">
-                    <i data-lucide="arrow-right" class="w-6 h-6" style="color: var(--text-secondary);"></i>
-                </button>
-                <h1 class="text-2xl font-display font-bold" style="color: var(--accent-color);">العب مع صديق (Offline)</h1>
-            </div>
-            
-            <button onclick="startGame('friend')" class="neon-btn w-full rounded-xl p-6 flex items-center justify-center gap-3 text-xl font-bold mb-4">
-                <i data-lucide="users" class="w-8 h-8" style="color: var(--accent-color);"></i>
-                <span style="color: var(--text-primary);">بدء المباراة</span>
-            </button>
-
-            <div class="glass-card rounded-xl p-4">
-                <h3 class="text-lg font-bold text-white mb-3">كيفية اللعب محلياً</h3>
-                <p style="color: var(--text-secondary);">مرر الجهاز بينك وبين صديقك. X يبدأ أولاً.</p>
             </div>
         </div>
     </div>
@@ -3433,11 +2785,6 @@
                     <span class="text-2xl font-bold" style="color: var(--accent-secondary);">O</span>
                     <span id="player-o-name" class="text-sm" style="color: var(--text-secondary);">الكمبيوتر</span>
                 </div>
-            </div>
-
-            <!-- Timer (for online games) -->
-            <div id="game-timer-container" class="timer-container" style="display: none;">
-                <div id="game-timer-display" class="timer-circle">5</div>
             </div>
 
             <!-- Game Status -->
@@ -3758,7 +3105,7 @@
                 </p>
                 
                 <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    <strong>XO Arena Dark Edition</strong> هو أول مشاريعنا، وقد عملنا عليه لأكثر من 6 أشهر لضمان أفضل تجربة ممكنة. اللعبة ليست مجرد نسخة مكررة من ألعاب إكس أو التقليدية، بل هي منصة متكاملة تحتوي على نظام تطور ومكافآت وإنجازات ونظام أونلاين متكامل يجعل اللعبة أكثر تشويقاً وإدماناً.
+                    <strong>XO Arena Dark Edition</strong> هو أول مشاريعنا، وقد عملنا عليه لأكثر من 6 أشهر لضمان أفضل تجربة ممكنة. اللعبة ليست مجرد نسخة مكررة من ألعاب إكس أو التقليدية، بل هي منصة متكاملة تحتوي على نظام تطور ومكافآت وإنجازات تجعل اللعبة أكثر تشويقاً وإدماناً.
                 </p>
 
                 <h3 class="text-lg font-bold text-white mb-3 mt-4">رؤيتنا</h3>
@@ -3791,13 +3138,6 @@
                 <div class="space-y-3">
                     <div class="p-3 rounded-lg" style="background: rgba(0,0,0,0.3);">
                         <div class="flex items-center gap-2 mb-1">
-                            <span class="text-xs px-2 py-0.5 rounded-full" style="background: #00ff88; color: black;">v5.0</span>
-                            <span class="text-xs" style="color: var(--text-secondary);">10 مارس 2026</span>
-                        </div>
-                        <p style="color: var(--text-primary);">إضافة نظام أونلاين متكامل (أصدقاء - Matchmaking - Division)</p>
-                    </div>
-                    <div class="p-3 rounded-lg" style="background: rgba(0,0,0,0.3);">
-                        <div class="flex items-center gap-2 mb-1">
                             <span class="text-xs px-2 py-0.5 rounded-full" style="background: #00ff88; color: black;">v4.0</span>
                             <span class="text-xs" style="color: var(--text-secondary);">1 مارس 2026</span>
                         </div>
@@ -3809,6 +3149,13 @@
                             <span class="text-xs" style="color: var(--text-secondary);">1 فبراير 2026</span>
                         </div>
                         <p style="color: var(--text-primary);">إضافة طور الديفيجن مع 10 مستويات ومكافآت أسطورية</p>
+                    </div>
+                    <div class="p-3 rounded-lg" style="background: rgba(0,0,0,0.3);">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="text-xs px-2 py-0.5 rounded-full" style="background: #00ff88; color: black;">v2.5</span>
+                            <span class="text-xs" style="color: var(--text-secondary);">25 يناير 2026</span>
+                        </div>
+                        <p style="color: var(--text-primary);">إضافة نظام الموسيقى و 15 أغنية جديدة</p>
                     </div>
                 </div>
             </div>
@@ -3857,12 +3204,12 @@
 
                 <h3 class="text-lg font-bold text-white mb-3">1. جمع البيانات</h3>
                 <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    اللعبة تجمع بعض البيانات الضرورية لتشغيل النظام الأونلاين عبر Firebase Authentication و Firestore. هذه البيانات تشمل: البريد الإلكتروني، اسم المستخدم، الصورة الشخصية (اختياري)، وإحصائيات اللعبة (النقاط، المستوى، الديفيجن، الفوز/الخسارة). يتم تخزين هذه البيانات على خوادم Firebase الآمنة.
+                    اللعبة تعمل بالكامل <strong>offline</strong> ولا تجمع أي بيانات شخصية على خوادمنا. جميع بياناتك (اسم المستخدم، الإحصائيات، الصورة الشخصية، التقدم في اللعبة) يتم تخزينها محلياً على جهازك فقط باستخدام <strong>LocalStorage</strong> في المتصفح. نحن لا نستطيع الوصول إلى هذه البيانات.
                 </p>
 
                 <h3 class="text-lg font-bold text-white mb-3">2. ملفات تعريف الارتباط (Cookies)</h3>
                 <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    نستخدم Firebase Authentication الذي قد يستخدم ملفات تعريف ارتباط لتسهيل عملية تسجيل الدخول. في حال استخدام إعلانات Google AdSense في المستقبل، قد تستخدم Google ملفات تعريف ارتباط لعرض إعلانات مخصصة وفقاً لاهتماماتك.
+                    لا نستخدم أي ملفات تعريف ارتباط لتتبع المستخدمين. في حال استخدام إعلانات Google AdSense في المستقبل، قد تستخدم Google ملفات تعريف ارتباط لعرض إعلانات مخصصة وفقاً لاهتماماتك.
                 </p>
 
                 <h3 class="text-lg font-bold text-white mb-3">3. الإعلانات</h3>
@@ -3889,15 +3236,14 @@
                     لديك الحق الكامل في:
                 </p>
                 <ul class="list-disc mr-6 mb-4 space-y-1" style="color: var(--text-primary);">
-                    <li>الوصول إلى بياناتك المخزنة على Firebase</li>
-                    <li>تصحيح أي بيانات غير دقيقة</li>
-                    <li>حذف حسابك وجميع بياناتك (راسلنا على البريد الإلكتروني)</li>
+                    <li>حذف جميع بياناتك من خلال زر "حذف التقدم" في إعدادات اللعبة</li>
                     <li>رفض ملفات تعريف الارتباط من خلال إعدادات المتصفح</li>
+                    <li>الاتصال بنا للاستفسار عن أي شيء يتعلق بخصوصيتك</li>
                 </ul>
 
                 <h3 class="text-lg font-bold text-white mb-3">6. الأمان</h3>
                 <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    موقعنا يستخدم شهادة SSL من Netlify لتأمين الاتصال. جميع البيانات المنقولة بين متصفحك وخوادم Firebase مشفرة. نستخدم Firestore Rules لحماية البيانات ومنع الوصول غير المصرح به.
+                    موقعنا يستخدم شهادة SSL من Netlify لتأمين الاتصال. جميع البيانات المنقولة بين متصفحك وموقعنا مشفرة.
                 </p>
 
                 <h3 class="text-lg font-bold text-white mb-3">7. التغييرات على سياسة الخصوصية</h3>
@@ -3959,8 +3305,7 @@
                     <li>عدم محاولة اختراق اللعبة أو تعديلها</li>
                     <li>عدم استخدام اللعبة لأي أغراض غير قانونية</li>
                     <li>عدم محاولة تعطيل أو إساءة استخدام نظام المكافآت</li>
-                    <li>احترام حقوق المستخدمين الآخرين في النظام الأونلاين</li>
-                    <li>عدم إنشاء حسابات متعددة لتجنب الحظر</li>
+                    <li>احترام حقوق المستخدمين الآخرين</li>
                 </ul>
 
                 <h3 class="text-lg font-bold text-white mb-3">4. المحتوى</h3>
@@ -4109,22 +3454,6 @@
                         إذا امتلأت اللوحة بدون فائز، تكون نتيجة تعادل
                     </li>
                 </ul>
-
-                <h3 class="text-lg font-bold text-white mb-3">الأطوار الجديدة (أونلاين):</h3>
-                <div class="space-y-3 mb-6">
-                    <div class="p-3 rounded-lg" style="background: rgba(0, 212, 255, 0.1); border: 1px solid rgba(0, 212, 255, 0.3);">
-                        <div class="font-bold" style="color: var(--accent-color);">العب مع الأصدقاء أونلاين</div>
-                        <div class="text-sm" style="color: var(--text-secondary);">أنشئ غرفة وشارك الكود مع صديقك. 5 ثواني لكل دور مع إمكانية تعديل الإعدادات.</div>
-                    </div>
-                    <div class="p-3 rounded-lg" style="background: rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.3);">
-                        <div class="font-bold" style="color: #ffd700;">مباريات أونلاين (XP)</div>
-                        <div class="text-sm" style="color: var(--text-secondary);">تحدَّ لاعبين عشوائيين وراهن بنقاط XP. كل لاعب يخاطر بالنقاط التي اختارها.</div>
-                    </div>
-                    <div class="p-3 rounded-lg" style="background: rgba(255, 51, 102, 0.1); border: 1px solid rgba(255, 51, 102, 0.3);">
-                        <div class="font-bold" style="color: var(--accent-secondary);">ديفيجن أونلاين</div>
-                        <div class="text-sm" style="color: var(--text-secondary);">تحدَّ لاعبين من نفس مستواك في نظام Best Of. لا يوجد تعادل نهائياً.</div>
-                    </div>
-                </div>
 
                 <h3 class="text-lg font-bold text-white mb-3">مستويات الصعوبة:</h3>
                 <div class="space-y-3">
@@ -4501,24 +3830,17 @@
 
         // تعديل جوائز الديفيجن حسب الطلب
         const DIVISIONS = [
-            { level: 10, difficulty: 'beginner', required: 6, reward: 2500, name: 'Division 10' },
-            { level: 9, difficulty: 'beginner', required: 9, reward: 2500, name: 'Division 9' },
-            { level: 8, difficulty: 'beginner', required: 9, reward: 2500, name: 'Division 8' },
-            { level: 7, difficulty: 'medium', required: 10, reward: 2500, name: 'Division 7' },
-            { level: 6, difficulty: 'medium', required: 10, reward: 2500, name: 'Division 6' },
-            { level: 5, difficulty: 'hard', required: 15, reward: 3000, name: 'Division 5' },
-            { level: 4, difficulty: 'hard', required: 21, reward: 4000, name: 'Division 4' },
-            { level: 3, difficulty: 'genius', required: 21, reward: 20000, name: 'Division 3' },
-            { level: 2, difficulty: 'genius', required: 21, reward: 50000, name: 'Division 2' },
+            { level: 10, difficulty: 'beginner', required: 6, reward: 2000, name: 'Division 10' },
+            { level: 9, difficulty: 'beginner', required: 9, reward: 3000, name: 'Division 9' },
+            { level: 8, difficulty: 'beginner', required: 9, reward: 4000, name: 'Division 8' },
+            { level: 7, difficulty: 'medium', required: 10, reward: 4500, name: 'Division 7' },
+            { level: 6, difficulty: 'medium', required: 10, reward: 6000, name: 'Division 6' },
+            { level: 5, difficulty: 'hard', required: 15, reward: 8000, name: 'Division 5' },
+            { level: 4, difficulty: 'hard', required: 21, reward: 9000, name: 'Division 4' },
+            { level: 3, difficulty: 'genius', required: 21, reward: 10000, name: 'Division 3' },
+            { level: 2, difficulty: 'genius', required: 21, reward: 20000, name: 'Division 2' },
             { level: 1, difficulty: 'genius', required: 30, reward: 100000, name: 'Division 1' },
         ];
-
-        // نظام Best Of للديفيجن حسب المستوى
-        const DIVISION_BEST_OF = {
-            10: 3, 9: 3, 8: 3, 7: 3, 6: 3, // Divisions 10-6: Best of 3
-            5: 5, 4: 5, // Divisions 5-4: Best of 5
-            3: 8, 2: 8, 1: 8 // Divisions 3-1: Best of 8
-        };
 
         const SKINS = [
             // Original skins
@@ -4655,13 +3977,9 @@
             'تاريخ لعبة إكس أو يعود لأكثر من 3000 سنة!',
             'العب 10 دقائق يومياً لتحسين تركيزك وذاكرتك.',
             'في طور الديفيجن، كل نقطة مهمة. لا تخاطر بخسارة 3 نقاط بسهولة!',
-            'الديفيجن 1 يمنحك مكافأة أسطورية 100000 XP وسكن قوس قزح وإطار أسطوري!',
+            'الديفيجن 1 يمنحك مكافأة أسطورية 100000 XP وسكن قوس قزح!',
             'الخسارة في الديفيجن تكلفك -3 نقاط، فكر جيداً قبل كل حركة.',
             'الإطارات الأسطورية تعطي مظهراً مميزاً لملفك الشخصي.',
-            'في طور الأونلاين، 5 ثوانٍ فقط لكل دور - تحرك بسرعة!',
-            'إذا انتهى الوقت في دورك، تخسر الجولة مباشرة.',
-            'في مباريات XP، كل لاعب يخاطر بالنقاط التي اختارها فقط.',
-            'في الديفيجن أونلاين، لا يوجد تعادل - يتم إعادة الجولة حتى الفوز.',
         ];
 
         // ==================== STATE ====================
@@ -4684,9 +4002,6 @@
             lastClaimDate: null,
             soundEnabled: true,
             cookiesAccepted: false,
-            
-            // Online stats
-            onlineStats: { matches: 0, wins: 0, losses: 0, xpEarned: 0, xpLost: 0 },
             
             // Banned system
             isBanned: false,
@@ -4722,19 +4037,6 @@
             isComputerTurn: false,
             gameStartTime: null,
             
-            // Online game state
-            currentRoom: null, // room data for friends online
-            currentMatch: null, // match data for online matches/division
-            isHost: false,
-            playerSymbol: 'X',
-            opponentSymbol: 'O',
-            timerSeconds: 5,
-            timerInterval: null,
-            timerValue: 5,
-            timerActive: false,
-            myTurn: false,
-            disconnectedTimer: null,
-            
             // Adaptive AI data
             adaptiveData: {
                 matchesPlayed: 0,
@@ -4761,13 +4063,6 @@
             logoClickCount: 0,
             logoTimer: null
         };
-
-        // Firebase references (will be set after init)
-        let db, auth, currentUser = null;
-
-        // Unsubscribe functions
-        let roomUnsubscribe = null;
-        let matchUnsubscribe = null;
 
         // Audio Context
         let audioCtx = null;
@@ -4853,7 +4148,7 @@
         }
 
         function loadState() {
-            const saved = localStorage.getItem('xo-arena-v5'); // تحديث الإصدار
+            const saved = localStorage.getItem('xo-arena-v4'); // تحديث الإصدار
             if (saved) {
                 try {
                     const parsed = JSON.parse(saved);
@@ -4880,7 +4175,6 @@
                 currentTheme: state.currentTheme,
                 playAs: state.playAs,
                 stats: state.stats,
-                onlineStats: state.onlineStats,
                 achievements: state.achievements,
                 beatenGenius: state.beatenGenius,
                 beatenAdaptive: state.beatenAdaptive,
@@ -4904,7 +4198,7 @@
                 adaptiveData: state.adaptiveData,
                 hasSeenWhatsNew: state.hasSeenWhatsNew
             };
-            localStorage.setItem('xo-arena-v5', JSON.stringify(toSave));
+            localStorage.setItem('xo-arena-v4', JSON.stringify(toSave));
         }
 
         // ==================== BANNED SYSTEM ====================
@@ -5189,22 +4483,6 @@
                     oscillator.start();
                     oscillator.stop(audioCtx.currentTime + 0.5);
                     break;
-                case 'timer-tick':
-                    oscillator.frequency.value = 800;
-                    oscillator.type = 'sine';
-                    gainNode.gain.setValueAtTime(0.05, audioCtx.currentTime);
-                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
-                    oscillator.start();
-                    oscillator.stop(audioCtx.currentTime + 0.1);
-                    break;
-                case 'timer-end':
-                    oscillator.frequency.value = 200;
-                    oscillator.type = 'sawtooth';
-                    gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
-                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-                    oscillator.start();
-                    oscillator.stop(audioCtx.currentTime + 0.3);
-                    break;
             }
         }
 
@@ -5313,28 +4591,28 @@
 
         function shareOnFacebook() {
             const url = encodeURIComponent('https://xo-arena-1.github.io/XO-Arena/');
-            const text = encodeURIComponent('🎮 جرب XO Arena - أفضل لعبة إكس أو عربية مع نظام أونلاين متكامل!');
+            const text = encodeURIComponent('🎮 جرب XO Arena - أفضل لعبة إكس أو عربية مع 5 مستويات ذكاء اصطناعي!');
             window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`, '_blank');
             incrementShareCount();
         }
 
         function shareOnTwitter() {
             const url = encodeURIComponent('https://xo-arena-1.github.io/XO-Arena/');
-            const text = encodeURIComponent('🎮 XO Arena - لعبة إكس أو عربية احترافية مع نظام أونلاين و 5 مستويات ذكاء اصطناعي!');
+            const text = encodeURIComponent('🎮 XO Arena - لعبة إكس أو عربية احترافية مع 5 مستويات ذكاء اصطناعي!');
             window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
             incrementShareCount();
         }
 
         function shareOnWhatsApp() {
             const url = encodeURIComponent('https://xo-arena-1.github.io/XO-Arena/');
-            const text = encodeURIComponent('🎮 جرب XO Arena - أقوى لعبة إكس أو عربية مع أونلاين!');
+            const text = encodeURIComponent('🎮 جرب XO Arena - أقوى لعبة إكس أو عربية!');
             window.open(`https://api.whatsapp.com/send?text=${text}%20${url}`, '_blank');
             incrementShareCount();
         }
 
         function shareOnTelegram() {
             const url = encodeURIComponent('https://xo-arena-1.github.io/XO-Arena/');
-            const text = encodeURIComponent('🎮 XO Arena - لعبة إكس أو عربية مع أونلاين');
+            const text = encodeURIComponent('🎮 XO Arena - لعبة إكس أو عربية');
             window.open(`https://t.me/share/url?url=${url}&text=${text}`, '_blank');
             incrementShareCount();
         }
@@ -5392,11 +4670,6 @@
                 return;
             }
             
-            // Clean up any online subscriptions when leaving game pages
-            if (pageId !== 'game' && pageId !== 'friends-online' && pageId !== 'online-matches') {
-                cleanupOnlineSubscriptions();
-            }
-            
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             const target = document.getElementById(`page-${pageId}`);
             if (target) {
@@ -5406,2244 +4679,9 @@
                 if (pageId === 'share') {
                     updateShareUI();
                 }
-                
-                // إعادة تعيين عرض خيارات الأصدقاء عند الدخول
-                if (pageId === 'friends-online') {
-                    document.getElementById('friends-online-options').style.display = 'none';
-                    document.getElementById('room-display').style.display = 'none';
-                }
             }
             lucide.createIcons();
             playSound('click');
-        }
-
-        function cleanupOnlineSubscriptions() {
-            if (roomUnsubscribe) {
-                roomUnsubscribe();
-                roomUnsubscribe = null;
-            }
-            if (matchUnsubscribe) {
-                matchUnsubscribe();
-                matchUnsubscribe = null;
-            }
-            if (state.timerInterval) {
-                clearInterval(state.timerInterval);
-                state.timerInterval = null;
-            }
-            if (state.disconnectedTimer) {
-                clearTimeout(state.disconnectedTimer);
-                state.disconnectedTimer = null;
-            }
-            state.currentRoom = null;
-            state.currentMatch = null;
-        }
-
-        // ==================== FRIENDS ONLINE FUNCTIONS ====================
-
-        function showFriendOptions() {
-            // Show options dialog
-            const modal = document.createElement('div');
-            modal.className = 'modal-overlay active';
-            modal.onclick = () => modal.remove();
-            
-            const content = document.createElement('div');
-            content.className = 'modal-content glass-card rounded-2xl p-6 w-full max-w-sm';
-            content.onclick = (e) => e.stopPropagation();
-            
-            content.innerHTML = `
-                <h2 class="text-2xl font-bold text-center mb-6" style="color: var(--accent-color);">العب مع الأصدقاء</h2>
-                <div class="space-y-4">
-                    <button onclick="navigateTo('friends-online'); this.closest('.modal-overlay').remove();" class="neon-btn w-full p-5 rounded-xl flex items-center gap-3 text-lg font-bold">
-                        <i data-lucide="wifi" class="w-6 h-6" style="color: var(--accent-color);"></i>
-                        <span style="color: var(--text-primary);">Friends Online</span>
-                    </button>
-                    <button onclick="navigateTo('friends-offline'); this.closest('.modal-overlay').remove();" class="neon-btn w-full p-5 rounded-xl flex items-center gap-3 text-lg font-bold">
-                        <i data-lucide="wifi-off" class="w-6 h-6" style="color: var(--accent-secondary);"></i>
-                        <span style="color: var(--text-primary);">Friends Offline</span>
-                    </button>
-                </div>
-            `;
-            
-            document.body.appendChild(modal);
-            document.body.appendChild(content);
-            lucide.createIcons();
-        }
-
-        function showFriendsOnlineOptions() {
-            document.getElementById('friends-online-options').style.display = 'block';
-        }
-
-        function generateRoomCode() {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            let code = '';
-            for (let i = 0; i < 6; i++) {
-                code += chars[Math.floor(Math.random() * chars.length)];
-            }
-            return code;
-        }
-
-        async function createRoom() {
-            if (!currentUser) {
-                showNotification('يجب تسجيل الدخول أولاً', 'error');
-                return;
-            }
-
-            const roomCode = generateRoomCode();
-            
-            // Get user profile data
-            const userDoc = await getDoc(doc(db, "users", currentUser.uid));
-            const userData = userDoc.exists() ? userDoc.data() : {};
-            
-            const roomData = {
-                roomCode,
-                mode: "friends",
-                hostUID: currentUser.uid,
-                hostName: state.profileName || currentUser.displayName || 'Host',
-                hostAvatar: state.profileImage || currentUser.photoURL || '',
-                hostLevel: getLevel(state.xp),
-                hostXP: state.xp,
-                guestUID: null,
-                guestName: null,
-                guestAvatar: null,
-                guestLevel: null,
-                guestXP: null,
-                status: "waiting",
-                createdAt: new Date(),
-                settings: {
-                    rounds: 3,
-                    timerSeconds: 5,
-                    allowDraw: true,
-                    soundEnabled: true,
-                    hostSymbol: "X",
-                    guestSymbol: "O"
-                },
-                scoreboard: {
-                    hostWins: 0,
-                    guestWins: 0,
-                    draws: 0,
-                    currentRound: 1
-                },
-                game: {
-                    board: ["","","","","","","","",""],
-                    turn: "X",
-                    winner: null,
-                    roundFinished: false
-                }
-            };
-
-            try {
-                await setDoc(doc(db, "rooms", roomCode), roomData);
-                
-                state.currentRoom = roomData;
-                state.isHost = true;
-                
-                // Show room display
-                document.getElementById('friends-online-options').style.display = 'none';
-                document.getElementById('room-display').style.display = 'block';
-                document.getElementById('room-code-display').textContent = roomCode;
-                
-                // Show host settings
-                document.getElementById('room-settings-host').style.display = 'block';
-                document.getElementById('room-settings-guest').style.display = 'none';
-                
-                // Update host info
-                document.getElementById('host-name').textContent = roomData.hostName;
-                document.getElementById('host-avatar').src = roomData.hostAvatar || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%231e293b\'/%3E%3C/svg%3E';
-                document.getElementById('host-level').textContent = `المستوى ${roomData.hostLevel || 1}`;
-                document.getElementById('host-xp').textContent = `${roomData.hostXP || 0} XP`;
-                
-                // Listen for room changes
-                listenToRoom(roomCode);
-                
-                showNotification('تم إنشاء الغرفة بنجاح!', 'success');
-                
-            } catch (error) {
-                console.error('Error creating room:', error);
-                showNotification('فشل في إنشاء الغرفة', 'error');
-            }
-        }
-
-        async function joinRoom() {
-            if (!currentUser) {
-                showNotification('يجب تسجيل الدخول أولاً', 'error');
-                return;
-            }
-
-            const roomCode = document.getElementById('room-code-input').value.trim().toUpperCase();
-            if (!roomCode || roomCode.length !== 6) {
-                showNotification('الرجاء إدخال كود صحيح من 6 أحرف', 'error');
-                return;
-            }
-
-            try {
-                const roomDoc = await getDoc(doc(db, "rooms", roomCode));
-                
-                if (!roomDoc.exists()) {
-                    showNotification('الغرفة غير موجودة', 'error');
-                    return;
-                }
-
-                const roomData = roomDoc.data();
-                
-                if (roomData.status !== "waiting") {
-                    showNotification('الغرفة ممتلئة أو المباراة بدأت', 'error');
-                    return;
-                }
-
-                if (roomData.guestUID) {
-                    showNotification('الغرفة ممتلئة بالفعل', 'error');
-                    return;
-                }
-
-                // Get user profile data
-                const userDoc = await getDoc(doc(db, "users", currentUser.uid));
-                const userData = userDoc.exists() ? userDoc.data() : {};
-
-                // Join the room
-                await updateDoc(doc(db, "rooms", roomCode), {
-                    guestUID: currentUser.uid,
-                    guestName: state.profileName || currentUser.displayName || 'Guest',
-                    guestAvatar: state.profileImage || currentUser.photoURL || '',
-                    guestLevel: getLevel(state.xp),
-                    guestXP: state.xp,
-                    status: "playing"
-                });
-
-                state.currentRoom = roomData;
-                state.isHost = false;
-                
-                // Show room display
-                document.getElementById('friends-online-options').style.display = 'none';
-                document.getElementById('room-display').style.display = 'block';
-                document.getElementById('room-code-display').textContent = roomCode;
-                
-                // Show guest settings
-                document.getElementById('room-settings-host').style.display = 'none';
-                document.getElementById('room-settings-guest').style.display = 'block';
-                
-                // Update host info
-                document.getElementById('host-name').textContent = roomData.hostName;
-                document.getElementById('host-avatar').src = roomData.hostAvatar || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%231e293b\'/%3E%3C/svg%3E';
-                document.getElementById('host-level').textContent = `المستوى ${roomData.hostLevel || 1}`;
-                document.getElementById('host-xp').textContent = `${roomData.hostXP || 0} XP`;
-                
-                // Update guest info
-                document.getElementById('guest-name').textContent = state.profileName || currentUser.displayName || 'Guest';
-                document.getElementById('guest-avatar').src = state.profileImage || currentUser.photoURL || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%231e293b\'/%3E%3C/svg%3E';
-                document.getElementById('guest-level').textContent = `المستوى ${getLevel(state.xp)}`;
-                document.getElementById('guest-xp').textContent = `${state.xp} XP`;
-                
-                // Listen for room changes
-                listenToRoom(roomCode);
-                
-                showNotification('تم الانضمام إلى الغرفة!', 'success');
-                
-            } catch (error) {
-                console.error('Error joining room:', error);
-                showNotification('فشل في الانضمام إلى الغرفة', 'error');
-            }
-        }
-
-        function listenToRoom(roomCode) {
-            if (roomUnsubscribe) {
-                roomUnsubscribe();
-            }
-
-            roomUnsubscribe = onSnapshot(doc(db, "rooms", roomCode), (doc) => {
-                if (!doc.exists()) {
-                    showNotification('الغرفة غير موجودة', 'error');
-                    leaveRoom();
-                    return;
-                }
-
-                const roomData = doc.data();
-                state.currentRoom = roomData;
-
-                // Update UI based on room data
-                updateRoomUI(roomData);
-
-                // If game started, navigate to game page
-                if (roomData.status === "playing" && roomData.game && document.getElementById('page-game').classList.contains('active')) {
-                    updateOnlineGameBoard(roomData);
-                } else if (roomData.status === "playing" && !document.getElementById('page-game').classList.contains('active')) {
-                    startOnlineGame(roomData);
-                }
-
-                // Check for opponent disconnect
-                if (roomData.status === "disconnected") {
-                    handleOpponentDisconnect();
-                }
-            });
-        }
-
-        function updateRoomUI(roomData) {
-            // Update host info
-            document.getElementById('host-name').textContent = roomData.hostName;
-            document.getElementById('host-avatar').src = roomData.hostAvatar || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%231e293b\'/%3E%3C/svg%3E';
-            document.getElementById('host-level').textContent = `المستوى ${roomData.hostLevel || 1}`;
-            document.getElementById('host-xp').textContent = `${roomData.hostXP || 0} XP`;
-
-            // Update guest info if exists
-            if (roomData.guestUID) {
-                document.getElementById('guest-name').textContent = roomData.guestName || 'ضيف';
-                document.getElementById('guest-avatar').src = roomData.guestAvatar || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%231e293b\'/%3E%3C/svg%3E';
-                document.getElementById('guest-level').textContent = `المستوى ${roomData.guestLevel || 1}`;
-                document.getElementById('guest-xp').textContent = `${roomData.guestXP || 0} XP`;
-            } else {
-                document.getElementById('guest-name').textContent = 'ينتظر...';
-                document.getElementById('guest-level').textContent = '-';
-                document.getElementById('guest-xp').textContent = '-';
-            }
-
-            // Update scoreboard
-            if (roomData.scoreboard) {
-                document.getElementById('host-wins').textContent = roomData.scoreboard.hostWins || 0;
-                document.getElementById('guest-wins').textContent = roomData.scoreboard.guestWins || 0;
-                document.getElementById('draws-count').textContent = roomData.scoreboard.draws || 0;
-                document.getElementById('current-round').textContent = roomData.scoreboard.currentRound || 1;
-                document.getElementById('total-rounds').textContent = roomData.settings?.rounds || 3;
-            }
-
-            // Update settings UI if host
-            if (state.isHost && roomData.settings) {
-                document.getElementById('rounds-value').textContent = roomData.settings.rounds || 3;
-                document.getElementById('timer-seconds').value = roomData.settings.timerSeconds || 5;
-                document.getElementById('allow-draw').checked = roomData.settings.allowDraw !== false;
-                document.getElementById('room-sound').checked = roomData.settings.soundEnabled !== false;
-            }
-        }
-
-        function startOnlineGame(roomData) {
-            state.gameMode = 'online-friends';
-            state.isHost = (roomData.hostUID === currentUser?.uid);
-            state.playerSymbol = state.isHost ? roomData.settings.hostSymbol : roomData.settings.guestSymbol;
-            state.opponentSymbol = state.isHost ? roomData.settings.guestSymbol : roomData.settings.hostSymbol;
-            state.timerSeconds = roomData.settings.timerSeconds || 5;
-            
-            navigateTo('game');
-            
-            // Set player names
-            document.getElementById('player-x-name').textContent = state.playerSymbol === 'X' ? state.profileName : roomData.hostName;
-            document.getElementById('player-o-name').textContent = state.playerSymbol === 'O' ? state.profileName : roomData.guestName;
-            
-            document.getElementById('gameModeIndicator').innerHTML = '<span style="color: var(--accent-color);">غرفة أصدقاء أونلاين</span>';
-            
-            // Show timer
-            document.getElementById('game-timer-container').style.display = 'flex';
-            
-            // Update board
-            updateOnlineGameBoard(roomData);
-        }
-
-        function updateOnlineGameBoard(roomData) {
-            const game = roomData.game;
-            if (!game) return;
-
-            // Update board
-            for (let i = 0; i < 9; i++) {
-                const cell = document.getElementById(`cell-${i}`);
-                if (cell) {
-                    const value = game.board[i];
-                    cell.innerHTML = value ? `<span class="animate-pop-in">${value}</span>` : '';
-                    cell.classList.toggle('disabled', !!value || game.winner || roomData.scoreboard.currentRound > roomData.settings.rounds);
-                }
-            }
-
-            // Update turn
-            state.isXNext = game.turn === 'X';
-            state.myTurn = (state.playerSymbol === game.turn);
-            
-            // Update game status
-            updateOnlineGameStatus(roomData);
-
-            // Start timer if it's my turn
-            if (state.myTurn && !game.winner && !game.roundFinished) {
-                startOnlineTimer();
-            } else {
-                stopOnlineTimer();
-            }
-
-            // Check if round ended
-            if (game.winner || game.roundFinished) {
-                stopOnlineTimer();
-            }
-        }
-
-        function updateOnlineGameStatus(roomData) {
-            const game = roomData.game;
-            const scoreboard = roomData.scoreboard;
-            const statusEl = document.getElementById('game-status');
-
-            if (game.winner) {
-                const winnerName = game.winner === 'X' ? roomData.hostName : roomData.guestName;
-                const color = game.winner === 'X' ? 'var(--accent-color)' : 'var(--accent-secondary)';
-                statusEl.innerHTML = `<span style="color: ${color};">فاز ${winnerName} في هذه الجولة!</span>`;
-            } else if (game.roundFinished && game.winner === 'draw' && roomData.settings.allowDraw) {
-                statusEl.innerHTML = '<span style="color: var(--text-secondary);">تعادل في هذه الجولة</span>';
-            } else if (scoreboard.currentRound > roomData.settings.rounds) {
-                // Match ended
-                const hostWins = scoreboard.hostWins;
-                const guestWins = scoreboard.guestWins;
-                if (hostWins > guestWins) {
-                    statusEl.innerHTML = `<span style="color: var(--accent-color);">فاز ${roomData.hostName} بالمباراة!</span>`;
-                } else if (guestWins > hostWins) {
-                    statusEl.innerHTML = `<span style="color: var(--accent-secondary);">فاز ${roomData.guestName} بالمباراة!</span>`;
-                } else {
-                    statusEl.innerHTML = '<span style="color: var(--text-secondary);">المباراة انتهت بتعادل</span>';
-                }
-            } else {
-                const current = game.turn;
-                const currentPlayer = current === 'X' ? roomData.hostName : roomData.guestName;
-                const color = current === 'X' ? 'var(--accent-color)' : 'var(--accent-secondary)';
-                statusEl.innerHTML = `دور: <span style="color: ${color};">${currentPlayer}</span>`;
-            }
-        }
-
-        function startOnlineTimer() {
-            stopOnlineTimer();
-
-            state.timerValue = state.timerSeconds;
-            updateTimerDisplay();
-
-            state.timerInterval = setInterval(() => {
-                state.timerValue--;
-                updateTimerDisplay();
-
-                if (state.timerValue <= 0) {
-                    playSound('timer-end');
-                    stopOnlineTimer();
-                    
-                    // Time's up - lose the round
-                    if (state.myTurn && state.currentRoom) {
-                        handleTimerTimeout();
-                    }
-                } else if (state.timerValue <= 3) {
-                    playSound('timer-tick');
-                }
-            }, 1000);
-        }
-
-        function stopOnlineTimer() {
-            if (state.timerInterval) {
-                clearInterval(state.timerInterval);
-                state.timerInterval = null;
-            }
-        }
-
-        function updateTimerDisplay() {
-            const timerEl = document.getElementById('game-timer-display');
-            if (timerEl) {
-                timerEl.textContent = state.timerValue;
-                
-                // Change color based on remaining time
-                timerEl.classList.remove('warning', 'danger');
-                if (state.timerValue <= 2) {
-                    timerEl.classList.add('danger');
-                } else if (state.timerValue <= 3) {
-                    timerEl.classList.add('warning');
-                }
-            }
-        }
-
-        async function handleTimerTimeout() {
-            if (!state.currentRoom || !currentUser) return;
-
-            const roomRef = doc(db, "rooms", state.currentRoom.roomCode);
-            const roomData = state.currentRoom;
-
-            // Determine loser (current player)
-            const loserUID = currentUser.uid;
-            const isHost = (roomData.hostUID === loserUID);
-
-            // Update scoreboard
-            const newScoreboard = { ...roomData.scoreboard };
-            if (isHost) {
-                newScoreboard.guestWins++; // Guest wins by timeout
-            } else {
-                newScoreboard.hostWins++; // Host wins by timeout
-            }
-
-            // Move to next round or end match
-            const totalRounds = roomData.settings.rounds;
-            const currentRound = newScoreboard.currentRound;
-
-            if (currentRound >= totalRounds) {
-                // Match ended
-                await updateDoc(roomRef, {
-                    'scoreboard': newScoreboard,
-                    'status': 'finished'
-                });
-                
-                // Calculate XP rewards
-                await handleOnlineMatchEnd(roomData, newScoreboard);
-                
-            } else {
-                // Start next round
-                const newGame = {
-                    board: ["","","","","","","","",""],
-                    turn: currentRound % 2 === 0 ? "X" : "O", // Alternate starting player
-                    winner: null,
-                    roundFinished: false
-                };
-
-                await updateDoc(roomRef, {
-                    'scoreboard': newScoreboard,
-                    'scoreboard.currentRound': currentRound + 1,
-                    'game': newGame
-                });
-            }
-        }
-
-        async function handleOnlineMatchEnd(roomData, scoreboard) {
-            if (!currentUser) return;
-
-            const isHost = (roomData.hostUID === currentUser.uid);
-            const opponentUID = isHost ? roomData.guestUID : roomData.hostUID;
-            
-            // Determine winner
-            const hostWins = scoreboard.hostWins;
-            const guestWins = scoreboard.guestWins;
-            
-            let xpChange = 0;
-            let opponentXpChange = 0;
-            
-            if (hostWins > guestWins) {
-                // Host wins
-                if (isHost) {
-                    xpChange = 100;
-                    opponentXpChange = 0;
-                    state.onlineStats.wins++;
-                    state.currentWinStreak++;
-                    if (state.currentWinStreak > state.stats.bestStreak) {
-                        state.stats.bestStreak = state.currentWinStreak;
-                    }
-                } else {
-                    xpChange = 0;
-                    opponentXpChange = 100;
-                    state.onlineStats.losses++;
-                    state.currentWinStreak = 0;
-                }
-            } else if (guestWins > hostWins) {
-                // Guest wins
-                if (!isHost) {
-                    xpChange = 100;
-                    opponentXpChange = 0;
-                    state.onlineStats.wins++;
-                    state.currentWinStreak++;
-                    if (state.currentWinStreak > state.stats.bestStreak) {
-                        state.stats.bestStreak = state.currentWinStreak;
-                    }
-                } else {
-                    xpChange = 0;
-                    opponentXpChange = 100;
-                    state.onlineStats.losses++;
-                    state.currentWinStreak = 0;
-                }
-            } else {
-                // Draw
-                xpChange = 50;
-                opponentXpChange = 50;
-                state.stats.draws++;
-                state.currentWinStreak = 0;
-            }
-
-            // Update local stats
-            state.stats.wins += (xpChange > 0 && xpChange < 100) ? 0 : (xpChange === 100 ? 1 : 0);
-            state.stats.losses += (xpChange === 0 && opponentXpChange > 0) ? 1 : 0;
-            state.stats.totalMatches++;
-            state.onlineStats.matches++;
-            state.xp += xpChange;
-
-            // Update opponent's XP in Firestore (if we could)
-            if (opponentUID) {
-                try {
-                    const opponentRef = doc(db, "users", opponentUID);
-                    await updateDoc(opponentRef, {
-                        xp: increment(opponentXpChange),
-                        wins: increment(guestWins > hostWins ? 1 : 0),
-                        losses: increment(hostWins > guestWins ? 1 : 0)
-                    });
-                } catch (e) {
-                    console.error('Error updating opponent XP:', e);
-                }
-            }
-
-            saveState();
-            
-            // Update win streak display
-            updateWinStreak();
-
-            // Show end game screen
-            const result = {
-                winner: hostWins > guestWins ? 'X' : (guestWins > hostWins ? 'O' : 'draw')
-            };
-            showEndGameScreen(result, xpChange);
-
-            // Check achievements
-            checkAchievements();
-        }
-
-        async function makeOnlineMove(index) {
-            if (!state.currentRoom || !currentUser || !state.myTurn) return;
-
-            const roomRef = doc(db, "rooms", state.currentRoom.roomCode);
-            const roomData = state.currentRoom;
-            const game = roomData.game;
-
-            // Check if move is valid
-            if (game.board[index] || game.winner || game.roundFinished) return;
-
-            // Get current player symbol
-            const isHost = (roomData.hostUID === currentUser.uid);
-            const playerSymbol = isHost ? roomData.settings.hostSymbol : roomData.settings.guestSymbol;
-            const currentTurn = game.turn;
-
-            if (playerSymbol !== currentTurn) return;
-
-            // Make the move
-            const newBoard = [...game.board];
-            newBoard[index] = playerSymbol;
-
-            // Check for winner
-            const result = checkWinner(newBoard);
-            let newGame = { ...game, board: newBoard };
-
-            if (result) {
-                // Round ended
-                newGame.winner = result.winner;
-                newGame.roundFinished = true;
-
-                // Update scoreboard
-                const newScoreboard = { ...roomData.scoreboard };
-                if (result.winner === 'X') {
-                    newScoreboard.hostWins++;
-                } else if (result.winner === 'O') {
-                    newScoreboard.guestWins++;
-                } else if (result.winner === 'draw' && roomData.settings.allowDraw) {
-                    newScoreboard.draws++;
-                }
-
-                // Check if match ended or need next round
-                const totalRounds = roomData.settings.rounds;
-                const currentRound = newScoreboard.currentRound;
-
-                if (currentRound >= totalRounds) {
-                    // Match ended
-                    await updateDoc(roomRef, {
-                        'game': newGame,
-                        'scoreboard': newScoreboard,
-                        'status': 'finished'
-                    });
-                    
-                    await handleOnlineMatchEnd(roomData, newScoreboard);
-                    
-                } else {
-                    // Start next round
-                    const nextGame = {
-                        board: ["","","","","","","","",""],
-                        turn: currentRound % 2 === 0 ? "X" : "O", // Alternate starting player
-                        winner: null,
-                        roundFinished: false
-                    };
-
-                    await updateDoc(roomRef, {
-                        'game': newGame,
-                        'scoreboard': newScoreboard,
-                        'scoreboard.currentRound': currentRound + 1,
-                        'nextRound': nextGame // We'll handle this in onSnapshot
-                    });
-                }
-            } else {
-                // No winner, just update turn
-                newGame.turn = playerSymbol === 'X' ? 'O' : 'X';
-                await updateDoc(roomRef, { 'game': newGame });
-            }
-
-            // Stop timer
-            stopOnlineTimer();
-        }
-
-        function copyRoomCode() {
-            const code = document.getElementById('room-code-display').textContent;
-            navigator.clipboard.writeText(code);
-            showNotification('تم نسخ الكود!', 'success');
-        }
-
-        function adjustRounds(delta) {
-            const roundsEl = document.getElementById('rounds-value');
-            let rounds = parseInt(roundsEl.textContent) + delta;
-            rounds = Math.max(1, Math.min(10, rounds));
-            roundsEl.textContent = rounds;
-            
-            updateRoomSettings({ rounds });
-        }
-
-        function updateTimerSetting(value) {
-            updateRoomSettings({ timerSeconds: parseInt(value) });
-        }
-
-        function updateDrawSetting(checked) {
-            updateRoomSettings({ allowDraw: checked });
-        }
-
-        function updateSoundSetting(checked) {
-            updateRoomSettings({ soundEnabled: checked });
-        }
-
-        async function updateRoomSettings(settings) {
-            if (!state.currentRoom || !state.isHost || !currentUser) return;
-
-            const roomRef = doc(db, "rooms", state.currentRoom.roomCode);
-            await updateDoc(roomRef, { settings: { ...state.currentRoom.settings, ...settings } });
-        }
-
-        async function restartMatch() {
-            if (!state.currentRoom || !state.isHost || !currentUser) return;
-
-            const roomRef = doc(db, "rooms", state.currentRoom.roomCode);
-            const newGame = {
-                board: ["","","","","","","","",""],
-                turn: "X",
-                winner: null,
-                roundFinished: false
-            };
-            const newScoreboard = {
-                hostWins: 0,
-                guestWins: 0,
-                draws: 0,
-                currentRound: 1
-            };
-
-            await updateDoc(roomRef, {
-                game: newGame,
-                scoreboard: newScoreboard,
-                status: "playing"
-            });
-        }
-
-        async function kickPlayer() {
-            if (!state.currentRoom || !state.isHost || !currentUser) return;
-
-            const roomRef = doc(db, "rooms", state.currentRoom.roomCode);
-            await updateDoc(roomRef, {
-                guestUID: null,
-                guestName: null,
-                guestAvatar: null,
-                guestLevel: null,
-                guestXP: null,
-                status: "waiting"
-            });
-        }
-
-        async function closeRoom() {
-            if (!state.currentRoom || !currentUser) return;
-
-            const roomRef = doc(db, "rooms", state.currentRoom.roomCode);
-            await deleteDoc(roomRef);
-            
-            leaveRoom();
-        }
-
-        async function leaveRoom() {
-            if (state.currentRoom && currentUser) {
-                // If I'm the host and there's a guest, close the room
-                if (state.isHost && state.currentRoom.guestUID) {
-                    await closeRoom();
-                } else if (!state.isHost) {
-                    // Just remove myself as guest
-                    const roomRef = doc(db, "rooms", state.currentRoom.roomCode);
-                    await updateDoc(roomRef, {
-                        guestUID: null,
-                        guestName: null,
-                        guestAvatar: null,
-                        guestLevel: null,
-                        guestXP: null,
-                        status: "waiting"
-                    });
-                }
-            }
-
-            cleanupOnlineSubscriptions();
-            navigateTo('home');
-        }
-
-        function handleOpponentDisconnect() {
-            const overlay = document.getElementById('disconnected-overlay');
-            const timerEl = document.getElementById('disconnected-timer');
-            
-            overlay.classList.add('show');
-            
-            let countdown = 5;
-            timerEl.textContent = countdown;
-            
-            state.disconnectedTimer = setInterval(() => {
-                countdown--;
-                timerEl.textContent = countdown;
-                
-                if (countdown <= 0) {
-                    clearInterval(state.disconnectedTimer);
-                    overlay.classList.remove('show');
-                    
-                    // Award win to current player
-                    if (state.currentRoom && currentUser) {
-                        awardWinByDisconnect();
-                    }
-                }
-            }, 1000);
-        }
-
-        async function awardWinByDisconnect() {
-            if (!state.currentRoom || !currentUser) return;
-
-            const roomRef = doc(db, "rooms", state.currentRoom.roomCode);
-            const roomData = state.currentRoom;
-            
-            const isHost = (roomData.hostUID === currentUser.uid);
-            
-            // Update scoreboard to give win
-            const newScoreboard = { ...roomData.scoreboard };
-            if (isHost) {
-                newScoreboard.hostWins = roomData.settings.rounds; // Host wins all rounds
-            } else {
-                newScoreboard.guestWins = roomData.settings.rounds; // Guest wins all rounds
-            }
-
-            await updateDoc(roomRef, {
-                scoreboard: newScoreboard,
-                status: 'finished'
-            });
-
-            await handleOnlineMatchEnd(roomData, newScoreboard);
-        }
-
-        // ==================== ONLINE MATCHES FUNCTIONS ====================
-
-        function showOnlineMatches() {
-            navigateTo('online-matches');
-        }
-
-        function updateXpBetValue(value) {
-            document.getElementById('xp-bet-value').textContent = value;
-        }
-
-        async function joinOnlineMatchmaking() {
-            if (!currentUser) {
-                showNotification('يجب تسجيل الدخول أولاً', 'error');
-                return;
-            }
-
-            const xpBet = parseInt(document.getElementById('xp-bet-range').value);
-            
-            if (state.xp < xpBet) {
-                showNotification('نقاط XP غير كافية للمراهنة', 'error');
-                return;
-            }
-
-            // Show queue
-            document.querySelector('.glass-card.rounded-xl.p-6').style.display = 'none';
-            document.getElementById('queue-container').style.display = 'block';
-
-            // Add to queue
-            const queueRef = doc(db, "matchmakingQueue", currentUser.uid);
-            
-            try {
-                await setDoc(queueRef, {
-                    uid: currentUser.uid,
-                    username: state.profileName || currentUser.displayName || 'Player',
-                    avatar: state.profileImage || currentUser.photoURL || '',
-                    level: getLevel(state.xp),
-                    xpBet: xpBet,
-                    mode: "onlineMatches",
-                    createdAt: new Date()
-                });
-
-                // Listen for match found
-                listenForMatch(currentUser.uid, xpBet);
-
-            } catch (error) {
-                console.error('Error joining queue:', error);
-                showNotification('فشل في الانضمام إلى قائمة الانتظار', 'error');
-                cancelMatchmaking();
-            }
-        }
-
-        function listenForMatch(uid, xpBet) {
-            // This will be handled by Firebase Functions or client-side polling
-            // For simplicity, we'll poll every 3 seconds
-            const checkInterval = setInterval(async () => {
-                try {
-                    // Check if there's another player in queue with similar XP
-                    const queueSnapshot = await getDocs(collection(db, "matchmakingQueue"));
-                    const players = [];
-                    queueSnapshot.forEach(doc => {
-                        if (doc.id !== uid) {
-                            players.push({ id: doc.id, ...doc.data() });
-                        }
-                    });
-
-                    if (players.length > 0) {
-                        // Find player with closest XP bet
-                        const opponent = players.reduce((prev, curr) => {
-                            return (Math.abs(curr.xpBet - xpBet) < Math.abs(prev.xpBet - xpBet) ? curr : prev);
-                        });
-
-                        // Create match
-                        const matchId = `${uid}_${opponent.uid}_${Date.now()}`;
-                        const matchData = {
-                            mode: "onlineMatches",
-                            player1UID: uid,
-                            player2UID: opponent.uid,
-                            player1Name: state.profileName || currentUser.displayName,
-                            player2Name: opponent.username,
-                            player1Avatar: state.profileImage || currentUser.photoURL,
-                            player2Avatar: opponent.avatar,
-                            player1Level: getLevel(state.xp),
-                            player2Level: opponent.level,
-                            player1Bet: xpBet,
-                            player2Bet: opponent.xpBet,
-                            player1Symbol: "X", // Randomly assign
-                            player2Symbol: "O",
-                            status: "inGame",
-                            createdAt: new Date(),
-                            game: {
-                                board: ["","","","","","","","",""],
-                                turn: "X",
-                                winner: null
-                            },
-                            timerSeconds: 5
-                        };
-
-                        await setDoc(doc(db, "matches", matchId), matchData);
-
-                        // Remove both from queue
-                        await deleteDoc(doc(db, "matchmakingQueue", uid));
-                        await deleteDoc(doc(db, "matchmakingQueue", opponent.uid));
-
-                        clearInterval(checkInterval);
-                        
-                        // Start match
-                        state.currentMatch = matchData;
-                        state.isHost = true; // First player
-                        state.playerSymbol = matchData.player1Symbol;
-                        state.opponentSymbol = matchData.player2Symbol;
-                        state.timerSeconds = matchData.timerSeconds;
-                        
-                        navigateTo('game');
-                        
-                        // Set player names
-                        document.getElementById('player-x-name').textContent = matchData.player1Name;
-                        document.getElementById('player-o-name').textContent = matchData.player2Name;
-                        
-                        document.getElementById('gameModeIndicator').innerHTML = '<span style="color: #ffd700;">مباراة أونلاين (XP)</span>';
-                        
-                        // Show timer
-                        document.getElementById('game-timer-container').style.display = 'flex';
-                        
-                        // Listen for match updates
-                        listenToMatch(matchId);
-                        
-                        // Hide queue
-                        document.getElementById('queue-container').style.display = 'none';
-                        document.querySelector('.glass-card.rounded-xl.p-6').style.display = 'block';
-                    }
-                } catch (error) {
-                    console.error('Error checking queue:', error);
-                }
-            }, 3000);
-
-            // Store interval to clear on cancel
-            state.matchmakingInterval = checkInterval;
-        }
-
-        function listenToMatch(matchId) {
-            if (matchUnsubscribe) {
-                matchUnsubscribe();
-            }
-
-            matchUnsubscribe = onSnapshot(doc(db, "matches", matchId), (doc) => {
-                if (!doc.exists()) {
-                    showNotification('انتهت المباراة', 'info');
-                    navigateTo('home');
-                    return;
-                }
-
-                const matchData = doc.data();
-                state.currentMatch = matchData;
-
-                // Update game board
-                updateOnlineMatchBoard(matchData);
-            });
-        }
-
-        function updateOnlineMatchBoard(matchData) {
-            const game = matchData.game;
-            if (!game) return;
-
-            const isPlayer1 = (matchData.player1UID === currentUser?.uid);
-            const playerSymbol = isPlayer1 ? matchData.player1Symbol : matchData.player2Symbol;
-            const opponentSymbol = isPlayer1 ? matchData.player2Symbol : matchData.player1Symbol;
-            const playerName = isPlayer1 ? matchData.player1Name : matchData.player2Name;
-            const opponentName = isPlayer1 ? matchData.player2Name : matchData.player1Name;
-
-            // Update player names if needed
-            document.getElementById('player-x-name').textContent = matchData.player1Name;
-            document.getElementById('player-o-name').textContent = matchData.player2Name;
-
-            // Update board
-            for (let i = 0; i < 9; i++) {
-                const cell = document.getElementById(`cell-${i}`);
-                if (cell) {
-                    const value = game.board[i];
-                    cell.innerHTML = value ? `<span class="animate-pop-in">${value}</span>` : '';
-                    cell.classList.toggle('disabled', !!value || game.winner || matchData.status !== 'inGame');
-                }
-            }
-
-            // Update turn
-            state.myTurn = (playerSymbol === game.turn);
-            state.isXNext = game.turn === 'X';
-
-            // Update game status
-            updateOnlineMatchStatus(matchData, playerName, opponentName);
-
-            // Start timer if it's my turn
-            if (state.myTurn && !game.winner && matchData.status === 'inGame') {
-                startOnlineTimer();
-            } else {
-                stopOnlineTimer();
-            }
-        }
-
-        function updateOnlineMatchStatus(matchData, playerName, opponentName) {
-            const game = matchData.game;
-            const statusEl = document.getElementById('game-status');
-
-            if (game.winner) {
-                if (game.winner === 'draw') {
-                    statusEl.innerHTML = '<span style="color: var(--text-secondary);">تعادل!</span>';
-                } else {
-                    const winnerName = game.winner === 'X' ? matchData.player1Name : matchData.player2Name;
-                    const color = game.winner === 'X' ? 'var(--accent-color)' : 'var(--accent-secondary)';
-                    statusEl.innerHTML = `<span style="color: ${color};">فاز ${winnerName}!</span>`;
-                }
-            } else if (matchData.status === 'finished') {
-                // Match ended, calculate XP
-                const isPlayer1 = (matchData.player1UID === currentUser?.uid);
-                const playerBet = isPlayer1 ? matchData.player1Bet : matchData.player2Bet;
-                const opponentBet = isPlayer1 ? matchData.player2Bet : matchData.player1Bet;
-                
-                // Determine winner
-                let xpChange = 0;
-                if (game.winner === 'X' && matchData.player1UID === currentUser?.uid) {
-                    xpChange = opponentBet;
-                    state.onlineStats.wins++;
-                    state.currentWinStreak++;
-                } else if (game.winner === 'O' && matchData.player2UID === currentUser?.uid) {
-                    xpChange = opponentBet;
-                    state.onlineStats.wins++;
-                    state.currentWinStreak++;
-                } else if (game.winner && game.winner !== 'draw') {
-                    xpChange = -playerBet;
-                    state.onlineStats.losses++;
-                    state.currentWinStreak = 0;
-                } else if (game.winner === 'draw') {
-                    xpChange = 0; // No XP change for draw in matchmaking
-                    state.currentWinStreak = 0;
-                }
-
-                if (xpChange !== 0) {
-                    state.xp += xpChange;
-                    state.onlineStats.xpEarned += Math.max(0, xpChange);
-                    state.onlineStats.xpLost += Math.max(0, -xpChange);
-                    
-                    showEndGameScreen(game, xpChange);
-                }
-
-                state.stats.totalMatches++;
-                saveState();
-                updateWinStreak();
-                checkAchievements();
-            } else {
-                const current = game.turn;
-                const currentPlayer = current === 'X' ? matchData.player1Name : matchData.player2Name;
-                const color = current === 'X' ? 'var(--accent-color)' : 'var(--accent-secondary)';
-                statusEl.innerHTML = `دور: <span style="color: ${color};">${currentPlayer}</span>`;
-            }
-        }
-
-        async function makeOnlineMatchMove(index) {
-            if (!state.currentMatch || !currentUser || !state.myTurn) return;
-
-            const matchRef = doc(db, "matches", state.currentMatch.id);
-            const matchData = state.currentMatch;
-            const game = matchData.game;
-
-            // Check if move is valid
-            if (game.board[index] || game.winner || matchData.status !== 'inGame') return;
-
-            // Get current player symbol
-            const isPlayer1 = (matchData.player1UID === currentUser.uid);
-            const playerSymbol = isPlayer1 ? matchData.player1Symbol : matchData.player2Symbol;
-            const currentTurn = game.turn;
-
-            if (playerSymbol !== currentTurn) return;
-
-            // Make the move
-            const newBoard = [...game.board];
-            newBoard[index] = playerSymbol;
-
-            // Check for winner
-            const result = checkWinner(newBoard);
-            const newGame = { ...game, board: newBoard };
-
-            if (result) {
-                newGame.winner = result.winner;
-                
-                // Update match status
-                await updateDoc(matchRef, {
-                    game: newGame,
-                    status: 'finished'
-                });
-            } else {
-                newGame.turn = playerSymbol === 'X' ? 'O' : 'X';
-                await updateDoc(matchRef, { game: newGame });
-            }
-
-            // Stop timer
-            stopOnlineTimer();
-        }
-
-        function cancelMatchmaking() {
-            if (state.matchmakingInterval) {
-                clearInterval(state.matchmakingInterval);
-                state.matchmakingInterval = null;
-            }
-
-            // Remove from queue
-            if (currentUser) {
-                deleteDoc(doc(db, "matchmakingQueue", currentUser.uid)).catch(console.error);
-            }
-
-            // Hide queue
-            document.getElementById('queue-container').style.display = 'none';
-            document.querySelector('.glass-card.rounded-xl.p-6').style.display = 'block';
-        }
-
-        // ==================== DIVISION ONLINE FUNCTIONS ====================
-
-        function startDivisionOffline() {
-            startGame('division', DIVISIONS.find(d => d.level === state.currentDivision)?.difficulty || 'beginner');
-        }
-
-        function startDivisionOnline() {
-            if (!currentUser) {
-                showNotification('يجب تسجيل الدخول أولاً', 'error');
-                return;
-            }
-
-            navigateTo('online-matches');
-            showDivisionMatchmaking();
-        }
-
-        function showDivisionMatchmaking() {
-            // Modify the online matches page for division mode
-            document.querySelector('.glass-card.rounded-xl.p-6 h3 span').textContent = 'البحث عن مباراة في الديفيجن';
-            document.querySelector('.glass-card.rounded-xl.p-6').innerHTML = `
-                <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                    <i data-lucide="git-branch" class="w-5 h-5" style="color: #ffd700;"></i>
-                    <span>البحث عن مباراة في الديفيجن</span>
-                </h3>
-                <div class="text-center mb-4">
-                    <p style="color: var(--text-secondary);">الديفيجن الحالي: <span style="color: var(--accent-color); font-weight: bold;">${state.currentDivision}</span></p>
-                    <p style="color: var(--text-secondary);">نقاطك: <span style="color: #ffd700; font-weight: bold;">${state.divisionPoints}</span></p>
-                </div>
-                <button onclick="joinDivisionQueue()" class="neon-btn w-full py-4 rounded-xl font-bold text-lg">
-                    <i data-lucide="search" class="inline w-5 h-5 ml-2"></i>
-                    بدء البحث
-                </button>
-            `;
-            
-            // Hide the queue container initially
-            document.getElementById('queue-container').style.display = 'none';
-            
-            lucide.createIcons();
-        }
-
-        async function joinDivisionQueue() {
-            if (!currentUser) return;
-
-            const currentDivisionData = DIVISIONS.find(d => d.level === state.currentDivision);
-            if (!currentDivisionData) {
-                showNotification('لقد أنهيت جميع الديفيجنز!', 'info');
-                return;
-            }
-
-            // Show queue
-            document.querySelector('.glass-card.rounded-xl.p-6').style.display = 'none';
-            document.getElementById('queue-container').style.display = 'block';
-
-            // Add to division queue
-            const queueRef = doc(db, "divisionQueue", currentUser.uid);
-            
-            try {
-                await setDoc(queueRef, {
-                    uid: currentUser.uid,
-                    division: state.currentDivision,
-                    divisionPoints: state.divisionPoints,
-                    username: state.profileName || currentUser.displayName || 'Player',
-                    avatar: state.profileImage || currentUser.photoURL || '',
-                    level: getLevel(state.xp),
-                    createdAt: new Date()
-                });
-
-                // Listen for match found
-                listenForDivisionMatch(currentUser.uid);
-
-            } catch (error) {
-                console.error('Error joining division queue:', error);
-                showNotification('فشل في الانضمام إلى قائمة الانتظار', 'error');
-                cancelDivisionMatchmaking();
-            }
-        }
-
-        function listenForDivisionMatch(uid) {
-            const checkInterval = setInterval(async () => {
-                try {
-                    const queueSnapshot = await getDocs(collection(db, "divisionQueue"));
-                    const players = [];
-                    queueSnapshot.forEach(doc => {
-                        if (doc.id !== uid) {
-                            players.push({ id: doc.id, ...doc.data() });
-                        }
-                    });
-
-                    if (players.length > 0) {
-                        // Find player in same division
-                        const sameDivision = players.filter(p => p.division === state.currentDivision);
-                        
-                        let opponent;
-                        if (sameDivision.length > 0) {
-                            // Pick random player from same division
-                            opponent = sameDivision[Math.floor(Math.random() * sameDivision.length)];
-                        } else {
-                            // Pick player with closest division
-                            opponent = players.reduce((prev, curr) => {
-                                return (Math.abs(curr.division - state.currentDivision) < Math.abs(prev.division - state.currentDivision) ? curr : prev);
-                            });
-                        }
-
-                        // Get best of value based on division
-                        const bestOf = DIVISION_BEST_OF[state.currentDivision] || 3;
-
-                        // Create division match
-                        const matchId = `div_${uid}_${opponent.uid}_${Date.now()}`;
-                        const matchData = {
-                            mode: "division",
-                            division: state.currentDivision,
-                            player1UID: uid,
-                            player2UID: opponent.uid,
-                            player1Name: state.profileName || currentUser.displayName,
-                            player2Name: opponent.username,
-                            player1Avatar: state.profileImage || currentUser.photoURL,
-                            player2Avatar: opponent.avatar,
-                            player1Level: getLevel(state.xp),
-                            player2Level: opponent.level,
-                            player1Division: state.currentDivision,
-                            player2Division: opponent.division,
-                            player1Points: state.divisionPoints,
-                            player2Points: opponent.divisionPoints,
-                            player1Symbol: "X", // Randomly assign
-                            player2Symbol: "O",
-                            status: "inGame",
-                            bestOfWinsRequired: bestOf,
-                            player1Wins: 0,
-                            player2Wins: 0,
-                            currentRound: 1,
-                            createdAt: new Date(),
-                            game: {
-                                board: ["","","","","","","","",""],
-                                turn: "X",
-                                winner: null
-                            },
-                            timerSeconds: 5
-                        };
-
-                        await setDoc(doc(db, "divisionMatches", matchId), matchData);
-
-                        // Remove both from queue
-                        await deleteDoc(doc(db, "divisionQueue", uid));
-                        await deleteDoc(doc(db, "divisionQueue", opponent.uid));
-
-                        clearInterval(checkInterval);
-                        
-                        // Start match
-                        state.currentMatch = matchData;
-                        state.isHost = true;
-                        state.playerSymbol = matchData.player1Symbol;
-                        state.opponentSymbol = matchData.player2Symbol;
-                        state.timerSeconds = matchData.timerSeconds;
-                        
-                        navigateTo('game');
-                        
-                        // Set player names
-                        document.getElementById('player-x-name').textContent = matchData.player1Name;
-                        document.getElementById('player-o-name').textContent = matchData.player2Name;
-                        
-                        document.getElementById('gameModeIndicator').innerHTML = '<span style="color: #ff3366;">ديفيجن أونلاين</span>';
-                        
-                        // Show timer
-                        document.getElementById('game-timer-container').style.display = 'flex';
-                        
-                        // Listen for match updates
-                        listenToDivisionMatch(matchId);
-                        
-                        // Hide queue
-                        document.getElementById('queue-container').style.display = 'none';
-                        document.querySelector('.glass-card.rounded-xl.p-6').style.display = 'block';
-                    }
-                } catch (error) {
-                    console.error('Error checking division queue:', error);
-                }
-            }, 3000);
-
-            state.divisionMatchmakingInterval = checkInterval;
-        }
-
-        function listenToDivisionMatch(matchId) {
-            if (matchUnsubscribe) {
-                matchUnsubscribe();
-            }
-
-            matchUnsubscribe = onSnapshot(doc(db, "divisionMatches", matchId), (doc) => {
-                if (!doc.exists()) {
-                    showNotification('انتهت المباراة', 'info');
-                    navigateTo('home');
-                    return;
-                }
-
-                const matchData = doc.data();
-                state.currentMatch = matchData;
-
-                // Update game board
-                updateDivisionMatchBoard(matchData);
-            });
-        }
-
-        function updateDivisionMatchBoard(matchData) {
-            const game = matchData.game;
-            if (!game) return;
-
-            const isPlayer1 = (matchData.player1UID === currentUser?.uid);
-            const playerSymbol = isPlayer1 ? matchData.player1Symbol : matchData.player2Symbol;
-            const opponentSymbol = isPlayer1 ? matchData.player2Symbol : matchData.player1Symbol;
-
-            // Update board
-            for (let i = 0; i < 9; i++) {
-                const cell = document.getElementById(`cell-${i}`);
-                if (cell) {
-                    const value = game.board[i];
-                    cell.innerHTML = value ? `<span class="animate-pop-in">${value}</span>` : '';
-                    cell.classList.toggle('disabled', !!value || game.winner || matchData.status !== 'inGame');
-                }
-            }
-
-            // Update turn
-            state.myTurn = (playerSymbol === game.turn);
-            state.isXNext = game.turn === 'X';
-
-            // Update game status
-            updateDivisionMatchStatus(matchData, isPlayer1);
-
-            // Start timer if it's my turn
-            if (state.myTurn && !game.winner && matchData.status === 'inGame') {
-                startOnlineTimer();
-            } else {
-                stopOnlineTimer();
-            }
-        }
-
-        function updateDivisionMatchStatus(matchData, isPlayer1) {
-            const game = matchData.game;
-            const statusEl = document.getElementById('game-status');
-
-            if (game.winner) {
-                if (game.winner === 'draw') {
-                    // No draws in division - restart round
-                    statusEl.innerHTML = '<span style="color: var(--text-secondary);">تعادل - إعادة الجولة</span>';
-                } else {
-                    statusEl.innerHTML = `<span style="color: ${game.winner === 'X' ? 'var(--accent-color)' : 'var(--accent-secondary)'};">فاز في هذه الجولة</span>`;
-                }
-            } else if (matchData.status === 'finished') {
-                // Match ended
-                const playerWins = isPlayer1 ? matchData.player1Wins : matchData.player2Wins;
-                const opponentWins = isPlayer1 ? matchData.player2Wins : matchData.player1Wins;
-                
-                if (playerWins >= matchData.bestOfWinsRequired) {
-                    statusEl.innerHTML = '<span style="color: #00ff88;">فزت بالمباراة!</span>';
-                    
-                    // Award division points
-                    handleDivisionWin();
-                } else if (opponentWins >= matchData.bestOfWinsRequired) {
-                    statusEl.innerHTML = '<span style="color: #ff3366;">خسرت المباراة</span>';
-                    
-                    // Subtract division points
-                    handleDivisionLoss();
-                }
-            } else {
-                const current = game.turn;
-                const currentPlayer = current === 'X' ? matchData.player1Name : matchData.player2Name;
-                const color = current === 'X' ? 'var(--accent-color)' : 'var(--accent-secondary)';
-                statusEl.innerHTML = `دور: <span style="color: ${color};">${currentPlayer}</span>`;
-            }
-        }
-
-        function handleDivisionWin() {
-            // Add 3 division points
-            state.divisionPoints += 3;
-            
-            // Check if division completed
-            const currentDivisionData = DIVISIONS.find(d => d.level === state.currentDivision);
-            if (currentDivisionData && state.divisionPoints >= currentDivisionData.required) {
-                completeDivision();
-            }
-            
-            saveState();
-        }
-
-        function handleDivisionLoss() {
-            // Subtract 3 division points (minimum 0)
-            state.divisionPoints = Math.max(0, state.divisionPoints - 3);
-            
-            // Check if demotion needed (if points = 0 and not division 10)
-            if (state.divisionPoints === 0 && state.currentDivision < 10) {
-                state.currentDivision++;
-                showNotification(`تم هبوطك إلى Division ${state.currentDivision}`, 'info');
-            }
-            
-            saveState();
-        }
-
-        async function makeDivisionMove(index) {
-            if (!state.currentMatch || !currentUser || !state.myTurn) return;
-
-            const matchRef = doc(db, "divisionMatches", state.currentMatch.id);
-            const matchData = state.currentMatch;
-            const game = matchData.game;
-
-            // Check if move is valid
-            if (game.board[index] || game.winner || matchData.status !== 'inGame') return;
-
-            // Get current player symbol
-            const isPlayer1 = (matchData.player1UID === currentUser.uid);
-            const playerSymbol = isPlayer1 ? matchData.player1Symbol : matchData.player2Symbol;
-            const currentTurn = game.turn;
-
-            if (playerSymbol !== currentTurn) return;
-
-            // Make the move
-            const newBoard = [...game.board];
-            newBoard[index] = playerSymbol;
-
-            // Check for winner
-            const result = checkWinner(newBoard);
-            const newGame = { ...game, board: newBoard };
-
-            if (result) {
-                if (result.winner === 'draw') {
-                    // No draws in division - restart round
-                    newGame.board = ["","","","","","","","",""];
-                    newGame.turn = "X";
-                    newGame.winner = null;
-                    
-                    await updateDoc(matchRef, { game: newGame });
-                } else {
-                    // Round ended with winner
-                    newGame.winner = result.winner;
-                    
-                    // Update round wins
-                    const newPlayer1Wins = matchData.player1Wins + (result.winner === matchData.player1Symbol ? 1 : 0);
-                    const newPlayer2Wins = matchData.player2Wins + (result.winner === matchData.player2Symbol ? 1 : 0);
-                    
-                    // Check if match ended
-                    if (newPlayer1Wins >= matchData.bestOfWinsRequired || newPlayer2Wins >= matchData.bestOfWinsRequired) {
-                        // Match ended
-                        await updateDoc(matchRef, {
-                            game: newGame,
-                            player1Wins: newPlayer1Wins,
-                            player2Wins: newPlayer2Wins,
-                            status: 'finished'
-                        });
-                    } else {
-                        // Next round
-                        const nextRoundGame = {
-                            board: ["","","","","","","","",""],
-                            turn: "X",
-                            winner: null
-                        };
-                        
-                        await updateDoc(matchRef, {
-                            game: newGame,
-                            player1Wins: newPlayer1Wins,
-                            player2Wins: newPlayer2Wins,
-                            currentRound: matchData.currentRound + 1,
-                            nextRound: nextRoundGame
-                        });
-                    }
-                }
-            } else {
-                newGame.turn = playerSymbol === 'X' ? 'O' : 'X';
-                await updateDoc(matchRef, { game: newGame });
-            }
-
-            // Stop timer
-            stopOnlineTimer();
-        }
-
-        function cancelDivisionMatchmaking() {
-            if (state.divisionMatchmakingInterval) {
-                clearInterval(state.divisionMatchmakingInterval);
-                state.divisionMatchmakingInterval = null;
-            }
-
-            // Remove from queue
-            if (currentUser) {
-                deleteDoc(doc(db, "divisionQueue", currentUser.uid)).catch(console.error);
-            }
-
-            // Hide queue
-            document.getElementById('queue-container').style.display = 'none';
-            document.querySelector('.glass-card.rounded-xl.p-6').style.display = 'block';
-        }
-
-        // ==================== HELPER FUNCTIONS ====================
-
-        function getLevel(xp) {
-            if (xp < 200) return 1;
-            if (xp < 600) return 2;
-            if (xp < 1500) return 3;
-            if (xp < 3000) return 4;
-            if (xp < 6000) return 5;
-            if (xp < 15000) return 6;
-            if (xp < 50000) return 7;
-            return 8;
-        }
-
-        // ==================== AI FUNCTIONS (محسنة) ====================
-
-        function getBeginnerMove(board) {
-            const empty = board.map((v, i) => v === null ? i : null).filter(v => v !== null);
-            
-            // 50% عشوائي، 50% ذكي
-            if (Math.random() < 0.5) {
-                return empty[Math.floor(Math.random() * empty.length)];
-            }
-            
-            // حاول أخذ المركز
-            if (board[4] === null) return 4;
-            
-            // حاول أخذ الزوايا
-            const corners = [0, 2, 6, 8].filter(i => board[i] === null);
-            if (corners.length > 0) return corners[Math.floor(Math.random() * corners.length)];
-            
-            return empty[Math.floor(Math.random() * empty.length)];
-        }
-
-        function getMediumMove(board, computer, player) {
-            const empty = board.map((v, i) => v === null ? i : null).filter(v => v !== null);
-            
-            // حاول الفوز
-            for (let i of empty) {
-                const copy = [...board];
-                copy[i] = computer;
-                if (checkWinner(copy)?.winner === computer) return i;
-            }
-            
-            // حاول منع اللاعب من الفوز
-            for (let i of empty) {
-                const copy = [...board];
-                copy[i] = player;
-                if (checkWinner(copy)?.winner === player) return i;
-            }
-            
-            // خذ المركز إذا كان متاحاً
-            if (board[4] === null) return 4;
-            
-            // خذ زاوية
-            const corners = [0, 2, 6, 8].filter(i => board[i] === null);
-            if (corners.length > 0) return corners[Math.floor(Math.random() * corners.length)];
-            
-            return empty[Math.floor(Math.random() * empty.length)];
-        }
-
-        function getHardMove(board, computer, player) {
-            // 70% مثالي، 30% متوسط
-            if (Math.random() < 0.3) {
-                return getMediumMove(board, computer, player);
-            }
-            return getGeniusMove(computer, player);
-        }
-
-        function getGeniusMove(computer, player) {
-            let bestScore = -Infinity;
-            let bestMove = -1;
-            
-            for (let i = 0; i < 9; i++) {
-                if (state.board[i] === null) {
-                    state.board[i] = computer;
-                    const score = minimax(state.board, 0, false, -Infinity, Infinity, computer, player);
-                    state.board[i] = null;
-                    
-                    if (score > bestScore) {
-                        bestScore = score;
-                        bestMove = i;
-                    }
-                }
-            }
-            
-            return bestMove;
-        }
-
-        function minimax(board, depth, isMax, alpha, beta, computer, player) {
-            const result = checkWinner(board);
-            if (result) {
-                if (result.winner === computer) return 10 - depth;
-                if (result.winner === player) return depth - 10;
-                return 0;
-            }
-            
-            if (isMax) {
-                let maxEval = -Infinity;
-                for (let i = 0; i < 9; i++) {
-                    if (board[i] === null) {
-                        board[i] = computer;
-                        const score = minimax(board, depth + 1, false, alpha, beta, computer, player);
-                        board[i] = null;
-                        maxEval = Math.max(maxEval, score);
-                        alpha = Math.max(alpha, score);
-                        if (beta <= alpha) break;
-                    }
-                }
-                return maxEval;
-            } else {
-                let minEval = Infinity;
-                for (let i = 0; i < 9; i++) {
-                    if (board[i] === null) {
-                        board[i] = player;
-                        const score = minimax(board, depth + 1, true, alpha, beta, computer, player);
-                        board[i] = null;
-                        minEval = Math.min(minEval, score);
-                        beta = Math.min(beta, score);
-                        if (beta <= alpha) break;
-                    }
-                }
-                return minEval;
-            }
-        }
-
-        function getComputerMove() {
-            const empty = state.board.map((v, i) => v === null ? i : null).filter(v => v !== null);
-            if (empty.length === 0) return -1;
-            
-            const computer = state.playAs === 'X' ? 'O' : 'X';
-            const player = state.playAs;
-            
-            switch (state.difficulty) {
-                case 'beginner':
-                    return getBeginnerMove(state.board);
-                case 'medium':
-                    return getMediumMove(state.board, computer, player);
-                case 'hard':
-                    return getHardMove(state.board, computer, player);
-                case 'genius':
-                    return getGeniusMove(computer, player);
-                case 'adaptive':
-                    return getAdaptiveMove(computer, player);
-                default:
-                    return empty[Math.floor(Math.random() * empty.length)];
-            }
-        }
-
-        function getAdaptiveMove(computer, player) {
-            // أول 3 مباريات تكون سهلة
-            if (state.adaptiveData.matchesPlayed < 3) {
-                return getBeginnerMove(state.board);
-            }
-            
-            // بعد ذلك استخدم مستوى الصعوبة المناسب
-            switch(state.adaptiveData.currentDifficulty) {
-                case 'beginner':
-                    return getBeginnerMove(state.board);
-                case 'medium':
-                    return getMediumMove(state.board, computer, player);
-                case 'hard':
-                    return getHardMove(state.board, computer, player);
-                case 'genius':
-                    return getGeniusMove(computer, player);
-                default:
-                    return getMediumMove(state.board, computer, player);
-            }
-        }
-
-        function updateAdaptiveDifficulty(playerWon) {
-            // تحديث مستوى المهارة بناءً على أداء اللاعب
-            if (playerWon) {
-                state.adaptiveData.playerSkill = Math.min(1, state.adaptiveData.playerSkill + 0.1);
-            } else {
-                state.adaptiveData.playerSkill = Math.max(0, state.adaptiveData.playerSkill - 0.1);
-            }
-            
-            // تحديث مستوى الصعوبة بناءً على مهارة اللاعب
-            if (state.adaptiveData.playerSkill < 0.25) {
-                state.adaptiveData.currentDifficulty = 'beginner';
-            } else if (state.adaptiveData.playerSkill < 0.5) {
-                state.adaptiveData.currentDifficulty = 'medium';
-            } else if (state.adaptiveData.playerSkill < 0.75) {
-                state.adaptiveData.currentDifficulty = 'hard';
-            } else {
-                state.adaptiveData.currentDifficulty = 'genius';
-            }
-            
-            state.adaptiveData.matchesPlayed++;
-            saveState();
-        }
-
-        // ==================== GAME LOGIC ====================
-
-        function startGame(mode, difficulty = 'beginner') {
-            state.gameMode = mode;
-            state.difficulty = difficulty;
-            state.gameStartTime = Date.now();
-            state.moveHistory = [];
-            resetBoard();
-            
-            navigateTo('game');
-            
-            const playerSymbol = state.playAs;
-            document.getElementById('player-x-name').textContent = mode === 'computer' ? (playerSymbol === 'X' ? state.profileName : 'الكمبيوتر') : 'لاعب 1';
-            document.getElementById('player-o-name').textContent = mode === 'computer' ? (playerSymbol === 'O' ? state.profileName : 'الكمبيوتر') : 'لاعب 2';
-            
-            const modeIndicator = document.getElementById('gameModeIndicator');
-            if (mode === 'division') {
-                modeIndicator.innerHTML = `<span style="color: #ff3366;">طور الديفيجن - Division ${state.currentDivision}</span>`;
-            } else if (mode === 'computer') {
-                const level = LEVELS.find(l => l.id === difficulty);
-                modeIndicator.innerHTML = `<span style="color: ${level.color};">مستوى ${level.name}</span>`;
-            } else if (mode === 'online-friends') {
-                modeIndicator.innerHTML = '<span style="color: var(--accent-color);">غرفة أصدقاء أونلاين</span>';
-            } else {
-                modeIndicator.innerHTML = '<span style="color: var(--accent-color);">ضد صديق</span>';
-            }
-            
-            // Hide timer for offline games
-            if (mode !== 'online-friends' && mode !== 'online-matches' && mode !== 'division-online') {
-                document.getElementById('game-timer-container').style.display = 'none';
-            }
-            
-            // If computer goes first
-            if (mode === 'computer' && playerSymbol === 'O') {
-                state.isComputerTurn = true;
-                setTimeout(() => {
-                    const move = getComputerMove();
-                    if (move !== -1) makeMove(move, 'X');
-                    state.isComputerTurn = false;
-                }, 800);
-            }
-            
-            // Start ad timer if not removed
-            if (!state.adsRemoved && !state.adTimer) {
-                startAdTimer();
-            }
-        }
-
-        function resetBoard() {
-            state.board = Array(9).fill(null);
-            state.isXNext = true;
-            state.winner = null;
-            state.winningLine = null;
-            state.isComputerTurn = false;
-            
-            const boardEl = document.getElementById('game-board');
-            boardEl.innerHTML = '';
-            
-            for (let i = 0; i < 9; i++) {
-                const btn = document.createElement('button');
-                btn.className = 'game-cell w-24 h-24 md:w-28 md:h-28 rounded-xl flex items-center justify-center text-4xl md:text-5xl font-display';
-                btn.id = `cell-${i}`;
-                btn.onmouseenter = () => playSound('hover');
-                btn.onclick = () => handleMove(i);
-                boardEl.appendChild(btn);
-            }
-            
-            updateGameStatus();
-            document.getElementById('game-controls').style.opacity = '0';
-            updateWinStreak();
-        }
-
-        function handleMove(index) {
-            if (state.board[index] || state.winner || state.isComputerTurn) return;
-            
-            const currentPlayer = state.isXNext ? 'X' : 'O';
-            
-            // Check if it's online game and it's player's turn
-            if (state.gameMode === 'online-friends') {
-                makeOnlineMove(index);
-                return;
-            } else if (state.gameMode === 'online-matches' || state.gameMode === 'division-online') {
-                makeOnlineMatchMove(index);
-                return;
-            }
-            
-            if (state.gameMode !== 'friend') {
-                if (currentPlayer !== state.playAs) return;
-            }
-            
-            makeMove(index, currentPlayer);
-            
-            // Computer's turn
-            if (!state.winner && state.gameMode === 'computer') {
-                state.isComputerTurn = true;
-                const delay = 500 + Math.random() * 500;
-                setTimeout(() => {
-                    const computerSymbol = state.playAs === 'X' ? 'O' : 'X';
-                    const move = getComputerMove();
-                    if (move !== -1) {
-                        makeMove(move, computerSymbol);
-                    }
-                    state.isComputerTurn = false;
-                }, delay);
-            }
-        }
-
-        function makeMove(index, player) {
-            state.board[index] = player;
-            
-            // Save move for VAR
-            state.moveHistory.push({
-                player: player,
-                position: index,
-                board: [...state.board]
-            });
-            
-            const cell = document.getElementById(`cell-${index}`);
-            const skin = SKINS.find(s => s.id === state.currentSkin) || SKINS[0];
-            
-            // Apply skin class if it exists
-            if (skin.class) {
-                cell.classList.add(skin.class);
-            }
-            
-            cell.innerHTML = `<span class="animate-pop-in">${player}</span>`;
-            cell.classList.add('disabled');
-            
-            playSound('click');
-            
-            if (navigator.vibrate) {
-                navigator.vibrate(30);
-            }
-            
-            const result = checkWinner(state.board);
-            if (result) {
-                state.winner = result.winner;
-                state.winningLine = result.line;
-                handleGameEnd(result);
-            } else {
-                state.isXNext = !state.isXNext;
-            }
-            
-            updateGameStatus();
-        }
-
-        function checkWinner(board) {
-            const lines = [
-                [0, 1, 2], [3, 4, 5], [6, 7, 8],
-                [0, 3, 6], [1, 4, 7], [2, 5, 8],
-                [0, 4, 8], [2, 4, 6]
-            ];
-            
-            for (const [a, b, c] of lines) {
-                if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-                    return { winner: board[a], line: [a, b, c] };
-                }
-            }
-            
-            if (board.every(c => c !== null)) {
-                return { winner: 'draw', line: null };
-            }
-            
-            return null;
-        }
-
-        function handleGameEnd(result) {
-            document.getElementById('game-controls').style.opacity = '1';
-            state.stats.totalMatches++;
-            
-            const playerSymbol = state.playAs;
-            const computerSymbol = playerSymbol === 'X' ? 'O' : 'X';
-            
-            let xpChange = 0;
-            
-            if (state.gameMode === 'division') {
-                // Division mode scoring
-                if (result.winner === playerSymbol) {
-                    state.divisionPoints += 3;
-                    xpChange = 50;
-                    showNotification(`فوز! +3 نقاط في الديفيجن`, 'success');
-                } else if (result.winner === 'draw') {
-                    state.divisionPoints += 1;
-                    xpChange = 25;
-                    showNotification(`تعادل! +1 نقطة في الديفيجن`, 'success');
-                } else {
-                    state.divisionPoints = Math.max(0, state.divisionPoints - 3);
-                    xpChange = 0;
-                    showNotification(`خسارة! -3 نقاط في الديفيجن`, 'error');
-                }
-                
-                // Check if division completed
-                const currentDivisionData = DIVISIONS.find(d => d.level === state.currentDivision);
-                if (currentDivisionData && state.divisionPoints >= currentDivisionData.required) {
-                    completeDivision();
-                }
-                
-            } else if (state.gameMode === 'computer') {
-                // Normal computer mode
-                if (result.winner === playerSymbol) {
-                    state.stats.wins++;
-                    state.currentWinStreak++;
-                    if (state.currentWinStreak > state.stats.bestStreak) {
-                        state.stats.bestStreak = state.currentWinStreak;
-                    }
-                    
-                    const rewards = { 
-                        beginner: 150, 
-                        medium: 300, 
-                        hard: 500, 
-                        genius: 800,
-                        adaptive: 600 
-                    };
-                    const reward = rewards[state.difficulty] || 30;
-                    state.xp += reward;
-                    xpChange = reward;
-                    
-                    if (state.difficulty === 'genius') {
-                        state.beatenGenius = true;
-                    }
-                    if (state.difficulty === 'adaptive') {
-                        state.beatenAdaptive = true;
-                    }
-                    
-                    // Update adaptive AI
-                    if (state.difficulty === 'adaptive') {
-                        updateAdaptiveDifficulty(true);
-                    }
-                    
-                    // Increment AI progress
-                    incrementAIProgress(state.difficulty);
-                    
-                    showNotification(`فوز! +${reward} XP`);
-                    playSound('win');
-                    
-                    // Play win sound from audio element
-                    try {
-                        document.getElementById('win-sound').play();
-                    } catch (e) {}
-                    
-                } else if (result.winner === computerSymbol) {
-                    state.stats.losses++;
-                    state.currentWinStreak = 0;
-                    xpChange = 0;
-                    
-                    // Update adaptive AI
-                    if (state.difficulty === 'adaptive') {
-                        updateAdaptiveDifficulty(false);
-                    }
-                    
-                    showNotification('الكمبيوتر فاز!');
-                    playSound('lose');
-                    
-                    // Play lose sound from audio element
-                    try {
-                        document.getElementById('lose-sound').play();
-                    } catch (e) {}
-                    
-                } else {
-                    state.stats.draws++;
-                    state.currentWinStreak = 0;
-                    state.xp += 15;
-                    xpChange = 15;
-                    
-                    // Update adaptive AI
-                    if (state.difficulty === 'adaptive') {
-                        updateAdaptiveDifficulty(false);
-                    }
-                    
-                    showNotification('تعادل! +15 XP');
-                    playSound('draw');
-                }
-            } else if (state.gameMode === 'friend') {
-                // Friend mode
-                if (result.winner === 'X') {
-                    state.stats.wins++;
-                    state.currentWinStreak++;
-                    if (state.currentWinStreak > state.stats.bestStreak) {
-                        state.stats.bestStreak = state.currentWinStreak;
-                    }
-                    state.xp += 25;
-                    xpChange = 25;
-                    showNotification('X فاز! +25 XP');
-                } else if (result.winner === 'O') {
-                    state.stats.losses++;
-                    state.currentWinStreak = 0;
-                    xpChange = 0;
-                    showNotification('O فاز!');
-                } else {
-                    state.stats.draws++;
-                    state.currentWinStreak = 0;
-                    state.xp += 15;
-                    xpChange = 15;
-                    showNotification('تعادل! +15 XP');
-                }
-                playSound(result.winner === 'draw' ? 'draw' : 'win');
-            }
-            
-            // Show end game screen for non-online games
-            if (state.gameMode !== 'online-friends' && state.gameMode !== 'online-matches' && state.gameMode !== 'division-online') {
-                showEndGameScreen(result, xpChange);
-            }
-            
-            // Highlight winning cells
-            if (result.line) {
-                result.line.forEach(idx => {
-                    const cell = document.getElementById(`cell-${idx}`);
-                    cell.classList.add('win-cell');
-                });
-            }
-            
-            // Update win streak counter
-            updateWinStreak();
-            
-            checkAchievements();
-            saveState();
-        }
-
-        function updateGameStatus() {
-            const statusEl = document.getElementById('game-status');
-            
-            if (state.winner) {
-                if (state.winner === 'draw') {
-                    statusEl.innerHTML = '<span style="color: var(--text-secondary);">تعادل!</span>';
-                } else {
-                    const winnerName = state.gameMode === 'division' ? 
-                        (state.winner === state.playAs ? 'فوز!' : 'خسارة!') :
-                        state.gameMode === 'computer' ? 
-                        (state.winner === state.playAs ? 'أنت فزت!' : 'الكمبيوتر فاز!') :
-                        `${state.winner} فاز!`;
-                    const color = state.winner === 'X' ? 'var(--accent-color)' : 'var(--accent-secondary)';
-                    statusEl.innerHTML = `<span style="color: ${color};">${winnerName}</span>`;
-                }
-            } else {
-                const current = state.isXNext ? 'X' : 'O';
-                const color = current === 'X' ? 'var(--accent-color)' : 'var(--accent-secondary)';
-                statusEl.innerHTML = `الدور: <span style="color: ${color};">${current}</span>`;
-            }
-        }
-
-        function endGameAndReturn() {
-            // Clean up online subscriptions
-            cleanupOnlineSubscriptions();
-            
-            resetBoard();
-            navigateTo('home');
-            renderAll();
-        }
-
-        // ==================== AI PROGRESS ====================
-
-        function loadAIProgress() {
-            const saved = localStorage.getItem('aiProgress');
-            if (saved) {
-                try {
-                    state.aiProgress = JSON.parse(saved);
-                } catch (e) {}
-            }
-        }
-
-        function saveAIProgress() {
-            localStorage.setItem('aiProgress', JSON.stringify(state.aiProgress));
-        }
-
-        function incrementAIProgress(difficulty) {
-            if (!difficulty) return;
-            state.aiProgress[difficulty] = (state.aiProgress[difficulty] || 0) + 1;
-            saveAIProgress();
-        }
-
-        function getAIStars(difficulty) {
-            const matches = state.aiProgress[difficulty] || 0;
-            const stars = Math.min(5, Math.floor(matches / 3));
-            return stars;
-        }
-
-        function renderAIStars(difficulty) {
-            const stars = getAIStars(difficulty);
-            let html = '<div class="ai-progress">';
-            for (let i = 0; i < 5; i++) {
-                html += `<span class="star ${i < stars ? 'gold' : ''}">★</span>`;
-            }
-            html += '</div>';
-            return html;
-        }
-
-        // ==================== TIPS ====================
-
-        function showTipOfDay() {
-            const tip = TIPS[Math.floor(Math.random() * TIPS.length)];
-            const tipEl = document.getElementById('tip-of-day');
-            if (tipEl) tipEl.textContent = tip;
-        }
-
-        function openGuide() {
-            document.getElementById('guide-modal-overlay').classList.add('active');
-            document.getElementById('guide-modal').classList.add('active');
-            playSound('click');
-        }
-
-        function closeGuide() {
-            document.getElementById('guide-modal-overlay').classList.remove('active');
-            document.getElementById('guide-modal').classList.remove('active');
-        }
-
-        // ==================== VAR FUNCTIONS ====================
-
-        function showVAR() {
-            if (state.moveHistory.length === 0) {
-                showNotification('لا توجد تحركات لعرضها', 'info');
-                return;
-            }
-            
-            varMoveIndex = 0;
-            updateVARBoard();
-            
-            const overlay = document.getElementById('var-modal-overlay');
-            const modal = document.getElementById('var-modal');
-            overlay.classList.add('active');
-            modal.classList.add('active');
-            
-            renderVARTimeline();
-        }
-
-        function closeVAR() {
-            if (varInterval) {
-                clearInterval(varInterval);
-                varIsPlaying = false;
-            }
-            
-            document.getElementById('var-modal-overlay').classList.remove('active');
-            document.getElementById('var-modal').classList.remove('active');
-        }
-
-        function renderVARTimeline() {
-            const timeline = document.getElementById('var-timeline');
-            timeline.innerHTML = '';
-            
-            for (let i = 0; i <= state.moveHistory.length; i++) {
-                const dot = document.createElement('div');
-                dot.className = 'var-timeline-dot';
-                
-                if (i === 0) {
-                    dot.textContent = '●';
-                } else {
-                    const move = state.moveHistory[i-1];
-                    dot.textContent = move.player;
-                    dot.classList.add(`player-${move.player.toLowerCase()}`);
-                }
-                
-                if (i === varMoveIndex) {
-                    dot.classList.add('active');
-                }
-                
-                dot.onclick = () => {
-                    varMoveIndex = i;
-                    updateVARBoard();
-                    renderVARTimeline();
-                };
-                
-                timeline.appendChild(dot);
-            }
-        }
-
-        function updateVARBoard() {
-            const board = document.getElementById('var-board');
-            board.innerHTML = '';
-            
-            let currentBoard;
-            if (varMoveIndex === 0) {
-                currentBoard = Array(9).fill(null);
-            } else {
-                currentBoard = [...state.moveHistory[varMoveIndex - 1].board];
-            }
-            
-            for (let i = 0; i < 9; i++) {
-                const cell = document.createElement('div');
-                cell.className = 'var-cell';
-                
-                if (currentBoard[i]) {
-                    cell.innerHTML = `<span>${currentBoard[i]}</span>`;
-                    if (state.winningLine && state.winningLine.includes(i) && varMoveIndex === state.moveHistory.length) {
-                        cell.classList.add('win-cell');
-                    }
-                }
-                
-                board.appendChild(cell);
-            }
-            
-            document.getElementById('var-move-counter').textContent = `الحركة ${varMoveIndex} / ${state.moveHistory.length}`;
-        }
-
-        function varPrev() {
-            if (varMoveIndex > 0) {
-                varMoveIndex--;
-                updateVARBoard();
-                renderVARTimeline();
-            }
-        }
-
-        function varNext() {
-            if (varMoveIndex < state.moveHistory.length) {
-                varMoveIndex++;
-                updateVARBoard();
-                renderVARTimeline();
-            }
-        }
-
-        function varRestart() {
-            varMoveIndex = 0;
-            updateVARBoard();
-            renderVARTimeline();
-        }
-
-        function varPause() {
-            if (varIsPlaying) {
-                clearInterval(varInterval);
-                varIsPlaying = false;
-                document.getElementById('var-pause-btn').innerHTML = '<i data-lucide="play"></i>';
-            } else {
-                varIsPlaying = true;
-                document.getElementById('var-pause-btn').innerHTML = '<i data-lucide="pause"></i>';
-                
-                varInterval = setInterval(() => {
-                    if (varMoveIndex < state.moveHistory.length) {
-                        varMoveIndex++;
-                        updateVARBoard();
-                        renderVARTimeline();
-                    } else {
-                        clearInterval(varInterval);
-                        varIsPlaying = false;
-                        document.getElementById('var-pause-btn').innerHTML = '<i data-lucide="play"></i>';
-                    }
-                }, 1000);
-            }
-            
-            lucide.createIcons();
         }
 
         // ==================== NOTIFICATIONS ====================
@@ -7758,6 +4796,43 @@
             setTimeout(() => {
                 document.body.classList.remove('rainbow-mode');
             }, 10000);
+        }
+
+        // ==================== AI PROGRESS ====================
+
+        function loadAIProgress() {
+            const saved = localStorage.getItem('aiProgress');
+            if (saved) {
+                try {
+                    state.aiProgress = JSON.parse(saved);
+                } catch (e) {}
+            }
+        }
+
+        function saveAIProgress() {
+            localStorage.setItem('aiProgress', JSON.stringify(state.aiProgress));
+        }
+
+        function incrementAIProgress(difficulty) {
+            if (!difficulty) return;
+            state.aiProgress[difficulty] = (state.aiProgress[difficulty] || 0) + 1;
+            saveAIProgress();
+        }
+
+        function getAIStars(difficulty) {
+            const matches = state.aiProgress[difficulty] || 0;
+            const stars = Math.min(5, Math.floor(matches / 3));
+            return stars;
+        }
+
+        function renderAIStars(difficulty) {
+            const stars = getAIStars(difficulty);
+            let html = '<div class="ai-progress">';
+            for (let i = 0; i < 5; i++) {
+                html += `<span class="star ${i < stars ? 'gold' : ''}">★</span>`;
+            }
+            html += '</div>';
+            return html;
         }
 
         // ==================== WIN STREAK ====================
@@ -8221,6 +5296,52 @@
             }
         }
 
+        function startDivisionMatch() {
+            const currentDivisionData = DIVISIONS.find(d => d.level === state.currentDivision);
+            if (!currentDivisionData) {
+                showNotification('لقد أنهيت جميع الديفيجنز! انتظر التحديث القادم');
+                return;
+            }
+            
+            startGame('division', currentDivisionData.difficulty);
+        }
+
+        function handleDivisionGameEnd(result, playerSymbol) {
+            const currentDivisionData = DIVISIONS.find(d => d.level === state.currentDivision);
+            if (!currentDivisionData) return;
+            
+            let pointsChange = 0;
+            
+            if (result.winner === playerSymbol) {
+                // Win
+                pointsChange = 3;
+                showNotification(`فوز! +3 نقاط في الديفيجن`, 'success');
+                playSound('win');
+            } else if (result.winner === 'draw') {
+                // Draw
+                pointsChange = 1;
+                showNotification(`تعادل! +1 نقطة في الديفيجن`, 'success');
+                playSound('draw');
+            } else {
+                // Loss
+                pointsChange = -3;
+                showNotification(`خسارة! -3 نقاط في الديفيجن`, 'error');
+                playSound('lose');
+            }
+            
+            state.divisionPoints += pointsChange;
+            state.divisionPoints = Math.max(0, state.divisionPoints);
+            
+            // Check if division completed
+            if (state.divisionPoints >= currentDivisionData.required) {
+                completeDivision();
+            }
+            
+            saveState();
+            updateDivisionDisplay();
+            renderDivisions();
+        }
+
         function completeDivision() {
             const currentDivisionData = DIVISIONS.find(d => d.level === state.currentDivision);
             if (!currentDivisionData) return;
@@ -8383,11 +5504,655 @@
             saveState();
         }
 
+        // ==================== VAR FUNCTIONS ====================
+
+        function showVAR() {
+            if (state.moveHistory.length === 0) {
+                showNotification('لا توجد تحركات لعرضها', 'info');
+                return;
+            }
+            
+            varMoveIndex = 0;
+            updateVARBoard();
+            
+            const overlay = document.getElementById('var-modal-overlay');
+            const modal = document.getElementById('var-modal');
+            overlay.classList.add('active');
+            modal.classList.add('active');
+            
+            renderVARTimeline();
+        }
+
+        function closeVAR() {
+            if (varInterval) {
+                clearInterval(varInterval);
+                varIsPlaying = false;
+            }
+            
+            document.getElementById('var-modal-overlay').classList.remove('active');
+            document.getElementById('var-modal').classList.remove('active');
+        }
+
+        function renderVARTimeline() {
+            const timeline = document.getElementById('var-timeline');
+            timeline.innerHTML = '';
+            
+            for (let i = 0; i <= state.moveHistory.length; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'var-timeline-dot';
+                
+                if (i === 0) {
+                    dot.textContent = '●';
+                } else {
+                    const move = state.moveHistory[i-1];
+                    dot.textContent = move.player;
+                    dot.classList.add(`player-${move.player.toLowerCase()}`);
+                }
+                
+                if (i === varMoveIndex) {
+                    dot.classList.add('active');
+                }
+                
+                dot.onclick = () => {
+                    varMoveIndex = i;
+                    updateVARBoard();
+                    renderVARTimeline();
+                };
+                
+                timeline.appendChild(dot);
+            }
+        }
+
+        function updateVARBoard() {
+            const board = document.getElementById('var-board');
+            board.innerHTML = '';
+            
+            let currentBoard;
+            if (varMoveIndex === 0) {
+                currentBoard = Array(9).fill(null);
+            } else {
+                currentBoard = [...state.moveHistory[varMoveIndex - 1].board];
+            }
+            
+            for (let i = 0; i < 9; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'var-cell';
+                
+                if (currentBoard[i]) {
+                    cell.innerHTML = `<span>${currentBoard[i]}</span>`;
+                    if (state.winningLine && state.winningLine.includes(i) && varMoveIndex === state.moveHistory.length) {
+                        cell.classList.add('win-cell');
+                    }
+                }
+                
+                board.appendChild(cell);
+            }
+            
+            document.getElementById('var-move-counter').textContent = `الحركة ${varMoveIndex} / ${state.moveHistory.length}`;
+        }
+
+        function varPrev() {
+            if (varMoveIndex > 0) {
+                varMoveIndex--;
+                updateVARBoard();
+                renderVARTimeline();
+            }
+        }
+
+        function varNext() {
+            if (varMoveIndex < state.moveHistory.length) {
+                varMoveIndex++;
+                updateVARBoard();
+                renderVARTimeline();
+            }
+        }
+
+        function varRestart() {
+            varMoveIndex = 0;
+            updateVARBoard();
+            renderVARTimeline();
+        }
+
+        function varPause() {
+            if (varIsPlaying) {
+                clearInterval(varInterval);
+                varIsPlaying = false;
+                document.getElementById('var-pause-btn').innerHTML = '<i data-lucide="play"></i>';
+            } else {
+                varIsPlaying = true;
+                document.getElementById('var-pause-btn').innerHTML = '<i data-lucide="pause"></i>';
+                
+                varInterval = setInterval(() => {
+                    if (varMoveIndex < state.moveHistory.length) {
+                        varMoveIndex++;
+                        updateVARBoard();
+                        renderVARTimeline();
+                    } else {
+                        clearInterval(varInterval);
+                        varIsPlaying = false;
+                        document.getElementById('var-pause-btn').innerHTML = '<i data-lucide="play"></i>';
+                    }
+                }, 1000);
+            }
+            
+            lucide.createIcons();
+        }
+
+        // ==================== ADAPTIVE AI ====================
+
+        function updateAdaptiveDifficulty(playerWon) {
+            // تحديث مستوى المهارة بناءً على أداء اللاعب
+            if (playerWon) {
+                state.adaptiveData.playerSkill = Math.min(1, state.adaptiveData.playerSkill + 0.1);
+            } else {
+                state.adaptiveData.playerSkill = Math.max(0, state.adaptiveData.playerSkill - 0.1);
+            }
+            
+            // تحديث مستوى الصعوبة بناءً على مهارة اللاعب
+            if (state.adaptiveData.playerSkill < 0.25) {
+                state.adaptiveData.currentDifficulty = 'beginner';
+            } else if (state.adaptiveData.playerSkill < 0.5) {
+                state.adaptiveData.currentDifficulty = 'medium';
+            } else if (state.adaptiveData.playerSkill < 0.75) {
+                state.adaptiveData.currentDifficulty = 'hard';
+            } else {
+                state.adaptiveData.currentDifficulty = 'genius';
+            }
+            
+            state.adaptiveData.matchesPlayed++;
+            saveState();
+        }
+
+        function getAdaptiveMove(computer, player) {
+            // أول 3 مباريات تكون سهلة
+            if (state.adaptiveData.matchesPlayed < 3) {
+                return getBeginnerMove(state.board);
+            }
+            
+            // بعد ذلك استخدم مستوى الصعوبة المناسب
+            switch(state.adaptiveData.currentDifficulty) {
+                case 'beginner':
+                    return getBeginnerMove(state.board);
+                case 'medium':
+                    return getMediumMove(state.board, computer, player);
+                case 'hard':
+                    return getHardMove(state.board, computer, player);
+                case 'genius':
+                    return getGeniusMove(computer, player);
+                default:
+                    return getMediumMove(state.board, computer, player);
+            }
+        }
+
+        // ==================== AI FUNCTIONS (محسنة) ====================
+
+        function getBeginnerMove(board) {
+            const empty = board.map((v, i) => v === null ? i : null).filter(v => v !== null);
+            
+            // 50% عشوائي، 50% ذكي
+            if (Math.random() < 0.5) {
+                return empty[Math.floor(Math.random() * empty.length)];
+            }
+            
+            // حاول أخذ المركز
+            if (board[4] === null) return 4;
+            
+            // حاول أخذ الزوايا
+            const corners = [0, 2, 6, 8].filter(i => board[i] === null);
+            if (corners.length > 0) return corners[Math.floor(Math.random() * corners.length)];
+            
+            return empty[Math.floor(Math.random() * empty.length)];
+        }
+
+        function getMediumMove(board, computer, player) {
+            const empty = board.map((v, i) => v === null ? i : null).filter(v => v !== null);
+            
+            // حاول الفوز
+            for (let i of empty) {
+                const copy = [...board];
+                copy[i] = computer;
+                if (checkWinner(copy)?.winner === computer) return i;
+            }
+            
+            // حاول منع اللاعب من الفوز
+            for (let i of empty) {
+                const copy = [...board];
+                copy[i] = player;
+                if (checkWinner(copy)?.winner === player) return i;
+            }
+            
+            // خذ المركز إذا كان متاحاً
+            if (board[4] === null) return 4;
+            
+            // خذ زاوية
+            const corners = [0, 2, 6, 8].filter(i => board[i] === null);
+            if (corners.length > 0) return corners[Math.floor(Math.random() * corners.length)];
+            
+            return empty[Math.floor(Math.random() * empty.length)];
+        }
+
+        function getHardMove(board, computer, player) {
+            // 70% مثالي، 30% متوسط
+            if (Math.random() < 0.3) {
+                return getMediumMove(board, computer, player);
+            }
+            return getGeniusMove(computer, player);
+        }
+
+        function getGeniusMove(computer, player) {
+            let bestScore = -Infinity;
+            let bestMove = -1;
+            
+            for (let i = 0; i < 9; i++) {
+                if (state.board[i] === null) {
+                    state.board[i] = computer;
+                    const score = minimax(state.board, 0, false, -Infinity, Infinity, computer, player);
+                    state.board[i] = null;
+                    
+                    if (score > bestScore) {
+                        bestScore = score;
+                        bestMove = i;
+                    }
+                }
+            }
+            
+            return bestMove;
+        }
+
+        function minimax(board, depth, isMax, alpha, beta, computer, player) {
+            const result = checkWinner(board);
+            if (result) {
+                if (result.winner === computer) return 10 - depth;
+                if (result.winner === player) return depth - 10;
+                return 0;
+            }
+            
+            if (isMax) {
+                let maxEval = -Infinity;
+                for (let i = 0; i < 9; i++) {
+                    if (board[i] === null) {
+                        board[i] = computer;
+                        const score = minimax(board, depth + 1, false, alpha, beta, computer, player);
+                        board[i] = null;
+                        maxEval = Math.max(maxEval, score);
+                        alpha = Math.max(alpha, score);
+                        if (beta <= alpha) break;
+                    }
+                }
+                return maxEval;
+            } else {
+                let minEval = Infinity;
+                for (let i = 0; i < 9; i++) {
+                    if (board[i] === null) {
+                        board[i] = player;
+                        const score = minimax(board, depth + 1, true, alpha, beta, computer, player);
+                        board[i] = null;
+                        minEval = Math.min(minEval, score);
+                        beta = Math.min(beta, score);
+                        if (beta <= alpha) break;
+                    }
+                }
+                return minEval;
+            }
+        }
+
+        function getComputerMove() {
+            const empty = state.board.map((v, i) => v === null ? i : null).filter(v => v !== null);
+            if (empty.length === 0) return -1;
+            
+            const computer = state.playAs === 'X' ? 'O' : 'X';
+            const player = state.playAs;
+            
+            switch (state.difficulty) {
+                case 'beginner':
+                    return getBeginnerMove(state.board);
+                case 'medium':
+                    return getMediumMove(state.board, computer, player);
+                case 'hard':
+                    return getHardMove(state.board, computer, player);
+                case 'genius':
+                    return getGeniusMove(computer, player);
+                case 'adaptive':
+                    return getAdaptiveMove(computer, player);
+                default:
+                    return empty[Math.floor(Math.random() * empty.length)];
+            }
+        }
+
+        // ==================== GAME LOGIC ====================
+
+        function startGame(mode, difficulty = 'beginner') {
+            state.gameMode = mode;
+            state.difficulty = difficulty;
+            state.gameStartTime = Date.now();
+            state.moveHistory = [];
+            resetBoard();
+            
+            navigateTo('game');
+            
+            const playerSymbol = state.playAs;
+            document.getElementById('player-x-name').textContent = mode === 'computer' ? (playerSymbol === 'X' ? state.profileName : 'الكمبيوتر') : 'لاعب 1';
+            document.getElementById('player-o-name').textContent = mode === 'computer' ? (playerSymbol === 'O' ? state.profileName : 'الكمبيوتر') : 'لاعب 2';
+            
+            const modeIndicator = document.getElementById('gameModeIndicator');
+            if (mode === 'division') {
+                modeIndicator.innerHTML = `<span style="color: #ff3366;">طور الديفيجن - Division ${state.currentDivision}</span>`;
+            } else if (mode === 'computer') {
+                const level = LEVELS.find(l => l.id === difficulty);
+                modeIndicator.innerHTML = `<span style="color: ${level.color};">مستوى ${level.name}</span>`;
+            } else {
+                modeIndicator.innerHTML = '<span style="color: var(--accent-color);">ضد صديق</span>';
+            }
+            
+            // If computer goes first
+            if (mode !== 'friend' && playerSymbol === 'O') {
+                state.isComputerTurn = true;
+                setTimeout(() => {
+                    const move = getComputerMove();
+                    if (move !== -1) makeMove(move, 'X');
+                    state.isComputerTurn = false;
+                }, 800);
+            }
+            
+            // Start ad timer if not removed
+            if (!state.adsRemoved && !state.adTimer) {
+                startAdTimer();
+            }
+        }
+
+        function resetBoard() {
+            state.board = Array(9).fill(null);
+            state.isXNext = true;
+            state.winner = null;
+            state.winningLine = null;
+            state.isComputerTurn = false;
+            
+            const boardEl = document.getElementById('game-board');
+            boardEl.innerHTML = '';
+            
+            for (let i = 0; i < 9; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'game-cell w-24 h-24 md:w-28 md:h-28 rounded-xl flex items-center justify-center text-4xl md:text-5xl font-display';
+                btn.id = `cell-${i}`;
+                btn.onmouseenter = () => playSound('hover');
+                btn.onclick = () => handleMove(i);
+                boardEl.appendChild(btn);
+            }
+            
+            updateGameStatus();
+            document.getElementById('game-controls').style.opacity = '0';
+            updateWinStreak();
+        }
+
+        function handleMove(index) {
+            if (state.board[index] || state.winner || state.isComputerTurn) return;
+            
+            const currentPlayer = state.isXNext ? 'X' : 'O';
+            
+            if (state.gameMode !== 'friend') {
+                if (currentPlayer !== state.playAs) return;
+            }
+            
+            makeMove(index, currentPlayer);
+            
+            // Computer's turn
+            if (!state.winner && state.gameMode !== 'friend') {
+                state.isComputerTurn = true;
+                const delay = 500 + Math.random() * 500;
+                setTimeout(() => {
+                    const computerSymbol = state.playAs === 'X' ? 'O' : 'X';
+                    const move = getComputerMove();
+                    if (move !== -1) {
+                        makeMove(move, computerSymbol);
+                    }
+                    state.isComputerTurn = false;
+                }, delay);
+            }
+        }
+
+        function makeMove(index, player) {
+            state.board[index] = player;
+            
+            // Save move for VAR
+            state.moveHistory.push({
+                player: player,
+                position: index,
+                board: [...state.board]
+            });
+            
+            const cell = document.getElementById(`cell-${index}`);
+            const skin = SKINS.find(s => s.id === state.currentSkin) || SKINS[0];
+            
+            // Apply skin class if it exists
+            if (skin.class) {
+                cell.classList.add(skin.class);
+            }
+            
+            cell.innerHTML = `<span class="animate-pop-in">${player}</span>`;
+            cell.classList.add('disabled');
+            
+            playSound('click');
+            
+            if (navigator.vibrate) {
+                navigator.vibrate(30);
+            }
+            
+            const result = checkWinner(state.board);
+            if (result) {
+                state.winner = result.winner;
+                state.winningLine = result.line;
+                handleGameEnd(result);
+            } else {
+                state.isXNext = !state.isXNext;
+            }
+            
+            updateGameStatus();
+        }
+
+        function checkWinner(board) {
+            const lines = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8],
+                [0, 3, 6], [1, 4, 7], [2, 5, 8],
+                [0, 4, 8], [2, 4, 6]
+            ];
+            
+            for (const [a, b, c] of lines) {
+                if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                    return { winner: board[a], line: [a, b, c] };
+                }
+            }
+            
+            if (board.every(c => c !== null)) {
+                return { winner: 'draw', line: null };
+            }
+            
+            return null;
+        }
+
+        function handleGameEnd(result) {
+            document.getElementById('game-controls').style.opacity = '1';
+            state.stats.totalMatches++;
+            
+            const playerSymbol = state.playAs;
+            const computerSymbol = playerSymbol === 'X' ? 'O' : 'X';
+            
+            let xpChange = 0;
+            
+            if (state.gameMode === 'division') {
+                // Division mode scoring
+                handleDivisionGameEnd(result, playerSymbol);
+                
+            } else if (state.gameMode === 'computer') {
+                // Normal computer mode
+                if (result.winner === playerSymbol) {
+                    state.stats.wins++;
+                    state.currentWinStreak++;
+                    if (state.currentWinStreak > state.stats.bestStreak) {
+                        state.stats.bestStreak = state.currentWinStreak;
+                    }
+                    
+                    const rewards = { 
+                        beginner: 150, 
+                        medium: 300, 
+                        hard: 500, 
+                        genius: 800,
+                        adaptive: 600 
+                    };
+                    const reward = rewards[state.difficulty] || 30;
+                    state.xp += reward;
+                    xpChange = reward;
+                    
+                    if (state.difficulty === 'genius') {
+                        state.beatenGenius = true;
+                    }
+                    if (state.difficulty === 'adaptive') {
+                        state.beatenAdaptive = true;
+                    }
+                    
+                    // Update adaptive AI
+                    if (state.difficulty === 'adaptive') {
+                        updateAdaptiveDifficulty(true);
+                    }
+                    
+                    // Increment AI progress
+                    incrementAIProgress(state.difficulty);
+                    
+                    showNotification(`فوز! +${reward} XP`);
+                    playSound('win');
+                    
+                    // Play win sound from audio element
+                    try {
+                        document.getElementById('win-sound').play();
+                    } catch (e) {}
+                    
+                } else if (result.winner === computerSymbol) {
+                    state.stats.losses++;
+                    state.currentWinStreak = 0;
+                    xpChange = 0;
+                    
+                    // Update adaptive AI
+                    if (state.difficulty === 'adaptive') {
+                        updateAdaptiveDifficulty(false);
+                    }
+                    
+                    showNotification('الكمبيوتر فاز!');
+                    playSound('lose');
+                    
+                    // Play lose sound from audio element
+                    try {
+                        document.getElementById('lose-sound').play();
+                    } catch (e) {}
+                    
+                } else {
+                    state.stats.draws++;
+                    state.currentWinStreak = 0;
+                    state.xp += 15;
+                    xpChange = 15;
+                    
+                    // Update adaptive AI
+                    if (state.difficulty === 'adaptive') {
+                        updateAdaptiveDifficulty(false);
+                    }
+                    
+                    showNotification('تعادل! +15 XP');
+                    playSound('draw');
+                }
+            } else {
+                // Friend mode
+                if (result.winner === 'X') {
+                    state.stats.wins++;
+                    state.currentWinStreak++;
+                    if (state.currentWinStreak > state.stats.bestStreak) {
+                        state.stats.bestStreak = state.currentWinStreak;
+                    }
+                    state.xp += 25;
+                    xpChange = 25;
+                    showNotification('X فاز! +25 XP');
+                } else if (result.winner === 'O') {
+                    state.stats.losses++;
+                    state.currentWinStreak = 0;
+                    xpChange = 0;
+                    showNotification('O فاز!');
+                } else {
+                    state.stats.draws++;
+                    state.currentWinStreak = 0;
+                    state.xp += 15;
+                    xpChange = 15;
+                    showNotification('تعادل! +15 XP');
+                }
+                playSound(result.winner === 'draw' ? 'draw' : 'win');
+            }
+            
+            // Show end game screen
+            showEndGameScreen(result, xpChange);
+            
+            // Highlight winning cells
+            if (result.line) {
+                result.line.forEach(idx => {
+                    const cell = document.getElementById(`cell-${idx}`);
+                    cell.classList.add('win-cell');
+                });
+            }
+            
+            // Update win streak counter
+            updateWinStreak();
+            
+            checkAchievements();
+            saveState();
+        }
+
+        function updateGameStatus() {
+            const statusEl = document.getElementById('game-status');
+            
+            if (state.winner) {
+                if (state.winner === 'draw') {
+                    statusEl.innerHTML = '<span style="color: var(--text-secondary);">تعادل!</span>';
+                } else {
+                    const winnerName = state.gameMode === 'division' ? 
+                        (state.winner === state.playAs ? 'فوز!' : 'خسارة!') :
+                        state.gameMode === 'computer' ? 
+                        (state.winner === state.playAs ? 'أنت فزت!' : 'الكمبيوتر فاز!') :
+                        `${state.winner} فاز!`;
+                    const color = state.winner === 'X' ? 'var(--accent-color)' : 'var(--accent-secondary)';
+                    statusEl.innerHTML = `<span style="color: ${color};">${winnerName}</span>`;
+                }
+            } else {
+                const current = state.isXNext ? 'X' : 'O';
+                const color = current === 'X' ? 'var(--accent-color)' : 'var(--accent-secondary)';
+                statusEl.innerHTML = `الدور: <span style="color: ${color};">${current}</span>`;
+            }
+        }
+
+        function endGameAndReturn() {
+            resetBoard();
+            navigateTo('home');
+            renderAll();
+        }
+
+        // ==================== TIPS ====================
+
+        function showTipOfDay() {
+            const tip = TIPS[Math.floor(Math.random() * TIPS.length)];
+            const tipEl = document.getElementById('tip-of-day');
+            if (tipEl) tipEl.textContent = tip;
+        }
+
+        function openGuide() {
+            document.getElementById('guide-modal-overlay').classList.add('active');
+            document.getElementById('guide-modal').classList.add('active');
+            playSound('click');
+        }
+
+        function closeGuide() {
+            document.getElementById('guide-modal-overlay').classList.remove('active');
+            document.getElementById('guide-modal').classList.remove('active');
+        }
+
         // ==================== RESET ====================
 
         function resetProgress() {
             if (confirm('هل أنت متأكد من حذف كل التقدم؟ هذا لا يمكن التراجع عنه.')) {
-                localStorage.removeItem('xo-arena-v5');
+                localStorage.removeItem('xo-arena-v4');
                 localStorage.removeItem('aiProgress');
                 location.reload();
             }
@@ -8477,15 +6242,6 @@
             if (statStreak) statStreak.textContent = state.stats.winStreak;
             if (statBest) statBest.textContent = state.stats.bestStreak;
             
-            // Online stats
-            const onlineMatches = document.getElementById('online-matches-count');
-            const onlineWins = document.getElementById('online-wins');
-            const onlineLosses = document.getElementById('online-losses');
-            
-            if (onlineMatches) onlineMatches.textContent = state.onlineStats.matches;
-            if (onlineWins) onlineWins.textContent = state.onlineStats.wins;
-            if (onlineLosses) onlineLosses.textContent = state.onlineStats.losses;
-            
             // Next reward
             const nextReward = document.getElementById('next-reward-amount');
             if (nextReward) nextReward.textContent = `${getNextReward()} XP`;
@@ -8545,9 +6301,7 @@
         window.changeSong = changeSong;
         window.navigateTo = navigateTo;
         window.startGame = startGame;
-        window.startDivisionMatch = startDivisionOffline;
-        window.startDivisionOffline = startDivisionOffline;
-        window.startDivisionOnline = startDivisionOnline;
+        window.startDivisionMatch = startDivisionMatch;
         window.claimDailyReward = claimDailyReward;
         window.handleProfileImage = handleProfileImage;
         window.saveProfileName = saveProfileName;
@@ -8571,31 +6325,6 @@
         window.sortByPrice = sortByPrice;
         window.showNotification = showNotification;
         window.handleLogoClick = handleLogoClick;
-        
-        // Friends online functions
-        window.showFriendOptions = showFriendOptions;
-        window.showFriendsOnlineOptions = showFriendsOnlineOptions;
-        window.createRoom = createRoom;
-        window.joinRoom = joinRoom;
-        window.copyRoomCode = copyRoomCode;
-        window.adjustRounds = adjustRounds;
-        window.updateTimerSetting = updateTimerSetting;
-        window.updateDrawSetting = updateDrawSetting;
-        window.updateSoundSetting = updateSoundSetting;
-        window.restartMatch = restartMatch;
-        window.kickPlayer = kickPlayer;
-        window.closeRoom = closeRoom;
-        window.leaveRoom = leaveRoom;
-        
-        // Online matches functions
-        window.showOnlineMatches = showOnlineMatches;
-        window.updateXpBetValue = updateXpBetValue;
-        window.joinOnlineMatchmaking = joinOnlineMatchmaking;
-        window.cancelMatchmaking = cancelMatchmaking;
-        
-        // Division online functions
-        window.joinDivisionQueue = joinDivisionQueue;
-        window.cancelDivisionMatchmaking = cancelDivisionMatchmaking;
         
         // VAR functions
         window.showVAR = showVAR;
@@ -8630,7 +6359,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
         // استيراد مكتبة Firestore
-        import { getFirestore, doc, getDoc, setDoc, updateDoc, deleteDoc, collection, query, where, getDocs, onSnapshot, increment } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
         // إعدادات Firebase (خاصة بمشروعك)
         const firebaseConfig = {
@@ -8648,22 +6377,6 @@
         const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
 
-        // جعل Firebase متاحاً عالمياً
-        window.db = db;
-        window.auth = auth;
-        window.currentUser = null;
-        window.getDoc = getDoc;
-        window.setDoc = setDoc;
-        window.updateDoc = updateDoc;
-        window.deleteDoc = deleteDoc;
-        window.collection = collection;
-        window.query = query;
-        window.where = where;
-        window.getDocs = getDocs;
-        window.onSnapshot = onSnapshot;
-        window.doc = doc;
-        window.increment = increment;
-
         // دالة للتحقق من حالة هدية التسجيل للمستخدم
         async function checkAndAwardWelcomeBonus(user) {
             if (!user) return false;
@@ -8677,7 +6390,7 @@
 
                 if (!userDocSnap.exists()) {
                     // هذا المستخدم (بناءً على UID) لم يسجل من قبل مطلقًا في Firebase
-                    console.log("مستخدم جديد (UID جديد)، يتم إنشاء ملف تعريف جديد.");
+                    console.log("مستخدم جديد (UID جديد)، يتم إضافة 30,000 XP كهدية ترحيب.");
                     
                     // إضافة 30,000 XP للحالة المحلية
                     const currentXP = state.xp || 0;
@@ -8692,22 +6405,13 @@
                     // حفظ التغييرات المحلية
                     saveState();
                     
-                    // إنشاء مستند جديد للمستخدم في Firestore مع جميع البيانات
+                    // إنشاء مستند جديد للمستخدم في Firestore مع علامة استلام الهدية
                     await setDoc(userDocRef, {
                         uid: user.uid,
                         email: user.email,
                         displayName: user.displayName,
                         photoURL: user.photoURL,
-                        username: state.profileName,
-                        xp: state.xp,
-                        level: getLevel(state.xp),
-                        division: state.currentDivision,
-                        divisionPoints: state.divisionPoints,
-                        wins: state.stats.wins,
-                        losses: state.stats.losses,
-                        avatar: state.profileImage,
-                        createdAt: new Date().toISOString(),
-                        hasClaimedWelcomeBonus: true,
+                        hasClaimedWelcomeBonus: true, // تم استلام الهدية
                         claimedAt: new Date().toISOString(),
                     });
                     
@@ -8724,12 +6428,9 @@
                         state.profileImage = user.photoURL;
                     }
                     
-                    // تحديث البيانات من Firestore (اختياري)
-                    if (userData.xp) state.xp = userData.xp;
-                    if (userData.division) state.currentDivision = userData.division;
-                    if (userData.divisionPoints) state.divisionPoints = userData.divisionPoints;
-                    if (userData.wins) state.stats.wins = userData.wins;
-                    if (userData.losses) state.stats.losses = userData.losses;
+                    // يمكنك هنا تحديث البيانات الأخرى من Firestore إذا أردت
+                    // على سبيل المثال، استعادة XP من الخادم، لكن هذا يتطلب تصميمًا مختلفًا.
+                    // للتبسيط، نستخدم التخزين المحلي فقط للبيانات غير الحرجة.
                     
                     saveState();
                     showNotification(`مرحباً بعودتك ${user.displayName}!`, 'success');
@@ -8749,12 +6450,10 @@
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 // المستخدم مسجل دخوله - نتحقق من حالته في Firestore
-                window.currentUser = user;
                 await checkAndAwardWelcomeBonus(user);
                 updateUIForLoggedInUser(user);
             } else {
                 // المستخدم غير مسجل
-                window.currentUser = null;
                 updateUIForLoggedOutUser();
             }
         });
@@ -8776,6 +6475,12 @@
             try {
                 await signOut(auth);
                 // بعد تسجيل الخروج، onAuthStateChanged سيعيد تحديث الواجهة
+                // يمكن إعادة تعيين البيانات المحلية أو الاحتفاظ بها - هنا سنحتفظ بها
+                // حتى لا يفقد اللاعب تقدمه كلاعب ضيف.
+                // state.profileImage = null;
+                // state.profileName = 'Player';
+                // saveState();
+                // renderAll();
                 showNotification('تم تسجيل الخروج بنجاح', 'info');
             } catch (error) {
                 console.error('خطأ في تسجيل الخروج:', error);
@@ -8824,7 +6529,7 @@
             lucide.createIcons();
         }
 
-        console.log('🔥 Firebase initialized with Authentication & Firestore for Online System');
+        console.log('🔥 Firebase initialized with Authentication & Firestore for One-Time Bonus');
     </script>
 </body>
 </html>

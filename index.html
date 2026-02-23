@@ -10,7 +10,7 @@
     
     <!-- تحسين SEO الأساسي -->
     <title>XO Arena - أقوى لعبة إكس أو عربية مع الذكاء الاصطناعي ونظام الديفيجن</title>
-    <meta name="description" content="XO Arena: أول لعبة إكس أو عربية احترافية. 4 مستويات ذكاء اصطناعي، نظام إنجازات، متجر سكنات، وإحصائيات متقدمة. لعبة استراتيجية مجانية لجميع الأعمار.">
+    <meta name="description" content="XO Arena: أول لعبة إكس أو عربية احترافية. 5 مستويات ذكاء اصطناعي، نظام إنجازات، متجر سكنات، وإحصائيات متقدمة. لعبة استراتيجية مجانية لجميع الأعمار.">
     <meta name="keywords" content="لعبة XO, إكس أو, tic tac toe, لعبة ذكاء, العاب استراتيجية, العاب عربية, تحدي الذكاء, eclipse games, العاب كمبيوتر, العاب مجانية">
     <meta name="author" content="Eclipse Games">
     <meta name="robots" content="index, follow">
@@ -20,7 +20,7 @@
     
     <!-- Open Graph / فيسبوك -->
     <meta property="og:title" content="XO Arena - لعبة إكس أو الإستراتيجية">
-    <meta property="og:description" content="لعبة إكس أو احترافية مع 4 مستويات صعوبة ونظام إنجازات متطور. العب ضد الكمبيوتر أو مع الأصدقاء مجاناً.">
+    <meta property="og:description" content="لعبة إكس أو احترافية مع 5 مستويات صعوبة ونظام إنجازات متطور. العب ضد الكمبيوتر أو مع الأصدقاء مجاناً.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://xo-arena-1.github.io/XO-Arena/">
     <meta property="og:image" content="https://files.catbox.moe/f28twh.png">
@@ -29,7 +29,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="XO Arena - لعبة إكس أو">
-    <meta name="twitter:description" content="اختبر ذكائك في أقوى لعبة إكس أو عربية مع 4 مستويات صعوبة">
+    <meta name="twitter:description" content="اختبر ذكائك في أقوى لعبة إكس أو عربية مع 5 مستويات صعوبة">
     <meta name="twitter:image" content="https://files.catbox.moe/f28twh.png">
     
     <!-- Favicon -->
@@ -1558,6 +1558,455 @@
             cursor: not-allowed;
         }
 
+        /* VAR Modal Styles */
+        .var-modal {
+            max-width: 800px;
+            width: 90%;
+            padding: 20px;
+        }
+
+        .var-board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 20px;
+        }
+
+        .var-cell {
+            aspect-ratio: 1;
+            background: linear-gradient(145deg, var(--bg-tertiary), var(--bg-secondary));
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+
+        .var-cell.win-cell {
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255,215,0,0.5);
+            animation: pulse-gold 1s ease-in-out infinite;
+        }
+
+        @keyframes pulse-gold {
+            0%, 100% { border-color: #ffd700; box-shadow: 0 0 20px rgba(255,215,0,0.5); }
+            50% { border-color: #ffaa00; box-shadow: 0 0 40px rgba(255,170,0,0.8); }
+        }
+
+        .var-controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .var-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
+            border: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .var-btn:hover {
+            border-color: var(--accent-color);
+            transform: scale(1.1);
+            box-shadow: 0 0 20px var(--glow-color);
+        }
+
+        .var-btn i {
+            width: 30px;
+            height: 30px;
+            color: var(--text-primary);
+        }
+
+        .var-timeline {
+            display: flex;
+            gap: 5px;
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 30px;
+            overflow-x: auto;
+        }
+
+        .var-timeline-dot {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .var-timeline-dot.active {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px var(--glow-color);
+            transform: scale(1.1);
+        }
+
+        .var-timeline-dot.player-x {
+            color: var(--accent-color);
+        }
+
+        .var-timeline-dot.player-o {
+            color: var(--accent-secondary);
+        }
+
+        /* Banned Modal Styles */
+        .banned-modal {
+            text-align: center;
+            padding: 40px;
+            max-width: 500px;
+        }
+
+        .banned-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: rgba(255,51,102,0.2);
+            border: 4px solid var(--accent-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        .banned-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent-secondary);
+            margin-bottom: 20px;
+        }
+
+        .banned-message {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            margin-bottom: 30px;
+        }
+
+        .banned-email {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        .banned-email a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+
+        .unban-input {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .unban-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 20px var(--glow-color);
+        }
+
+        .unban-attempts {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        /* What's New Modal */
+        .whats-new-modal {
+            max-width: 600px;
+            padding: 30px;
+        }
+
+        .whats-new-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ffd700;
+            text-align: center;
+            margin-bottom: 20px;
+            animation: glow-pulse 2s ease-in-out infinite;
+        }
+
+        .whats-new-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .whats-new-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border-color);
+            animation: slide-in-left 0.3s ease-out forwards;
+            opacity: 0;
+        }
+
+        .whats-new-item:nth-child(1) { animation-delay: 0.1s; }
+        .whats-new-item:nth-child(2) { animation-delay: 0.2s; }
+        .whats-new-item:nth-child(3) { animation-delay: 0.3s; }
+        .whats-new-item:nth-child(4) { animation-delay: 0.4s; }
+        .whats-new-item:nth-child(5) { animation-delay: 0.5s; }
+        .whats-new-item:nth-child(6) { animation-delay: 0.6s; }
+        .whats-new-item:nth-child(7) { animation-delay: 0.7s; }
+
+        .whats-new-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255,215,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .whats-new-icon i {
+            width: 30px;
+            height: 30px;
+            color: #ffd700;
+        }
+
+        .whats-new-text {
+            flex: 1;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        .whats-new-reward {
+            color: #ffd700;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Share Modal */
+        .share-modal {
+            max-width: 500px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .share-stats {
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+        }
+
+        .share-progress {
+            width: 100%;
+            height: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .share-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #ffd700);
+            border-radius: 5px;
+            transition: width 0.3s ease;
+        }
+
+        .share-count {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffd700;
+            margin: 10px 0;
+        }
+
+        .share-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .share-btn {
+            padding: 15px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .share-btn.facebook {
+            background: #1877f2;
+            color: white;
+        }
+
+        .share-btn.twitter {
+            background: #1da1f2;
+            color: white;
+        }
+
+        .share-btn.whatsapp {
+            background: #25d366;
+            color: white;
+        }
+
+        .share-btn.telegram {
+            background: #0088cc;
+            color: white;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.1);
+        }
+
+        .share-btn:active {
+            transform: translateY(0);
+        }
+
+        .share-verify {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0,255,136,0.1);
+            border: 1px solid #00ff88;
+            border-radius: 10px;
+            color: #00ff88;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .share-verify:hover {
+            background: rgba(0,255,136,0.2);
+            transform: scale(1.02);
+        }
+
+        .share-verify:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Ad Countdown */
+        .ad-countdown {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, rgba(0,0,0,0.9), rgba(0,0,0,0.95));
+            border: 3px solid var(--accent-color);
+            border-radius: 20px;
+            padding: 40px;
+            z-index: 2000;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 50px var(--glow-color);
+            animation: pop-in 0.3s ease;
+        }
+
+        .ad-countdown.hidden {
+            display: none;
+        }
+
+        .ad-countdown-number {
+            font-size: 8rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-shadow: 0 0 30px var(--glow-color);
+            animation: pulse 1s ease-in-out infinite;
+            line-height: 1;
+        }
+
+        .ad-countdown-text {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-top: 20px;
+        }
+
+        .ad-video-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 800px;
+            z-index: 2000;
+            border: 3px solid var(--accent-color);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 0 50px var(--glow-color);
+            animation: pop-in 0.3s ease;
+        }
+
+        .ad-video-container.hidden {
+            display: none;
+        }
+
+        .ad-video-container video {
+            width: 100%;
+            display: block;
+        }
+
+        .ad-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.8);
+            border: 2px solid var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 2001;
+        }
+
+        .ad-close:hover {
+            transform: scale(1.1);
+            background: var(--accent-color);
+        }
+
+        .ad-close i {
+            width: 20px;
+            height: 20px;
+            color: white;
+        }
+
         /* Responsive */
         @media (max-width: 640px) {
             .game-cell {
@@ -1572,6 +2021,20 @@
 
             .store-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .var-board {
+                gap: 5px;
+            }
+
+            .var-cell {
+                font-size: 2rem;
+            }
+
+            .var-timeline-dot {
+                width: 30px;
+                height: 30px;
+                font-size: 0.8rem;
             }
         }
 
@@ -1633,6 +2096,27 @@
         <source src="https://files.catbox.moe/lose.mp3" type="audio/mpeg">
     </audio>
 
+    <!-- Ad Video Element -->
+    <video id="ad-video" preload="auto" style="display: none;">
+        <source src="https://files.catbox.moe/e743r1.mp4" type="video/mp4">
+    </video>
+
+    <!-- Ad Countdown -->
+    <div id="ad-countdown" class="ad-countdown hidden">
+        <div id="ad-countdown-number" class="ad-countdown-number">5</div>
+        <div class="ad-countdown-text">سيظهر إعلان بعد 5 ثوان</div>
+    </div>
+
+    <!-- Ad Video Container -->
+    <div id="ad-video-container" class="ad-video-container hidden">
+        <div class="ad-close" onclick="closeAd()">
+            <i data-lucide="x"></i>
+        </div>
+        <video id="ad-video-player" controls autoplay>
+            <source src="https://files.catbox.moe/e743r1.mp4" type="video/mp4">
+        </video>
+    </div>
+
     <!-- Cookie Consent -->
     <div id="cookie-consent" class="cookie-consent">
         <p class="mb-3 text-sm">نحن نستخدم ملفات تعريف الارتباط لتحسين تجربتك. باستخدام الموقع، فإنك توافق على <a href="#" onclick="openSettingsAndNavigate('privacy'); return false;" style="color: var(--accent-color);">سياسة الخصوصية</a> الخاصة بنا.</p>
@@ -1640,6 +2124,62 @@
             <button onclick="acceptCookies()" class="flex-1 py-2 rounded-lg text-sm font-bold" style="background: var(--accent-color); color: var(--bg-color);">موافق</button>
             <button onclick="declineCookies()" class="flex-1 py-2 rounded-lg text-sm" style="background: rgba(255,255,255,0.1);">رفض</button>
         </div>
+    </div>
+
+    <!-- Banned Modal -->
+    <div id="banned-modal-overlay" class="modal-overlay"></div>
+    <div id="banned-modal" class="modal-content banned-modal glass-card">
+        <div class="banned-icon">🚫</div>
+        <div class="banned-title">تم حظر حسابك</div>
+        <div class="banned-message">
+            تم حظر حسابك بسبب مخالفة قواعد السلوك.<br>
+            للتواصل مع الدعم الفني:
+        </div>
+        <div class="banned-email">
+            <a href="mailto:eclipsegames1cloud@gmail.com">eclipsegames1cloud@gmail.com</a>
+        </div>
+        <div id="unban-section">
+            <input type="text" id="unban-code" class="unban-input" placeholder="أدخل كود فك الحظر" maxlength="5">
+            <button onclick="attemptUnban()" class="neon-btn w-full py-3 rounded-xl font-bold mb-3">محاولة فك الحظر</button>
+            <div id="unban-attempts" class="unban-attempts">المحاولات المتبقية: 3</div>
+        </div>
+    </div>
+
+    <!-- What's New Modal -->
+    <div id="whats-new-modal-overlay" class="modal-overlay"></div>
+    <div id="whats-new-modal" class="modal-content whats-new-modal glass-card">
+        <div class="whats-new-title">🎉 ما الجديد؟ 🎉</div>
+        <ul class="whats-new-list">
+            <li class="whats-new-item">
+                <div class="whats-new-icon"><i data-lucide="check-circle"></i></div>
+                <div class="whats-new-text">إصلاح أخطاء نظام الذكاء الاصطناعي</div>
+            </li>
+            <li class="whats-new-item">
+                <div class="whats-new-icon"><i data-lucide="cpu"></i></div>
+                <div class="whats-new-text">إضافة طور ذكاء اصطناعي جديد (التكيفي)</div>
+            </li>
+            <li class="whats-new-item">
+                <div class="whats-new-icon"><i data-lucide="gamepad-2"></i></div>
+                <div class="whats-new-text">تغييرات في الجيم بلاي</div>
+            </li>
+            <li class="whats-new-item">
+                <div class="whats-new-icon"><i data-lucide="video"></i></div>
+                <div class="whats-new-text">إضافة ميزة VAR</div>
+            </li>
+            <li class="whats-new-item">
+                <div class="whats-new-icon"><i data-lucide="music"></i></div>
+                <div class="whats-new-text">إضافة المزيد من الأغاني</div>
+            </li>
+            <li class="whats-new-item">
+                <div class="whats-new-icon"><i data-lucide="tv"></i></div>
+                <div class="whats-new-text">إضافة ميزة الإعلانات</div>
+            </li>
+            <li class="whats-new-item">
+                <div class="whats-new-icon"><i data-lucide="gift"></i></div>
+                <div class="whats-new-text"><span class="whats-new-reward">تعويض 10,000 XP</span> بسبب الأخطاء السابقة</div>
+            </li>
+        </ul>
+        <button onclick="closeWhatsNew()" class="neon-btn w-full py-3 rounded-xl font-bold mt-4">حسناً</button>
     </div>
 
     <!-- Background Effects -->
@@ -1742,9 +2282,27 @@
                     <option value="12">MOONLIGHT - XXXTentacion</option>
                     <option value="13">Dorak Gai - Wegz</option>
                     <option value="14">Birds of a Feather - Billie Eilish</option>
+                    <option value="15">3alam kadaba - Lege Cy</option>
+                    <option value="16">The Fate of Ophelia - Taylor Swift</option>
+                    <option value="17">Gabolna Hkoma - Ziad Zaza</option>
+                    <option value="18">Stan - Eminem</option>
+                    <option value="19">Godzilla - Eminem</option>
                 </select>
                 <div id="nowPlaying" class="now-playing">غير مشغلة</div>
             </div>
+        </div>
+
+        <!-- Ad Removal Section (جديد) -->
+        <div class="settings-section">
+            <div class="settings-section-title">
+                <i data-lucide="tv"></i>
+                <span>الإعلانات</span>
+            </div>
+            <button onclick="purchaseAdRemoval()" class="settings-menu-item" id="adRemovalBtn">
+                <i data-lucide="eye-off" style="color: #ffd700;"></i>
+                <span>إلغاء الإعلانات (200,000 XP)</span>
+            </button>
+            <div id="adStatus" class="text-sm mt-2 text-center" style="color: var(--text-secondary);">الإعلانات مفعلة</div>
         </div>
 
         <!-- روابط الصفحات -->
@@ -1800,6 +2358,10 @@
             <button onclick="navigateToAndCloseSettings('challenges')" class="settings-menu-item">
                 <i data-lucide="target"></i>
                 <span>التحديات</span>
+            </button>
+            <button onclick="navigateToAndCloseSettings('share')" class="settings-menu-item">
+                <i data-lucide="share-2"></i>
+                <span>مشاركة اللعبة</span>
             </button>
         </div>
 
@@ -1922,7 +2484,7 @@
 
                 <button onclick="navigateTo('levels')" class="neon-btn w-full rounded-xl p-5 flex items-center justify-center gap-3 text-lg font-bold" style="box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);">
                     <i data-lucide="cpu" class="w-6 h-6" style="color: #ffd700;"></i>
-                    <span style="color: #ffd700;">العب ضد الكمبيوتر</span>
+                    <span style="color: #ffd700;">العب ضد ذكاء اصطناعي</span>
                 </button>
 
                 <button onclick="navigateTo('division')" class="neon-btn w-full rounded-xl p-5 flex items-center justify-center gap-3 text-lg font-bold" style="background: linear-gradient(135deg, #ff3366, #ff6b35);">
@@ -1948,7 +2510,7 @@
                 
                 <div class="space-y-4 text-right">
                     <p class="leading-relaxed" style="color: var(--text-primary);">
-                        <strong style="color: var(--accent-color);">XO Arena</strong> هي أول منصة عربية متكاملة للعبة إكس أو مع <strong style="color: #00ff88;">4 مستويات ذكاء اصطناعي</strong> مختلفة: مبتدئ، متوسط، صعب، وعبقري. صممنا اللعبة لتكون مناسبة لجميع الأعمار والمستويات، من الأطفال الصغار إلى الخبراء المحترفين.
+                        <strong style="color: var(--accent-color);">XO Arena</strong> هي أول منصة عربية متكاملة للعبة إكس أو مع <strong style="color: #00ff88;">5 مستويات ذكاء اصطناعي</strong> مختلفة: مبتدئ، متوسط، صعب، عبقري، وتكيفي. صممنا اللعبة لتكون مناسبة لجميع الأعمار والمستويات، من الأطفال الصغار إلى الخبراء المحترفين.
                     </p>
                     
                     <p class="leading-relaxed" style="color: var(--text-primary);">
@@ -1957,7 +2519,7 @@
 
                     <div class="grid grid-cols-2 gap-3 mt-4">
                         <div class="p-3 rounded-lg text-center" style="background: rgba(0, 212, 255, 0.1); border: 1px solid var(--border-color);">
-                            <div class="text-2xl font-bold" style="color: #00ff88;">+4</div>
+                            <div class="text-2xl font-bold" style="color: #00ff88;">+5</div>
                             <div class="text-xs" style="color: var(--text-secondary);">مستويات ذكاء</div>
                         </div>
                         <div class="p-3 rounded-lg text-center" style="background: rgba(255, 215, 0, 0.1); border: 1px solid var(--border-color);">
@@ -1982,7 +2544,7 @@
                         </li>
                         <li class="flex items-start gap-2" style="color: var(--text-primary);">
                             <span style="color: #00ff88;">✓</span>
-                            <strong>نظام موسيقى متكامل:</strong> 15 أغنية رائعة للخلفية.
+                            <strong>نظام موسيقى متكامل:</strong> 20 أغنية رائعة للخلفية.
                         </li>
                         <li class="flex items-start gap-2" style="color: var(--text-primary);">
                             <span style="color: #00ff88;">✓</span>
@@ -1990,7 +2552,7 @@
                         </li>
                         <li class="flex items-start gap-2" style="color: var(--text-primary);">
                             <span style="color: #00ff88;">✓</span>
-                            <strong>إطارات أسطورية:</strong> تأثيرات CSS متحركة وإضاءة نيون.
+                            <strong>ميزة VAR:</strong> شاهد إعادة المباراة كاملة.
                         </li>
                     </ul>
 
@@ -2239,6 +2801,10 @@
                     <i data-lucide="rotate-ccw" class="w-5 h-5" style="color: var(--text-secondary);"></i>
                     <span style="color: var(--text-primary);">العب تاني</span>
                 </button>
+                <button onclick="showVAR()" class="neon-btn px-6 py-3 rounded-xl flex items-center gap-2">
+                    <i data-lucide="video" class="w-5 h-5" style="color: var(--accent-color);"></i>
+                    <span style="color: var(--text-primary);">VAR</span>
+                </button>
                 <button onclick="navigateTo('home')" class="neon-btn px-6 py-3 rounded-xl flex items-center gap-2">
                     <i data-lucide="home" class="w-5 h-5" style="color: var(--text-secondary);"></i>
                     <span style="color: var(--text-primary);">الرئيسية</span>
@@ -2293,6 +2859,80 @@
         </div>
     </div>
 
+    <!-- SHARE PAGE (جديد) -->
+    <div id="page-share" class="page flex-col items-center px-4 py-8">
+        <div class="w-full max-w-lg relative z-10">
+            <div class="flex items-center gap-4 mb-6">
+                <button onclick="navigateTo('home')" class="p-2 rounded-lg hover:bg-white/10 transition-colors">
+                    <i data-lucide="arrow-right" class="w-6 h-6" style="color: var(--text-secondary);"></i>
+                </button>
+                <h1 class="text-2xl font-display font-bold" style="color: var(--accent-color);">مشاركة اللعبة</h1>
+            </div>
+
+            <div class="glass-card rounded-2xl p-6 text-center mb-6">
+                <div class="text-6xl mb-4">🎁</div>
+                <h2 class="text-2xl font-bold text-white mb-2">مكافأة المشاركة</h2>
+                <p class="text-lg mb-4" style="color: var(--text-secondary);">شارك اللعبة مع 20 شخص واحصل على 100,000 XP!</p>
+                
+                <div class="share-stats">
+                    <div class="share-count" id="shareCount">0/20</div>
+                    <div class="share-progress">
+                        <div id="shareProgress" class="share-progress-bar" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div class="share-buttons">
+                    <button onclick="shareOnFacebook()" class="share-btn facebook">
+                        <i data-lucide="facebook"></i>
+                        فيسبوك
+                    </button>
+                    <button onclick="shareOnTwitter()" class="share-btn twitter">
+                        <i data-lucide="twitter"></i>
+                        تويتر
+                    </button>
+                    <button onclick="shareOnWhatsApp()" class="share-btn whatsapp">
+                        <i data-lucide="message-circle"></i>
+                        واتساب
+                    </button>
+                    <button onclick="shareOnTelegram()" class="share-btn telegram">
+                        <i data-lucide="send"></i>
+                        تيليجرام
+                    </button>
+                </div>
+
+                <button onclick="verifyShare()" class="share-verify w-full mt-4" id="verifyShareBtn">
+                    <i data-lucide="check-circle" class="inline w-5 h-5 ml-2"></i>
+                    تأكيد المشاركة
+                </button>
+            </div>
+
+            <div class="glass-card rounded-xl p-4">
+                <h3 class="text-lg font-bold text-white mb-3 flex items-center gap-2">
+                    <i data-lucide="info" class="w-5 h-5" style="color: var(--accent-color);"></i>
+                    كيفية الحصول على المكافأة
+                </h3>
+                <ul class="space-y-2">
+                    <li class="flex items-start gap-2" style="color: var(--text-primary);">
+                        <span style="color: #00ff88;">1.</span>
+                        انسخ رابط اللعبة: https://xo-arena-1.github.io/XO-Arena/
+                    </li>
+                    <li class="flex items-start gap-2" style="color: var(--text-primary);">
+                        <span style="color: #00ff88;">2.</span>
+                        شارك الرابط مع 20 شخص عبر وسائل التواصل
+                    </li>
+                    <li class="flex items-start gap-2" style="color: var(--text-primary);">
+                        <span style="color: #00ff88;">3.</span>
+                        اضغط على "تأكيد المشاركة" للحصول على المكافأة
+                    </li>
+                    <li class="flex items-start gap-2" style="color: var(--text-primary);">
+                        <span style="color: #ffd700;">💡</span>
+                        المكافأة: 100,000 XP (مرة واحدة فقط)
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
     <!-- SETTINGS PAGE -->
     <div id="page-settings" class="page flex-col items-center px-4 py-8">
         <div class="w-full max-w-lg relative z-10">
@@ -2337,9 +2977,30 @@
                         <option value="12">MOONLIGHT - XXXTentacion</option>
                         <option value="13">Dorak Gai - Wegz</option>
                         <option value="14">Birds of a Feather - Billie Eilish</option>
+                        <option value="15">3alam kadaba - Lege Cy</option>
+                        <option value="16">The Fate of Ophelia - Taylor Swift</option>
+                        <option value="17">Gabolna Hkoma - Ziad Zaza</option>
+                        <option value="18">Stan - Eminem</option>
+                        <option value="19">Godzilla - Eminem</option>
                     </select>
                     <div id="nowPlayingSettings" class="now-playing">غير مشغلة</div>
                 </div>
+            </div>
+
+            <!-- Ad Removal Section (جديد) -->
+            <div class="glass-card rounded-xl p-4 mb-4">
+                <h2 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                    <i data-lucide="tv" class="w-5 h-5" style="color: var(--accent-color);"></i>
+                    الإعلانات
+                </h2>
+                <button onclick="purchaseAdRemoval()" class="w-full p-4 rounded-xl flex items-center justify-between" style="background: rgba(0,0,0,0.4); border: 1px solid var(--border-color);">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="eye-off" style="color: #ffd700;"></i>
+                        <span>إلغاء الإعلانات نهائياً</span>
+                    </div>
+                    <span style="color: #ffd700;">200,000 XP</span>
+                </button>
+                <div id="adStatusSettings" class="text-sm mt-2 text-center" style="color: var(--text-secondary);">الإعلانات مفعلة</div>
             </div>
 
             <!-- Play As -->
@@ -2477,6 +3138,13 @@
                 <div class="space-y-3">
                     <div class="p-3 rounded-lg" style="background: rgba(0,0,0,0.3);">
                         <div class="flex items-center gap-2 mb-1">
+                            <span class="text-xs px-2 py-0.5 rounded-full" style="background: #00ff88; color: black;">v4.0</span>
+                            <span class="text-xs" style="color: var(--text-secondary);">1 مارس 2026</span>
+                        </div>
+                        <p style="color: var(--text-primary);">إضافة طور الذكاء التكيفي وميزة VAR ونظام الإعلانات</p>
+                    </div>
+                    <div class="p-3 rounded-lg" style="background: rgba(0,0,0,0.3);">
+                        <div class="flex items-center gap-2 mb-1">
                             <span class="text-xs px-2 py-0.5 rounded-full" style="background: #00ff88; color: black;">v3.0</span>
                             <span class="text-xs" style="color: var(--text-secondary);">1 فبراير 2026</span>
                         </div>
@@ -2488,13 +3156,6 @@
                             <span class="text-xs" style="color: var(--text-secondary);">25 يناير 2026</span>
                         </div>
                         <p style="color: var(--text-primary);">إضافة نظام الموسيقى و 15 أغنية جديدة</p>
-                    </div>
-                    <div class="p-3 rounded-lg" style="background: rgba(0,0,0,0.3);">
-                        <div class="flex items-center gap-2 mb-1">
-                            <span class="text-xs px-2 py-0.5 rounded-full" style="background: #00ff88; color: black;">v2.0</span>
-                            <span class="text-xs" style="color: var(--text-secondary);">15 يناير 2026</span>
-                        </div>
-                        <p style="color: var(--text-primary);">إضافة نظام السكنات والمتجر وتحسين الذكاء الاصطناعي</p>
                     </div>
                 </div>
             </div>
@@ -2794,42 +3455,6 @@
                     </li>
                 </ul>
 
-                <h3 class="text-lg font-bold text-white mb-3">نصائح للفوز:</h3>
-                <ul class="space-y-2 mb-6">
-                    <li class="flex items-start gap-2" style="color: var(--text-primary);">
-                        <i data-lucide="lightbulb" class="w-4 h-4 mt-1" style="color: #ffd700;"></i>
-                        حاول السيطرة على المركز (الخانة الوسطى) - تمنحك 4 خطوط فوز محتملة
-                    </li>
-                    <li class="flex items-start gap-2" style="color: var(--text-primary);">
-                        <i data-lucide="lightbulb" class="w-4 h-4 mt-1" style="color: #ffd700;"></i>
-                        ابحث عن فرص "الضربة المزدوجة" - خطان فوز في نفس الوقت
-                    </li>
-                    <li class="flex items-start gap-2" style="color: var(--text-primary);">
-                        <i data-lucide="lightbulb" class="w-4 h-4 mt-1" style="color: #ffd700;"></i>
-                        احزر خطوط الفوز المحتملة لخصمك واصدها مبكراً
-                    </li>
-                    <li class="flex items-start gap-2" style="color: var(--text-primary);">
-                        <i data-lucide="lightbulb" class="w-4 h-4 mt-1" style="color: #ffd700;"></i>
-                        الزوايا الأربع مهمة استراتيجياً - كل زاوية تمنحك 3 خطوط فوز
-                    </li>
-                </ul>
-
-                <h3 class="text-lg font-bold text-white mb-3">استراتيجيات متقدمة:</h3>
-                <ul class="space-y-2 mb-6">
-                    <li class="flex items-start gap-2" style="color: var(--text-primary);">
-                        <span style="color: var(--accent-secondary);">•</span>
-                        <strong>هجوم الزوايا:</strong> إذا بدأت بالمركز ثم أخذت زوايا متقابلة، تخلق فرص فوز متعددة
-                    </li>
-                    <li class="flex items-start gap-2" style="color: var(--text-primary);">
-                        <span style="color: var(--accent-secondary);">•</span>
-                        <strong>دفاع متقدم:</strong> لا تركز فقط على خط واحد، انظر إلى الصورة الكاملة
-                    </li>
-                    <li class="flex items-start gap-2" style="color: var(--text-primary);">
-                        <span style="color: var(--accent-secondary);">•</span>
-                        <strong>الضغط النفسي:</strong> اجعل خصمك يدافع دائماً بخلق فرص هجوم متعددة
-                    </li>
-                </ul>
-
                 <h3 class="text-lg font-bold text-white mb-3">مستويات الصعوبة:</h3>
                 <div class="space-y-3">
                     <div class="p-3 rounded-lg" style="background: rgba(0, 255, 136, 0.1); border: 1px solid rgba(0, 255, 136, 0.3);">
@@ -2848,6 +3473,10 @@
                         <div class="font-bold" style="color: var(--accent-secondary);">عبقري</div>
                         <div class="text-sm" style="color: var(--text-secondary);">لا يُهزم تقريباً! - تحدٍ حقيقي للمحترفين</div>
                     </div>
+                    <div class="p-3 rounded-lg" style="background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.3);">
+                        <div class="font-bold" style="color: #a855f7;">تكيفي</div>
+                        <div class="text-sm" style="color: var(--text-secondary);">يتكيف مع مستواك ويتعلم من تحركاتك - تحدٍ ذكي</div>
+                    </div>
                 </div>
 
                 <h3 class="text-lg font-bold text-white mb-3 mt-6">نظام النقاط والمكافآت:</h3>
@@ -2863,6 +3492,9 @@
                     </li>
                     <li class="flex items-start gap-2" style="color: var(--text-primary);">
                         <span style="color: #ffd700;">+150 XP</span> - الفوز على مستوى عبقري
+                    </li>
+                    <li class="flex items-start gap-2" style="color: var(--text-primary);">
+                        <span style="color: #ffd700;">+100 XP</span> - الفوز على مستوى تكيفي
                     </li>
                     <li class="flex items-start gap-2" style="color: var(--text-primary);">
                         <span style="color: #ffd700;">+15 XP</span> - التعادل
@@ -3094,6 +3726,40 @@
         <button onclick="closeGuide()" class="neon-btn w-full py-3 rounded-xl font-bold" style="color: var(--text-primary);">حسناً</button>
     </div>
 
+    <!-- VAR Modal -->
+    <div id="var-modal-overlay" class="modal-overlay" onclick="closeVAR()"></div>
+    <div id="var-modal" class="modal-content var-modal glass-card">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-2xl font-display font-bold" style="color: var(--accent-color);">VAR - إعادة المباراة</h2>
+            <button onclick="closeVAR()" class="p-2 rounded-lg hover:bg-white/10 transition-colors">
+                <i data-lucide="x" class="w-6 h-6" style="color: var(--text-secondary);"></i>
+            </button>
+        </div>
+        
+        <div id="var-board" class="var-board"></div>
+        
+        <div class="var-controls">
+            <button onclick="varPause()" id="var-pause-btn" class="var-btn">
+                <i data-lucide="pause"></i>
+            </button>
+            <button onclick="varPrev()" class="var-btn">
+                <i data-lucide="skip-back"></i>
+            </button>
+            <button onclick="varNext()" class="var-btn">
+                <i data-lucide="skip-forward"></i>
+            </button>
+            <button onclick="varRestart()" class="var-btn">
+                <i data-lucide="rotate-ccw"></i>
+            </button>
+        </div>
+        
+        <div id="var-timeline" class="var-timeline"></div>
+        
+        <div class="text-center mt-4" style="color: var(--text-secondary);">
+            <span id="var-move-counter">الحركة 0 / 0</span>
+        </div>
+    </div>
+
     <!-- Division Complete Modal -->
     <div id="division-complete-overlay" class="modal-overlay" onclick="closeDivisionComplete()"></div>
     <div id="division-complete-modal" class="modal-content glass-card rounded-2xl p-8 w-full max-w-md division-complete-modal">
@@ -3128,7 +3794,12 @@
             'https://files.catbox.moe/hmelxy.mp3',   // Lovely
             'https://files.catbox.moe/l87rxs.m4a',   // MOONLIGHT
             'https://files.catbox.moe/xyysxv.mp3',   // Dorak Gai
-            'https://files.catbox.moe/svwkl4.mp3'    // Birds of a Feather
+            'https://files.catbox.moe/svwkl4.mp3',    // Birds of a Feather
+            'https://files.catbox.moe/46t2ms.mp3',    // 3alam kadaba
+            'https://files.catbox.moe/vndq8l.mp3',    // The Fate of Ophelia
+            'https://files.catbox.moe/zx2276.mp3',    // Gabolna Hkoma
+            'https://files.catbox.moe/yc9mt7.mp3',    // Stan
+            'https://files.catbox.moe/0rtibn.mp3'     // Godzilla
         ];
 
         const SONG_NAMES = [
@@ -3146,8 +3817,16 @@
             'Lovely - Billie Eilish',
             'MOONLIGHT - XXXTentacion',
             'Dorak Gai - Wegz',
-            'Birds of a Feather - Billie Eilish'
+            'Birds of a Feather - Billie Eilish',
+            '3alam kadaba - Lege Cy',
+            'The Fate of Ophelia - Taylor Swift',
+            'Gabolna Hkoma - Ziad Zaza',
+            'Stan - Eminem',
+            'Godzilla - Eminem'
         ];
+
+        // أكواد فك الحظر
+        const UNBAN_CODES = ['51375', '07813', '04575', '51376', '31676', '07844', '11236', '96123', '18596', '33166'];
 
         // تعديل جوائز الديفيجن حسب الطلب
         const DIVISIONS = [
@@ -3247,6 +3926,7 @@
             { id: 'medium', name: 'متوسط', desc: 'تحدي متوازن - الكمبيوتر يدافع ويهاجم', color: '#ffd700', icon: 'shield' },
             { id: 'hard', name: 'صعب', desc: 'فكر جيداً - الكمبيوتر ذكي جداً', color: '#ff6b35', icon: 'brain' },
             { id: 'genius', name: 'عبقري', desc: 'مستحيل؟ - الكمبيوتر لا يُهزم تقريباً', color: '#ff3366', icon: 'skull' },
+            { id: 'adaptive', name: 'تكيفي', desc: 'يتكيف مع مستواك ويتعلم من تحركاتك', color: '#a855f7', icon: 'cpu' },
         ];
 
         const ACHIEVEMENTS = [
@@ -3256,6 +3936,7 @@
             { id: 'streak-3', title: 'سلسلة ذهبية', desc: 'اربح 3 مباريات متتالية', xp: 100, icon: 'flame', check: s => s.stats.bestStreak >= 3 },
             { id: 'streak-5', title: 'لا يُقهر', desc: 'اربح 5 مباريات متتالية', xp: 250, icon: 'zap', check: s => s.stats.bestStreak >= 5 },
             { id: 'genius-beaten', title: 'قاهر العباقرة', desc: 'اهزم مستوى عبقري', xp: 500, icon: 'star', check: s => s.beatenGenius },
+            { id: 'adaptive-master', title: 'سيد التكيف', desc: 'اهزم مستوى تكيفي', xp: 300, icon: 'cpu', check: s => s.beatenAdaptive },
             { id: 'matches-20', title: 'مخضرم', desc: 'العب 20 مباراة', xp: 100, icon: 'gamepad-2', check: s => s.stats.totalMatches >= 20 },
             { id: 'matches-100', title: 'أسطورة', desc: 'العب 100 مباراة', xp: 1000, icon: 'award', check: s => s.stats.totalMatches >= 100 },
             { id: 'division-10', title: 'متحدي الديفيجن', desc: 'أكمل أول ديفيجن', xp: 200, icon: 'git-branch', check: s => s.completedDivisions >= 1 },
@@ -3289,6 +3970,7 @@
             'لا تهاجم فقط - راقب خطوط الفوز المحتملة لخصمك واصدها.',
             'الزوايا الأربع مهمة جداً - حاول السيطرة على أكبر عدد منها.',
             'في مستوى عبقري، التعادل يعتبر إنجازاً! ركز على عدم الخسارة أولاً.',
+            'الطور التكيفي يتعلم من تحركاتك - غير استراتيجيتك باستمرار.',
             'استراتيجية المركز تمنحك 4 خطوط فوز محتملة.',
             'الزوايا تمنحك 3 خطوط فوز محتملة لكل منها.',
             'إذا بدأت بالمركز ثم أخذت زوايا متقابلة، تخلق فرص فوز متعددة.',
@@ -3315,14 +3997,28 @@
             stats: { totalMatches: 0, wins: 0, losses: 0, draws: 0, winStreak: 0, bestStreak: 0 },
             achievements: [],
             beatenGenius: false,
+            beatenAdaptive: false,
             dailyStreak: 0,
             lastClaimDate: null,
             soundEnabled: true,
             cookiesAccepted: false,
             
+            // Banned system
+            isBanned: false,
+            unbanAttempts: 3,
+            
             // Music settings
             musicEnabled: false,
             currentSong: 0,
+            
+            // Ad settings
+            adsRemoved: false,
+            lastAdTime: 0,
+            adTimer: null,
+            
+            // Share system
+            shareCount: 0,
+            shareRewardClaimed: false,
             
             // Division mode
             currentDivision: 10,
@@ -3334,11 +4030,19 @@
             gameMode: 'friend',
             difficulty: 'beginner',
             board: Array(9).fill(null),
+            moveHistory: [], // for VAR
             isXNext: true,
             winner: null,
             winningLine: null,
             isComputerTurn: false,
             gameStartTime: null,
+            
+            // Adaptive AI data
+            adaptiveData: {
+                matchesPlayed: 0,
+                playerSkill: 0.5,
+                currentDifficulty: 'beginner'
+            },
             
             // Win streak for counter
             currentWinStreak: 0,
@@ -3348,8 +4052,12 @@
                 beginner: 0,
                 medium: 0,
                 hard: 0,
-                genius: 0
+                genius: 0,
+                adaptive: 0
             },
+            
+            // What's New modal
+            hasSeenWhatsNew: false,
             
             // Logo click counter for Easter Egg
             logoClickCount: 0,
@@ -3364,6 +4072,11 @@
         // Win Streak Counter Element
         let winStreakElement = null;
         let winStreakValueElement = null;
+
+        // VAR variables
+        let varMoveIndex = 0;
+        let varIsPlaying = false;
+        let varInterval = null;
 
         // ==================== SETTINGS PANEL ====================
 
@@ -3414,6 +4127,18 @@
             
             // Load AI progress from localStorage
             loadAIProgress();
+            
+            // Check if banned
+            if (state.isBanned) {
+                showBannedModal();
+            }
+            
+            // Show What's New modal for existing users
+            if (!state.hasSeenWhatsNew && state.xp > 0) {
+                setTimeout(() => {
+                    showWhatsNew();
+                }, 2000);
+            }
         }
 
         function updateSocialLinks() {
@@ -3423,11 +4148,17 @@
         }
 
         function loadState() {
-            const saved = localStorage.getItem('xo-arena-v1');
+            const saved = localStorage.getItem('xo-arena-v4'); // تحديث الإصدار
             if (saved) {
                 try {
                     const parsed = JSON.parse(saved);
                     state = { ...state, ...parsed, board: Array(9).fill(null), winner: null, winningLine: null, isComputerTurn: false };
+                    
+                    // إضافة 10,000 XP للمستخدمين القدامى (مرة واحدة)
+                    if (!state.hasSeenWhatsNew && state.xp > 0) {
+                        state.xp += 10000;
+                        showNotification('🎉 تم تعويضك 10,000 XP! شكراً لصبرك', 'reward');
+                    }
                 } catch (e) { console.error('Save corrupted'); }
             }
         }
@@ -3446,20 +4177,99 @@
                 stats: state.stats,
                 achievements: state.achievements,
                 beatenGenius: state.beatenGenius,
+                beatenAdaptive: state.beatenAdaptive,
                 dailyStreak: state.dailyStreak,
                 lastClaimDate: state.lastClaimDate,
                 soundEnabled: state.soundEnabled,
                 cookiesAccepted: state.cookiesAccepted,
+                isBanned: state.isBanned,
+                unbanAttempts: state.unbanAttempts,
                 musicEnabled: state.musicEnabled,
                 currentSong: state.currentSong,
+                adsRemoved: state.adsRemoved,
+                shareCount: state.shareCount,
+                shareRewardClaimed: state.shareRewardClaimed,
                 currentDivision: state.currentDivision,
                 divisionPoints: state.divisionPoints,
                 completedDivisions: state.completedDivisions,
                 completedDivision1: state.completedDivision1,
                 currentWinStreak: state.currentWinStreak,
-                aiProgress: state.aiProgress
+                aiProgress: state.aiProgress,
+                adaptiveData: state.adaptiveData,
+                hasSeenWhatsNew: state.hasSeenWhatsNew
             };
-            localStorage.setItem('xo-arena-v1', JSON.stringify(toSave));
+            localStorage.setItem('xo-arena-v4', JSON.stringify(toSave));
+        }
+
+        // ==================== BANNED SYSTEM ====================
+
+        function showBannedModal() {
+            const overlay = document.getElementById('banned-modal-overlay');
+            const modal = document.getElementById('banned-modal');
+            overlay.classList.add('active');
+            modal.classList.add('active');
+        }
+
+        function closeBannedModal() {
+            if (state.isBanned) return; // لا يمكن إغلاقها إذا كان محظوراً
+            document.getElementById('banned-modal-overlay').classList.remove('active');
+            document.getElementById('banned-modal').classList.remove('active');
+        }
+
+        function attemptUnban() {
+            if (state.isBanned) {
+                showNotification('حسابك محظور ولا يمكن فك الحظر', 'error');
+                return;
+            }
+            
+            const code = document.getElementById('unban-code').value.trim();
+            
+            if (UNBAN_CODES.includes(code)) {
+                // كود صحيح - فك الحظر
+                state.isBanned = false;
+                state.unbanAttempts = 3;
+                saveState();
+                closeBannedModal();
+                showNotification('تم فك حظر حسابك بنجاح!', 'success');
+            } else {
+                // كود خطأ
+                state.unbanAttempts--;
+                
+                if (state.unbanAttempts <= 0) {
+                    // حظر نهائي
+                    state.isBanned = true;
+                    state.unbanAttempts = 0;
+                    saveState();
+                    
+                    // إخفاء خانة إدخال الكود
+                    document.getElementById('unban-section').style.display = 'none';
+                    
+                    showNotification('تم حظر حسابك نهائياً', 'error');
+                } else {
+                    // تحديث عدد المحاولات المتبقية
+                    document.getElementById('unban-attempts').textContent = `المحاولات المتبقية: ${state.unbanAttempts}`;
+                    showNotification('كود غير صحيح', 'error');
+                }
+                
+                saveState();
+            }
+        }
+
+        // ==================== WHAT'S NEW MODAL ====================
+
+        function showWhatsNew() {
+            const overlay = document.getElementById('whats-new-modal-overlay');
+            const modal = document.getElementById('whats-new-modal');
+            overlay.classList.add('active');
+            modal.classList.add('active');
+            
+            state.hasSeenWhatsNew = true;
+            saveState();
+        }
+
+        function closeWhatsNew() {
+            document.getElementById('whats-new-modal-overlay').classList.remove('active');
+            document.getElementById('whats-new-modal').classList.remove('active');
         }
 
         // ==================== COOKIES ====================
@@ -3691,13 +4501,184 @@
             }
         }
 
+        // ==================== AD SYSTEM ====================
+
+        function startAdTimer() {
+            if (state.adsRemoved) return; // تم إلغاء الإعلانات
+            
+            const interval = Math.random() * 300000 + 300000; // 5-10 دقائق (300,000-600,000 مللي ثانية)
+            
+            state.adTimer = setTimeout(() => {
+                showAdCountdown();
+            }, interval);
+        }
+
+        function showAdCountdown() {
+            if (state.adsRemoved) return;
+            
+            let countdown = 5;
+            const countdownEl = document.getElementById('ad-countdown');
+            const numberEl = document.getElementById('ad-countdown-number');
+            
+            countdownEl.classList.remove('hidden');
+            
+            const interval = setInterval(() => {
+                countdown--;
+                numberEl.textContent = countdown;
+                
+                if (countdown <= 0) {
+                    clearInterval(interval);
+                    countdownEl.classList.add('hidden');
+                    showAdVideo();
+                }
+            }, 1000);
+        }
+
+        function showAdVideo() {
+            if (state.adsRemoved) return;
+            
+            const container = document.getElementById('ad-video-container');
+            const video = document.getElementById('ad-video-player');
+            
+            container.classList.remove('hidden');
+            video.currentTime = 0;
+            video.play();
+            
+            video.onended = function() {
+                closeAd();
+                startAdTimer(); // تشغيل المؤقت التالي
+            };
+        }
+
+        function closeAd() {
+            document.getElementById('ad-video-container').classList.add('hidden');
+            document.getElementById('ad-video-player').pause();
+        }
+
+        function purchaseAdRemoval() {
+            if (state.adsRemoved) {
+                showNotification('الإعلانات ملغاة بالفعل', 'info');
+                return;
+            }
+            
+            if (state.xp >= 200000) {
+                state.xp -= 200000;
+                state.adsRemoved = true;
+                
+                if (state.adTimer) {
+                    clearTimeout(state.adTimer);
+                }
+                
+                saveState();
+                updateAdStatus();
+                showNotification('تم إلغاء الإعلانات نهائياً!', 'achievement');
+                playSound('achievement');
+            } else {
+                showNotification('نقاط XP غير كافية', 'error');
+            }
+        }
+
+        function updateAdStatus() {
+            const status = document.getElementById('adStatus');
+            const statusSettings = document.getElementById('adStatusSettings');
+            
+            const text = state.adsRemoved ? 'الإعلانات ملغاة' : 'الإعلانات مفعلة';
+            if (status) status.textContent = text;
+            if (statusSettings) statusSettings.textContent = text;
+        }
+
+        // ==================== SHARE SYSTEM ====================
+
+        function shareOnFacebook() {
+            const url = encodeURIComponent('https://xo-arena-1.github.io/XO-Arena/');
+            const text = encodeURIComponent('🎮 جرب XO Arena - أفضل لعبة إكس أو عربية مع 5 مستويات ذكاء اصطناعي!');
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`, '_blank');
+            incrementShareCount();
+        }
+
+        function shareOnTwitter() {
+            const url = encodeURIComponent('https://xo-arena-1.github.io/XO-Arena/');
+            const text = encodeURIComponent('🎮 XO Arena - لعبة إكس أو عربية احترافية مع 5 مستويات ذكاء اصطناعي!');
+            window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+            incrementShareCount();
+        }
+
+        function shareOnWhatsApp() {
+            const url = encodeURIComponent('https://xo-arena-1.github.io/XO-Arena/');
+            const text = encodeURIComponent('🎮 جرب XO Arena - أقوى لعبة إكس أو عربية!');
+            window.open(`https://api.whatsapp.com/send?text=${text}%20${url}`, '_blank');
+            incrementShareCount();
+        }
+
+        function shareOnTelegram() {
+            const url = encodeURIComponent('https://xo-arena-1.github.io/XO-Arena/');
+            const text = encodeURIComponent('🎮 XO Arena - لعبة إكس أو عربية');
+            window.open(`https://t.me/share/url?url=${url}&text=${text}`, '_blank');
+            incrementShareCount();
+        }
+
+        function incrementShareCount() {
+            if (state.shareRewardClaimed) return;
+            
+            state.shareCount++;
+            saveState();
+            
+            updateShareUI();
+            
+            if (state.shareCount >= 20) {
+                document.getElementById('verifyShareBtn').disabled = false;
+            }
+        }
+
+        function verifyShare() {
+            if (state.shareRewardClaimed) {
+                showNotification('لقد حصلت على المكافأة بالفعل', 'info');
+                return;
+            }
+            
+            if (state.shareCount >= 20) {
+                state.xp += 100000;
+                state.shareRewardClaimed = true;
+                saveState();
+                updateShareUI();
+                showNotification('🎉 تم إضافة 100,000 XP! شكراً لمشاركتك', 'reward');
+                playSound('achievement');
+            } else {
+                showNotification(`تحتاج إلى مشاركة اللعبة مع ${20 - state.shareCount} شخص آخر`, 'info');
+            }
+        }
+
+        function updateShareUI() {
+            const shareCount = document.getElementById('shareCount');
+            const shareProgress = document.getElementById('shareProgress');
+            const verifyBtn = document.getElementById('verifyShareBtn');
+            
+            if (shareCount) shareCount.textContent = `${state.shareCount}/20`;
+            if (shareProgress) shareProgress.style.width = `${(state.shareCount / 20) * 100}%`;
+            
+            if (verifyBtn) {
+                verifyBtn.disabled = state.shareCount < 20 || state.shareRewardClaimed;
+                verifyBtn.style.opacity = state.shareCount >= 20 && !state.shareRewardClaimed ? '1' : '0.5';
+            }
+        }
+
         // ==================== NAVIGATION ====================
 
         function navigateTo(pageId) {
+            if (state.isBanned && pageId !== 'home') {
+                showBannedModal();
+                return;
+            }
+            
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             const target = document.getElementById(`page-${pageId}`);
             if (target) {
                 target.classList.add('active');
+                
+                // تحديث واجهة المشاركة عند الدخول إلى صفحة المشاركة
+                if (pageId === 'share') {
+                    updateShareUI();
+                }
             }
             lucide.createIcons();
             playSound('click');
@@ -3969,6 +4950,12 @@
             const container = document.getElementById(containerId);
             if (container) {
                 container.className = `rounded-full p-1 ${frame.class}`;
+                
+                // التأكد من أن الصورة تظهر
+                const img = container.querySelector('img');
+                if (img && state.profileImage) {
+                    img.src = state.profileImage;
+                }
             }
         }
 
@@ -4048,6 +5035,13 @@
                 } else {
                     showNotification('هذا الإطار مفتوح بالفعل');
                 }
+            } else if (UNBAN_CODES.includes(code) && state.isBanned) {
+                // كود فك الحظر
+                state.isBanned = false;
+                state.unbanAttempts = 3;
+                saveState();
+                closeBannedModal();
+                showNotification('تم فك حظر حسابك!', 'success');
             } else {
                 showNotification('كود غير صحيح');
             }
@@ -4444,7 +5438,6 @@
                             </div>
                             <i data-lucide="chevron-left" class="w-5 h-5" style="color: var(--text-secondary);"></i>
                         </button>
-                        <div class="text-center mt-2" style="color: var(--text-secondary);">مستوى عبقري</div>
                         ${stars}
                     </div>
                 `;
@@ -4511,12 +5504,328 @@
             saveState();
         }
 
+        // ==================== VAR FUNCTIONS ====================
+
+        function showVAR() {
+            if (state.moveHistory.length === 0) {
+                showNotification('لا توجد تحركات لعرضها', 'info');
+                return;
+            }
+            
+            varMoveIndex = 0;
+            updateVARBoard();
+            
+            const overlay = document.getElementById('var-modal-overlay');
+            const modal = document.getElementById('var-modal');
+            overlay.classList.add('active');
+            modal.classList.add('active');
+            
+            renderVARTimeline();
+        }
+
+        function closeVAR() {
+            if (varInterval) {
+                clearInterval(varInterval);
+                varIsPlaying = false;
+            }
+            
+            document.getElementById('var-modal-overlay').classList.remove('active');
+            document.getElementById('var-modal').classList.remove('active');
+        }
+
+        function renderVARTimeline() {
+            const timeline = document.getElementById('var-timeline');
+            timeline.innerHTML = '';
+            
+            for (let i = 0; i <= state.moveHistory.length; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'var-timeline-dot';
+                
+                if (i === 0) {
+                    dot.textContent = '●';
+                } else {
+                    const move = state.moveHistory[i-1];
+                    dot.textContent = move.player;
+                    dot.classList.add(`player-${move.player.toLowerCase()}`);
+                }
+                
+                if (i === varMoveIndex) {
+                    dot.classList.add('active');
+                }
+                
+                dot.onclick = () => {
+                    varMoveIndex = i;
+                    updateVARBoard();
+                    renderVARTimeline();
+                };
+                
+                timeline.appendChild(dot);
+            }
+        }
+
+        function updateVARBoard() {
+            const board = document.getElementById('var-board');
+            board.innerHTML = '';
+            
+            let currentBoard;
+            if (varMoveIndex === 0) {
+                currentBoard = Array(9).fill(null);
+            } else {
+                currentBoard = [...state.moveHistory[varMoveIndex - 1].board];
+            }
+            
+            for (let i = 0; i < 9; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'var-cell';
+                
+                if (currentBoard[i]) {
+                    cell.innerHTML = `<span>${currentBoard[i]}</span>`;
+                    if (state.winningLine && state.winningLine.includes(i) && varMoveIndex === state.moveHistory.length) {
+                        cell.classList.add('win-cell');
+                    }
+                }
+                
+                board.appendChild(cell);
+            }
+            
+            document.getElementById('var-move-counter').textContent = `الحركة ${varMoveIndex} / ${state.moveHistory.length}`;
+        }
+
+        function varPrev() {
+            if (varMoveIndex > 0) {
+                varMoveIndex--;
+                updateVARBoard();
+                renderVARTimeline();
+            }
+        }
+
+        function varNext() {
+            if (varMoveIndex < state.moveHistory.length) {
+                varMoveIndex++;
+                updateVARBoard();
+                renderVARTimeline();
+            }
+        }
+
+        function varRestart() {
+            varMoveIndex = 0;
+            updateVARBoard();
+            renderVARTimeline();
+        }
+
+        function varPause() {
+            if (varIsPlaying) {
+                clearInterval(varInterval);
+                varIsPlaying = false;
+                document.getElementById('var-pause-btn').innerHTML = '<i data-lucide="play"></i>';
+            } else {
+                varIsPlaying = true;
+                document.getElementById('var-pause-btn').innerHTML = '<i data-lucide="pause"></i>';
+                
+                varInterval = setInterval(() => {
+                    if (varMoveIndex < state.moveHistory.length) {
+                        varMoveIndex++;
+                        updateVARBoard();
+                        renderVARTimeline();
+                    } else {
+                        clearInterval(varInterval);
+                        varIsPlaying = false;
+                        document.getElementById('var-pause-btn').innerHTML = '<i data-lucide="play"></i>';
+                    }
+                }, 1000);
+            }
+            
+            lucide.createIcons();
+        }
+
+        // ==================== ADAPTIVE AI ====================
+
+        function updateAdaptiveDifficulty(playerWon) {
+            // تحديث مستوى المهارة بناءً على أداء اللاعب
+            if (playerWon) {
+                state.adaptiveData.playerSkill = Math.min(1, state.adaptiveData.playerSkill + 0.1);
+            } else {
+                state.adaptiveData.playerSkill = Math.max(0, state.adaptiveData.playerSkill - 0.1);
+            }
+            
+            // تحديث مستوى الصعوبة بناءً على مهارة اللاعب
+            if (state.adaptiveData.playerSkill < 0.25) {
+                state.adaptiveData.currentDifficulty = 'beginner';
+            } else if (state.adaptiveData.playerSkill < 0.5) {
+                state.adaptiveData.currentDifficulty = 'medium';
+            } else if (state.adaptiveData.playerSkill < 0.75) {
+                state.adaptiveData.currentDifficulty = 'hard';
+            } else {
+                state.adaptiveData.currentDifficulty = 'genius';
+            }
+            
+            state.adaptiveData.matchesPlayed++;
+            saveState();
+        }
+
+        function getAdaptiveMove(computer, player) {
+            // أول 3 مباريات تكون سهلة
+            if (state.adaptiveData.matchesPlayed < 3) {
+                return getBeginnerMove(state.board);
+            }
+            
+            // بعد ذلك استخدم مستوى الصعوبة المناسب
+            switch(state.adaptiveData.currentDifficulty) {
+                case 'beginner':
+                    return getBeginnerMove(state.board);
+                case 'medium':
+                    return getMediumMove(state.board, computer, player);
+                case 'hard':
+                    return getHardMove(state.board, computer, player);
+                case 'genius':
+                    return getGeniusMove(computer, player);
+                default:
+                    return getMediumMove(state.board, computer, player);
+            }
+        }
+
+        // ==================== AI FUNCTIONS (محسنة) ====================
+
+        function getBeginnerMove(board) {
+            const empty = board.map((v, i) => v === null ? i : null).filter(v => v !== null);
+            
+            // 50% عشوائي، 50% ذكي
+            if (Math.random() < 0.5) {
+                return empty[Math.floor(Math.random() * empty.length)];
+            }
+            
+            // حاول أخذ المركز
+            if (board[4] === null) return 4;
+            
+            // حاول أخذ الزوايا
+            const corners = [0, 2, 6, 8].filter(i => board[i] === null);
+            if (corners.length > 0) return corners[Math.floor(Math.random() * corners.length)];
+            
+            return empty[Math.floor(Math.random() * empty.length)];
+        }
+
+        function getMediumMove(board, computer, player) {
+            const empty = board.map((v, i) => v === null ? i : null).filter(v => v !== null);
+            
+            // حاول الفوز
+            for (let i of empty) {
+                const copy = [...board];
+                copy[i] = computer;
+                if (checkWinner(copy)?.winner === computer) return i;
+            }
+            
+            // حاول منع اللاعب من الفوز
+            for (let i of empty) {
+                const copy = [...board];
+                copy[i] = player;
+                if (checkWinner(copy)?.winner === player) return i;
+            }
+            
+            // خذ المركز إذا كان متاحاً
+            if (board[4] === null) return 4;
+            
+            // خذ زاوية
+            const corners = [0, 2, 6, 8].filter(i => board[i] === null);
+            if (corners.length > 0) return corners[Math.floor(Math.random() * corners.length)];
+            
+            return empty[Math.floor(Math.random() * empty.length)];
+        }
+
+        function getHardMove(board, computer, player) {
+            // 70% مثالي، 30% متوسط
+            if (Math.random() < 0.3) {
+                return getMediumMove(board, computer, player);
+            }
+            return getGeniusMove(computer, player);
+        }
+
+        function getGeniusMove(computer, player) {
+            let bestScore = -Infinity;
+            let bestMove = -1;
+            
+            for (let i = 0; i < 9; i++) {
+                if (state.board[i] === null) {
+                    state.board[i] = computer;
+                    const score = minimax(state.board, 0, false, -Infinity, Infinity, computer, player);
+                    state.board[i] = null;
+                    
+                    if (score > bestScore) {
+                        bestScore = score;
+                        bestMove = i;
+                    }
+                }
+            }
+            
+            return bestMove;
+        }
+
+        function minimax(board, depth, isMax, alpha, beta, computer, player) {
+            const result = checkWinner(board);
+            if (result) {
+                if (result.winner === computer) return 10 - depth;
+                if (result.winner === player) return depth - 10;
+                return 0;
+            }
+            
+            if (isMax) {
+                let maxEval = -Infinity;
+                for (let i = 0; i < 9; i++) {
+                    if (board[i] === null) {
+                        board[i] = computer;
+                        const score = minimax(board, depth + 1, false, alpha, beta, computer, player);
+                        board[i] = null;
+                        maxEval = Math.max(maxEval, score);
+                        alpha = Math.max(alpha, score);
+                        if (beta <= alpha) break;
+                    }
+                }
+                return maxEval;
+            } else {
+                let minEval = Infinity;
+                for (let i = 0; i < 9; i++) {
+                    if (board[i] === null) {
+                        board[i] = player;
+                        const score = minimax(board, depth + 1, true, alpha, beta, computer, player);
+                        board[i] = null;
+                        minEval = Math.min(minEval, score);
+                        beta = Math.min(beta, score);
+                        if (beta <= alpha) break;
+                    }
+                }
+                return minEval;
+            }
+        }
+
+        function getComputerMove() {
+            const empty = state.board.map((v, i) => v === null ? i : null).filter(v => v !== null);
+            if (empty.length === 0) return -1;
+            
+            const computer = state.playAs === 'X' ? 'O' : 'X';
+            const player = state.playAs;
+            
+            switch (state.difficulty) {
+                case 'beginner':
+                    return getBeginnerMove(state.board);
+                case 'medium':
+                    return getMediumMove(state.board, computer, player);
+                case 'hard':
+                    return getHardMove(state.board, computer, player);
+                case 'genius':
+                    return getGeniusMove(computer, player);
+                case 'adaptive':
+                    return getAdaptiveMove(computer, player);
+                default:
+                    return empty[Math.floor(Math.random() * empty.length)];
+            }
+        }
+
         // ==================== GAME LOGIC ====================
 
         function startGame(mode, difficulty = 'beginner') {
             state.gameMode = mode;
             state.difficulty = difficulty;
             state.gameStartTime = Date.now();
+            state.moveHistory = [];
             resetBoard();
             
             navigateTo('game');
@@ -4543,6 +5852,11 @@
                     if (move !== -1) makeMove(move, 'X');
                     state.isComputerTurn = false;
                 }, 800);
+            }
+            
+            // Start ad timer if not removed
+            if (!state.adsRemoved && !state.adTimer) {
+                startAdTimer();
             }
         }
 
@@ -4598,6 +5912,13 @@
 
         function makeMove(index, player) {
             state.board[index] = player;
+            
+            // Save move for VAR
+            state.moveHistory.push({
+                player: player,
+                position: index,
+                board: [...state.board]
+            });
             
             const cell = document.getElementById(`cell-${index}`);
             const skin = SKINS.find(s => s.id === state.currentSkin) || SKINS[0];
@@ -4670,13 +5991,27 @@
                         state.stats.bestStreak = state.currentWinStreak;
                     }
                     
-                    const rewards = { beginner: 150, medium: 300, hard: 500, genius: 800 };
+                    const rewards = { 
+                        beginner: 150, 
+                        medium: 300, 
+                        hard: 500, 
+                        genius: 800,
+                        adaptive: 600 
+                    };
                     const reward = rewards[state.difficulty] || 30;
                     state.xp += reward;
                     xpChange = reward;
                     
                     if (state.difficulty === 'genius') {
                         state.beatenGenius = true;
+                    }
+                    if (state.difficulty === 'adaptive') {
+                        state.beatenAdaptive = true;
+                    }
+                    
+                    // Update adaptive AI
+                    if (state.difficulty === 'adaptive') {
+                        updateAdaptiveDifficulty(true);
                     }
                     
                     // Increment AI progress
@@ -4694,6 +6029,12 @@
                     state.stats.losses++;
                     state.currentWinStreak = 0;
                     xpChange = 0;
+                    
+                    // Update adaptive AI
+                    if (state.difficulty === 'adaptive') {
+                        updateAdaptiveDifficulty(false);
+                    }
+                    
                     showNotification('الكمبيوتر فاز!');
                     playSound('lose');
                     
@@ -4707,6 +6048,12 @@
                     state.currentWinStreak = 0;
                     state.xp += 15;
                     xpChange = 15;
+                    
+                    // Update adaptive AI
+                    if (state.difficulty === 'adaptive') {
+                        updateAdaptiveDifficulty(false);
+                    }
+                    
                     showNotification('تعادل! +15 XP');
                     playSound('draw');
                 }
@@ -4776,131 +6123,6 @@
             }
         }
 
-        // ==================== AI ====================
-
-        function getComputerMove() {
-            const empty = state.board.map((v, i) => v === null ? i : null).filter(v => v !== null);
-            if (empty.length === 0) return -1;
-            
-            const computer = state.playAs === 'X' ? 'O' : 'X';
-            const player = state.playAs;
-            
-            switch (state.difficulty) {
-                case 'beginner':
-                    return getBeginnerMove(empty);
-                case 'medium':
-                    return getMediumMove(empty, computer, player);
-                case 'hard':
-                    return getHardMove(empty, computer, player);
-                case 'genius':
-                    return getGeniusMove(computer, player);
-                default:
-                    return empty[Math.floor(Math.random() * empty.length)];
-            }
-        }
-
-        function getBeginnerMove(empty) {
-            // 70% random
-            if (Math.random() < 0.7) {
-                return empty[Math.floor(Math.random() * empty.length)];
-            }
-            // 30% smart (take center or corner)
-            if (state.board[4] === null) return 4;
-            const corners = [0, 2, 6, 8].filter(i => state.board[i] === null);
-            if (corners.length > 0) return corners[Math.floor(Math.random() * corners.length)];
-            return empty[Math.floor(Math.random() * empty.length)];
-        }
-
-        function getMediumMove(empty, computer, player) {
-            // Win if possible
-            for (let i of empty) {
-                const copy = [...state.board];
-                copy[i] = computer;
-                if (checkWinner(copy)?.winner === computer) return i;
-            }
-            
-            // Block player
-            for (let i of empty) {
-                const copy = [...state.board];
-                copy[i] = player;
-                if (checkWinner(copy)?.winner === player) return i;
-            }
-            
-            // Take center
-            if (state.board[4] === null) return 4;
-            
-            // Take corner
-            const corners = [0, 2, 6, 8].filter(i => state.board[i] === null);
-            if (corners.length > 0) return corners[Math.floor(Math.random() * corners.length)];
-            
-            return empty[Math.floor(Math.random() * empty.length)];
-        }
-
-        function getHardMove(empty, computer, player) {
-            // 80% optimal, 20% medium
-            if (Math.random() < 0.2) {
-                return getMediumMove(empty, computer, player);
-            }
-            return getGeniusMove(computer, player);
-        }
-
-        function getGeniusMove(computer, player) {
-            let bestScore = -Infinity;
-            let bestMove = -1;
-            
-            for (let i = 0; i < 9; i++) {
-                if (state.board[i] === null) {
-                    state.board[i] = computer;
-                    const score = minimax(state.board, 0, false, -Infinity, Infinity, computer, player);
-                    state.board[i] = null;
-                    
-                    if (score > bestScore) {
-                        bestScore = score;
-                        bestMove = i;
-                    }
-                }
-            }
-            
-            return bestMove;
-        }
-
-        function minimax(board, depth, isMax, alpha, beta, computer, player) {
-            const result = checkWinner(board);
-            if (result) {
-                if (result.winner === computer) return 10 - depth;
-                if (result.winner === player) return depth - 10;
-                return 0;
-            }
-            
-            if (isMax) {
-                let maxEval = -Infinity;
-                for (let i = 0; i < 9; i++) {
-                    if (board[i] === null) {
-                        board[i] = computer;
-                        const score = minimax(board, depth + 1, false, alpha, beta, computer, player);
-                        board[i] = null;
-                        maxEval = Math.max(maxEval, score);
-                        alpha = Math.max(alpha, score);
-                        if (beta <= alpha) break;
-                    }
-                }
-                return maxEval;
-            } else {
-                let minEval = Infinity;
-                for (let i = 0; i < 9; i++) {
-                    if (board[i] === null) {
-                        board[i] = player;
-                        const score = minimax(board, depth + 1, true, alpha, beta, computer, player);
-                        board[i] = null;
-                        minEval = Math.min(minEval, score);
-                        beta = Math.min(beta, score);
-                        if (beta <= alpha) break;
-                    }
-                }
-                return minEval;
-            }
-        }
-
         function endGameAndReturn() {
             resetBoard();
             navigateTo('home');
@@ -4930,7 +6152,7 @@
 
         function resetProgress() {
             if (confirm('هل أنت متأكد من حذف كل التقدم؟ هذا لا يمكن التراجع عنه.')) {
-                localStorage.removeItem('xo-arena-v1');
+                localStorage.removeItem('xo-arena-v4');
                 localStorage.removeItem('aiProgress');
                 location.reload();
             }
@@ -5027,6 +6249,9 @@
             // Division
             updateDivisionDisplay();
             
+            // Ad status
+            updateAdStatus();
+            
             // Render components
             renderStore();
             renderLevels();
@@ -5100,6 +6325,32 @@
         window.sortByPrice = sortByPrice;
         window.showNotification = showNotification;
         window.handleLogoClick = handleLogoClick;
+        
+        // VAR functions
+        window.showVAR = showVAR;
+        window.closeVAR = closeVAR;
+        window.varPrev = varPrev;
+        window.varNext = varNext;
+        window.varPause = varPause;
+        window.varRestart = varRestart;
+        
+        // Ad functions
+        window.closeAd = closeAd;
+        window.purchaseAdRemoval = purchaseAdRemoval;
+        
+        // Share functions
+        window.shareOnFacebook = shareOnFacebook;
+        window.shareOnTwitter = shareOnTwitter;
+        window.shareOnWhatsApp = shareOnWhatsApp;
+        window.shareOnTelegram = shareOnTelegram;
+        window.verifyShare = verifyShare;
+        
+        // Banned functions
+        window.attemptUnban = attemptUnban;
+        window.closeBannedModal = closeBannedModal;
+        
+        // What's New
+        window.closeWhatsNew = closeWhatsNew;
     </script>
 
     <!-- ========== FIREBASE INITIALIZATION WITH AUTH AND FIRESTORE ========== -->

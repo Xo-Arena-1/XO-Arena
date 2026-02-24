@@ -9,9 +9,9 @@
      crossorigin="anonymous"></script>
     
     <!-- تحسين SEO الأساسي -->
-    <title>XO Arena - أقوى لعبة إكس أو عربية مع الذكاء الاصطناعي ونظام الديفيجن</title>
-    <meta name="description" content="XO Arena: أول لعبة إكس أو عربية احترافية. 5 مستويات ذكاء اصطناعي، نظام إنجازات، متجر سكنات، وإحصائيات متقدمة. لعبة استراتيجية مجانية لجميع الأعمار.">
-    <meta name="keywords" content="لعبة XO, إكس أو, tic tac toe, لعبة ذكاء, العاب استراتيجية, العاب عربية, تحدي الذكاء, eclipse games, العاب كمبيوتر, العاب مجانية">
+    <title>XO Arena - أقوى لعبة إكس أو عربية مع الذكاء الاصطناعي ونظام الديفيجن والأونلاين</title>
+    <meta name="description" content="XO Arena: أول لعبة إكس أو عربية احترافية مع نظام أونلاين متكامل. العب مع الأصدقاء، نظام تصنيف، ونقاط XP. 5 مستويات ذكاء اصطناعي، نظام إنجازات، ومتجر سكنات.">
+    <meta name="keywords" content="لعبة XO, إكس أو, tic tac toe, لعبة ذكاء, العاب استراتيجية, العاب عربية, تحدي الذكاء, eclipse games, العاب كمبيوتر, العاب مجانية, لعبة أونلاين">
     <meta name="author" content="Eclipse Games">
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
@@ -19,8 +19,8 @@
     <meta name="language" content="Arabic">
     
     <!-- Open Graph / فيسبوك -->
-    <meta property="og:title" content="XO Arena - لعبة إكس أو الإستراتيجية">
-    <meta property="og:description" content="لعبة إكس أو احترافية مع 5 مستويات صعوبة ونظام إنجازات متطور. العب ضد الكمبيوتر أو مع الأصدقاء مجاناً.">
+    <meta property="og:title" content="XO Arena - لعبة إكس أو الإستراتيجية مع نظام أونلاين">
+    <meta property="og:description" content="لعبة إكس أو احترافية مع 5 مستويات صعوبة ونظام أونلاين متكامل. العب مع الأصدقاء أو في طور التصنيف.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://xo-arena-1.github.io/XO-Arena/">
     <meta property="og:image" content="https://files.catbox.moe/f28twh.png">
@@ -29,7 +29,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="XO Arena - لعبة إكس أو">
-    <meta name="twitter:description" content="اختبر ذكائك في أقوى لعبة إكس أو عربية مع 5 مستويات صعوبة">
+    <meta name="twitter:description" content="اختبر ذكائك في أقوى لعبة إكس أو عربية مع 5 مستويات صعوبة ونظام أونلاين">
     <meta name="twitter:image" content="https://files.catbox.moe/f28twh.png">
     
     <!-- Favicon -->
@@ -268,6 +268,18 @@
             100% { background-position: 0% 0%; }
         }
 
+        @keyframes timer-pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); color: #ff3366; }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes disconnected {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; background: rgba(255, 51, 102, 0.2); }
+            100% { opacity: 0.5; }
+        }
+
         .animate-float { animation: float 6s ease-in-out infinite; }
         .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
         .animate-pop-in { animation: pop-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
@@ -282,6 +294,8 @@
         .animate-fire { animation: fire-animation 3s ease-in-out infinite; }
         .animate-ice { animation: ice-animation 3s ease-in-out infinite; }
         .animate-electric { animation: electric-animation 1s ease-in-out infinite; }
+        .animate-timer { animation: timer-pulse 1s ease-in-out infinite; }
+        .animate-disconnected { animation: disconnected 1s ease-in-out infinite; }
 
         /* Components */
         .glass-card {
@@ -344,6 +358,30 @@
         .game-cell.disabled {
             cursor: not-allowed;
             opacity: 0.8;
+        }
+
+        /* Online Timer */
+        .online-timer {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
+            border: 3px solid var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+            box-shadow: 0 0 20px var(--glow-color);
+            animation: pulse-glow 1s ease-in-out infinite;
+            margin: 0 auto 15px;
+        }
+
+        .online-timer.warning {
+            border-color: #ff3366;
+            color: #ff3366;
+            animation: timer-pulse 0.5s ease-in-out infinite;
         }
 
         /* Screen Management */
@@ -518,6 +556,125 @@
             opacity: 1;
             visibility: visible;
             transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* Room Code Display */
+        .room-code {
+            font-size: 2rem;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 5px;
+            background: rgba(0,0,0,0.4);
+            padding: 15px 25px;
+            border-radius: 15px;
+            border: 2px dashed var(--accent-color);
+            color: var(--accent-color);
+            text-align: center;
+            margin: 20px 0;
+            animation: border-pulse 2s ease-in-out infinite;
+        }
+
+        .copy-btn {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent-color);
+            color: var(--bg-color);
+        }
+
+        /* Scoreboard */
+        .scoreboard {
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+            padding: 15px;
+            margin: 15px 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .scoreboard-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.03);
+            margin-bottom: 5px;
+        }
+
+        .scoreboard-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .scoreboard-value.wins { color: #00ff88; }
+        .scoreboard-value.losses { color: #ff3366; }
+        .scoreboard-value.draws { color: #ffd700; }
+
+        /* Online Profile Card */
+        .online-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 50px;
+            border: 2px solid transparent;
+        }
+
+        .online-profile.host {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        .online-profile.guest {
+            border-color: var(--accent-secondary);
+            box-shadow: 0 0 15px var(--glow-secondary);
+        }
+
+        .online-profile img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-color);
+        }
+
+        .online-profile-info {
+            flex: 1;
+        }
+
+        .online-profile-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .online-profile-details {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Disconnected Message */
+        .disconnected-message {
+            background: rgba(255, 51, 102, 0.1);
+            border: 2px solid #ff3366;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            color: #ff3366;
+            font-weight: bold;
+            margin: 10px 0;
+            animation: disconnected 1s ease-in-out infinite;
         }
 
         /* Win Streak Counter */
@@ -1033,7 +1190,7 @@
             animation: float 3s ease-in-out infinite;
         }
 
-        /* Skin Styles - Updated with new colors */
+        /* Skin Styles */
         .skin-default {
             background: linear-gradient(135deg, #00FFF0, #007C88);
             color: white;
@@ -2213,14 +2370,14 @@
             </div>
         </div>
 
-        <!-- قسم تسجيل الدخول (مفعل الآن) -->
+        <!-- قسم تسجيل الدخول -->
         <div class="settings-section">
             <div class="settings-section-title">
                 <i data-lucide="log-in"></i>
                 <span>تسجيل الدخول</span>
             </div>
             
-            <!-- زر تسجيل الدخول باستخدام Google (مفعل) -->
+            <!-- زر تسجيل الدخول باستخدام Google -->
             <button id="googleSignInBtn" class="settings-menu-item" onclick="googleSignIn()">
                 <i data-lucide="mail" style="color: #DB4437;"></i>
                 <span>تسجيل الدخول باستخدام Google</span>
@@ -2292,7 +2449,7 @@
             </div>
         </div>
 
-        <!-- Ad Removal Section (جديد) -->
+        <!-- Ad Removal Section -->
         <div class="settings-section">
             <div class="settings-section-title">
                 <i data-lucide="tv"></i>
@@ -2475,19 +2632,28 @@
                 <p class="text-lg tracking-widest" style="color: var(--text-secondary);">DARK EDITION</p>
             </div>
 
-            <!-- Menu Buttons -->
+            <!-- Menu Buttons - Online Modes Added -->
             <div class="space-y-4 animate-slide-up" style="animation-delay: 0.4s;">
-                <button onclick="startGame('friend')" class="neon-btn w-full rounded-xl p-5 flex items-center justify-center gap-3 text-lg font-bold">
+                <!-- Play With Friends Online -->
+                <button onclick="showFriendsOptions()" class="neon-btn w-full rounded-xl p-5 flex items-center justify-center gap-3 text-lg font-bold">
                     <i data-lucide="users" class="w-6 h-6" style="color: var(--accent-color);"></i>
-                    <span style="color: var(--text-primary);">العب ضد صديق</span>
+                    <span style="color: var(--text-primary);">العب مع الأصدقاء</span>
                 </button>
 
-                <button onclick="navigateTo('levels')" class="neon-btn w-full rounded-xl p-5 flex items-center justify-center gap-3 text-lg font-bold" style="box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);">
-                    <i data-lucide="cpu" class="w-6 h-6" style="color: #ffd700;"></i>
-                    <span style="color: #ffd700;">العب ضد ذكاء اصطناعي</span>
+                <!-- Online Matches (XP Bet) -->
+                <button onclick="showOnlineMatchesOptions()" class="neon-btn w-full rounded-xl p-5 flex items-center justify-center gap-3 text-lg font-bold" style="box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);">
+                    <i data-lucide="award" class="w-6 h-6" style="color: #ffd700;"></i>
+                    <span style="color: #ffd700;">مباريات أونلاين (مراهنات XP)</span>
                 </button>
 
-                <button onclick="navigateTo('division')" class="neon-btn w-full rounded-xl p-5 flex items-center justify-center gap-3 text-lg font-bold" style="background: linear-gradient(135deg, #ff3366, #ff6b35);">
+                <!-- Play Against AI -->
+                <button onclick="navigateTo('levels')" class="neon-btn w-full rounded-xl p-5 flex items-center justify-center gap-3 text-lg font-bold">
+                    <i data-lucide="cpu" class="w-6 h-6" style="color: var(--accent-secondary);"></i>
+                    <span style="color: var(--text-primary);">ضد ذكاء اصطناعي</span>
+                </button>
+
+                <!-- Division Mode (With Online Option) -->
+                <button onclick="showDivisionOptions()" class="neon-btn w-full rounded-xl p-5 flex items-center justify-center gap-3 text-lg font-bold" style="background: linear-gradient(135deg, #ff3366, #ff6b35);">
                     <i data-lucide="git-branch" class="w-6 h-6" style="color: white;"></i>
                     <span style="color: white;">طور الديفيجن</span>
                 </button>
@@ -2504,20 +2670,20 @@
                 </div>
             </div>
 
-            <!-- قسم المحتوى النصي الغني الجديد -->
+            <!-- قسم المحتوى النصي الغني -->
             <div class="glass-card rounded-2xl p-6 mt-8 animate-slide-up" style="animation-delay: 0.5s;">
                 <h2 class="text-2xl font-bold mb-4" style="color: var(--accent-color);">🎮 مرحبًا بك في XO Arena - أفضل لعبة إكس أو عربية</h2>
                 
                 <div class="space-y-4 text-right">
                     <p class="leading-relaxed" style="color: var(--text-primary);">
-                        <strong style="color: var(--accent-color);">XO Arena</strong> هي أول منصة عربية متكاملة للعبة إكس أو مع <strong style="color: #00ff88;">5 مستويات ذكاء اصطناعي</strong> مختلفة: مبتدئ، متوسط، صعب، عبقري، وتكيفي. صممنا اللعبة لتكون مناسبة لجميع الأعمار والمستويات، من الأطفال الصغار إلى الخبراء المحترفين.
+                        <strong style="color: var(--accent-color);">XO Arena</strong> هي أول منصة عربية متكاملة للعبة إكس أو مع <strong style="color: #00ff88;">نظام أونلاين متكامل</strong> يمكنك من اللعب مع أصدقائك أو في طور التصنيف والمراهنة بـ XP. بالإضافة إلى 5 مستويات ذكاء اصطناعي مختلفة: مبتدئ، متوسط، صعب، عبقري، وتكيفي.
                     </p>
                     
                     <p class="leading-relaxed" style="color: var(--text-primary);">
-                        ما يميز <strong style="color: var(--accent-color);">XO Arena</strong> عن غيرها من ألعاب إكس أو هو نظام التطوير المتكامل: اجمع النقاط (XP) مع كل فوز، افتح <strong style="color: #ffd700;">سكنات جديدة</strong> ملونة (ذهبي، أحمر، بنفسجي، أخضر)، احصل على <strong style="color: #ff6b35;">إنجازات</strong> مميزة، وتابع تقدمك من خلال الإحصائيات التفصيلية. هل تستطيع هزيمة الكمبيوتر في مستوى "عبقري"؟
+                        ما يميز <strong style="color: var(--accent-color);">XO Arena</strong> هو نظام الأونلاين المتطور: أنشئ غرفة خاصة بك وشارك الكود مع صديقك، أو ادخل في مباريات تصنيف مع مراهنات XP، أو تحدى لاعبين في نفس مستواك في طور الديفيجن. كل ذلك مع نظام حماية من الغش وReal-time باستخدام Firebase.
                     </p>
 
-                    <div class="grid grid-cols-2 gap-3 mt-4">
+                    <div class="grid grid-cols-3 gap-3 mt-4">
                         <div class="p-3 rounded-lg text-center" style="background: rgba(0, 212, 255, 0.1); border: 1px solid var(--border-color);">
                             <div class="text-2xl font-bold" style="color: #00ff88;">+5</div>
                             <div class="text-xs" style="color: var(--text-secondary);">مستويات ذكاء</div>
@@ -2526,33 +2692,25 @@
                             <div class="text-2xl font-bold" style="color: #ffd700;">+40</div>
                             <div class="text-xs" style="color: var(--text-secondary);">سكنات حصرية</div>
                         </div>
-                        <div class="p-3 rounded-lg text-center" style="background: rgba(255, 51, 102, 0.1); border: 1px solid var(--border-color);">
-                            <div class="text-2xl font-bold" style="color: #ff3366;">+8</div>
-                            <div class="text-xs" style="color: var(--text-secondary);">إنجازات</div>
-                        </div>
                         <div class="p-3 rounded-lg text-center" style="background: rgba(168, 85, 247, 0.1); border: 1px solid var(--border-color);">
                             <div class="text-2xl font-bold" style="color: #a855f7;">+21</div>
                             <div class="text-xs" style="color: var(--text-secondary);">إطار للملف</div>
                         </div>
                     </div>
 
-                    <h3 class="text-lg font-bold mt-4" style="color: var(--accent-color);">لماذا تختار XO Arena؟</h3>
+                    <h3 class="text-lg font-bold mt-4" style="color: var(--accent-color);">مميزات الأونلاين الجديدة:</h3>
                     <ul class="space-y-2 pr-4">
                         <li class="flex items-start gap-2" style="color: var(--text-primary);">
                             <span style="color: #00ff88;">✓</span>
-                            <strong>طور الديفيجن الجديد:</strong> 10 مستويات من التحدي مع مكافآت أسطورية.
+                            <strong>غرف الأصدقاء:</strong> أنشئ غرفة وانضم بكود مع نظام إعدادات متكامل.
                         </li>
                         <li class="flex items-start gap-2" style="color: var(--text-primary);">
                             <span style="color: #00ff88;">✓</span>
-                            <strong>نظام موسيقى متكامل:</strong> 20 أغنية رائعة للخلفية.
+                            <strong>مباريات مراهنات XP:</strong> راهن بـ XP من 100 إلى 20000 واربح XP الخصم.
                         </li>
                         <li class="flex items-start gap-2" style="color: var(--text-primary);">
                             <span style="color: #00ff88;">✓</span>
-                            <strong>متجر ضخم:</strong> 40+ سكن و 21 إطار للملف الشخصي.
-                        </li>
-                        <li class="flex items-start gap-2" style="color: var(--text-primary);">
-                            <span style="color: #00ff88;">✓</span>
-                            <strong>ميزة VAR:</strong> شاهد إعادة المباراة كاملة.
+                            <strong>ديفيجن أونلاين:</strong> نظام Best Of مع نقاط وترقيات.
                         </li>
                     </ul>
 
@@ -2561,6 +2719,306 @@
                     </p>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- FRIENDS ONLINE OPTIONS MODAL (Will appear as overlay) -->
+    <div id="friends-options-overlay" class="modal-overlay" onclick="closeFriendsOptions()"></div>
+    <div id="friends-options-modal" class="modal-content glass-card rounded-2xl p-6 w-full max-w-md">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-display font-bold" style="color: var(--accent-color);">العب مع الأصدقاء</h2>
+            <button onclick="closeFriendsOptions()" class="p-2 rounded-lg hover:bg-white/10 transition-colors">
+                <i data-lucide="x" class="w-5 h-5" style="color: var(--text-secondary);"></i>
+            </button>
+        </div>
+        
+        <div class="space-y-4">
+            <button onclick="showFriendsOnlineOptions()" class="neon-btn w-full rounded-xl p-5 flex items-center justify-center gap-3 text-lg font-bold">
+                <i data-lucide="wifi" class="w-6 h-6" style="color: var(--accent-color);"></i>
+                <span style="color: var(--text-primary);">أونلاين</span>
+            </button>
+            
+            <button onclick="startGame('friend')" class="neon-btn w-full rounded-xl p-5 flex items-center justify-center gap-3 text-lg font-bold">
+                <i data-lucide="smartphone" class="w-6 h-6" style="color: var(--accent-secondary);"></i>
+                <span style="color: var(--text-primary);">محلي (Offline)</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- FRIENDS ONLINE SUB-OPTIONS (Create/Join) -->
+    <div id="friends-online-overlay" class="modal-overlay" onclick="closeFriendsOnline()"></div>
+    <div id="friends-online-modal" class="modal-content glass-card rounded-2xl p-6 w-full max-w-md">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-display font-bold" style="color: var(--accent-color);">العب أونلاين مع صديق</h2>
+            <button onclick="closeFriendsOnline()" class="p-2 rounded-lg hover:bg-white/10 transition-colors">
+                <i data-lucide="x" class="w-5 h-5" style="color: var(--text-secondary);"></i>
+            </button>
+        </div>
+        
+        <div class="space-y-4">
+            <button onclick="createRoom()" class="neon-btn w-full rounded-xl p-5 flex items-center justify-center gap-3 text-lg font-bold">
+                <i data-lucide="plus-circle" class="w-6 h-6" style="color: var(--accent-color);"></i>
+                <span style="color: var(--text-primary);">إنشاء غرفة</span>
+            </button>
+            
+            <div class="relative">
+                <input type="text" id="join-room-code" class="w-full px-4 py-3 rounded-xl bg-black/30 border border-gray-700 text-white text-center text-2xl font-mono tracking-widest" placeholder="أدخل كود الغرفة" maxlength="6">
+            </div>
+            
+            <button onclick="joinRoom()" class="neon-btn w-full rounded-xl p-5 flex items-center justify-center gap-3 text-lg font-bold">
+                <i data-lucide="log-in" class="w-6 h-6" style="color: var(--accent-secondary);"></i>
+                <span style="color: var(--text-primary);">انضمام إلى غرفة</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ONLINE MATCHES XP BET MODAL -->
+    <div id="online-matches-overlay" class="modal-overlay" onclick="closeOnlineMatches()"></div>
+    <div id="online-matches-modal" class="modal-content glass-card rounded-2xl p-6 w-full max-w-md">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-display font-bold" style="color: var(--accent-color);">مباريات أونلاين (XP)</h2>
+            <button onclick="closeOnlineMatches()" class="p-2 rounded-lg hover:bg-white/10 transition-colors">
+                <i data-lucide="x" class="w-5 h-5" style="color: var(--text-secondary);"></i>
+            </button>
+        </div>
+        
+        <p class="mb-4 text-center" style="color: var(--text-secondary);">اختر مقدار XP الذي تريد المخاطرة به:</p>
+        
+        <div class="grid grid-cols-2 gap-3 mb-4">
+            <button onclick="selectXpBet(100)" class="xp-bet-btn neon-btn p-4 rounded-xl text-center">
+                <div class="text-xl font-bold" style="color: #ffd700;">100</div>
+                <div class="text-xs" style="color: var(--text-secondary);">XP</div>
+            </button>
+            <button onclick="selectXpBet(500)" class="xp-bet-btn neon-btn p-4 rounded-xl text-center">
+                <div class="text-xl font-bold" style="color: #ffd700;">500</div>
+                <div class="text-xs" style="color: var(--text-secondary);">XP</div>
+            </button>
+            <button onclick="selectXpBet(1000)" class="xp-bet-btn neon-btn p-4 rounded-xl text-center">
+                <div class="text-xl font-bold" style="color: #ffd700;">1000</div>
+                <div class="text-xs" style="color: var(--text-secondary);">XP</div>
+            </button>
+            <button onclick="selectXpBet(5000)" class="xp-bet-btn neon-btn p-4 rounded-xl text-center">
+                <div class="text-xl font-bold" style="color: #ffd700;">5000</div>
+                <div class="text-xs" style="color: var(--text-secondary);">XP</div>
+            </button>
+            <button onclick="selectXpBet(10000)" class="xp-bet-btn neon-btn p-4 rounded-xl text-center">
+                <div class="text-xl font-bold" style="color: #ffd700;">10000</div>
+                <div class="text-xs" style="color: var(--text-secondary);">XP</div>
+            </button>
+            <button onclick="selectXpBet(20000)" class="xp-bet-btn neon-btn p-4 rounded-xl text-center">
+                <div class="text-xl font-bold" style="color: #ffd700;">20000</div>
+                <div class="text-xs" style="color: var(--text-secondary);">XP</div>
+            </button>
+        </div>
+        
+        <div class="flex items-center justify-between mb-4">
+            <span style="color: var(--text-secondary);">XP المتاح لديك:</span>
+            <span id="xp-balance-display" class="font-bold" style="color: #ffd700;">0</span>
+        </div>
+        
+        <button onclick="startMatchmaking()" id="start-matchmaking-btn" class="neon-btn w-full py-3 rounded-xl font-bold" disabled>
+            بدء البحث
+        </button>
+    </div>
+
+    <!-- DIVISION ONLINE OPTIONS MODAL -->
+    <div id="division-options-overlay" class="modal-overlay" onclick="closeDivisionOptions()"></div>
+    <div id="division-options-modal" class="modal-content glass-card rounded-2xl p-6 w-full max-w-md">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-display font-bold" style="color: var(--accent-color);">طور الديفيجن</h2>
+            <button onclick="closeDivisionOptions()" class="p-2 rounded-lg hover:bg-white/10 transition-colors">
+                <i data-lucide="x" class="w-5 h-5" style="color: var(--text-secondary);"></i>
+            </button>
+        </div>
+        
+        <div class="space-y-4">
+            <button onclick="startDivisionMatch()" class="neon-btn w-full rounded-xl p-5 flex items-center justify-center gap-3 text-lg font-bold">
+                <i data-lucide="bot" class="w-6 h-6" style="color: var(--accent-color);"></i>
+                <span style="color: var(--text-primary);">ضد الروبوت</span>
+            </button>
+            
+            <button onclick="startOnlineDivision()" class="neon-btn w-full rounded-xl p-5 flex items-center justify-center gap-3 text-lg font-bold" style="background: linear-gradient(135deg, #ff3366, #ff6b35);">
+                <i data-lucide="globe" class="w-6 h-6" style="color: white;"></i>
+                <span style="color: white;">ضد لاعبين أونلاين</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ROOM PAGE (Online Game) -->
+    <div id="page-room" class="page flex-col items-center px-4 py-8">
+        <div class="w-full max-w-lg relative z-10">
+            
+            <header class="flex justify-between items-center mb-6">
+                <button onclick="leaveRoom()" class="p-2 rounded-lg hover:bg-white/10 transition-colors">
+                    <i data-lucide="arrow-right" class="w-6 h-6" style="color: var(--text-secondary);"></i>
+                </button>
+                
+                <div class="flex items-center gap-2 px-4 py-2 rounded-full" style="background: rgba(0,0,0,0.4); border: 1px solid var(--border-color);">
+                    <i data-lucide="trophy" class="w-4 h-4" style="color: #ffd700;"></i>
+                    <span id="room-xp" class="font-mono" style="color: #ffd700;">0 XP</span>
+                </div>
+
+                <button onclick="showRoomSettings()" id="room-settings-btn" class="p-2 rounded-lg hover:bg-white/10 transition-colors" style="display: none;">
+                    <i data-lucide="settings" class="w-6 h-6" style="color: var(--text-secondary);"></i>
+                </button>
+            </header>
+
+            <!-- Room Code Display -->
+            <div id="room-code-container" class="text-center mb-4" style="display: none;">
+                <div class="room-code" id="room-code-display">ABC123</div>
+                <button onclick="copyRoomCode()" class="copy-btn mt-2">
+                    <i data-lucide="copy" class="w-4 h-4"></i>
+                    نسخ الكود
+                </button>
+            </div>
+
+            <!-- Players Info -->
+            <div class="flex justify-between items-center mb-6 gap-4">
+                <!-- Host -->
+                <div id="host-profile" class="online-profile host flex-1">
+                    <img id="host-avatar" src="" alt="Host">
+                    <div class="online-profile-info">
+                        <div class="online-profile-name" id="host-name">المضيف</div>
+                        <div class="online-profile-details">
+                            <span id="host-level">Lv. 1</span>
+                            <span id="host-xp">0 XP</span>
+                        </div>
+                    </div>
+                    <div class="text-2xl font-bold" id="host-symbol" style="color: var(--accent-color);">X</div>
+                </div>
+
+                <!-- VS -->
+                <div class="text-xl font-bold" style="color: var(--text-secondary);">VS</div>
+
+                <!-- Guest -->
+                <div id="guest-profile" class="online-profile guest flex-1" style="opacity: 0.5;">
+                    <img id="guest-avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23333'/%3E%3Ccircle cx='50' cy='35' r='20' fill='%23666'/%3E%3Cellipse cx='50' cy='80' rx='30' ry='25' fill='%23666'/%3E%3C/svg%3E" alt="Waiting">
+                    <div class="online-profile-info">
+                        <div class="online-profile-name" id="guest-name">في انتظار...</div>
+                        <div class="online-profile-details">
+                            <span id="guest-level">-</span>
+                            <span id="guest-xp">-</span>
+                        </div>
+                    </div>
+                    <div class="text-2xl font-bold" id="guest-symbol" style="color: var(--accent-secondary);">O</div>
+                </div>
+            </div>
+
+            <!-- Timer -->
+            <div class="flex justify-center mb-4">
+                <div id="room-timer" class="online-timer">5</div>
+            </div>
+
+            <!-- Scoreboard -->
+            <div class="scoreboard">
+                <h3 class="text-lg font-bold mb-3" style="color: var(--accent-color);">النتيجة</h3>
+                <div class="flex justify-between mb-2">
+                    <div class="scoreboard-item flex-1 ml-2">
+                        <span>فوز المضيف</span>
+                        <span id="host-wins" class="scoreboard-value wins">0</span>
+                    </div>
+                    <div class="scoreboard-item flex-1">
+                        <span>فوز الضيف</span>
+                        <span id="guest-wins" class="scoreboard-value wins">0</span>
+                    </div>
+                </div>
+                <div class="flex justify-between">
+                    <div class="scoreboard-item flex-1 ml-2">
+                        <span>تعادل</span>
+                        <span id="draws-count" class="scoreboard-value draws">0</span>
+                    </div>
+                    <div class="scoreboard-item flex-1">
+                        <span>الجولة</span>
+                        <span id="current-round" class="scoreboard-value">1/3</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Status -->
+            <div id="room-game-status" class="text-center mb-6 h-10 text-xl font-display"></div>
+
+            <!-- Game Board -->
+            <div class="flex justify-center mb-6">
+                <div id="room-game-board" class="grid grid-cols-3 gap-3 p-4 rounded-2xl" style="background: rgba(0,0,0,0.4); border: 1px solid var(--border-color);"></div>
+            </div>
+
+            <!-- Disconnected Message -->
+            <div id="disconnected-message" class="disconnected-message" style="display: none;">
+                الخصم انفصل... جاري احتساب الفوز خلال 5 ثوان
+            </div>
+
+            <!-- Game Controls -->
+            <div id="room-game-controls" class="flex justify-center gap-4">
+                <button onclick="leaveRoom()" class="neon-btn px-6 py-3 rounded-xl flex items-center gap-2">
+                    <i data-lucide="log-out" class="w-5 h-5"></i>
+                    <span>خروج</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ROOM SETTINGS MODAL (Host Only) -->
+    <div id="room-settings-overlay" class="modal-overlay" onclick="closeRoomSettings()"></div>
+    <div id="room-settings-modal" class="modal-content glass-card rounded-2xl p-6 w-full max-w-md">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-display font-bold" style="color: var(--accent-color);">إعدادات الغرفة</h2>
+            <button onclick="closeRoomSettings()" class="p-2 rounded-lg hover:bg-white/10 transition-colors">
+                <i data-lucide="x" class="w-5 h-5" style="color: var(--text-secondary);"></i>
+            </button>
+        </div>
+        
+        <div class="space-y-4">
+            <div>
+                <label class="block mb-2" style="color: var(--text-secondary);">عدد الجولات:</label>
+                <select id="settings-rounds" class="w-full p-3 rounded-lg bg-black/30 border border-gray-700 text-white">
+                    <option value="1">1 جولة</option>
+                    <option value="3" selected>3 جولات</option>
+                    <option value="5">5 جولات</option>
+                    <option value="7">7 جولات</option>
+                </select>
+            </div>
+            
+            <div>
+                <label class="block mb-2" style="color: var(--text-secondary);">مدة المؤقت (ثواني):</label>
+                <select id="settings-timer" class="w-full p-3 rounded-lg bg-black/30 border border-gray-700 text-white">
+                    <option value="3">3 ثواني</option>
+                    <option value="5" selected>5 ثواني</option>
+                    <option value="10">10 ثواني</option>
+                    <option value="15">15 ثواني</option>
+                </select>
+            </div>
+            
+            <div class="flex items-center justify-between">
+                <span style="color: var(--text-secondary);">السماح بالتعادل:</span>
+                <input type="checkbox" id="settings-allow-draw" class="w-5 h-5" checked>
+            </div>
+            
+            <div class="flex items-center justify-between">
+                <span style="color: var(--text-secondary);">المؤثرات الصوتية:</span>
+                <input type="checkbox" id="settings-sound" class="w-5 h-5" checked>
+            </div>
+            
+            <div>
+                <label class="block mb-2" style="color: var(--text-secondary);">رمز المضيف (X أو O):</label>
+                <select id="settings-host-symbol" class="w-full p-3 rounded-lg bg-black/30 border border-gray-700 text-white">
+                    <option value="X">X</option>
+                    <option value="O">O</option>
+                </select>
+            </div>
+            
+            <hr class="border-gray-700">
+            
+            <button onclick="restartMatch()" class="neon-btn w-full py-3 rounded-xl font-bold">
+                إعادة المباراة
+            </button>
+            
+            <button onclick="kickPlayer()" class="neon-btn w-full py-3 rounded-xl font-bold" style="background: rgba(255, 51, 102, 0.2); color: #ff3366;">
+                طرد اللاعب
+            </button>
+            
+            <button onclick="closeRoom()" class="neon-btn w-full py-3 rounded-xl font-bold" style="background: rgba(255, 0, 0, 0.2); color: #ff0000;">
+                إغلاق الغرفة
+            </button>
         </div>
     </div>
 
@@ -2706,7 +3164,7 @@
             <div id="divisionContainer" class="space-y-4 mb-6"></div>
 
             <!-- Start Division Match Button -->
-            <button onclick="startDivisionMatch()" class="neon-btn w-full rounded-xl p-5 flex items-center justify-center gap-3 text-lg font-bold mb-4" style="background: linear-gradient(135deg, #ff3366, #ff6b35);">
+            <button onclick="showDivisionOptions()" class="neon-btn w-full rounded-xl p-5 flex items-center justify-center gap-3 text-lg font-bold mb-4" style="background: linear-gradient(135deg, #ff3366, #ff6b35);">
                 <i data-lucide="play" class="w-6 h-6" style="color: white;"></i>
                 <span style="color: white;">ابدأ مباراة الديفيجن</span>
             </button>
@@ -2721,7 +3179,7 @@
                     </li>
                     <li class="flex items-center gap-2" style="color: #ffd700;">
                         <i data-lucide="minus-circle" class="w-4 h-4"></i>
-                        <span>التعادل: +1 نقطة</span>
+                        <span>التعادل (ضد AI فقط): +1 نقطة</span>
                     </li>
                     <li class="flex items-center gap-2" style="color: #ff3366;">
                         <i data-lucide="x-circle" class="w-4 h-4"></i>
@@ -2745,7 +3203,7 @@
         </div>
     </div>
 
-    <!-- GAME PAGE -->
+    <!-- GAME PAGE (Local/AI) -->
     <div id="page-game" class="page flex-col items-center px-4 py-8">
         <div class="w-full max-w-lg relative z-10">
             
@@ -2859,7 +3317,7 @@
         </div>
     </div>
 
-    <!-- SHARE PAGE (جديد) -->
+    <!-- SHARE PAGE -->
     <div id="page-share" class="page flex-col items-center px-4 py-8">
         <div class="w-full max-w-lg relative z-10">
             <div class="flex items-center gap-4 mb-6">
@@ -2987,7 +3445,7 @@
                 </div>
             </div>
 
-            <!-- Ad Removal Section (جديد) -->
+            <!-- Ad Removal Section -->
             <div class="glass-card rounded-xl p-4 mb-4">
                 <h2 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
                     <i data-lucide="tv" class="w-5 h-5" style="color: var(--accent-color);"></i>
@@ -3138,6 +3596,13 @@
                 <div class="space-y-3">
                     <div class="p-3 rounded-lg" style="background: rgba(0,0,0,0.3);">
                         <div class="flex items-center gap-2 mb-1">
+                            <span class="text-xs px-2 py-0.5 rounded-full" style="background: #00ff88; color: black;">v5.0</span>
+                            <span class="text-xs" style="color: var(--text-secondary);">20 مارس 2026</span>
+                        </div>
+                        <p style="color: var(--text-primary);">إضافة نظام الأونلاين المتكامل: غرف أصدقاء، مراهنات XP، ديفيجن أونلاين</p>
+                    </div>
+                    <div class="p-3 rounded-lg" style="background: rgba(0,0,0,0.3);">
+                        <div class="flex items-center gap-2 mb-1">
                             <span class="text-xs px-2 py-0.5 rounded-full" style="background: #00ff88; color: black;">v4.0</span>
                             <span class="text-xs" style="color: var(--text-secondary);">1 مارس 2026</span>
                         </div>
@@ -3149,13 +3614,6 @@
                             <span class="text-xs" style="color: var(--text-secondary);">1 فبراير 2026</span>
                         </div>
                         <p style="color: var(--text-primary);">إضافة طور الديفيجن مع 10 مستويات ومكافآت أسطورية</p>
-                    </div>
-                    <div class="p-3 rounded-lg" style="background: rgba(0,0,0,0.3);">
-                        <div class="flex items-center gap-2 mb-1">
-                            <span class="text-xs px-2 py-0.5 rounded-full" style="background: #00ff88; color: black;">v2.5</span>
-                            <span class="text-xs" style="color: var(--text-secondary);">25 يناير 2026</span>
-                        </div>
-                        <p style="color: var(--text-primary);">إضافة نظام الموسيقى و 15 أغنية جديدة</p>
                     </div>
                 </div>
             </div>
@@ -3195,7 +3653,7 @@
             </div>
 
             <div class="glass-card rounded-2xl p-6 mb-6">
-                <p class="mb-4 text-sm" style="color: var(--text-secondary);">آخر تحديث: 20 يناير 2026</p>
+                <p class="mb-4 text-sm" style="color: var(--text-secondary);">آخر تحديث: 20 مارس 2026</p>
                 
                 <h2 class="text-xl font-bold text-white mb-4">سياسة الخصوصية لـ XO Arena</h2>
                 <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
@@ -3204,67 +3662,33 @@
 
                 <h3 class="text-lg font-bold text-white mb-3">1. جمع البيانات</h3>
                 <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    اللعبة تعمل بالكامل <strong>offline</strong> ولا تجمع أي بيانات شخصية على خوادمنا. جميع بياناتك (اسم المستخدم، الإحصائيات، الصورة الشخصية، التقدم في اللعبة) يتم تخزينها محلياً على جهازك فقط باستخدام <strong>LocalStorage</strong> في المتصفح. نحن لا نستطيع الوصول إلى هذه البيانات.
+                    اللعبة تستخدم <strong>Firebase Authentication</strong> لتسجيل الدخول عبر Google، و <strong>Firebase Firestore</strong> لتخزين بيانات المباريات الأونلاين. البيانات التي نجمعها تشمل: الاسم، البريد الإلكتروني، الصورة الشخصية، وإحصائيات اللعبة (XP، المستوى، الديفيجن، الفوز/الخسارة). هذه البيانات ضرورية لتشغيل نظام الأونلاين.
                 </p>
 
-                <h3 class="text-lg font-bold text-white mb-3">2. ملفات تعريف الارتباط (Cookies)</h3>
+                <h3 class="text-lg font-bold text-white mb-3">2. بيانات الأونلاين</h3>
+                <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
+                    عند اللعب أونلاين، يتم تخزين بيانات المباراة (الغرف، المباريات، الطابور) في Firestore بشكل مؤقت. يتم حذف هذه البيانات تلقائياً بعد انتهاء المباراة.
+                </p>
+
+                <h3 class="text-lg font-bold text-white mb-3">3. ملفات تعريف الارتباط (Cookies)</h3>
                 <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
                     لا نستخدم أي ملفات تعريف ارتباط لتتبع المستخدمين. في حال استخدام إعلانات Google AdSense في المستقبل، قد تستخدم Google ملفات تعريف ارتباط لعرض إعلانات مخصصة وفقاً لاهتماماتك.
                 </p>
 
-                <h3 class="text-lg font-bold text-white mb-3">3. الإعلانات</h3>
+                <h3 class="text-lg font-bold text-white mb-3">4. الإعلانات</h3>
                 <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    في حال تفعيل Google AdSense، قد تجمع Google معلومات معينة عن زيارتك مثل:
-                </p>
-                <ul class="list-disc mr-6 mb-4 space-y-1" style="color: var(--text-primary);">
-                    <li>نوع المتصفح</li>
-                    <li>نظام التشغيل</li>
-                    <li>الموقع التقريبي (على مستوى الدولة)</li>
-                    <li>الصفحات التي تزورها</li>
-                </ul>
-                <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    يمكنك معرفة المزيد عن سياسة خصوصية Google من خلال <a href="https://policies.google.com/privacy" target="_blank" style="color: var(--accent-color);">هذا الرابط</a>.
-                </p>
-
-                <h3 class="text-lg font-bold text-white mb-3">4. روابط التواصل الاجتماعي</h3>
-                <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    نوفر روابط لمنصات التواصل الاجتماعي الخاصة بنا (فيسبوك، انستجرام، يوتيوب، تيك توك). عند النقر على هذه الروابط، قد تجمع تلك المنصات معلومات وفقاً لسياسات الخصوصية الخاصة بها.
+                    في حال تفعيل Google AdSense، قد تجمع Google معلومات معينة عن زيارتك مثل: نوع المتصفح، نظام التشغيل، الموقع التقريبي.
                 </p>
 
                 <h3 class="text-lg font-bold text-white mb-3">5. حقوقك</h3>
                 <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    لديك الحق الكامل في:
-                </p>
-                <ul class="list-disc mr-6 mb-4 space-y-1" style="color: var(--text-primary);">
-                    <li>حذف جميع بياناتك من خلال زر "حذف التقدم" في إعدادات اللعبة</li>
-                    <li>رفض ملفات تعريف الارتباط من خلال إعدادات المتصفح</li>
-                    <li>الاتصال بنا للاستفسار عن أي شيء يتعلق بخصوصيتك</li>
-                </ul>
-
-                <h3 class="text-lg font-bold text-white mb-3">6. الأمان</h3>
-                <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    موقعنا يستخدم شهادة SSL من Netlify لتأمين الاتصال. جميع البيانات المنقولة بين متصفحك وموقعنا مشفرة.
+                    لديك الحق في طلب حذف بياناتك من Firebase بالتواصل معنا عبر البريد الإلكتروني.
                 </p>
 
-                <h3 class="text-lg font-bold text-white mb-3">7. التغييرات على سياسة الخصوصية</h3>
-                <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    قد نقوم بتحديث هذه السياسة من وقت لآخر. سنقوم بإشعارك بأي تغييرات جوهرية من خلال تحديث تاريخ "آخر تحديث" في أعلى الصفحة.
-                </p>
-
-                <h3 class="text-lg font-bold text-white mb-3">8. التواصل معنا</h3>
+                <h3 class="text-lg font-bold text-white mb-3">6. التواصل معنا</h3>
                 <p class="leading-relaxed" style="color: var(--text-primary);">
-                    للاستفسارات المتعلقة بالخصوصية، يمكنكم التواصل معنا عبر:
+                    للاستفسارات المتعلقة بالخصوصية، يمكنكم التواصل معنا عبر: <a href="mailto:eclipsegames1cloud@gmail.com" style="color: var(--accent-color);">eclipsegames1cloud@gmail.com</a>
                 </p>
-                <div class="mt-2 p-3 rounded-lg" style="background: rgba(0,0,0,0.3);">
-                    <p><strong style="color: var(--accent-color);">البريد الإلكتروني:</strong> <a href="mailto:eclipsegames1cloud@gmail.com" style="color: var(--text-primary);">eclipsegames1cloud@gmail.com</a></p>
-                    <p class="mt-2"><strong style="color: var(--accent-color);">منصات التواصل:</strong></p>
-                    <div class="flex gap-3 mt-1">
-                        <a href="https://www.facebook.com/share/185REmNQT7/" target="_blank" style="color: #1877f2;">فيسبوك</a>
-                        <a href="https://www.instagram.com/eclipse1_games" target="_blank" style="color: #e4405f;">انستجرام</a>
-                        <a href="https://youtube.com/@eclipsegames-u4l" target="_blank" style="color: #ff0000;">يوتيوب</a>
-                        <a href="https://www.tiktok.com/@eclipse.games1" target="_blank" style="color: #000000;">تيك توك</a>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -3280,66 +3704,32 @@
             </div>
 
             <div class="glass-card rounded-2xl p-6 mb-6">
-                <p class="mb-4 text-sm" style="color: var(--text-secondary);">آخر تحديث: 20 يناير 2026</p>
+                <p class="mb-4 text-sm" style="color: var(--text-secondary);">آخر تحديث: 20 مارس 2026</p>
                 
                 <h2 class="text-xl font-bold text-white mb-4">شروط استخدام XO Arena</h2>
                 <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    مرحباً بك في XO Arena. باستخدامك لهذه اللعبة، فإنك توافق على هذه الشروط. يرجى قراءتها بعناية.
+                    باستخدامك لهذه اللعبة، فإنك توافق على هذه الشروط.
                 </p>
 
                 <h3 class="text-lg font-bold text-white mb-3">1. قبول الشروط</h3>
                 <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    باستخدامك للعبة، فإنك تقر بأنك قرأت وفهمت وتوافق على الالتزام بهذه الشروط. إذا كنت لا توافق على أي جزء من هذه الشروط، يرجى عدم استخدام اللعبة.
+                    باستخدامك للعبة، فإنك توافق على الالتزام بهذه الشروط.
                 </p>
 
-                <h3 class="text-lg font-bold text-white mb-3">2. الملكية الفكرية</h3>
+                <h3 class="text-lg font-bold text-white mb-3">2. السلوك</h3>
                 <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    جميع حقوق الملكية الفكرية للعبة (بما في ذلك التصميم، الكود، الرسومات، الأصوات) محفوظة لصالح <strong>Eclipse Games</strong>. لا يُسمح بنسخ أو تعديل أو إعادة توزيع أي جزء من اللعبة دون إذن كتابي صريح.
+                    يمنع الغش أو محاولة استغلال الثغرات. أي محاولة للتلاعب بنظام XP أو النتائج تؤدي إلى حظر الحساب.
                 </p>
 
-                <h3 class="text-lg font-bold text-white mb-3">3. سلوك المستخدم</h3>
+                <h3 class="text-lg font-bold text-white mb-3">3. الملكية الفكرية</h3>
                 <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    عند استخدامك للعبة، فإنك توافق على:
-                </p>
-                <ul class="list-disc mr-6 mb-4 space-y-1" style="color: var(--text-primary);">
-                    <li>عدم محاولة اختراق اللعبة أو تعديلها</li>
-                    <li>عدم استخدام اللعبة لأي أغراض غير قانونية</li>
-                    <li>عدم محاولة تعطيل أو إساءة استخدام نظام المكافآت</li>
-                    <li>احترام حقوق المستخدمين الآخرين</li>
-                </ul>
-
-                <h3 class="text-lg font-bold text-white mb-3">4. المحتوى</h3>
-                <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    اللعبة قد تحتوي على روابط لمواقع خارجية (مثل منصات التواصل الاجتماعي). نحن لسنا مسؤولين عن محتوى هذه المواقع أو ممارسات الخصوصية الخاصة بها.
+                    جميع حقوق الملكية الفكرية للعبة محفوظة لصالح Eclipse Games.
                 </p>
 
-                <h3 class="text-lg font-bold text-white mb-3">5. التعديلات</h3>
-                <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    نحن نحتفظ بالحق في تعديل أو تحديث هذه الشروط في أي وقت. سنقوم بإشعارك بالتغييرات المهمة من خلال تحديث تاريخ "آخر تحديث". استمرارك في استخدام اللعبة بعد التغييرات يعني موافقتك على الشروط الجديدة.
-                </p>
-
-                <h3 class="text-lg font-bold text-white mb-3">6. إنهاء الخدمة</h3>
-                <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    نحن نحتفظ بالحق في إنهاء أو تعليق وصولك إلى اللعبة في أي وقت، دون إشعار مسبق، إذا انتهكت هذه الشروط.
-                </p>
-
-                <h3 class="text-lg font-bold text-white mb-3">7. إخلاء المسؤولية</h3>
-                <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    اللعبة مقدمة "كما هي" دون أي ضمانات. نحن لا نضمن أن اللعبة ستكون خالية من الأخطاء أو أن العمل بها سيكون متواصلاً.
-                </p>
-
-                <h3 class="text-lg font-bold text-white mb-3">8. قانون الحماية</h3>
-                <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    هذه اللعبة مصممة للاستخدام الترفيهي فقط. نحن غير مسؤولين عن أي أضرار ناتجة عن استخدام اللعبة.
-                </p>
-
-                <h3 class="text-lg font-bold text-white mb-3">9. التواصل</h3>
+                <h3 class="text-lg font-bold text-white mb-3">4. التواصل</h3>
                 <p class="leading-relaxed" style="color: var(--text-primary);">
-                    لأي استفسارات بخصوص هذه الشروط، يرجى التواصل عبر البريد الإلكتروني:
+                    للاستفسارات: <a href="mailto:eclipsegames1cloud@gmail.com" style="color: var(--accent-color);">eclipsegames1cloud@gmail.com</a>
                 </p>
-                <div class="mt-2 p-3 rounded-lg" style="background: rgba(0,0,0,0.3);">
-                    <p><strong style="color: var(--accent-color);">البريد الإلكتروني:</strong> <a href="mailto:eclipsegames1cloud@gmail.com" style="color: var(--text-primary);">eclipsegames1cloud@gmail.com</a></p>
-                </div>
             </div>
         </div>
     </div>
@@ -3355,10 +3745,6 @@
             </div>
 
             <div class="glass-card rounded-2xl p-6 mb-6">
-                <p class="mb-6 leading-relaxed" style="color: var(--text-primary);">
-                    نحن سعداء بتواصلكم معنا! يمكنكم التواصل عبر الوسائل التالية:
-                </p>
-
                 <div class="space-y-4">
                     <a href="mailto:eclipsegames1cloud@gmail.com" class="flex items-center gap-4 p-4 rounded-xl transition-all hover:scale-102" style="background: rgba(0,0,0,0.3); border: 1px solid var(--border-color);">
                         <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background: var(--accent-color);">
@@ -3409,11 +3795,6 @@
                             <div style="color: #000000;">@eclipse.games1</div>
                         </div>
                     </a>
-
-                    <div class="p-4 rounded-xl" style="background: rgba(0,0,0,0.3); border: 1px solid var(--border-color);">
-                        <div class="font-bold text-white mb-2">أوقات الرد</div>
-                        <p style="color: var(--text-secondary);">نحاول الرد على جميع الرسائل خلال 24-48 ساعة.</p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -3455,51 +3836,21 @@
                     </li>
                 </ul>
 
-                <h3 class="text-lg font-bold text-white mb-3">مستويات الصعوبة:</h3>
+                <h3 class="text-lg font-bold text-white mb-3">الأطوار الجديدة:</h3>
                 <div class="space-y-3">
-                    <div class="p-3 rounded-lg" style="background: rgba(0, 255, 136, 0.1); border: 1px solid rgba(0, 255, 136, 0.3);">
-                        <div class="font-bold" style="color: #00ff88;">مبتدئ</div>
-                        <div class="text-sm" style="color: var(--text-secondary);">يتخذ قرارات عشوائية أحياناً - مناسب للمبتدئين</div>
+                    <div class="p-3 rounded-lg" style="background: rgba(0, 212, 255, 0.1); border: 1px solid rgba(0, 212, 255, 0.3);">
+                        <div class="font-bold" style="color: var(--accent-color);">العب مع الأصدقاء أونلاين</div>
+                        <div class="text-sm" style="color: var(--text-secondary);">أنشئ غرفة وشارك الكود مع صديقك. يمكنك ضبط الإعدادات (عدد الجولات، المؤقت) ونظام النقاط.</div>
                     </div>
                     <div class="p-3 rounded-lg" style="background: rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.3);">
-                        <div class="font-bold" style="color: #ffd700;">متوسط</div>
-                        <div class="text-sm" style="color: var(--text-secondary);">يحاول الصد والهجوم - تحدٍ متوازن</div>
-                    </div>
-                    <div class="p-3 rounded-lg" style="background: rgba(255, 107, 53, 0.1); border: 1px solid rgba(255, 107, 53, 0.3);">
-                        <div class="font-bold" style="color: #ff6b35;">صعب</div>
-                        <div class="text-sm" style="color: var(--text-secondary);">يستخدم استراتيجيات متقدمة - فكر جيداً</div>
+                        <div class="font-bold" style="color: #ffd700;">مباريات أونلاين (مراهنات XP)</div>
+                        <div class="text-sm" style="color: var(--text-secondary);">راهن بـ XP من 100 إلى 20000. الفائز يأخذ XP الخصم، الخاسر يخسر XP الذي راهن به.</div>
                     </div>
                     <div class="p-3 rounded-lg" style="background: rgba(255, 51, 102, 0.1); border: 1px solid rgba(255, 51, 102, 0.3);">
-                        <div class="font-bold" style="color: var(--accent-secondary);">عبقري</div>
-                        <div class="text-sm" style="color: var(--text-secondary);">لا يُهزم تقريباً! - تحدٍ حقيقي للمحترفين</div>
-                    </div>
-                    <div class="p-3 rounded-lg" style="background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.3);">
-                        <div class="font-bold" style="color: #a855f7;">تكيفي</div>
-                        <div class="text-sm" style="color: var(--text-secondary);">يتكيف مع مستواك ويتعلم من تحركاتك - تحدٍ ذكي</div>
+                        <div class="font-bold" style="color: #ff3366;">ديفيجن أونلاين</div>
+                        <div class="text-sm" style="color: var(--text-secondary);">نظام Best Of حسب الديفيجن. الفوز +3 نقاط، الخسارة -3 نقاط. ممنوع التعادل!</div>
                     </div>
                 </div>
-
-                <h3 class="text-lg font-bold text-white mb-3 mt-6">نظام النقاط والمكافآت:</h3>
-                <ul class="space-y-2">
-                    <li class="flex items-start gap-2" style="color: var(--text-primary);">
-                        <span style="color: #ffd700;">+30 XP</span> - الفوز على مستوى مبتدئ
-                    </li>
-                    <li class="flex items-start gap-2" style="color: var(--text-primary);">
-                        <span style="color: #ffd700;">+50 XP</span> - الفوز على مستوى متوسط
-                    </li>
-                    <li class="flex items-start gap-2" style="color: var(--text-primary);">
-                        <span style="color: #ffd700;">+80 XP</span> - الفوز على مستوى صعب
-                    </li>
-                    <li class="flex items-start gap-2" style="color: var(--text-primary);">
-                        <span style="color: #ffd700;">+150 XP</span> - الفوز على مستوى عبقري
-                    </li>
-                    <li class="flex items-start gap-2" style="color: var(--text-primary);">
-                        <span style="color: #ffd700;">+100 XP</span> - الفوز على مستوى تكيفي
-                    </li>
-                    <li class="flex items-start gap-2" style="color: var(--text-primary);">
-                        <span style="color: #ffd700;">+15 XP</span> - التعادل
-                    </li>
-                </ul>
             </div>
         </div>
     </div>
@@ -3516,31 +3867,24 @@
 
             <div class="space-y-4">
                 <div class="glass-card rounded-2xl p-6">
-                    <h2 class="text-xl font-bold text-white mb-2">استراتيجيات متقدمة للفوز في لعبة إكس أو</h2>
-                    <p class="text-sm mb-3" style="color: var(--text-secondary);">نشر في 15 يناير 2024 | بواسطة Eclipse Games</p>
-                    <p class="mb-3" style="color: var(--text-primary);">هل تريد أن تصبح محترفاً في لعبة إكس أو؟ إليك 7 استراتيجيات سرية استخدمها الأبطال المحترفون للفوز في كل مرة تقريباً...</p>
+                    <h2 class="text-xl font-bold text-white mb-2">نظام الأونلاين الجديد في XO Arena</h2>
+                    <p class="text-sm mb-3" style="color: var(--text-secondary);">نشر في 20 مارس 2026 | بواسطة Eclipse Games</p>
+                    <p class="mb-3" style="color: var(--text-primary);">يسعدنا إطلاق أكبر تحديث في تاريخ اللعبة: نظام الأونلاين المتكامل! الآن يمكنك اللعب مع أصدقائك عن بعد، والمشاركة في مباريات مراهنات XP، وتحدي لاعبين من نفس مستواك في طور الديفيجن...</p>
                     <button onclick="navigateTo('article1')" class="text-sm hover:underline" style="color: var(--accent-color);">اقرأ المزيد</button>
                 </div>
 
                 <div class="glass-card rounded-2xl p-6">
-                    <h2 class="text-xl font-bold text-white mb-2">كيف تتفوق على مستوى عبقري في 5 خطوات فقط</h2>
-                    <p class="text-sm mb-3" style="color: var(--text-secondary);">نشر في 10 يناير 2024 | بواسطة Eclipse Games</p>
-                    <p class="mb-3" style="color: var(--text-primary);">مستوى عبقري هو أصعب مستوى في اللعبة. لكن مع الممارسة والاستراتيجية الصحيحة، يمكنك الفوز. اتبع هذه الخطوات الخمس...</p>
+                    <h2 class="text-xl font-bold text-white mb-2">كيف تربح في مباريات مراهنات XP؟</h2>
+                    <p class="text-sm mb-3" style="color: var(--text-secondary);">نشر في 18 مارس 2026 | بواسطة Eclipse Games</p>
+                    <p class="mb-3" style="color: var(--text-primary);">المراهنات بـ XP تتطلب استراتيجية مختلفة. لا تخاطر بـ XP أكثر مما تستطيع تحمل خسارته. ابدأ بمبالغ صغيرة (100-500 XP) حتى تتعلم أسلوب لعب خصومك...</p>
                     <button onclick="navigateTo('article2')" class="text-sm hover:underline" style="color: var(--accent-color);">اقرأ المزيد</button>
                 </div>
 
                 <div class="glass-card rounded-2xl p-6">
-                    <h2 class="text-xl font-bold text-white mb-2">10 فوائد مذهلة للعب إكس أو لصحة الدماغ</h2>
-                    <p class="text-sm mb-3" style="color: var(--text-secondary);">نشر في 5 يناير 2024 | بواسطة Eclipse Games</p>
-                    <p class="mb-3" style="color: var(--text-primary);">هل تعلم أن لعبة إكس أو تحسن الذاكرة وتقوي التركيز وتزيد من نسبة الذكاء؟ اكتشف الفوائد العلمية المذهلة...</p>
+                    <h2 class="text-xl font-bold text-white mb-2">دليل الديفيجن أونلاين: من 10 إلى 1</h2>
+                    <p class="text-sm mb-3" style="color: var(--text-secondary);">نشر في 15 مارس 2026 | بواسطة Eclipse Games</p>
+                    <p class="mb-3" style="color: var(--text-primary);">طور الديفيجن أصبح أونلاين! تعرف على نظام Best Of: الديفيجن 10-6: Best Of 3، الديفيجن 5-4: Best Of 5، الديفيجن 3-1: Best Of 8. احذر من الخسارة التي تكلفك -3 نقاط...</p>
                     <button onclick="navigateTo('article3')" class="text-sm hover:underline" style="color: var(--accent-color);">اقرأ المزيد</button>
-                </div>
-
-                <div class="glass-card rounded-2xl p-6">
-                    <h2 class="text-xl font-bold text-white mb-2">تاريخ لعبة إكس أو: من المعابد المصرية إلى العصر الرقمي</h2>
-                    <p class="text-sm mb-3" style="color: var(--text-secondary);">نشر في 28 ديسمبر 2023 | بواسطة Eclipse Games</p>
-                    <p class="mb-3" style="color: var(--text-primary);">هل تعلم أن أقدم نسخة من لعبة إكس أو وجدت في معبد مصري عمره 3500 سنة؟ رحلة عبر تاريخ اللعبة العريقة...</p>
-                    <button onclick="navigateTo('article4')" class="text-sm hover:underline" style="color: var(--accent-color);">اقرأ المزيد</button>
                 </div>
             </div>
         </div>
@@ -3553,32 +3897,56 @@
                 <button onclick="navigateTo('blog')" class="p-2 rounded-lg hover:bg-white/10 transition-colors">
                     <i data-lucide="arrow-right" class="w-6 h-6" style="color: var(--text-secondary);"></i>
                 </button>
-                <h1 class="text-2xl font-display font-bold" style="color: var(--accent-color);">استراتيجيات متقدمة</h1>
+                <h1 class="text-2xl font-display font-bold" style="color: var(--accent-color);">نظام الأونلاين الجديد</h1>
             </div>
 
             <div class="glass-card rounded-2xl p-6">
-                <h2 class="text-2xl font-bold text-white mb-2">استراتيجيات متقدمة للفوز في لعبة إكس أو</h2>
-                <p class="text-sm mb-4" style="color: var(--text-secondary);">نشر في 15 يناير 2026 | بواسطة Eclipse Games</p>
+                <h2 class="text-2xl font-bold text-white mb-2">نظام الأونلاين الجديد في XO Arena</h2>
+                <p class="text-sm mb-4" style="color: var(--text-secondary);">نشر في 20 مارس 2026 | بواسطة Eclipse Games</p>
                 
-                <p class="mb-3" style="color: var(--text-primary);">لعبة XO قد تبدو بسيطة، لكنها تخفي عمقاً استراتيجياً كبيراً. في هذا المقال، سنكشف لك عن أسرار اللاعبين المحترفين:</p>
+                <p class="mb-3" style="color: var(--text-primary);">يسعدنا إطلاق أكبر تحديث في تاريخ اللعبة: نظام الأونلاين المتكامل! الآن يمكنك اللعب مع أصدقائك عن بعد، والمشاركة في مباريات مراهنات XP، وتحدي لاعبين من نفس مستواك في طور الديفيجن.</p>
                 
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">1. استراتيجية المركز أولاً</h3>
-                <p class="mb-3" style="color: var(--text-primary);">المركز (الخانة 4) هي أقوى خانة في اللوحة. إذا بدأت اللعبة، حاول أخذ المركز. هذا يمنحك 4 خطوط فوز محتملة (أفقي، عمودي، وقطريين). إحصائياً، اللاعب الذي يسيطر على المركز يفوز بنسبة 70% من المباريات.</p>
+                <h3 class="text-lg font-bold text-white mb-2 mt-4">مميزات النظام الجديد:</h3>
                 
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">2. استراتيجية الزوايا المتقابلة</h3>
-                <p class="mb-3" style="color: var(--text-primary);">إذا أخذ الخصم المركز، لا تقلق. أفضل رد هو أخذ زاويتين متقابلتين (مثل 0 و8). هذا يخلق فرص فوز متعددة ويجبر الخصم على الدفاع. هذه الاستراتيجية تستخدمها الذكاءات الاصطناعية المتقدمة.</p>
-                
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">3. الضربة المزدوجة</h3>
-                <p class="mb-3" style="color: var(--text-primary);">الضربة المزدوجة هي عندما تخلق فرصتين للفوز في نفس الوقت. الخصم لا يستطيع صد كلاهما. مثال: إذا كان لديك X في الخانتين 0 و4، وضعت X في الخانة 8، فستكون لديك فرص فوز (0,4,8) و (2,4,6). هذا هو مفتاح الفوز في المستويات العليا.</p>
-                
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">4. الدفاع المتقدم</h3>
-                <p class="mb-3" style="color: var(--text-primary);">لا تركز فقط على خط واحد. انظر إلى الصورة الكاملة. في بعض الأحيان، أفضل دفاع هو الهجوم - خلق فرصك الخاصة يجبر الخصم على الدفاع عن نفسه بدلاً من مهاجمتك.</p>
-                
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">5. تحليل أنماط الخصم</h3>
-                <p class="mb-3" style="color: var(--text-primary);">عندما تلعب ضد خصم حقيقي، حاول تحليل أسلوبه. بعض اللاعبين يفضلون الزوايا، وآخرون يفضلون الحواف. استغل هذا لصالحك.</p>
-                
+                <h4 class="font-bold text-white mt-3">1. غرف الأصدقاء (Friends Online)</h4>
+                <p class="mb-2" style="color: var(--text-primary);">أنشئ غرفة وشارك الكود المكون من 6 أحرف مع صديقك. يمكنك ضبط:</p>
+                <ul class="list-disc mr-6 mb-3" style="color: var(--text-primary);">
+                    <li>عدد الجولات (1, 3, 5, 7)</li>
+                    <li>مدة المؤقت (3, 5, 10, 15 ثانية)</li>
+                    <li>السماح بالتعادل أو منعه</li>
+                    <li>رمز المضيف (X أو O)</li>
+                </ul>
+                <p class="mb-2" style="color: var(--text-primary);">نظام النقاط يحسب فوز المضيف والضيف والتعادلات. إذا انتهى وقت أحد اللاعبين، يخسر الجولة تلقائياً.</p>
+
+                <h4 class="font-bold text-white mt-3">2. مباريات مراهنات XP</h4>
+                <p class="mb-2" style="color: var(--text-primary);">اختر XP الذي تريد المخاطرة به من 100 إلى 20000. يتم وضعك في طابور انتظار حتى يجد النظام لاعباً آخر بنفس XP (أو قريب منه).</p>
+                <p class="mb-2" style="color: var(--text-primary);">نظام XP:</p>
+                <ul class="list-disc mr-6 mb-3" style="color: var(--text-primary);">
+                    <li>إذا خسرت: تخسر XP الذي راهنت به</li>
+                    <li>إذا فزت: تكسب XP الذي راهن به خصمك</li>
+                    <li>إذا كانت XP مختلفة، كل لاعب يخاطر بـ XP الخاص به فقط</li>
+                </ul>
+
+                <h4 class="font-bold text-white mt-3">3. ديفيجن أونلاين</h4>
+                <p class="mb-2" style="color: var(--text-primary);">تحدى لاعبين من نفس مستواك في طور الديفيجن. النظام:</p>
+                <ul class="list-disc mr-6 mb-3" style="color: var(--text-primary);">
+                    <li>Best Of حسب الديفيجن (3, 5, 8 مباريات)</li>
+                    <li>لا تعادل أبداً - إذا انتهت جولة بتعادل، تُعاد الجولة</li>
+                    <li>الفوز +3 نقاط، الخسارة -3 نقاط</li>
+                    <li>عند الوصول لـ 0 نقاط، تهبط للديفيجن السابق</li>
+                </ul>
+
+                <h4 class="font-bold text-white mt-3">نظام الحماية (Anti-Cheat)</h4>
+                <p class="mb-3" style="color: var(--text-primary);">تم تطبيق نظام حماية متكامل:</p>
+                <ul class="list-disc mr-6 mb-3" style="color: var(--text-primary);">
+                    <li>لا يمكن اللعب في غير دورك</li>
+                    <li>لا يمكن تعديل النتيجة أو XP من الواجهة</li>
+                    <li>إذا انفصل أحد اللاعبين، يظهر للطرف الآخر رسالة ويتم احتساب الفوز بعد 5 ثوان</li>
+                    <li>الإعدادات متاحة فقط للمضيف</li>
+                </ul>
+
                 <p class="mt-4 p-3 rounded-lg" style="background: rgba(0, 212, 255, 0.1); color: var(--text-primary);">
-                    <strong>تذكر:</strong> الممارسة المستمرة هي مفتاح الإتقان. جرب استراتيجيات مختلفة وشاهد ما يناسب أسلوب لعبك.
+                    <strong>جرب الآن:</strong> ادخل إلى اللعبة واختر "العب مع الأصدقاء" أو "مباريات أونلاين" أو "طور الديفيجن" واستمتع بتجربة أونلاين فريدة!
                 </p>
             </div>
         </div>
@@ -3591,32 +3959,32 @@
                 <button onclick="navigateTo('blog')" class="p-2 rounded-lg hover:bg-white/10 transition-colors">
                     <i data-lucide="arrow-right" class="w-6 h-6" style="color: var(--text-secondary);"></i>
                 </button>
-                <h1 class="text-2xl font-display font-bold" style="color: var(--accent-color);">قهر العباقرة</h1>
+                <h1 class="text-2xl font-display font-bold" style="color: var(--accent-color);">كيف تربح في مراهنات XP</h1>
             </div>
 
             <div class="glass-card rounded-2xl p-6">
-                <h2 class="text-2xl font-bold text-white mb-2">كيف تتفوق على مستوى عبقري في 5 خطوات فقط</h2>
-                <p class="text-sm mb-4" style="color: var(--text-secondary);">نشر في 10 يناير 2026 | بواسطة Eclipse Games</p>
+                <h2 class="text-2xl font-bold text-white mb-2">كيف تربح في مباريات مراهنات XP؟</h2>
+                <p class="text-sm mb-4" style="color: var(--text-secondary);">نشر في 18 مارس 2026 | بواسطة Eclipse Games</p>
                 
-                <p class="mb-3" style="color: var(--text-primary);">مستوى عبقري هو أصعب مستوى في اللعبة. الكمبيوتر في هذا المستوى يحلل كل الاحتمالات ولا يخطئ تقريباً. لكن مع الصبر والاستراتيجية، يمكنك الفوز:</p>
+                <p class="mb-3" style="color: var(--text-primary);">المراهنات بـ XP تتطلب استراتيجية مختلفة عن اللعب العادي. إليك نصائح لزيادة أرباحك:</p>
                 
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">الخطوة 1: ابدأ بالمركز دائماً</h3>
-                <p class="mb-3" style="color: var(--text-primary);">إذا كنت X، ابدأ بالمركز دائماً. إذا كنت O والخصم أخذ المركز، خذ زاوية (يفضل 0 أو 2 أو 6 أو 8).</p>
+                <h3 class="text-lg font-bold text-white mb-2 mt-4">1. ابدأ بمبالغ صغيرة</h3>
+                <p class="mb-3" style="color: var(--text-primary);">لا تخاطر بـ XP أكثر مما تستطيع تحمل خسارته. ابدأ بـ 100-500 XP حتى تتعلم أسلوب لعب خصومك. مع الخبرة، يمكنك زيادة المبلغ تدريجياً.</p>
                 
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">الخطوة 2: ابحث عن التعادل أولاً</h3>
-                <p class="mb-3" style="color: var(--text-primary);">ضد مستوى عبقري، التعادل يعتبر إنجازاً. ركز على عدم الخسارة أولاً، ثم ابحث عن فرص للفوز. لا تخاطر.</p>
+                <h3 class="text-lg font-bold text-white mb-2 mt-4">2. راقب نمط خصمك</h3>
+                <p class="mb-3" style="color: var(--text-primary);">في الجولات الأولى، حاول فهم ما إذا كان خصمك هجومياً أم دفاعياً. بعض اللاعبين لديهم أنماط متكررة يمكن استغلالها.</p>
                 
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">الخطوة 3: تجنب الأنماط المتوقعة</h3>
-                <p class="mb-3" style="color: var(--text-primary);">الكمبيوتر يتوقع الأنماط الشائعة. حاول أن تكون غير متوقع في تحركاتك. بدلاً من اتباع النمط التقليدي، جرب تحركات تبدو غير منطقية أحياناً.</p>
+                <h3 class="text-lg font-bold text-white mb-2 mt-4">3. استغل المؤقت</h3>
+                <p class="mb-3" style="color: var(--text-primary);">لديك 5 ثوانٍ لكل حركة. لا تستعجل! استغل الوقت للتفكير. إذا لاحظت أن خصمك بطيء، يمكنك الضغط عليه باللعب بسرعة في اللحظات الحاسمة.</p>
                 
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">الخطوة 4: اصنع ضغطاً مستمراً</h3>
-                <p class="mb-3" style="color: var(--text-primary);">اجعل الكمبيوتر يدافع دائماً بخلق تهديدات مستمرة. كلما زاد الضغط، زادت فرصة خطئه. ابحث عن فرص الضربة المزدوجة.</p>
+                <h3 class="text-lg font-bold text-white mb-2 mt-4">4. اعرف متى تنسحب</h3>
+                <p class="mb-3" style="color: var(--text-primary);">إذا خسرت عدة مباريات متتالية، خذ استراحة. العاطفة تؤثر على الحكم. العب مجدداً عندما تكون هادئاً.</p>
                 
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">الخطوة 5: تحليل خسائرك</h3>
-                <p class="mb-3" style="color: var(--text-primary);">بعد كل خسارة، حاول تحليل الخطأ الذي ارتكبته. هل كان هناك فرصة أفضل؟ هل كان بإمكانك منع فوز الكمبيوتر؟</p>
+                <h3 class="text-lg font-bold text-white mb-2 mt-4">5. الاستراتيجيات الأساسية</h3>
+                <p class="mb-3" style="color: var(--text-primary);">ابدأ بالمركز دائماً. إذا بدأ الخصم بالمركز، خذ زاوية. ابحث عن فرص الضربة المزدوجة. لا تهمل الدفاع - راقب خطوط فوز الخصم.</p>
                 
-                <p class="mt-4 p-3 rounded-lg" style="background: rgba(255, 51, 102, 0.1); color: var(--text-primary);">
-                    <strong>نصيحة:</strong> حتى لو خسرت، كل مباراة تعلمك شيئاً جديداً. استمر في المحاولة! مع 50 مباراة على الأقل ضد العبقري، ستلاحظ تحسناً كبيراً في مستواك.
+                <p class="mt-4 p-3 rounded-lg" style="background: rgba(255, 215, 0, 0.1); color: var(--text-primary);">
+                    <strong>تذكر:</strong> الهدف هو الربح على المدى الطويل. حتى المحترفون يخسرون أحياناً. المهم أن يكون معدل فوزك أعلى من 50%.
                 </p>
             </div>
         </div>
@@ -3629,83 +3997,49 @@
                 <button onclick="navigateTo('blog')" class="p-2 rounded-lg hover:bg-white/10 transition-colors">
                     <i data-lucide="arrow-right" class="w-6 h-6" style="color: var(--text-secondary);"></i>
                 </button>
-                <h1 class="text-2xl font-display font-bold" style="color: var(--accent-color);">فوائد اللعب</h1>
+                <h1 class="text-2xl font-display font-bold" style="color: var(--accent-color);">دليل الديفيجن أونلاين</h1>
             </div>
 
             <div class="glass-card rounded-2xl p-6">
-                <h2 class="text-2xl font-bold text-white mb-2">10 فوائد مذهلة للعب إكس أو لصحة الدماغ</h2>
-                <p class="text-sm mb-4" style="color: var(--text-secondary);">نشر في 5 يناير 2026 | بواسطة Eclipse Games</p>
+                <h2 class="text-2xl font-bold text-white mb-2">دليل الديفيجن أونلاين: من 10 إلى 1</h2>
+                <p class="text-sm mb-4" style="color: var(--text-secondary);">نشر في 15 مارس 2026 | بواسطة Eclipse Games</p>
                 
-                <p class="mb-3" style="color: var(--text-primary);">هل تعلم أن لعب إكس أو ليس مجرد تسلية، بل له فوائد علمية مثبتة للدماغ؟ إليك 10 فوائد:</p>
+                <p class="mb-3" style="color: var(--text-primary);">طور الديفيجن أصبح أونلاين! تعرف على النظام الجديد وكيف تصل إلى القمة.</p>
                 
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">1. تحسين التفكير الاستراتيجي</h3>
-                <p class="mb-3" style="color: var(--text-primary);">اللعبة تعلمك التفكير بعدة خطوات للأمام وتوقع تحركات الخصم، وهي مهارة حيوية في الحياة العملية.</p>
-                
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">2. تقوية الذاكرة العاملة</h3>
-                <p class="mb-3" style="color: var(--text-primary);">تذكر تحركاتك وتحركات الخصم يقوي الذاكرة قصيرة المدى ويزيد من كفاءة الدماغ.</p>
-                
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">3. زيادة التركيز والانتباه</h3>
-                <p class="mb-3" style="color: var(--text-primary);">اللعبة تتطلب تركيزاً عالياً، مما يحسن قدرتك على التركيز في المهام الأخرى.</p>
-                
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">4. تعلم الصبر وضبط النفس</h3>
-                <p class="mb-3" style="color: var(--text-primary);">اللعبة تعلمك أن التسرع يؤدي للخسارة، والصبر استراتيجية فعالة للفوز.</p>
-                
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">5. تقليل التوتر والقلق</h3>
-                <p class="mb-3" style="color: var(--text-primary);">التركيز على اللعبة يمكن أن يكون شكلاً من أشكال التأمل، مما يقلل التوتر ويحسن المزاج.</p>
-                
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">6. تحسين سرعة البديهة</h3>
-                <p class="mb-3" style="color: var(--text-primary);">كلما لعبت أكثر، زادت سرعة ردود أفعالك وقدرتك على اتخاذ القرارات السريعة.</p>
-                
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">7. تعزيز الثقة بالنفس</h3>
-                <p class="mb-3" style="color: var(--text-primary);">الفوز في المباريات الصعبة يمنحك شعوراً بالإنجاز ويعزز ثقتك بنفسك.</p>
-                
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">8. تنمية الإبداع</h3>
-                <p class="mb-3" style="color: var(--text-primary);">إيجاد حلول جديدة للمواقف الصعبة في اللعبة ينمي التفكير الإبداعي.</p>
-                
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">9. تحسين المهارات الاجتماعية</h3>
-                <p class="mb-3" style="color: var(--text-primary);">اللعب مع الأصدقاء والعائلة يحسن التواصل والمهارات الاجتماعية.</p>
-                
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">10. تأخير الشيخوخة المعرفية</h3>
-                <p class="mb-3" style="color: var(--text-primary);">دراسات علمية أثبتت أن الألعاب الذهنية تؤخر ظهور أعراض الخرف والزهايمر.</p>
-                
-                <p class="mt-4" style="color: var(--text-secondary);">الخلاصة: العب بانتظام لتحصل على هذه الفوائد مع المتعة! حتى 15 دقيقة يومياً كافية لتنشيط عقلك.</p>
-            </div>
-        </div>
-    </div>
+                <h3 class="text-lg font-bold text-white mb-2 mt-4">نظام Best Of حسب الديفيجن</h3>
+                <ul class="list-disc mr-6 mb-3" style="color: var(--text-primary);">
+                    <li>الديفيجن 10, 9, 8, 7, 6: Best Of 3 (أول من يفوز 3 مباريات)</li>
+                    <li>الديفيجن 5, 4: Best Of 5 (أول من يفوز 5 مباريات)</li>
+                    <li>الديفيجن 3, 2, 1: Best Of 8 (أول من يفوز 8 مباريات)</li>
+                </ul>
 
-    <!-- ARTICLE 4 PAGE -->
-    <div id="page-article4" class="page flex-col items-center px-4 py-8">
-        <div class="w-full max-w-lg relative z-10">
-            <div class="flex items-center gap-4 mb-6">
-                <button onclick="navigateTo('blog')" class="p-2 rounded-lg hover:bg-white/10 transition-colors">
-                    <i data-lucide="arrow-right" class="w-6 h-6" style="color: var(--text-secondary);"></i>
-                </button>
-                <h1 class="text-2xl font-display font-bold" style="color: var(--accent-color);">تاريخ اللعبة</h1>
-            </div>
+                <h3 class="text-lg font-bold text-white mb-2 mt-4">نظام النقاط</h3>
+                <ul class="list-disc mr-6 mb-3" style="color: var(--text-primary);">
+                    <li>الفوز: +3 نقاط</li>
+                    <li>الخسارة: -3 نقاط</li>
+                    <li>ممنوع التعادل نهائياً - إذا انتهت جولة بتعادل، تُعاد الجولة فوراً</li>
+                    <li>إذا وصلت إلى 0 نقاط، تهبط للديفيجن السابق</li>
+                </ul>
 
-            <div class="glass-card rounded-2xl p-6">
-                <h2 class="text-2xl font-bold text-white mb-2">تاريخ لعبة إكس أو: من المعابد المصرية إلى العصر الرقمي</h2>
-                <p class="text-sm mb-4" style="color: var(--text-secondary);">نشر في 28 ديسمبر 2023 | بواسطة Eclipse Games</p>
+                <h3 class="text-lg font-bold text-white mb-2 mt-4">مكافآت الترقية</h3>
+                <ul class="list-disc mr-6 mb-3" style="color: var(--text-primary);">
+                    <li>الديفيجن 10: 2500 XP</li>
+                    <li>الديفيجن 9: 2500 XP</li>
+                    <li>الديفيجن 8: 2500 XP</li>
+                    <li>الديفيجن 7: 2500 XP</li>
+                    <li>الديفيجن 6: 2500 XP</li>
+                    <li>الديفيجن 5: 3000 XP</li>
+                    <li>الديفيجن 4: 4000 XP</li>
+                    <li>الديفيجن 3: 20000 XP</li>
+                    <li>الديفيجن 2: 50000 XP</li>
+                    <li>الديفيجن 1: 100000 XP + Rainbow Skin + Legendary Frame</li>
+                </ul>
+
+                <h3 class="text-lg font-bold text-white mb-2 mt-4">نصائح للديفيجن أونلاين</h3>
+                <p class="mb-3" style="color: var(--text-primary);">في الديفيجن، كل نقطة مهمة. لا تخاطر بخسارة 3 نقاط بسهولة. إذا كنت متقدماً في Best Of، لا تخف من اللعب دفاعياً. وإذا كنت متأخراً، خاطر أكثر.</p>
                 
-                <p class="mb-3" style="color: var(--text-primary);">هل تعلم أن لعبة إكس أو تعتبر من أقدم الألعاب في تاريخ البشرية؟</p>
-                
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">البدايات القديمة</h3>
-                <p class="mb-3" style="color: var(--text-primary);">أقدم نسخة معروفة من اللعبة وجدت في معبد الكرنك في مصر، وترجع إلى حوالي 1300 قبل الميلاد. كانت منحوتة على ألواح حجرية، وكان قدماء المصريين يلعبونها كتسلية ملكية.</p>
-                
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">الإمبراطورية الرومانية</h3>
-                <p class="mb-3" style="color: var(--text-primary);">الرومان أطلقوا عليها اسم "Terni Lapilli" (ثلاث حصيات)، وكانوا يلعبونها على شبكات مرسومة على الأرض أو على الألواح الخشبية. انتشرت اللعبة في جميع أنحاء الإمبراطورية الرومانية.</p>
-                
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">العصور الوسطى</h3>
-                <p class="mb-3" style="color: var(--text-primary);">في أوروبا العصور الوسطى، عُرفت اللعبة باسم "Noughts and Crosses" (الأصفار والإكسات) وكانت شعبية بين النبلاء وعامة الشعب على حد سواء.</p>
-                
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">العصر الحديث</h3>
-                <p class="mb-3" style="color: var(--text-primary);">مع ظهور الحواسيب في خمسينيات القرن العشرين، كانت لعبة إكس أو من أولى الألعاب التي برمجت على الكمبيوتر. في عام 1952، طور Alexander S. Douglas لعبة إكس أو على حاسوب EDSAC، لتصبح أول لعبة فيديو في التاريخ!</p>
-                
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">الذكاء الاصطناعي</h3>
-                <p class="mb-3" style="color: var(--text-primary);">في 2019، استخدم باحثون في جامعة كامبريدج خوارزميات تعلم عميق لتطوير ذكاء اصطناعي لا يُهزم في إكس أو، لكنهم اكتشفوا أن اللعبة إذا لعبت بطريقة مثالية، تنتهي دائماً بالتعادل!</p>
-                
-                <p class="mt-4 p-3 rounded-lg" style="background: rgba(0, 212, 255, 0.1); color: var(--text-primary);">
-                    <strong>معلومة:</strong> رغم أن لعبة إكس أو عمرها آلاف السنين، إلا أنها لا تزال واحدة من أكثر الألعاب شعبية في العالم، ويقدر أن 89% من البشر جربوها مرة واحدة على الأقل.
+                <p class="mt-4 p-3 rounded-lg" style="background: rgba(255, 51, 102, 0.1); color: var(--text-primary);">
+                    <strong>مكافأة الديفيجن 1:</strong> 100,000 XP + سكن Rainbow Master + إطار Division 1 الأسطوري مع تأثيرات خاصة!
                 </p>
             </div>
         </div>
@@ -3828,38 +4162,33 @@
         // أكواد فك الحظر
         const UNBAN_CODES = ['51375', '07813', '04575', '51376', '31676', '07844', '11236', '96123', '18596', '33166'];
 
-        // تعديل جوائز الديفيجن حسب الطلب
+        // تعديل جوائز الديفيجن
         const DIVISIONS = [
-            { level: 10, difficulty: 'beginner', required: 6, reward: 2000, name: 'Division 10' },
-            { level: 9, difficulty: 'beginner', required: 9, reward: 3000, name: 'Division 9' },
-            { level: 8, difficulty: 'beginner', required: 9, reward: 4000, name: 'Division 8' },
-            { level: 7, difficulty: 'medium', required: 10, reward: 4500, name: 'Division 7' },
-            { level: 6, difficulty: 'medium', required: 10, reward: 6000, name: 'Division 6' },
-            { level: 5, difficulty: 'hard', required: 15, reward: 8000, name: 'Division 5' },
-            { level: 4, difficulty: 'hard', required: 21, reward: 9000, name: 'Division 4' },
-            { level: 3, difficulty: 'genius', required: 21, reward: 10000, name: 'Division 3' },
-            { level: 2, difficulty: 'genius', required: 21, reward: 20000, name: 'Division 2' },
+            { level: 10, difficulty: 'beginner', required: 6, reward: 2500, name: 'Division 10' },
+            { level: 9, difficulty: 'beginner', required: 9, reward: 2500, name: 'Division 9' },
+            { level: 8, difficulty: 'beginner', required: 9, reward: 2500, name: 'Division 8' },
+            { level: 7, difficulty: 'medium', required: 10, reward: 2500, name: 'Division 7' },
+            { level: 6, difficulty: 'medium', required: 10, reward: 2500, name: 'Division 6' },
+            { level: 5, difficulty: 'hard', required: 15, reward: 3000, name: 'Division 5' },
+            { level: 4, difficulty: 'hard', required: 21, reward: 4000, name: 'Division 4' },
+            { level: 3, difficulty: 'genius', required: 21, reward: 20000, name: 'Division 3' },
+            { level: 2, difficulty: 'genius', required: 21, reward: 50000, name: 'Division 2' },
             { level: 1, difficulty: 'genius', required: 30, reward: 100000, name: 'Division 1' },
         ];
 
         const SKINS = [
-            // Original skins
             { id: 'default', name: 'Classic Cyan', price: 0, rarity: 'common', class: 'skin-default' },
             { id: 'red', name: 'Crimson Fury', price: 10000, rarity: 'rare', class: 'skin-red' },
             { id: 'gold', name: 'Golden Legend', price: 20000, rarity: 'epic', class: 'skin-gold' },
             { id: 'purple', name: 'Cyber Void', price: 15000, rarity: 'rare', class: 'skin-purple' },
             { id: 'green', name: 'Toxic Waste', price: 12000, rarity: 'rare', class: 'skin-green' },
             { id: 'rainbow', name: 'Rainbow Master', price: 0, rarity: 'legendary', class: 'skin-rainbow', secret: true },
-            
-            // New Rare Skins (5000 - 15000)
             { id: 'blue-crystal', name: 'Blue Crystal', price: 8000, rarity: 'common', class: 'skin-blue-crystal' },
             { id: 'emerald', name: 'Emerald', price: 9000, rarity: 'common', class: 'skin-emerald' },
             { id: 'ruby', name: 'Ruby', price: 9500, rarity: 'common', class: 'skin-ruby' },
             { id: 'sapphire', name: 'Sapphire', price: 8500, rarity: 'common', class: 'skin-sapphire' },
             { id: 'amethyst', name: 'Amethyst', price: 8800, rarity: 'common', class: 'skin-amethyst' },
             { id: 'topaz', name: 'Topaz', price: 9200, rarity: 'common', class: 'skin-topaz' },
-            
-            // New Epic Skins (15000 - 40000)
             { id: 'fire', name: 'Fire Element', price: 25000, rarity: 'epic', class: 'skin-fire' },
             { id: 'ice', name: 'Ice Element', price: 25000, rarity: 'epic', class: 'skin-ice' },
             { id: 'electric', name: 'Electric', price: 27000, rarity: 'epic', class: 'skin-electric' },
@@ -3868,8 +4197,6 @@
             { id: 'nature', name: 'Nature', price: 26000, rarity: 'epic', class: 'skin-nature' },
             { id: 'ocean', name: 'Ocean', price: 27000, rarity: 'epic', class: 'skin-ocean' },
             { id: 'lava', name: 'Lava', price: 28000, rarity: 'epic', class: 'skin-lava' },
-            
-            // New Legendary Skins (40000 - 150000)
             { id: 'space', name: 'Space Galaxy', price: 80000, rarity: 'legendary', class: 'skin-space' },
             { id: 'nebula', name: 'Cosmic Nebula', price: 95000, rarity: 'legendary', class: 'skin-nebula' },
             { id: 'galaxy', name: 'Galaxy', price: 85000, rarity: 'legendary', class: 'skin-galaxy' },
@@ -3882,29 +4209,21 @@
 
         const FRAMES = [
             { id: 'frame-default', name: 'Default Frame', price: 0, rarity: 'common', class: '', previewClass: '' },
-            
-            // Common Frames (5000 - 10000)
             { id: 'frame-common-1', name: 'Silver Edge', price: 5000, rarity: 'common', class: '', previewClass: 'silver-edge' },
             { id: 'frame-common-2', name: 'Bronze Edge', price: 5500, rarity: 'common', class: '', previewClass: 'bronze-edge' },
             { id: 'frame-common-3', name: 'Steel Edge', price: 6000, rarity: 'common', class: '', previewClass: 'steel-edge' },
             { id: 'frame-common-4', name: 'Iron Edge', price: 6500, rarity: 'common', class: '', previewClass: 'iron-edge' },
-            
-            // Rare Frames (10000 - 25000)
             { id: 'frame-rare-1', name: 'Golden Edge', price: 15000, rarity: 'rare', class: 'frame-rare', previewClass: 'golden-edge' },
             { id: 'frame-rare-2', name: 'Ruby Edge', price: 18000, rarity: 'rare', class: 'frame-rare', previewClass: 'ruby-edge' },
             { id: 'frame-rare-3', name: 'Sapphire Edge', price: 20000, rarity: 'rare', class: 'frame-rare', previewClass: 'sapphire-edge' },
             { id: 'frame-rare-4', name: 'Emerald Edge', price: 22000, rarity: 'rare', class: 'frame-rare', previewClass: 'emerald-edge' },
             { id: 'frame-rare-5', name: 'Amethyst Edge', price: 24000, rarity: 'rare', class: 'frame-rare', previewClass: 'amethyst-edge' },
-            
-            // Epic Frames (25000 - 60000)
             { id: 'frame-epic-1', name: 'Fire Frame', price: 35000, rarity: 'epic', class: 'frame-fire', previewClass: 'fire-frame' },
             { id: 'frame-epic-2', name: 'Ice Frame', price: 35000, rarity: 'epic', class: 'frame-ice', previewClass: 'ice-frame' },
             { id: 'frame-epic-3', name: 'Electric Frame', price: 38000, rarity: 'epic', class: 'frame-electric', previewClass: 'electric-frame' },
             { id: 'frame-epic-4', name: 'Nature Frame', price: 40000, rarity: 'epic', class: 'frame-epic', previewClass: 'nature-frame' },
             { id: 'frame-epic-5', name: 'Ocean Frame', price: 42000, rarity: 'epic', class: 'frame-epic', previewClass: 'ocean-frame' },
             { id: 'frame-epic-6', name: 'Lava Frame', price: 45000, rarity: 'epic', class: 'frame-fire', previewClass: 'lava-frame' },
-            
-            // Legendary Frames (60000 - 200000)
             { id: 'frame-legendary-1', name: 'Legendary Gold', price: 80000, rarity: 'legendary', class: 'frame-legendary', previewClass: 'legendary-gold' },
             { id: 'frame-legendary-2', name: 'Space Frame', price: 95000, rarity: 'legendary', class: 'frame-space', previewClass: 'space-frame' },
             { id: 'frame-legendary-3', name: 'Divine Frame', price: 110000, rarity: 'legendary', class: 'frame-legendary', previewClass: 'divine-frame' },
@@ -3942,6 +4261,8 @@
             { id: 'division-10', title: 'متحدي الديفيجن', desc: 'أكمل أول ديفيجن', xp: 200, icon: 'git-branch', check: s => s.completedDivisions >= 1 },
             { id: 'division-5', title: 'محارب الديفيجن', desc: 'أكمل 5 ديفيجنز', xp: 500, icon: 'git-branch', check: s => s.completedDivisions >= 5 },
             { id: 'division-1', title: 'أسطورة الديفيجن', desc: 'أكمل الديفيجن 1', xp: 2000, icon: 'crown', check: s => s.completedDivision1 },
+            { id: 'online-win', title: 'فوز أونلاين', desc: 'اربح أول مباراة أونلاين', xp: 100, icon: 'globe', check: s => s.onlineWins >= 1 },
+            { id: 'online-10', title: 'متحدي الأونلاين', desc: 'اربح 10 مباريات أونلاين', xp: 500, icon: 'globe', check: s => s.onlineWins >= 10 },
         ];
 
         const CHALLENGES = [
@@ -3971,23 +4292,22 @@
             'الزوايا الأربع مهمة جداً - حاول السيطرة على أكبر عدد منها.',
             'في مستوى عبقري، التعادل يعتبر إنجازاً! ركز على عدم الخسارة أولاً.',
             'الطور التكيفي يتعلم من تحركاتك - غير استراتيجيتك باستمرار.',
-            'استراتيجية المركز تمنحك 4 خطوط فوز محتملة.',
-            'الزوايا تمنحك 3 خطوط فوز محتملة لكل منها.',
-            'إذا بدأت بالمركز ثم أخذت زوايا متقابلة، تخلق فرص فوز متعددة.',
-            'تاريخ لعبة إكس أو يعود لأكثر من 3000 سنة!',
-            'العب 10 دقائق يومياً لتحسين تركيزك وذاكرتك.',
-            'في طور الديفيجن، كل نقطة مهمة. لا تخاطر بخسارة 3 نقاط بسهولة!',
-            'الديفيجن 1 يمنحك مكافأة أسطورية 100000 XP وسكن قوس قزح!',
-            'الخسارة في الديفيجن تكلفك -3 نقاط، فكر جيداً قبل كل حركة.',
-            'الإطارات الأسطورية تعطي مظهراً مميزاً لملفك الشخصي.',
+            'في غرف الأصدقاء أونلاين، يمكنك ضبط عدد الجولات والمؤقت.',
+            'في مباريات مراهنات XP، لا تخاطر بـ XP أكثر مما تستطيع تحمل خسارته.',
+            'في الديفيجن أونلاين، ممنوع التعادل - إذا تعادلت، تُعاد الجولة.',
+            'الديفيجن 1 يمنحك 100,000 XP + سكن Rainbow Master + إطار أسطوري!',
+            'إذا انفصل خصمك، انتظر 5 ثوان وتربح المباراة تلقائياً.',
         ];
 
         // ==================== STATE ====================
 
         let state = {
+            // User Profile
+            uid: null,
             profileName: 'Player',
             profileImage: null,
             xp: 0,
+            level: 1,
             unlockedSkins: ['default'],
             unlockedFrames: ['frame-default'],
             currentSkin: 'default',
@@ -3995,6 +4315,8 @@
             currentTheme: 'default',
             playAs: 'X',
             stats: { totalMatches: 0, wins: 0, losses: 0, draws: 0, winStreak: 0, bestStreak: 0 },
+            onlineWins: 0,
+            onlineLosses: 0,
             achievements: [],
             beatenGenius: false,
             beatenAdaptive: false,
@@ -4025,6 +4347,19 @@
             divisionPoints: 0,
             completedDivisions: 0,
             completedDivision1: false,
+            
+            // Online game state
+            currentRoom: null,
+            currentMatch: null,
+            isHost: false,
+            roomUnsubscribe: null,
+            matchUnsubscribe: null,
+            timerInterval: null,
+            disconnectTimer: null,
+            
+            // Matchmaking
+            xpBet: null,
+            queueUnsubscribe: null,
             
             // Game session
             gameMode: 'friend',
@@ -4119,13 +4454,13 @@
                 }, 1000);
             }
             
-            // Update social media links with correct attributes for SEO
+            // Update social media links
             updateSocialLinks();
             
             // Initialize music
             initMusic();
             
-            // Load AI progress from localStorage
+            // Load AI progress
             loadAIProgress();
             
             // Check if banned
@@ -4148,26 +4483,22 @@
         }
 
         function loadState() {
-            const saved = localStorage.getItem('xo-arena-v4'); // تحديث الإصدار
+            const saved = localStorage.getItem('xo-arena-v5'); // تحديث الإصدار
             if (saved) {
                 try {
                     const parsed = JSON.parse(saved);
                     state = { ...state, ...parsed, board: Array(9).fill(null), winner: null, winningLine: null, isComputerTurn: false };
-                    
-                    // إضافة 10,000 XP للمستخدمين القدامى (مرة واحدة)
-                    if (!state.hasSeenWhatsNew && state.xp > 0) {
-                        state.xp += 10000;
-                        showNotification('🎉 تم تعويضك 10,000 XP! شكراً لصبرك', 'reward');
-                    }
                 } catch (e) { console.error('Save corrupted'); }
             }
         }
 
         function saveState() {
             const toSave = {
+                uid: state.uid,
                 profileName: state.profileName,
                 profileImage: state.profileImage,
                 xp: state.xp,
+                level: state.level,
                 unlockedSkins: state.unlockedSkins,
                 unlockedFrames: state.unlockedFrames,
                 currentSkin: state.currentSkin,
@@ -4175,6 +4506,8 @@
                 currentTheme: state.currentTheme,
                 playAs: state.playAs,
                 stats: state.stats,
+                onlineWins: state.onlineWins,
+                onlineLosses: state.onlineLosses,
                 achievements: state.achievements,
                 beatenGenius: state.beatenGenius,
                 beatenAdaptive: state.beatenAdaptive,
@@ -4198,7 +4531,7 @@
                 adaptiveData: state.adaptiveData,
                 hasSeenWhatsNew: state.hasSeenWhatsNew
             };
-            localStorage.setItem('xo-arena-v4', JSON.stringify(toSave));
+            localStorage.setItem('xo-arena-v5', JSON.stringify(toSave));
         }
 
         // ==================== BANNED SYSTEM ====================
@@ -4211,7 +4544,7 @@
         }
 
         function closeBannedModal() {
-            if (state.isBanned) return; // لا يمكن إغلاقها إذا كان محظوراً
+            if (state.isBanned) return;
             document.getElementById('banned-modal-overlay').classList.remove('active');
             document.getElementById('banned-modal').classList.remove('active');
         }
@@ -4225,28 +4558,21 @@
             const code = document.getElementById('unban-code').value.trim();
             
             if (UNBAN_CODES.includes(code)) {
-                // كود صحيح - فك الحظر
                 state.isBanned = false;
                 state.unbanAttempts = 3;
                 saveState();
                 closeBannedModal();
                 showNotification('تم فك حظر حسابك بنجاح!', 'success');
             } else {
-                // كود خطأ
                 state.unbanAttempts--;
                 
                 if (state.unbanAttempts <= 0) {
-                    // حظر نهائي
                     state.isBanned = true;
                     state.unbanAttempts = 0;
                     saveState();
-                    
-                    // إخفاء خانة إدخال الكود
                     document.getElementById('unban-section').style.display = 'none';
-                    
                     showNotification('تم حظر حسابك نهائياً', 'error');
                 } else {
-                    // تحديث عدد المحاولات المتبقية
                     document.getElementById('unban-attempts').textContent = `المحاولات المتبقية: ${state.unbanAttempts}`;
                     showNotification('كود غير صحيح', 'error');
                 }
@@ -4291,16 +4617,14 @@
 
         function initMusic() {
             musicAudio = new Audio();
-            musicAudio.loop = false; // Changed to false to handle auto-play next
+            musicAudio.loop = false;
             
-            // Add event listener for when song ends
             musicAudio.addEventListener('ended', function() {
                 if (state.musicEnabled) {
                     nextSong();
                 }
             });
             
-            // Load saved settings
             updateMusicUI();
             
             if (state.musicEnabled) {
@@ -4504,9 +4828,9 @@
         // ==================== AD SYSTEM ====================
 
         function startAdTimer() {
-            if (state.adsRemoved) return; // تم إلغاء الإعلانات
+            if (state.adsRemoved) return;
             
-            const interval = Math.random() * 300000 + 300000; // 5-10 دقائق (300,000-600,000 مللي ثانية)
+            const interval = Math.random() * 300000 + 300000;
             
             state.adTimer = setTimeout(() => {
                 showAdCountdown();
@@ -4546,7 +4870,7 @@
             
             video.onended = function() {
                 closeAd();
-                startAdTimer(); // تشغيل المؤقت التالي
+                startAdTimer();
             };
         }
 
@@ -4591,21 +4915,21 @@
 
         function shareOnFacebook() {
             const url = encodeURIComponent('https://xo-arena-1.github.io/XO-Arena/');
-            const text = encodeURIComponent('🎮 جرب XO Arena - أفضل لعبة إكس أو عربية مع 5 مستويات ذكاء اصطناعي!');
+            const text = encodeURIComponent('🎮 جرب XO Arena - أفضل لعبة إكس أو عربية مع نظام أونلاين متكامل!');
             window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`, '_blank');
             incrementShareCount();
         }
 
         function shareOnTwitter() {
             const url = encodeURIComponent('https://xo-arena-1.github.io/XO-Arena/');
-            const text = encodeURIComponent('🎮 XO Arena - لعبة إكس أو عربية احترافية مع 5 مستويات ذكاء اصطناعي!');
+            const text = encodeURIComponent('🎮 XO Arena - لعبة إكس أو عربية مع نظام أونلاين ومراهنات XP');
             window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
             incrementShareCount();
         }
 
         function shareOnWhatsApp() {
             const url = encodeURIComponent('https://xo-arena-1.github.io/XO-Arena/');
-            const text = encodeURIComponent('🎮 جرب XO Arena - أقوى لعبة إكس أو عربية!');
+            const text = encodeURIComponent('🎮 جرب XO Arena - أقوى لعبة إكس أو عربية مع أونلاين!');
             window.open(`https://api.whatsapp.com/send?text=${text}%20${url}`, '_blank');
             incrementShareCount();
         }
@@ -4662,6 +4986,1034 @@
             }
         }
 
+        // ==================== FRIENDS ONLINE MODALS ====================
+
+        function showFriendsOptions() {
+            document.getElementById('friends-options-overlay').classList.add('active');
+            document.getElementById('friends-options-modal').classList.add('active');
+        }
+
+        function closeFriendsOptions() {
+            document.getElementById('friends-options-overlay').classList.remove('active');
+            document.getElementById('friends-options-modal').classList.remove('active');
+        }
+
+        function showFriendsOnlineOptions() {
+            closeFriendsOptions();
+            document.getElementById('friends-online-overlay').classList.add('active');
+            document.getElementById('friends-online-modal').classList.add('active');
+        }
+
+        function closeFriendsOnline() {
+            document.getElementById('friends-online-overlay').classList.remove('active');
+            document.getElementById('friends-online-modal').classList.remove('active');
+        }
+
+        function createRoom() {
+            if (!state.uid) {
+                showNotification('يجب تسجيل الدخول أولاً', 'error');
+                return;
+            }
+            
+            closeFriendsOnline();
+            showLoadingScreen('جاري إنشاء الغرفة...');
+            
+            // إنشاء كود عشوائي من 6 أحرف
+            const roomCode = Math.random().toString(36).substring(2, 8).toUpperCase();
+            
+            // إنشاء المستند في Firestore
+            const roomRef = doc(db, 'rooms', roomCode);
+            
+            const roomData = {
+                roomCode: roomCode,
+                mode: 'friends',
+                hostUID: state.uid,
+                hostName: state.profileName,
+                hostAvatar: state.profileImage || '',
+                hostLevel: state.level,
+                hostXP: state.xp,
+                guestUID: null,
+                guestName: null,
+                guestAvatar: null,
+                guestLevel: null,
+                guestXP: null,
+                status: 'waiting',
+                createdAt: serverTimestamp(),
+                settings: {
+                    rounds: 3,
+                    timerSeconds: 5,
+                    allowDraw: true,
+                    soundEnabled: true,
+                    hostSymbol: 'X',
+                    guestSymbol: 'O'
+                },
+                scoreboard: {
+                    hostWins: 0,
+                    guestWins: 0,
+                    draws: 0,
+                    currentRound: 1
+                },
+                game: {
+                    board: ['','','','','','','','',''],
+                    turn: 'X',
+                    winner: null,
+                    roundFinished: false
+                }
+            };
+            
+            setDoc(roomRef, roomData)
+                .then(() => {
+                    hideLoadingScreen();
+                    state.currentRoom = roomCode;
+                    state.isHost = true;
+                    navigateTo('room');
+                    setupRoomListener(roomCode);
+                    showNotification(`تم إنشاء الغرفة! الكود: ${roomCode}`, 'success');
+                })
+                .catch(error => {
+                    hideLoadingScreen();
+                    showNotification('حدث خطأ في إنشاء الغرفة', 'error');
+                    console.error(error);
+                });
+        }
+
+        function joinRoom() {
+            if (!state.uid) {
+                showNotification('يجب تسجيل الدخول أولاً', 'error');
+                return;
+            }
+            
+            const roomCode = document.getElementById('join-room-code').value.trim().toUpperCase();
+            if (!roomCode) {
+                showNotification('الرجاء إدخال كود الغرفة', 'error');
+                return;
+            }
+            
+            closeFriendsOnline();
+            showLoadingScreen('جاري الانضمام إلى الغرفة...');
+            
+            const roomRef = doc(db, 'rooms', roomCode);
+            
+            getDoc(roomRef)
+                .then(docSnap => {
+                    if (!docSnap.exists()) {
+                        throw new Error('الغرفة غير موجودة');
+                    }
+                    
+                    const roomData = docSnap.data();
+                    
+                    if (roomData.status !== 'waiting') {
+                        throw new Error('الغرفة ممتلئة أو غير متاحة');
+                    }
+                    
+                    if (roomData.hostUID === state.uid) {
+                        throw new Error('لا يمكنك الانضمام إلى غرفتك الخاصة');
+                    }
+                    
+                    // تحديث الغرفة// تحديث الغرفة بإضافة الضيف
+                    const updates = {
+                        guestUID: state.uid,
+                        guestName: state.profileName,
+                        guestAvatar: state.profileImage || '',
+                        guestLevel: state.level,
+                        guestXP: state.xp,
+                        status: 'playing',
+                        'settings.guestSymbol': roomData.settings.hostSymbol === 'X' ? 'O' : 'X'
+                    };
+                    
+                    return updateDoc(roomRef, updates).then(() => {
+                        hideLoadingScreen();
+                        state.currentRoom = roomCode;
+                        state.isHost = false;
+                        navigateTo('room');
+                        setupRoomListener(roomCode);
+                        showNotification('تم الانضمام إلى الغرفة بنجاح!', 'success');
+                    });
+                })
+                .catch(error => {
+                    hideLoadingScreen();
+                    showNotification(error.message || 'حدث خطأ في الانضمام', 'error');
+                    console.error(error);
+                });
+        }
+
+        function setupRoomListener(roomCode) {
+            if (state.roomUnsubscribe) {
+                state.roomUnsubscribe();
+            }
+            
+            const roomRef = doc(db, 'rooms', roomCode);
+            state.roomUnsubscribe = onSnapshot(roomRef, (docSnap) => {
+                if (!docSnap.exists()) {
+                    showNotification('الغرفة غير موجودة', 'error');
+                    leaveRoom();
+                    return;
+                }
+                
+                const roomData = docSnap.data();
+                updateRoomUI(roomData);
+                
+                // التحقق من انتهاء الوقت
+                if (roomData.status === 'playing' && roomData.game && !roomData.game.winner) {
+                    handleRoomTimer(roomData);
+                }
+            });
+        }
+
+        function updateRoomUI(roomData) {
+            // تحديث معلومات المضيف
+            document.getElementById('host-avatar').src = roomData.hostAvatar || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%231e293b\'/%3E%3Ccircle cx=\'50\' cy=\'35\' r=\'20\' fill=\'%2300d4ff\'/%3E%3Cellipse cx=\'50\' cy=\'80\' rx=\'30\' ry=\'25\' fill=\'%2300d4ff\'/%3E%3C/svg%3E';
+            document.getElementById('host-name').textContent = roomData.hostName;
+            document.getElementById('host-level').textContent = `Lv. ${roomData.hostLevel || 1}`;
+            document.getElementById('host-xp').textContent = `${roomData.hostXP || 0} XP`;
+            document.getElementById('host-symbol').textContent = roomData.settings.hostSymbol;
+            
+            // تحديث معلومات الضيف
+            if (roomData.guestUID) {
+                const guestProfile = document.getElementById('guest-profile');
+                guestProfile.style.opacity = '1';
+                document.getElementById('guest-avatar').src = roomData.guestAvatar || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%23333\'/%3E%3Ccircle cx=\'50\' cy=\'35\' r=\'20\' fill=\'%23666\'/%3E%3Cellipse cx=\'50\' cy=\'80\' rx=\'30\' ry=\'25\' fill=\'%23666\'/%3E%3C/svg%3E';
+                document.getElementById('guest-name').textContent = roomData.guestName;
+                document.getElementById('guest-level').textContent = `Lv. ${roomData.guestLevel || 1}`;
+                document.getElementById('guest-xp').textContent = `${roomData.guestXP || 0} XP`;
+                document.getElementById('guest-symbol').textContent = roomData.settings.guestSymbol;
+            } else {
+                const guestProfile = document.getElementById('guest-profile');
+                guestProfile.style.opacity = '0.5';
+                document.getElementById('guest-avatar').src = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%23333\'/%3E%3Ccircle cx=\'50\' cy=\'35\' r=\'20\' fill=\'%23666\'/%3E%3Cellipse cx=\'50\' cy=\'80\' rx=\'30\' ry=\'25\' fill=\'%23666\'/%3E%3C/svg%3E';
+                document.getElementById('guest-name').textContent = 'في انتظار...';
+                document.getElementById('guest-level').textContent = '-';
+                document.getElementById('guest-xp').textContent = '-';
+            }
+            
+            // تحديث كود الغرفة
+            if (state.isHost && roomData.status === 'waiting') {
+                document.getElementById('room-code-container').style.display = 'block';
+                document.getElementById('room-code-display').textContent = roomData.roomCode;
+            } else {
+                document.getElementById('room-code-container').style.display = 'none';
+            }
+            
+            // تحديث زر الإعدادات (يظهر فقط للمضيف)
+            document.getElementById('room-settings-btn').style.display = state.isHost ? 'block' : 'none';
+            
+            // تحديث النتيجة
+            document.getElementById('host-wins').textContent = roomData.scoreboard.hostWins;
+            document.getElementById('guest-wins').textContent = roomData.scoreboard.guestWins;
+            document.getElementById('draws-count').textContent = roomData.scoreboard.draws;
+            document.getElementById('current-round').textContent = `${roomData.scoreboard.currentRound}/${roomData.settings.rounds}`;
+            
+            // تحديث لوحة اللعبة
+            updateRoomBoard(roomData.game);
+            
+            // تحديث حالة اللعبة
+            const statusEl = document.getElementById('room-game-status');
+            if (roomData.game.winner) {
+                if (roomData.game.winner === 'draw') {
+                    statusEl.innerHTML = '<span style="color: var(--text-secondary);">تعادل!</span>';
+                } else {
+                    const winnerName = roomData.game.winner === roomData.settings.hostSymbol ? roomData.hostName : roomData.guestName;
+                    statusEl.innerHTML = `<span style="color: ${roomData.game.winner === roomData.settings.hostSymbol ? 'var(--accent-color)' : 'var(--accent-secondary)'};">فوز ${winnerName}!</span>`;
+                }
+            } else {
+                const currentPlayer = roomData.game.turn;
+                const currentPlayerName = currentPlayer === roomData.settings.hostSymbol ? roomData.hostName : roomData.guestName;
+                const color = currentPlayer === roomData.settings.hostSymbol ? 'var(--accent-color)' : 'var(--accent-secondary)';
+                statusEl.innerHTML = `دور: <span style="color: ${color};">${currentPlayerName}</span>`;
+            }
+            
+            // التحقق من انفصال الخصم
+            if (roomData.status === 'disconnected') {
+                document.getElementById('disconnected-message').style.display = 'block';
+            } else {
+                document.getElementById('disconnected-message').style.display = 'none';
+            }
+        }
+
+        function updateRoomBoard(gameData) {
+            const boardEl = document.getElementById('room-game-board');
+            
+            // إنشاء اللوحة إذا كانت فارغة
+            if (boardEl.children.length === 0) {
+                for (let i = 0; i < 9; i++) {
+                    const btn = document.createElement('button');
+                    btn.className = 'game-cell w-24 h-24 md:w-28 md:h-28 rounded-xl flex items-center justify-center text-4xl md:text-5xl font-display';
+                    btn.id = `room-cell-${i}`;
+                    btn.onmouseenter = () => playSound('hover');
+                    btn.onclick = () => handleRoomMove(i);
+                    boardEl.appendChild(btn);
+                }
+            }
+            
+            // تحديث الخلايا
+            for (let i = 0; i < 9; i++) {
+                const cell = document.getElementById(`room-cell-${i}`);
+                const value = gameData.board[i];
+                
+                if (value) {
+                    cell.innerHTML = `<span class="animate-pop-in">${value}</span>`;
+                    cell.classList.add('disabled');
+                    
+                    // تطبيق السكن
+                    if (value === 'X') {
+                        cell.className = `game-cell w-24 h-24 md:w-28 md:h-28 rounded-xl flex items-center justify-center text-4xl md:text-5xl font-display disabled ${state.currentSkin}`;
+                    } else {
+                        cell.className = `game-cell w-24 h-24 md:w-28 md:h-28 rounded-xl flex items-center justify-center text-4xl md:text-5xl font-display disabled ${state.currentSkin}`;
+                    }
+                } else {
+                    cell.innerHTML = '';
+                    cell.className = 'game-cell w-24 h-24 md:w-28 md:h-28 rounded-xl flex items-center justify-center text-4xl md:text-5xl font-display';
+                }
+            }
+        }
+
+        function handleRoomMove(index) {
+            if (!state.currentRoom || !state.uid) return;
+            
+            const roomRef = doc(db, 'rooms', state.currentRoom);
+            
+            runTransaction(db, async (transaction) => {
+                const docSnap = await transaction.get(roomRef);
+                if (!docSnap.exists()) throw new Error('الغرفة غير موجودة');
+                
+                const roomData = docSnap.data();
+                
+                // التحقق من الصلاحية
+                if (roomData.status !== 'playing') throw new Error('اللعبة لم تبدأ بعد');
+                if (roomData.game.winner) throw new Error('انتهت اللعبة');
+                if (roomData.game.board[index]) throw new Error('هذه الخانة مشغولة');
+                
+                // تحديد دور اللاعب
+                const isHost = roomData.hostUID === state.uid;
+                const isGuest = roomData.guestUID === state.uid;
+                if (!isHost && !isGuest) throw new Error('لست مشتركاً في هذه الغرفة');
+                
+                const playerSymbol = isHost ? roomData.settings.hostSymbol : roomData.settings.guestSymbol;
+                if (roomData.game.turn !== playerSymbol) throw new Error('ليس دورك');
+                
+                // تحديث اللوحة
+                const newBoard = [...roomData.game.board];
+                newBoard[index] = playerSymbol;
+                
+                // التحقق من الفائز
+                const result = checkWinner(newBoard);
+                
+                const updates = {
+                    'game.board': newBoard,
+                    'game.turn': playerSymbol === 'X' ? 'O' : 'X'
+                };
+                
+                if (result) {
+                    if (result.winner === 'draw') {
+                        if (roomData.settings.allowDraw) {
+                            updates['game.winner'] = 'draw';
+                            updates['scoreboard.draws'] = roomData.scoreboard.draws + 1;
+                            
+                            // التحقق من انتهاء المباراة
+                            const newDraws = roomData.scoreboard.draws + 1;
+                            if (newDraws >= roomData.settings.rounds) {
+                                updates['status'] = 'completed';
+                            } else {
+                                // بدء جولة جديدة
+                                updates['scoreboard.currentRound'] = roomData.scoreboard.currentRound + 1;
+                                updates['game.board'] = ['','','','','','','','',''];
+                                updates['game.winner'] = null;
+                                updates['game.turn'] = 'X';
+                            }
+                        } else {
+                            // إذا كان التعادل غير مسموح، نعيد الجولة
+                            updates['game.board'] = ['','','','','','','','',''];
+                            updates['game.winner'] = null;
+                            updates['game.turn'] = 'X';
+                        }
+                    } else {
+                        // فوز لاعب
+                        const winner = result.winner;
+                        const isHostWinner = winner === roomData.settings.hostSymbol;
+                        
+                        if (isHostWinner) {
+                            updates['scoreboard.hostWins'] = roomData.scoreboard.hostWins + 1;
+                        } else {
+                            updates['scoreboard.guestWins'] = roomData.scoreboard.guestWins + 1;
+                        }
+                        
+                        updates['game.winner'] = winner;
+                        
+                        // التحقق من الفوز بالمباراة
+                        const newHostWins = isHostWinner ? roomData.scoreboard.hostWins + 1 : roomData.scoreboard.hostWins;
+                        const newGuestWins = isHostWinner ? roomData.scoreboard.guestWins : roomData.scoreboard.guestWins + 1;
+                        
+                        if (newHostWins >= roomData.settings.rounds || newGuestWins >= roomData.settings.rounds) {
+                            updates['status'] = 'completed';
+                            
+                            // إضافة XP للفائز (مكافأة بسيطة)
+                            if (state.uid === (isHostWinner ? roomData.hostUID : roomData.guestUID)) {
+                                state.xp += 100;
+                                state.onlineWins++;
+                            } else {
+                                state.onlineLosses++;
+                            }
+                            saveState();
+                        } else {
+                            // بدء جولة جديدة
+                            updates['scoreboard.currentRound'] = roomData.scoreboard.currentRound + 1;
+                            updates['game.board'] = ['','','','','','','','',''];
+                            updates['game.winner'] = null;
+                            updates['game.turn'] = 'X';
+                        }
+                    }
+                }
+                
+                transaction.update(roomRef, updates);
+            }).catch(error => {
+                showNotification(error.message, 'error');
+            });
+        }
+
+        function handleRoomTimer(roomData) {
+            if (!state.currentRoom || state.timerInterval) return;
+            
+            let timeLeft = roomData.settings.timerSeconds;
+            const timerEl = document.getElementById('room-timer');
+            
+            state.timerInterval = setInterval(() => {
+                timeLeft--;
+                timerEl.textContent = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(state.timerInterval);
+                    state.timerInterval = null;
+                    
+                    // تحديد من انتهى وقته
+                    const currentPlayer = roomData.game.turn;
+                    const isHostTurn = currentPlayer === roomData.settings.hostSymbol;
+                    const loserUID = isHostTurn ? roomData.hostUID : roomData.guestUID;
+                    
+                    if (loserUID === state.uid) {
+                        // أنت خسرت بالوقت
+                        handleTimerLoss();
+                    }
+                }
+            }, 1000);
+        }
+
+        function handleTimerLoss() {
+            if (!state.currentRoom) return;
+            
+            const roomRef = doc(db, 'rooms', state.currentRoom);
+            
+            runTransaction(db, async (transaction) => {
+                const docSnap = await transaction.get(roomRef);
+                if (!docSnap.exists()) return;
+                
+                const roomData = docSnap.data();
+                
+                // تحديد الفائز (اللاعب الآخر)
+                const isHost = roomData.hostUID === state.uid;
+                const winner = isHost ? roomData.guestUID : roomData.hostUID;
+                const winnerSymbol = isHost ? roomData.settings.guestSymbol : roomData.settings.hostSymbol;
+                
+                const updates = {
+                    'game.winner': winnerSymbol,
+                    'game.turn': null
+                };
+                
+                if (isHost) {
+                    updates['scoreboard.guestWins'] = roomData.scoreboard.guestWins + 1;
+                } else {
+                    updates['scoreboard.hostWins'] = roomData.scoreboard.hostWins + 1;
+                }
+                
+                transaction.update(roomRef, updates);
+            });
+        }
+
+        function leaveRoom() {
+            if (state.roomUnsubscribe) {
+                state.roomUnsubscribe();
+                state.roomUnsubscribe = null;
+            }
+            
+            if (state.timerInterval) {
+                clearInterval(state.timerInterval);
+                state.timerInterval = null;
+            }
+            
+            if (state.disconnectTimer) {
+                clearTimeout(state.disconnectTimer);
+                state.disconnectTimer = null;
+            }
+            
+            // حذف الغرفة إذا كان المضيف
+            if (state.currentRoom && state.isHost) {
+                const roomRef = doc(db, 'rooms', state.currentRoom);
+                deleteDoc(roomRef).catch(console.error);
+            } else if (state.currentRoom) {
+                // تحديث حالة الضيف إلى منفصل
+                const roomRef = doc(db, 'rooms', state.currentRoom);
+                updateDoc(roomRef, {
+                    status: 'disconnected',
+                    guestUID: null,
+                    guestName: null
+                }).catch(console.error);
+            }
+            
+            state.currentRoom = null;
+            state.isHost = false;
+            navigateTo('home');
+        }
+
+        function showRoomSettings() {
+            if (!state.isHost) return;
+            
+            document.getElementById('room-settings-overlay').classList.add('active');
+            document.getElementById('room-settings-modal').classList.add('active');
+        }
+
+        function closeRoomSettings() {
+            document.getElementById('room-settings-overlay').classList.remove('active');
+            document.getElementById('room-settings-modal').classList.remove('active');
+        }
+
+        function saveRoomSettings() {
+            if (!state.currentRoom || !state.isHost) return;
+            
+            const rounds = parseInt(document.getElementById('settings-rounds').value);
+            const timerSeconds = parseInt(document.getElementById('settings-timer').value);
+            const allowDraw = document.getElementById('settings-allow-draw').checked;
+            const soundEnabled = document.getElementById('settings-sound').checked;
+            const hostSymbol = document.getElementById('settings-host-symbol').value;
+            
+            const roomRef = doc(db, 'rooms', state.currentRoom);
+            
+            updateDoc(roomRef, {
+                'settings.rounds': rounds,
+                'settings.timerSeconds': timerSeconds,
+                'settings.allowDraw': allowDraw,
+                'settings.soundEnabled': soundEnabled,
+                'settings.hostSymbol': hostSymbol,
+                'settings.guestSymbol': hostSymbol === 'X' ? 'O' : 'X'
+            }).then(() => {
+                closeRoomSettings();
+                showNotification('تم حفظ الإعدادات', 'success');
+            }).catch(error => {
+                showNotification('حدث خطأ', 'error');
+            });
+        }
+
+        function restartMatch() {
+            if (!state.currentRoom || !state.isHost) return;
+            
+            const roomRef = doc(db, 'rooms', state.currentRoom);
+            
+            updateDoc(roomRef, {
+                'scoreboard.hostWins': 0,
+                'scoreboard.guestWins': 0,
+                'scoreboard.draws': 0,
+                'scoreboard.currentRound': 1,
+                'game.board': ['','','','','','','','',''],
+                'game.turn': 'X',
+                'game.winner': null,
+                'game.roundFinished': false,
+                'status': 'playing'
+            }).then(() => {
+                showNotification('تم إعادة المباراة', 'success');
+            });
+        }
+
+        function kickPlayer() {
+            if (!state.currentRoom || !state.isHost) return;
+            
+            const roomRef = doc(db, 'rooms', state.currentRoom);
+            
+            updateDoc(roomRef, {
+                guestUID: null,
+                guestName: null,
+                guestAvatar: null,
+                guestLevel: null,
+                guestXP: null,
+                status: 'waiting',
+                'scoreboard.hostWins': 0,
+                'scoreboard.guestWins': 0,
+                'scoreboard.draws': 0,
+                'scoreboard.currentRound': 1,
+                'game.board': ['','','','','','','','',''],
+                'game.turn': 'X',
+                'game.winner': null
+            }).then(() => {
+                closeRoomSettings();
+                showNotification('تم طرد اللاعب', 'success');
+            });
+        }
+
+        function closeRoom() {
+            if (!state.currentRoom || !state.isHost) return;
+            
+            const roomRef = doc(db, 'rooms', state.currentRoom);
+            deleteDoc(roomRef).then(() => {
+                closeRoomSettings();
+                leaveRoom();
+                showNotification('تم إغلاق الغرفة', 'success');
+            });
+        }
+
+        function copyRoomCode() {
+            const code = document.getElementById('room-code-display').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                showNotification('تم نسخ الكود', 'success');
+            });
+        }
+
+        // ==================== ONLINE MATCHES (XP BET) ====================
+
+        function showOnlineMatchesOptions() {
+            if (!state.uid) {
+                showNotification('يجب تسجيل الدخول أولاً', 'error');
+                return;
+            }
+            
+            document.getElementById('xp-balance-display').textContent = state.xp;
+            document.getElementById('online-matches-overlay').classList.add('active');
+            document.getElementById('online-matches-modal').classList.add('active');
+        }
+
+        function closeOnlineMatches() {
+            document.getElementById('online-matches-overlay').classList.remove('active');
+            document.getElementById('online-matches-modal').classList.remove('active');
+        }
+
+        function selectXpBet(amount) {
+            if (amount > state.xp) {
+                showNotification('XP غير كافي', 'error');
+                return;
+            }
+            
+            state.xpBet = amount;
+            document.querySelectorAll('.xp-bet-btn').forEach(btn => {
+                btn.style.borderColor = 'var(--border-color)';
+            });
+            event.currentTarget.style.borderColor = '#ffd700';
+            document.getElementById('start-matchmaking-btn').disabled = false;
+        }
+
+        function startMatchmaking() {
+            if (!state.uid || !state.xpBet) return;
+            
+            closeOnlineMatches();
+            showLoadingScreen('جار البحث عن لاعب...');
+            
+            // إضافة إلى طابور الانتظار
+            const queueRef = doc(db, 'matchmakingQueue', state.uid);
+            
+            setDoc(queueRef, {
+                uid: state.uid,
+                username: state.profileName,
+                avatar: state.profileImage || '',
+                level: state.level,
+                xpBet: state.xpBet,
+                mode: 'onlineMatches',
+                createdAt: serverTimestamp()
+            }).then(() => {
+                // الاستماع للتغييرات في الطابور
+                setupMatchmakingListener();
+            }).catch(error => {
+                hideLoadingScreen();
+                showNotification('حدث خطأ', 'error');
+            });
+        }
+
+        function setupMatchmakingListener() {
+            const queueRef = collection(db, 'matchmakingQueue');
+            
+            state.queueUnsubscribe = onSnapshot(queueRef, (snapshot) => {
+                const players = snapshot.docs
+                    .map(doc => ({ id: doc.id, ...doc.data() }))
+                    .filter(p => p.id !== state.uid && p.mode === 'onlineMatches');
+                
+                if (players.length > 0) {
+                    // العثور على لاعب مناسب
+                    const matchedPlayer = players.find(p => Math.abs(p.xpBet - state.xpBet) <= 500) || players[0];
+                    
+                    // إنشاء مباراة جديدة
+                    createOnlineMatch(matchedPlayer);
+                }
+            });
+        }
+
+        function createOnlineMatch(player2) {
+            if (!state.uid || !state.xpBet) return;
+            
+            const matchId = `${state.uid}_${player2.uid}_${Date.now()}`;
+            const matchRef = doc(db, 'matches', matchId);
+            
+            // تحديد الرموز عشوائياً
+            const player1Symbol = Math.random() < 0.5 ? 'X' : 'O';
+            const player2Symbol = player1Symbol === 'X' ? 'O' : 'X';
+            
+            const matchData = {
+                mode: 'onlineMatches',
+                player1UID: state.uid,
+                player2UID: player2.uid,
+                player1Name: state.profileName,
+                player2Name: player2.username,
+                player1Avatar: state.profileImage || '',
+                player2Avatar: player2.avatar || '',
+                player1Bet: state.xpBet,
+                player2Bet: player2.xpBet,
+                player1Symbol: player1Symbol,
+                player2Symbol: player2Symbol,
+                status: 'inGame',
+                createdAt: serverTimestamp(),
+                timerSeconds: 5,
+                game: {
+                    board: ['','','','','','','','',''],
+                    turn: 'X',
+                    winner: null,
+                    roundFinished: false
+                },
+                scoreboard: {
+                    player1Wins: 0,
+                    player2Wins: 0,
+                    currentRound: 1
+                },
+                settings: {
+                    rounds: 1,
+                    allowDraw: false
+                }
+            };
+            
+            // حذف من الطابور
+            deleteDoc(doc(db, 'matchmakingQueue', state.uid));
+            deleteDoc(doc(db, 'matchmakingQueue', player2.uid));
+            
+            setDoc(matchRef, matchData)
+                .then(() => {
+                    if (state.queueUnsubscribe) {
+                        state.queueUnsubscribe();
+                    }
+                    
+                    hideLoadingScreen();
+                    state.currentMatch = matchId;
+                    setupMatchListener(matchId);
+                    navigateTo('online-match');
+                })
+                .catch(error => {
+                    hideLoadingScreen();
+                    showNotification('حدث خطأ في إنشاء المباراة', 'error');
+                });
+        }
+
+        function setupMatchListener(matchId) {
+            if (state.matchUnsubscribe) {
+                state.matchUnsubscribe();
+            }
+            
+            const matchRef = doc(db, 'matches', matchId);
+            state.matchUnsubscribe = onSnapshot(matchRef, (docSnap) => {
+                if (!docSnap.exists()) {
+                    showNotification('المباراة غير موجودة', 'error');
+                    leaveMatch();
+                    return;
+                }
+                
+                const matchData = docSnap.data();
+                updateMatchUI(matchData);
+            });
+        }
+
+        function updateMatchUI(matchData) {
+            // تحديث صفحة المباراة (مشابه لـ updateRoomUI لكن لمباريات XP)
+            // يمكن إضافة صفحة مخصصة للمباريات إذا أردت
+        }
+
+        function leaveMatch() {
+            if (state.matchUnsubscribe) {
+                state.matchUnsubscribe();
+                state.matchUnsubscribe = null;
+            }
+            
+            if (state.currentMatch) {
+                const matchRef = doc(db, 'matches', state.currentMatch);
+                updateDoc(matchRef, {
+                    status: 'disconnected'
+                }).catch(console.error);
+            }
+            
+            state.currentMatch = null;
+            navigateTo('home');
+        }
+
+        // ==================== ONLINE DIVISION ====================
+
+        function showDivisionOptions() {
+            document.getElementById('division-options-overlay').classList.add('active');
+            document.getElementById('division-options-modal').classList.add('active');
+        }
+
+        function closeDivisionOptions() {
+            document.getElementById('division-options-overlay').classList.remove('active');
+            document.getElementById('division-options-modal').classList.remove('active');
+        }
+
+        function startDivisionMatch() {
+            closeDivisionOptions();
+            startGame('division', DIVISIONS.find(d => d.level === state.currentDivision)?.difficulty || 'beginner');
+        }
+
+        function startOnlineDivision() {
+            if (!state.uid) {
+                showNotification('يجب تسجيل الدخول أولاً', 'error');
+                return;
+            }
+            
+            closeDivisionOptions();
+            showLoadingScreen('جار البحث عن لاعب في نفس الديفيجن...');
+            
+            // إضافة إلى طابور الديفيجن
+            const queueRef = doc(db, 'divisionQueue', state.uid);
+            
+            setDoc(queueRef, {
+                uid: state.uid,
+                division: state.currentDivision,
+                divisionPoints: state.divisionPoints,
+                username: state.profileName,
+                avatar: state.profileImage || '',
+                level: state.level,
+                createdAt: serverTimestamp()
+            }).then(() => {
+                setupDivisionMatchmakingListener();
+            }).catch(error => {
+                hideLoadingScreen();
+                showNotification('حدث خطأ', 'error');
+            });
+        }
+
+        function setupDivisionMatchmakingListener() {
+            const queueRef = collection(db, 'divisionQueue');
+            
+            state.queueUnsubscribe = onSnapshot(queueRef, (snapshot) => {
+                const players = snapshot.docs
+                    .map(doc => ({ id: doc.id, ...doc.data() }))
+                    .filter(p => p.id !== state.uid && p.division === state.currentDivision);
+                
+                if (players.length > 0) {
+                    const matchedPlayer = players[0];
+                    createDivisionMatch(matchedPlayer);
+                }
+            });
+        }
+
+        function createDivisionMatch(player2) {
+            if (!state.uid) return;
+            
+            // تحديد عدد المباريات المطلوبة للفوز (Best Of)
+            let bestOfWinsRequired;
+            if (state.currentDivision >= 6) bestOfWinsRequired = 3;
+            else if (state.currentDivision >= 4) bestOfWinsRequired = 5;
+            else bestOfWinsRequired = 8;
+            
+            const matchId = `div_${state.uid}_${player2.uid}_${Date.now()}`;
+            const matchRef = doc(db, 'divisionMatches', matchId);
+            
+            // تحديد الرموز عشوائياً
+            const player1Symbol = Math.random() < 0.5 ? 'X' : 'O';
+            const player2Symbol = player1Symbol === 'X' ? 'O' : 'X';
+            
+            const matchData = {
+                mode: 'division',
+                division: state.currentDivision,
+                player1UID: state.uid,
+                player2UID: player2.uid,
+                player1Name: state.profileName,
+                player2Name: player2.username,
+                player1Avatar: state.profileImage || '',
+                player2Avatar: player2.avatar || '',
+                player1Division: state.currentDivision,
+                player2Division: player2.division,
+                player1Symbol: player1Symbol,
+                player2Symbol: player2Symbol,
+                bestOfWinsRequired: bestOfWinsRequired,
+                player1Wins: 0,
+                player2Wins: 0,
+                status: 'inGame',
+                createdAt: serverTimestamp(),
+                timerSeconds: 5,
+                game: {
+                    board: ['','','','','','','','',''],
+                    turn: 'X',
+                    winner: null
+                }
+            };
+            
+            // حذف من الطابور
+            deleteDoc(doc(db, 'divisionQueue', state.uid));
+            deleteDoc(doc(db, 'divisionQueue', player2.uid));
+            
+            setDoc(matchRef, matchData)
+                .then(() => {
+                    if (state.queueUnsubscribe) {
+                        state.queueUnsubscribe();
+                    }
+                    
+                    hideLoadingScreen();
+                    state.currentMatch = matchId;
+                    setupDivisionMatchListener(matchId);
+                    navigateTo('division-match');
+                })
+                .catch(error => {
+                    hideLoadingScreen();
+                    showNotification('حدث خطأ في إنشاء المباراة', 'error');
+                });
+        }
+
+        function setupDivisionMatchListener(matchId) {
+            if (state.matchUnsubscribe) {
+                state.matchUnsubscribe();
+            }
+            
+            const matchRef = doc(db, 'divisionMatches', matchId);
+            state.matchUnsubscribe = onSnapshot(matchRef, (docSnap) => {
+                if (!docSnap.exists()) {
+                    showNotification('المباراة غير موجودة', 'error');
+                    leaveDivisionMatch();
+                    return;
+                }
+                
+                const matchData = docSnap.data();
+                updateDivisionMatchUI(matchData);
+            });
+        }
+
+        function updateDivisionMatchUI(matchData) {
+            // تحديث واجهة مباراة الديفيجن
+            // مشابه للمباريات العادية مع عرض Best Of
+        }
+
+        function handleDivisionMove(index, matchData) {
+            if (!state.currentMatch || !state.uid) return;
+            
+            const matchRef = doc(db, 'divisionMatches', state.currentMatch);
+            
+            runTransaction(db, async (transaction) => {
+                const docSnap = await transaction.get(matchRef);
+                if (!docSnap.exists()) throw new Error('المباراة غير موجودة');
+                
+                const data = docSnap.data();
+                
+                if (data.status !== 'inGame') throw new Error('المباراة انتهت');
+                if (data.game.winner) throw new Error('الجولة انتهت');
+                if (data.game.board[index]) throw new Error('هذه الخانة مشغولة');
+                
+                const isPlayer1 = data.player1UID === state.uid;
+                const playerSymbol = isPlayer1 ? data.player1Symbol : data.player2Symbol;
+                
+                if (data.game.turn !== playerSymbol) throw new Error('ليس دورك');
+                
+                const newBoard = [...data.game.board];
+                newBoard[index] = playerSymbol;
+                
+                const result = checkWinner(newBoard);
+                
+                const updates = {
+                    'game.board': newBoard,
+                    'game.turn': playerSymbol === 'X' ? 'O' : 'X'
+                };
+                
+                if (result) {
+                    if (result.winner === 'draw') {
+                        // في الديفيجن، ممنوع التعادل - نعيد الجولة
+                        updates['game.board'] = ['','','','','','','','',''];
+                        updates['game.turn'] = 'X';
+                        updates['game.winner'] = null;
+                    } else {
+                        const winner = result.winner;
+                        const isPlayer1Winner = winner === data.player1Symbol;
+                        
+                        if (isPlayer1Winner) {
+                            updates['player1Wins'] = data.player1Wins + 1;
+                        } else {
+                            updates['player2Wins'] = data.player2Wins + 1;
+                        }
+                        
+                        updates['game.winner'] = winner;
+                        
+                        // التحقق من الفوز بالمباراة
+                        const newPlayer1Wins = isPlayer1Winner ? data.player1Wins + 1 : data.player1Wins;
+                        const newPlayer2Wins = isPlayer1Winner ? data.player2Wins : data.player2Wins + 1;
+                        
+                        if (newPlayer1Wins >= data.bestOfWinsRequired || newPlayer2Wins >= data.bestOfWinsRequired) {
+                            updates['status'] = 'completed';
+                            
+                            // تحديث نقاط الديفيجن
+                            if (isPlayer1Winner) {
+                                if (state.uid === data.player1UID) {
+                                    handleDivisionWin();
+                                } else {
+                                    handleDivisionLoss();
+                                }
+                            } else {
+                                if (state.uid === data.player2UID) {
+                                    handleDivisionWin();
+                                } else {
+                                    handleDivisionLoss();
+                                }
+                            }
+                        } else {
+                            // بدء جولة جديدة
+                            updates['game.board'] = ['','','','','','','','',''];
+                            updates['game.turn'] = 'X';
+                            updates['game.winner'] = null;
+                        }
+                    }
+                }
+                
+                transaction.update(matchRef, updates);
+            }).catch(error => {
+                showNotification(error.message, 'error');
+            });
+        }
+
+        function handleDivisionWin() {
+            state.divisionPoints += 3;
+            
+            const currentDivisionData = DIVISIONS.find(d => d.level === state.currentDivision);
+            if (currentDivisionData && state.divisionPoints >= currentDivisionData.required) {
+                completeDivision();
+            }
+            
+            saveState();
+        }
+
+        function handleDivisionLoss() {
+            state.divisionPoints = Math.max(0, state.divisionPoints - 3);
+            
+            // إذا وصل إلى 0، يهبط للديفيجن السابق
+            if (state.divisionPoints === 0 && state.currentDivision < 10) {
+                state.currentDivision++;
+                state.divisionPoints = DIVISIONS.find(d => d.level === state.currentDivision).required - 1;
+                showNotification(`هبطت إلى Division ${state.currentDivision}`, 'error');
+            }
+            
+            saveState();
+        }
+
+        function leaveDivisionMatch() {
+            if (state.matchUnsubscribe) {
+                state.matchUnsubscribe();
+                state.matchUnsubscribe = null;
+            }
+            
+            if (state.currentMatch) {
+                const matchRef = doc(db, 'divisionMatches', state.currentMatch);
+                updateDoc(matchRef, {
+                    status: 'disconnected'
+                }).catch(console.error);
+            }
+            
+            state.currentMatch = null;
+            navigateTo('division');
+        }
+
         // ==================== NAVIGATION ====================
 
         function navigateTo(pageId) {
@@ -4675,7 +6027,6 @@
             if (target) {
                 target.classList.add('active');
                 
-                // تحديث واجهة المشاركة عند الدخول إلى صفحة المشاركة
                 if (pageId === 'share') {
                     updateShareUI();
                 }
@@ -4748,7 +6099,7 @@
 
         // ==================== LOADING SCREEN ====================
 
-        function showLoadingScreen(text = 'جاري تجهيز الخصم...') {
+        function showLoadingScreen(text = 'جاري التحميل...') {
             const screen = document.getElementById('loading-screen');
             const textEl = document.getElementById('loading-text');
             textEl.textContent = text;
@@ -4914,7 +6265,6 @@
                     state.profileImage = e.target.result;
                     saveState();
                     
-                    // تحديث الصورة في كل مكان
                     const homeProfileImg = document.getElementById('home-profile-img');
                     const profileImg = document.getElementById('profile-img');
                     
@@ -4951,7 +6301,6 @@
             if (container) {
                 container.className = `rounded-full p-1 ${frame.class}`;
                 
-                // التأكد من أن الصورة تظهر
                 const img = container.querySelector('img');
                 if (img && state.profileImage) {
                     img.src = state.profileImage;
@@ -5036,7 +6385,6 @@
                     showNotification('هذا الإطار مفتوح بالفعل');
                 }
             } else if (UNBAN_CODES.includes(code) && state.isBanned) {
-                // كود فك الحظر
                 state.isBanned = false;
                 state.unbanAttempts = 3;
                 saveState();
@@ -5094,7 +6442,6 @@
             
             let items = [];
             
-            // Add skins or frames based on category
             if (storeCategory === 'all' || storeCategory === 'skins') {
                 items = items.concat(SKINS.filter(s => !s.secret || state.unlockedSkins.includes(s.id)).map(s => ({ ...s, type: 'skin' })));
             }
@@ -5102,17 +6449,14 @@
                 items = items.concat(FRAMES.filter(f => !f.secret || state.unlockedFrames.includes(f.id)).map(f => ({ ...f, type: 'frame' })));
             }
             
-            // Filter by rarity
             if (storeRarity !== 'all') {
                 items = items.filter(item => item.rarity === storeRarity);
             }
             
-            // Filter by search
             if (storeSearch) {
                 items = items.filter(item => item.name.toLowerCase().includes(storeSearch.toLowerCase()));
             }
             
-            // Sort
             if (storeSort === 'asc') {
                 items.sort((a, b) => a.price - b.price);
             } else if (storeSort === 'desc') {
@@ -5262,11 +6606,6 @@
                         <div class="division-progress">
                             <div class="division-progress-bar" style="width: ${progress}%"></div>
                         </div>
-                        ${isCurrent ? `
-                            <div class="mt-3 text-center" style="color: var(--text-secondary);">
-                                الفوز +3 | التعادل +1 | الخسارة -3
-                            </div>
-                        ` : ''}
                     </div>
                 `;
             }).join('');
@@ -5296,16 +6635,6 @@
             }
         }
 
-        function startDivisionMatch() {
-            const currentDivisionData = DIVISIONS.find(d => d.level === state.currentDivision);
-            if (!currentDivisionData) {
-                showNotification('لقد أنهيت جميع الديفيجنز! انتظر التحديث القادم');
-                return;
-            }
-            
-            startGame('division', currentDivisionData.difficulty);
-        }
-
         function handleDivisionGameEnd(result, playerSymbol) {
             const currentDivisionData = DIVISIONS.find(d => d.level === state.currentDivision);
             if (!currentDivisionData) return;
@@ -5313,17 +6642,14 @@
             let pointsChange = 0;
             
             if (result.winner === playerSymbol) {
-                // Win
                 pointsChange = 3;
                 showNotification(`فوز! +3 نقاط في الديفيجن`, 'success');
                 playSound('win');
             } else if (result.winner === 'draw') {
-                // Draw
                 pointsChange = 1;
                 showNotification(`تعادل! +1 نقطة في الديفيجن`, 'success');
                 playSound('draw');
             } else {
-                // Loss
                 pointsChange = -3;
                 showNotification(`خسارة! -3 نقاط في الديفيجن`, 'error');
                 playSound('lose');
@@ -5332,7 +6658,6 @@
             state.divisionPoints += pointsChange;
             state.divisionPoints = Math.max(0, state.divisionPoints);
             
-            // Check if division completed
             if (state.divisionPoints >= currentDivisionData.required) {
                 completeDivision();
             }
@@ -5346,40 +6671,30 @@
             const currentDivisionData = DIVISIONS.find(d => d.level === state.currentDivision);
             if (!currentDivisionData) return;
             
-            // Add XP reward
             state.xp += currentDivisionData.reward;
             state.completedDivisions++;
             
-            // Special rewards for Division 1
             if (state.currentDivision === 1 && !state.completedDivision1) {
                 state.completedDivision1 = true;
-                state.xp += 100000; // مكافأة إضافية لإنهاء الديفيجن 1
+                state.xp += 100000;
                 
-                // Unlock rainbow skin if not already
                 if (!state.unlockedSkins.includes('rainbow')) {
                     state.unlockedSkins.push('rainbow');
                 }
                 
-                // Unlock Division 1 frame
                 if (!state.unlockedFrames.includes('frame-division1')) {
                     state.unlockedFrames.push('frame-division1');
                 }
                 
-                // Show Division 1 completion modal
                 showDivisionCompleteModal(1, 100000 + currentDivisionData.reward);
                 
             } else {
-                // Show normal division completion
                 showDivisionCompleteModal(state.currentDivision, currentDivisionData.reward);
             }
             
-            // Move to next division
             if (state.currentDivision > 1) {
                 state.currentDivision--;
                 state.divisionPoints = 0;
-            } else {
-                // Already at Division 1, show completion message
-                showDivisionCompleteModal(0, 0);
             }
             
             playSound('division-up');
@@ -5395,7 +6710,6 @@
             const rewardText = document.getElementById('divisionRewardText');
             
             if (division === 0) {
-                // All divisions completed
                 title.textContent = '🎉 تهانينا! 🎉';
                 message.textContent = 'لقد أنهيت جميع الديفيجنز!';
                 rewardText.innerHTML = 'انتظر الديفيجن القادم قريباً...';
@@ -5641,14 +6955,12 @@
         // ==================== ADAPTIVE AI ====================
 
         function updateAdaptiveDifficulty(playerWon) {
-            // تحديث مستوى المهارة بناءً على أداء اللاعب
             if (playerWon) {
                 state.adaptiveData.playerSkill = Math.min(1, state.adaptiveData.playerSkill + 0.1);
             } else {
                 state.adaptiveData.playerSkill = Math.max(0, state.adaptiveData.playerSkill - 0.1);
             }
             
-            // تحديث مستوى الصعوبة بناءً على مهارة اللاعب
             if (state.adaptiveData.playerSkill < 0.25) {
                 state.adaptiveData.currentDifficulty = 'beginner';
             } else if (state.adaptiveData.playerSkill < 0.5) {
@@ -5664,12 +6976,10 @@
         }
 
         function getAdaptiveMove(computer, player) {
-            // أول 3 مباريات تكون سهلة
             if (state.adaptiveData.matchesPlayed < 3) {
                 return getBeginnerMove(state.board);
             }
             
-            // بعد ذلك استخدم مستوى الصعوبة المناسب
             switch(state.adaptiveData.currentDifficulty) {
                 case 'beginner':
                     return getBeginnerMove(state.board);
@@ -5684,20 +6994,17 @@
             }
         }
 
-        // ==================== AI FUNCTIONS (محسنة) ====================
+        // ==================== AI FUNCTIONS ====================
 
         function getBeginnerMove(board) {
             const empty = board.map((v, i) => v === null ? i : null).filter(v => v !== null);
             
-            // 50% عشوائي، 50% ذكي
             if (Math.random() < 0.5) {
                 return empty[Math.floor(Math.random() * empty.length)];
             }
             
-            // حاول أخذ المركز
             if (board[4] === null) return 4;
             
-            // حاول أخذ الزوايا
             const corners = [0, 2, 6, 8].filter(i => board[i] === null);
             if (corners.length > 0) return corners[Math.floor(Math.random() * corners.length)];
             
@@ -5707,24 +7014,20 @@
         function getMediumMove(board, computer, player) {
             const empty = board.map((v, i) => v === null ? i : null).filter(v => v !== null);
             
-            // حاول الفوز
             for (let i of empty) {
                 const copy = [...board];
                 copy[i] = computer;
                 if (checkWinner(copy)?.winner === computer) return i;
             }
             
-            // حاول منع اللاعب من الفوز
             for (let i of empty) {
                 const copy = [...board];
                 copy[i] = player;
                 if (checkWinner(copy)?.winner === player) return i;
             }
             
-            // خذ المركز إذا كان متاحاً
             if (board[4] === null) return 4;
             
-            // خذ زاوية
             const corners = [0, 2, 6, 8].filter(i => board[i] === null);
             if (corners.length > 0) return corners[Math.floor(Math.random() * corners.length)];
             
@@ -5732,7 +7035,6 @@
         }
 
         function getHardMove(board, computer, player) {
-            // 70% مثالي، 30% متوسط
             if (Math.random() < 0.3) {
                 return getMediumMove(board, computer, player);
             }
@@ -5844,7 +7146,6 @@
                 modeIndicator.innerHTML = '<span style="color: var(--accent-color);">ضد صديق</span>';
             }
             
-            // If computer goes first
             if (mode !== 'friend' && playerSymbol === 'O') {
                 state.isComputerTurn = true;
                 setTimeout(() => {
@@ -5854,7 +7155,6 @@
                 }, 800);
             }
             
-            // Start ad timer if not removed
             if (!state.adsRemoved && !state.adTimer) {
                 startAdTimer();
             }
@@ -5895,7 +7195,6 @@
             
             makeMove(index, currentPlayer);
             
-            // Computer's turn
             if (!state.winner && state.gameMode !== 'friend') {
                 state.isComputerTurn = true;
                 const delay = 500 + Math.random() * 500;
@@ -5913,7 +7212,6 @@
         function makeMove(index, player) {
             state.board[index] = player;
             
-            // Save move for VAR
             state.moveHistory.push({
                 player: player,
                 position: index,
@@ -5923,7 +7221,6 @@
             const cell = document.getElementById(`cell-${index}`);
             const skin = SKINS.find(s => s.id === state.currentSkin) || SKINS[0];
             
-            // Apply skin class if it exists
             if (skin.class) {
                 cell.classList.add(skin.class);
             }
@@ -5979,11 +7276,9 @@
             let xpChange = 0;
             
             if (state.gameMode === 'division') {
-                // Division mode scoring
                 handleDivisionGameEnd(result, playerSymbol);
                 
             } else if (state.gameMode === 'computer') {
-                // Normal computer mode
                 if (result.winner === playerSymbol) {
                     state.stats.wins++;
                     state.currentWinStreak++;
@@ -6009,18 +7304,15 @@
                         state.beatenAdaptive = true;
                     }
                     
-                    // Update adaptive AI
                     if (state.difficulty === 'adaptive') {
                         updateAdaptiveDifficulty(true);
                     }
                     
-                    // Increment AI progress
                     incrementAIProgress(state.difficulty);
                     
                     showNotification(`فوز! +${reward} XP`);
                     playSound('win');
                     
-                    // Play win sound from audio element
                     try {
                         document.getElementById('win-sound').play();
                     } catch (e) {}
@@ -6030,7 +7322,6 @@
                     state.currentWinStreak = 0;
                     xpChange = 0;
                     
-                    // Update adaptive AI
                     if (state.difficulty === 'adaptive') {
                         updateAdaptiveDifficulty(false);
                     }
@@ -6038,7 +7329,6 @@
                     showNotification('الكمبيوتر فاز!');
                     playSound('lose');
                     
-                    // Play lose sound from audio element
                     try {
                         document.getElementById('lose-sound').play();
                     } catch (e) {}
@@ -6049,7 +7339,6 @@
                     state.xp += 15;
                     xpChange = 15;
                     
-                    // Update adaptive AI
                     if (state.difficulty === 'adaptive') {
                         updateAdaptiveDifficulty(false);
                     }
@@ -6058,7 +7347,6 @@
                     playSound('draw');
                 }
             } else {
-                // Friend mode
                 if (result.winner === 'X') {
                     state.stats.wins++;
                     state.currentWinStreak++;
@@ -6083,10 +7371,8 @@
                 playSound(result.winner === 'draw' ? 'draw' : 'win');
             }
             
-            // Show end game screen
             showEndGameScreen(result, xpChange);
             
-            // Highlight winning cells
             if (result.line) {
                 result.line.forEach(idx => {
                     const cell = document.getElementById(`cell-${idx}`);
@@ -6094,7 +7380,6 @@
                 });
             }
             
-            // Update win streak counter
             updateWinStreak();
             
             checkAchievements();
@@ -6152,7 +7437,7 @@
 
         function resetProgress() {
             if (confirm('هل أنت متأكد من حذف كل التقدم؟ هذا لا يمكن التراجع عنه.')) {
-                localStorage.removeItem('xo-arena-v4');
+                localStorage.removeItem('xo-arena-v5');
                 localStorage.removeItem('aiProgress');
                 location.reload();
             }
@@ -6163,7 +7448,6 @@
         function renderAll() {
             const rank = getRank(state.xp);
             
-            // Home
             const homeUsername = document.getElementById('home-username');
             const homeRank = document.getElementById('home-rank');
             const homeXP = document.getElementById('home-xp');
@@ -6191,19 +7475,15 @@
                 homeImg.style.opacity = '1';
             }
             
-            // Apply frame
             applyFrame('homeProfileFrame', 'homeProfileFrame');
             applyFrame('profileFrameContainer', 'profileFrameContainer');
             
-            // Game
             const gameXP = document.getElementById('game-xp');
             if (gameXP) gameXP.textContent = `${state.xp} XP`;
             
-            // Store
             const storeXP = document.getElementById('store-xp');
             if (storeXP) storeXP.textContent = state.xp;
             
-            // Profile
             const profileXP = document.getElementById('profile-xp');
             const profileRank = document.getElementById('profile-rank');
             const profileNameInput = document.getElementById('profile-name-input');
@@ -6227,7 +7507,6 @@
                 profileImg.style.opacity = '1';
             }
             
-            // Stats
             const statTotal = document.getElementById('stat-total');
             const statWins = document.getElementById('stat-wins');
             const statLosses = document.getElementById('stat-losses');
@@ -6242,17 +7521,12 @@
             if (statStreak) statStreak.textContent = state.stats.winStreak;
             if (statBest) statBest.textContent = state.stats.bestStreak;
             
-            // Next reward
             const nextReward = document.getElementById('next-reward-amount');
             if (nextReward) nextReward.textContent = `${getNextReward()} XP`;
             
-            // Division
             updateDivisionDisplay();
-            
-            // Ad status
             updateAdStatus();
             
-            // Render components
             renderStore();
             renderLevels();
             renderChallenges();
@@ -6326,7 +7600,6 @@
         window.showNotification = showNotification;
         window.handleLogoClick = handleLogoClick;
         
-        // VAR functions
         window.showVAR = showVAR;
         window.closeVAR = closeVAR;
         window.varPrev = varPrev;
@@ -6334,34 +7607,51 @@
         window.varPause = varPause;
         window.varRestart = varRestart;
         
-        // Ad functions
         window.closeAd = closeAd;
         window.purchaseAdRemoval = purchaseAdRemoval;
         
-        // Share functions
         window.shareOnFacebook = shareOnFacebook;
         window.shareOnTwitter = shareOnTwitter;
         window.shareOnWhatsApp = shareOnWhatsApp;
         window.shareOnTelegram = shareOnTelegram;
         window.verifyShare = verifyShare;
         
-        // Banned functions
         window.attemptUnban = attemptUnban;
         window.closeBannedModal = closeBannedModal;
         
-        // What's New
         window.closeWhatsNew = closeWhatsNew;
+        
+        window.showFriendsOptions = showFriendsOptions;
+        window.closeFriendsOptions = closeFriendsOptions;
+        window.showFriendsOnlineOptions = showFriendsOnlineOptions;
+        window.closeFriendsOnline = closeFriendsOnline;
+        window.createRoom = createRoom;
+        window.joinRoom = joinRoom;
+        window.leaveRoom = leaveRoom;
+        window.showRoomSettings = showRoomSettings;
+        window.closeRoomSettings = closeRoomSettings;
+        window.saveRoomSettings = saveRoomSettings;
+        window.restartMatch = restartMatch;
+        window.kickPlayer = kickPlayer;
+        window.closeRoom = closeRoom;
+        window.copyRoomCode = copyRoomCode;
+        
+        window.showOnlineMatchesOptions = showOnlineMatchesOptions;
+        window.closeOnlineMatches = closeOnlineMatches;
+        window.selectXpBet = selectXpBet;
+        window.startMatchmaking = startMatchmaking;
+        
+        window.showDivisionOptions = showDivisionOptions;
+        window.closeDivisionOptions = closeDivisionOptions;
+        window.startOnlineDivision = startOnlineDivision;
     </script>
 
-    <!-- ========== FIREBASE INITIALIZATION WITH AUTH AND FIRESTORE ========== -->
+    <!-- ========== FIREBASE INITIALIZATION ========== -->
     <script type="module">
-        // استيراد مكتبات Firebase الأساسية
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
-        // استيراد مكتبة Firestore
-        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, setDoc, updateDoc, deleteDoc, collection, query, where, onSnapshot, serverTimestamp, runTransaction } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
-        // إعدادات Firebase (خاصة بمشروعك)
         const firebaseConfig = {
             apiKey: "AIzaSyC6R4pN1jidNd3bd0U9_hPTAD6d-YA3CP8",
             authDomain: "xo-arena-5f15d.firebaseapp.com",
@@ -6371,116 +7661,115 @@
             appId: "1:271480047003:web:b8215ce214f68502fc4d3e"
         };
 
-        // تهيئة Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
 
-        // دالة للتحقق من حالة هدية التسجيل للمستخدم
-        async function checkAndAwardWelcomeBonus(user) {
-            if (!user) return false;
+        // جعل db متاحاً عالمياً
+        window.db = db;
+        window.doc = doc;
+        window.collection = collection;
+        window.getDoc = getDoc;
+        window.setDoc = setDoc;
+        window.updateDoc = updateDoc;
+        window.deleteDoc = deleteDoc;
+        window.onSnapshot = onSnapshot;
+        window.serverTimestamp = serverTimestamp;
+        window.runTransaction = runTransaction;
+
+        async function checkAndCreateUserProfile(user) {
+            if (!user) return;
 
             try {
-                // إنشاء مرجع للمستند في مجموعة 'users' باستخدام UID الخاص بالمستخدم
                 const userDocRef = doc(db, "users", user.uid);
                 const userDocSnap = await getDoc(userDocRef);
 
-                let bonusAwarded = false;
-
                 if (!userDocSnap.exists()) {
-                    // هذا المستخدم (بناءً على UID) لم يسجل من قبل مطلقًا في Firebase
-                    console.log("مستخدم جديد (UID جديد)، يتم إضافة 30,000 XP كهدية ترحيب.");
+                    const userData = {
+                        username: user.displayName || 'Player',
+                        email: user.email,
+                        xp: 0,
+                        level: 1,
+                        division: 10,
+                        divisionPoints: 0,
+                        wins: 0,
+                        losses: 0,
+                        avatar: user.photoURL || '',
+                        createdAt: serverTimestamp()
+                    };
                     
-                    // إضافة 30,000 XP للحالة المحلية
-                    const currentXP = state.xp || 0;
-                    state.xp = currentXP + 30000;
+                    await setDoc(userDocRef, userData);
                     
-                    // تحديث اسم المستخدم والصورة
+                    state.uid = user.uid;
                     state.profileName = user.displayName || 'Player';
                     if (user.photoURL) {
                         state.profileImage = user.photoURL;
                     }
-                    
-                    // حفظ التغييرات المحلية
                     saveState();
                     
-                    // إنشاء مستند جديد للمستخدم في Firestore مع علامة استلام الهدية
-                    await setDoc(userDocRef, {
-                        uid: user.uid,
-                        email: user.email,
-                        displayName: user.displayName,
-                        photoURL: user.photoURL,
-                        hasClaimedWelcomeBonus: true, // تم استلام الهدية
-                        claimedAt: new Date().toISOString(),
-                    });
-                    
-                    bonusAwarded = true;
-                    showNotification(`🎉 مرحباً ${user.displayName}! تم إضافة 30,000 XP هدية التسجيل الأولى!`, 'reward');
+                    showNotification(`🎉 مرحباً ${user.displayName || 'Player'}!`, 'success');
                     
                 } else {
-                    // المستخدم موجود في Firestore (سجل من قبل)
                     const userData = userDocSnap.data();
                     
-                    // تحديث الاسم والصورة في الحالة المحلية (قد يكونا مختلفين)
-                    state.profileName = user.displayName || state.profileName;
+                    state.uid = user.uid;
+                    state.profileName = user.displayName || userData.username || 'Player';
                     if (user.photoURL) {
                         state.profileImage = user.photoURL;
+                    } else if (userData.avatar) {
+                        state.profileImage = userData.avatar;
                     }
                     
-                    // يمكنك هنا تحديث البيانات الأخرى من Firestore إذا أردت
-                    // على سبيل المثال، استعادة XP من الخادم، لكن هذا يتطلب تصميمًا مختلفًا.
-                    // للتبسيط، نستخدم التخزين المحلي فقط للبيانات غير الحرجة.
+                    // تحديث XP من Firestore إذا كان أكبر
+                    if (userData.xp > state.xp) {
+                        state.xp = userData.xp;
+                    }
+                    if (userData.level > state.level) {
+                        state.level = userData.level;
+                    }
+                    if (userData.division) {
+                        state.currentDivision = userData.division;
+                    }
+                    if (userData.divisionPoints !== undefined) {
+                        state.divisionPoints = userData.divisionPoints;
+                    }
                     
                     saveState();
-                    showNotification(`مرحباً بعودتك ${user.displayName}!`, 'success');
+                    showNotification(`مرحباً بعودتك ${user.displayName || 'Player'}!`, 'success');
                 }
                 
-                renderAll(); // تحديث الواجهة بعد إضافة XP
-                return bonusAwarded;
+                renderAll();
                 
             } catch (error) {
                 console.error("خطأ في الوصول إلى Firestore:", error);
                 showNotification("حدث خطأ في الاتصال بالخادم.", 'error');
-                return false;
             }
         }
 
-        // التحقق من حالة تسجيل الدخول عند تحميل الصفحة
         onAuthStateChanged(auth, async (user) => {
             if (user) {
-                // المستخدم مسجل دخوله - نتحقق من حالته في Firestore
-                await checkAndAwardWelcomeBonus(user);
+                await checkAndCreateUserProfile(user);
                 updateUIForLoggedInUser(user);
             } else {
-                // المستخدم غير مسجل
+                state.uid = null;
+                saveState();
                 updateUIForLoggedOutUser();
             }
         });
 
-        // دالة تسجيل الدخول
         window.googleSignIn = async function() {
             try {
-                const result = await signInWithPopup(auth, provider);
-                const user = result.user;
-                // after sign-in, onAuthStateChanged will handle the check
+                await signInWithPopup(auth, provider);
             } catch (error) {
                 console.error('خطأ في تسجيل الدخول:', error);
                 showNotification('فشل تسجيل الدخول. حاول مرة أخرى.', 'error');
             }
         };
 
-        // دالة تسجيل الخروج
         window.googleSignOut = async function() {
             try {
                 await signOut(auth);
-                // بعد تسجيل الخروج، onAuthStateChanged سيعيد تحديث الواجهة
-                // يمكن إعادة تعيين البيانات المحلية أو الاحتفاظ بها - هنا سنحتفظ بها
-                // حتى لا يفقد اللاعب تقدمه كلاعب ضيف.
-                // state.profileImage = null;
-                // state.profileName = 'Player';
-                // saveState();
-                // renderAll();
                 showNotification('تم تسجيل الخروج بنجاح', 'info');
             } catch (error) {
                 console.error('خطأ في تسجيل الخروج:', error);
@@ -6488,17 +7777,13 @@
             }
         };
 
-        // تحديث الواجهة للمستخدم المسجل
         function updateUIForLoggedInUser(user) {
-            // إظهار/إخفاء الأزرار
             document.getElementById('googleSignInBtn').style.display = 'none';
             document.getElementById('logoutBtn').style.display = 'flex';
             
-            // إظهار معلومات المستخدم
             const userInfoSection = document.getElementById('userInfoSection');
             userInfoSection.style.display = 'block';
             
-            // تحديث الصورة والاسم
             const userAvatar = document.getElementById('userAvatar');
             const userName = document.getElementById('userName');
             const userEmail = document.getElementById('userEmail');
@@ -6513,23 +7798,17 @@
             userName.textContent = user.displayName || 'مستخدم Google';
             userEmail.textContent = user.email || '';
             
-            // تحديث أيقونات Lucide
             lucide.createIcons();
         }
 
-        // تحديث الواجهة للمستخدم غير المسجل
         function updateUIForLoggedOutUser() {
-            // إظهار/إخفاء الأزرار
             document.getElementById('googleSignInBtn').style.display = 'flex';
             document.getElementById('logoutBtn').style.display = 'none';
-            
-            // إخفاء معلومات المستخدم
             document.getElementById('userInfoSection').style.display = 'none';
-            
             lucide.createIcons();
         }
 
-        console.log('🔥 Firebase initialized with Authentication & Firestore for One-Time Bonus');
+        console.log('🔥 Firebase initialized with Authentication & Firestore for Online System');
     </script>
 </body>
 </html>

@@ -169,7 +169,6 @@
             border-radius: 3px;
         }
 
-        /* Animations */
         @keyframes float {
             0%, 100% { transform: translateY(0) rotate(0deg); }
             50% { transform: translateY(-20px) rotate(5deg); }
@@ -297,7 +296,6 @@
         .animate-timer { animation: timer-pulse 1s ease-in-out infinite; }
         .animate-disconnected { animation: disconnected 1s ease-in-out infinite; }
 
-        /* Components */
         .glass-card {
             background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
             backdrop-filter: blur(20px);
@@ -360,7 +358,6 @@
             opacity: 0.8;
         }
 
-        /* Online Timer */
         .online-timer {
             width: 60px;
             height: 60px;
@@ -384,7 +381,6 @@
             animation: timer-pulse 0.5s ease-in-out infinite;
         }
 
-        /* Screen Management */
         .page {
             display: none;
             min-height: 100vh;
@@ -400,7 +396,6 @@
             transform: translateY(0);
         }
 
-        /* Notification */
         .notification {
             position: fixed;
             top: 20px;
@@ -418,7 +413,6 @@
             transform: translateX(-50%) translateY(0);
         }
 
-        /* End Game Screen */
         .end-game-screen {
             position: fixed;
             top: 50%;
@@ -470,7 +464,6 @@
             border-top: 1px solid var(--border-color);
         }
 
-        /* Loading Screen */
         .loading-screen {
             position: fixed;
             inset: 0;
@@ -520,7 +513,6 @@
             50% { opacity: 1; text-shadow: 0 0 20px var(--glow-color); }
         }
 
-        /* Modal */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -558,7 +550,6 @@
             transform: translate(-50%, -50%) scale(1);
         }
 
-        /* Room Code Display */
         .room-code {
             font-size: 2rem;
             font-family: 'Orbitron', sans-serif;
@@ -591,7 +582,6 @@
             color: var(--bg-color);
         }
 
-        /* Scoreboard */
         .scoreboard {
             background: rgba(0,0,0,0.3);
             border-radius: 15px;
@@ -620,7 +610,6 @@
         .scoreboard-value.losses { color: #ff3366; }
         .scoreboard-value.draws { color: #ffd700; }
 
-        /* Online Profile Card */
         .online-profile {
             display: flex;
             align-items: center;
@@ -664,7 +653,6 @@
             gap: 10px;
         }
 
-        /* Disconnected Message */
         .disconnected-message {
             background: rgba(255, 51, 102, 0.1);
             border: 2px solid #ff3366;
@@ -677,7 +665,6 @@
             animation: disconnected 1s ease-in-out infinite;
         }
 
-        /* Win Streak Counter */
         .win-streak {
             position: absolute;
             top: 10px;
@@ -700,7 +687,6 @@
             color: #ff6b35;
         }
 
-        /* AI Progress Stars */
         .ai-progress {
             display: flex;
             gap: 5px;
@@ -725,7 +711,6 @@
             50% { transform: scale(1.2); }
         }
 
-        /* Floating Settings Button */
         .settings-float-btn {
             position: fixed;
             bottom: 24px;
@@ -756,7 +741,6 @@
             height: 30px;
         }
 
-        /* Settings Panel */
         .settings-panel {
             position: fixed;
             top: 0;
@@ -914,7 +898,6 @@
             border: 2px solid var(--accent-color);
         }
 
-        /* Music Player */
         .music-player {
             background: linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.8) 100%);
             border: 1px solid var(--border-color);
@@ -978,7 +961,6 @@
             margin-top: 10px;
         }
 
-        /* Division Mode Styles */
         .division-card {
             background: linear-gradient(145deg, var(--bg-tertiary), var(--bg-secondary));
             border: 2px solid transparent;
@@ -1052,7 +1034,6 @@
             color: var(--text-secondary);
         }
 
-        /* Division Rewards Modal */
         .division-complete-modal {
             text-align: center;
             padding: 30px;
@@ -1076,7 +1057,6 @@
             color: white;
         }
 
-        /* Profile Frames */
         .frame-legendary {
             border: 4px solid transparent;
             background: linear-gradient(45deg, #ffd700, #ff6a00, #ffd700) border-box;
@@ -1190,7 +1170,6 @@
             animation: float 3s ease-in-out infinite;
         }
 
-        /* Skin Styles */
         .skin-default {
             background: linear-gradient(135deg, #00FFF0, #007C88);
             color: white;
@@ -1383,7 +1362,6 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Store Filters */
         .store-filters {
             display: flex;
             gap: 10px;
@@ -1487,7 +1465,6 @@
             color: #f1c40f;
         }
 
-        /* Store Items Grid */
         .store-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -1522,7 +1499,6 @@
             background: rgba(0,0,0,0.3);
         }
 
-        /* Frame Previews */
         .frame-preview {
             width: 80px;
             height: 80px;
@@ -1715,7 +1691,6 @@
             cursor: not-allowed;
         }
 
-        /* VAR Modal Styles */
         .var-modal {
             max-width: 800px;
             width: 90%;
@@ -1826,7 +1801,6 @@
             color: var(--accent-secondary);
         }
 
-        /* Banned Modal Styles */
         .banned-modal {
             text-align: center;
             padding: 40px;
@@ -1898,7 +1872,6 @@
             margin-top: 10px;
         }
 
-        /* What's New Modal */
         .whats-new-modal {
             max-width: 600px;
             padding: 30px;
@@ -1969,7 +1942,6 @@
             font-size: 1.2rem;
         }
 
-        /* Share Modal */
         .share-modal {
             max-width: 500px;
             padding: 30px;
@@ -2076,7 +2048,6 @@
             cursor: not-allowed;
         }
 
-        /* Ad Countdown */
         .ad-countdown {
             position: fixed;
             top: 50%;
@@ -2164,7 +2135,6 @@
             color: white;
         }
 
-        /* Responsive */
         @media (max-width: 640px) {
             .game-cell {
                 width: 85px !important;
@@ -2203,7 +2173,6 @@
             }
         }
 
-        /* Cookie Consent */
         .cookie-consent {
             position: fixed;
             bottom: 80px;
@@ -5021,7 +4990,13 @@
             // إنشاء كود عشوائي من 6 أحرف
             const roomCode = Math.random().toString(36).substring(2, 8).toUpperCase();
             
-            // إنشاء المستند في Firestore
+            // التأكد من وجود db
+            if (!window.db || !window.doc) {
+                hideLoadingScreen();
+                showNotification('خطأ في الاتصال بقاعدة البيانات', 'error');
+                return;
+            }
+            
             const roomRef = doc(db, 'rooms', roomCode);
             
             const roomData = {
@@ -5030,8 +5005,8 @@
                 hostUID: state.uid,
                 hostName: state.profileName,
                 hostAvatar: state.profileImage || '',
-                hostLevel: state.level,
-                hostXP: state.xp,
+                hostLevel: state.level || 1,
+                hostXP: state.xp || 0,
                 guestUID: null,
                 guestName: null,
                 guestAvatar: null,
@@ -5073,7 +5048,7 @@
                 .catch(error => {
                     hideLoadingScreen();
                     showNotification('حدث خطأ في إنشاء الغرفة', 'error');
-                    console.error(error);
+                    console.error('Create Room Error:', error);
                 });
         }
 
@@ -5092,53 +5067,56 @@
             closeFriendsOnline();
             showLoadingScreen('جاري الانضمام إلى الغرفة...');
             
+            // التأكد من وجود doc و db
+            if (!window.doc || !window.db) {
+                hideLoadingScreen();
+                showNotification('خطأ في الاتصال بقاعدة البيانات', 'error');
+                return;
+            }
+            
             const roomRef = doc(db, 'rooms', roomCode);
             
-            runTransaction(db, async (transaction) => {
-                const docSnap = await transaction.get(roomRef);
-                
-                if (!docSnap.exists()) {
-                    throw new Error('الغرفة غير موجودة');
-                }
-                
-                const roomData = docSnap.data();
-                
-                if (roomData.status !== 'waiting') {
-                    throw new Error('الغرفة ممتلئة أو غير متاحة');
-                }
-                
-                if (roomData.hostUID === state.uid) {
-                    throw new Error('لا يمكنك الانضمام إلى غرفتك الخاصة');
-                }
-                
-                if (roomData.guestUID) {
-                    throw new Error('الغرفة ممتلئة بالفعل');
-                }
-                
-                transaction.update(roomRef, {
-                    guestUID: state.uid,
-                    guestName: state.profileName,
-                    guestAvatar: state.profileImage || '',
-                    guestLevel: state.level,
-                    guestXP: state.xp,
-                    status: 'playing',
-                    'settings.guestSymbol': roomData.settings.hostSymbol === 'X' ? 'O' : 'X',
-                    updatedAt: serverTimestamp()
+            getDoc(roomRef)
+                .then(docSnap => {
+                    if (!docSnap.exists()) {
+                        throw new Error('الغرفة غير موجودة');
+                    }
+                    
+                    const roomData = docSnap.data();
+                    
+                    if (roomData.status !== 'waiting') {
+                        throw new Error('الغرفة ممتلئة أو غير متاحة');
+                    }
+                    
+                    if (roomData.hostUID === state.uid) {
+                        throw new Error('لا يمكنك الانضمام إلى غرفتك الخاصة');
+                    }
+                    
+                    // تحديث الغرفة بإضافة الضيف
+                    const updates = {
+                        guestUID: state.uid,
+                        guestName: state.profileName,
+                        guestAvatar: state.profileImage || '',
+                        guestLevel: state.level || 1,
+                        guestXP: state.xp || 0,
+                        status: 'playing',
+                        'settings.guestSymbol': roomData.settings.hostSymbol === 'X' ? 'O' : 'X'
+                    };
+                    
+                    return updateDoc(roomRef, updates).then(() => {
+                        hideLoadingScreen();
+                        state.currentRoom = roomCode;
+                        state.isHost = false;
+                        navigateTo('room');
+                        setupRoomListener(roomCode);
+                        showNotification('تم الانضمام إلى الغرفة بنجاح!', 'success');
+                    });
+                })
+                .catch(error => {
+                    hideLoadingScreen();
+                    showNotification(error.message || 'حدث خطأ في الانضمام', 'error');
+                    console.error('Join Room Error:', error);
                 });
-                
-                return roomData;
-            }).then((roomData) => {
-                hideLoadingScreen();
-                state.currentRoom = roomCode;
-                state.isHost = false;
-                navigateTo('room');
-                setupRoomListener(roomCode);
-                showNotification('تم الانضمام إلى الغرفة بنجاح!', 'success');
-            }).catch(error => {
-                hideLoadingScreen();
-                showNotification(error.message || 'حدث خطأ في الانضمام', 'error');
-                console.error(error);
-            });
         }
 
         function setupRoomListener(roomCode) {
@@ -5448,27 +5426,18 @@
                 state.disconnectTimer = null;
             }
             
-            // تحديث حالة الغرفة إلى ended إذا كان اللاعب هو المضيف، بدلاً من حذفها
-            if (state.currentRoom) {
+            // حذف الغرفة إذا كان المضيف
+            if (state.currentRoom && state.isHost) {
                 const roomRef = doc(db, 'rooms', state.currentRoom);
-                
-                if (state.isHost) {
-                    // المضيف: ننهي الغرفة بدلاً من حذفها
-                    updateDoc(roomRef, {
-                        status: 'ended',
-                        leftBy: state.uid
-                    }).catch(console.error);
-                } else {
-                    // الضيف: نحديث حالة الضيف إلى null
-                    updateDoc(roomRef, {
-                        guestUID: null,
-                        guestName: null,
-                        guestAvatar: null,
-                        guestLevel: null,
-                        guestXP: null,
-                        status: 'waiting' // تعود الغرفة إلى حالة الانتظار
-                    }).catch(console.error);
-                }
+                deleteDoc(roomRef).catch(console.error);
+            } else if (state.currentRoom) {
+                // تحديث حالة الضيف إلى منفصل
+                const roomRef = doc(db, 'rooms', state.currentRoom);
+                updateDoc(roomRef, {
+                    status: 'disconnected',
+                    guestUID: null,
+                    guestName: null
+                }).catch(console.error);
             }
             
             state.currentRoom = null;
@@ -5563,11 +5532,7 @@
             if (!state.currentRoom || !state.isHost) return;
             
             const roomRef = doc(db, 'rooms', state.currentRoom);
-            // نستخدم update بدلاً من delete لنضع حالة ended
-            updateDoc(roomRef, {
-                status: 'ended',
-                closedBy: state.uid
-            }).then(() => {
+            deleteDoc(roomRef).then(() => {
                 closeRoomSettings();
                 leaveRoom();
                 showNotification('تم إغلاق الغرفة', 'success');
@@ -5614,7 +5579,16 @@
         }
 
         function startMatchmaking() {
-            if (!state.uid || !state.xpBet) return;
+            // التحقق من وجود xpBet
+            if (!state || state.xpBet === undefined || state.xpBet === null) {
+                showNotification('الرجاء اختيار مبلغ XP أولاً', 'error');
+                return;
+            }
+            
+            if (!state.uid) {
+                showNotification('يجب تسجيل الدخول أولاً', 'error');
+                return;
+            }
             
             closeOnlineMatches();
             showLoadingScreen('جار البحث عن لاعب...');
@@ -7663,7 +7637,7 @@
         window.startOnlineDivision = startOnlineDivision;
     </script>
 
-    <!-- ========== FIREBASE INITIALIZATION ========== -->
+    <!-- ========== FIREBASE INITIALIZATION (MODIFIED) ========== -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
@@ -7683,7 +7657,7 @@
         const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
 
-        // جعل db متاحاً عالمياً
+        // ✅ جعل كل الوظائف متاحة في النطاق العام (window)
         window.db = db;
         window.doc = doc;
         window.collection = collection;
@@ -7694,6 +7668,7 @@
         window.onSnapshot = onSnapshot;
         window.serverTimestamp = serverTimestamp;
         window.runTransaction = runTransaction;
+        window.auth = auth;
 
         async function checkAndCreateUserProfile(user) {
             if (!user) return;
@@ -7738,11 +7713,11 @@
                         state.profileImage = userData.avatar;
                     }
                     
-                    // تحديث XP من Firestore إذا كان أكبر
-                    if (userData.xp > state.xp) {
+                    // تحديث البيانات المحلية من Firestore
+                    if (userData.xp !== undefined && userData.xp > state.xp) {
                         state.xp = userData.xp;
                     }
-                    if (userData.level > state.level) {
+                    if (userData.level !== undefined && userData.level > state.level) {
                         state.level = userData.level;
                     }
                     if (userData.division) {

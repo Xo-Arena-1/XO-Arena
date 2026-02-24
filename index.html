@@ -5094,47 +5094,51 @@
             
             const roomRef = doc(db, 'rooms', roomCode);
             
-            getDoc(roomRef)
-                .then(docSnap => {
-                    if (!docSnap.exists()) {
-                        throw new Error('الغرفة غير موجودة');
-                    }
-                    
-                    const roomData = docSnap.data();
-                    
-                    if (roomData.status !== 'waiting') {
-                        throw new Error('الغرفة ممتلئة أو غير متاحة');
-                    }
-                    
-                    if (roomData.hostUID === state.uid) {
-                        throw new Error('لا يمكنك الانضمام إلى غرفتك الخاصة');
-                    }
-                    
-                    // تحديث الغرفة// تحديث الغرفة بإضافة الضيف
-                    const updates = {
-                        guestUID: state.uid,
-                        guestName: state.profileName,
-                        guestAvatar: state.profileImage || '',
-                        guestLevel: state.level,
-                        guestXP: state.xp,
-                        status: 'playing',
-                        'settings.guestSymbol': roomData.settings.hostSymbol === 'X' ? 'O' : 'X'
-                    };
-                    
-                    return updateDoc(roomRef, updates).then(() => {
-                        hideLoadingScreen();
-                        state.currentRoom = roomCode;
-                        state.isHost = false;
-                        navigateTo('room');
-                        setupRoomListener(roomCode);
-                        showNotification('تم الانضمام إلى الغرفة بنجاح!', 'success');
-                    });
-                })
-                .catch(error => {
-                    hideLoadingScreen();
-                    showNotification(error.message || 'حدث خطأ في الانضمام', 'error');
-                    console.error(error);
+            runTransaction(db, async (transaction) => {
+                const docSnap = await transaction.get(roomRef);
+                
+                if (!docSnap.exists()) {
+                    throw new Error('الغرفة غير موجودة');
+                }
+                
+                const roomData = docSnap.data();
+                
+                if (roomData.status !== 'waiting') {
+                    throw new Error('الغرفة ممتلئة أو غير متاحة');
+                }
+                
+                if (roomData.hostUID === state.uid) {
+                    throw new Error('لا يمكنك الانضمام إلى غرفتك الخاصة');
+                }
+                
+                if (roomData.guestUID) {
+                    throw new Error('الغرفة ممتلئة بالفعل');
+                }
+                
+                transaction.update(roomRef, {
+                    guestUID: state.uid,
+                    guestName: state.profileName,
+                    guestAvatar: state.profileImage || '',
+                    guestLevel: state.level,
+                    guestXP: state.xp,
+                    status: 'playing',
+                    'settings.guestSymbol': roomData.settings.hostSymbol === 'X' ? 'O' : 'X',
+                    updatedAt: serverTimestamp()
                 });
+                
+                return roomData;
+            }).then((roomData) => {
+                hideLoadingScreen();
+                state.currentRoom = roomCode;
+                state.isHost = false;
+                navigateTo('room');
+                setupRoomListener(roomCode);
+                showNotification('تم الانضمام إلى الغرفة بنجاح!', 'success');
+            }).catch(error => {
+                hideLoadingScreen();
+                showNotification(error.message || 'حدث خطأ في الانضمام', 'error');
+                console.error(error);
+            });
         }
 
         function setupRoomListener(roomCode) {
@@ -5444,18 +5448,27 @@
                 state.disconnectTimer = null;
             }
             
-            // حذف الغرفة إذا كان المضيف
-            if (state.currentRoom && state.isHost) {
+            // تحديث حالة الغرفة إلى ended إذا كان اللاعب هو المضيف، بدلاً من حذفها
+            if (state.currentRoom) {
                 const roomRef = doc(db, 'rooms', state.currentRoom);
-                deleteDoc(roomRef).catch(console.error);
-            } else if (state.currentRoom) {
-                // تحديث حالة الضيف إلى منفصل
-                const roomRef = doc(db, 'rooms', state.currentRoom);
-                updateDoc(roomRef, {
-                    status: 'disconnected',
-                    guestUID: null,
-                    guestName: null
-                }).catch(console.error);
+                
+                if (state.isHost) {
+                    // المضيف: ننهي الغرفة بدلاً من حذفها
+                    updateDoc(roomRef, {
+                        status: 'ended',
+                        leftBy: state.uid
+                    }).catch(console.error);
+                } else {
+                    // الضيف: نحديث حالة الضيف إلى null
+                    updateDoc(roomRef, {
+                        guestUID: null,
+                        guestName: null,
+                        guestAvatar: null,
+                        guestLevel: null,
+                        guestXP: null,
+                        status: 'waiting' // تعود الغرفة إلى حالة الانتظار
+                    }).catch(console.error);
+                }
             }
             
             state.currentRoom = null;
@@ -5550,7 +5563,11 @@
             if (!state.currentRoom || !state.isHost) return;
             
             const roomRef = doc(db, 'rooms', state.currentRoom);
-            deleteDoc(roomRef).then(() => {
+            // نستخدم update بدلاً من delete لنضع حالة ended
+            updateDoc(roomRef, {
+                status: 'ended',
+                closedBy: state.uid
+            }).then(() => {
                 closeRoomSettings();
                 leaveRoom();
                 showNotification('تم إغلاق الغرفة', 'success');

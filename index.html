@@ -5052,48 +5052,47 @@
                 });
         }
 
-        function joinRoom() {
+        // ✅ دالة joinRoom المعدلة باستخدام runTransaction (من هنا)
+        async function joinRoom() {
             if (!state.uid) {
                 showNotification('يجب تسجيل الدخول أولاً', 'error');
                 return;
             }
-            
+
             const roomCode = document.getElementById('join-room-code').value.trim().toUpperCase();
             if (!roomCode) {
                 showNotification('الرجاء إدخال كود الغرفة', 'error');
                 return;
             }
-            
+
             closeFriendsOnline();
             showLoadingScreen('جاري الانضمام إلى الغرفة...');
-            
-            // التأكد من وجود doc و db
-            if (!window.doc || !window.db) {
-                hideLoadingScreen();
-                showNotification('خطأ في الاتصال بقاعدة البيانات', 'error');
-                return;
-            }
-            
+
             const roomRef = doc(db, 'rooms', roomCode);
-            
-            getDoc(roomRef)
-                .then(docSnap => {
+
+            try {
+                await runTransaction(db, async (transaction) => {
+                    const docSnap = await transaction.get(roomRef);
+
                     if (!docSnap.exists()) {
                         throw new Error('الغرفة غير موجودة');
                     }
-                    
+
                     const roomData = docSnap.data();
-                    
+
                     if (roomData.status !== 'waiting') {
                         throw new Error('الغرفة ممتلئة أو غير متاحة');
                     }
-                    
+
                     if (roomData.hostUID === state.uid) {
                         throw new Error('لا يمكنك الانضمام إلى غرفتك الخاصة');
                     }
-                    
-                    // تحديث الغرفة بإضافة الضيف
-                    const updates = {
+
+                    if (roomData.guestUID) {
+                        throw new Error('تم حجز الغرفة بالفعل');
+                    }
+
+                    transaction.update(roomRef, {
                         guestUID: state.uid,
                         guestName: state.profileName,
                         guestAvatar: state.profileImage || '',
@@ -5101,23 +5100,23 @@
                         guestXP: state.xp || 0,
                         status: 'playing',
                         'settings.guestSymbol': roomData.settings.hostSymbol === 'X' ? 'O' : 'X'
-                    };
-                    
-                    return updateDoc(roomRef, updates).then(() => {
-                        hideLoadingScreen();
-                        state.currentRoom = roomCode;
-                        state.isHost = false;
-                        navigateTo('room');
-                        setupRoomListener(roomCode);
-                        showNotification('تم الانضمام إلى الغرفة بنجاح!', 'success');
                     });
-                })
-                .catch(error => {
-                    hideLoadingScreen();
-                    showNotification(error.message || 'حدث خطأ في الانضمام', 'error');
-                    console.error('Join Room Error:', error);
                 });
+
+                hideLoadingScreen();
+                state.currentRoom = roomCode;
+                state.isHost = false;
+                navigateTo('room');
+                setupRoomListener(roomCode);
+                showNotification('تم الانضمام إلى الغرفة بنجاح!', 'success');
+
+            } catch (error) {
+                hideLoadingScreen();
+                showNotification(error.message || 'حدث خطأ في الانضمام', 'error');
+                console.error(error);
+            }
         }
+        // ✅ (إلى هنا)
 
         function setupRoomListener(roomCode) {
             if (state.roomUnsubscribe) {

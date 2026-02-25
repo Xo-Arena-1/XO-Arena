@@ -620,12 +620,12 @@
             border: 2px solid transparent;
         }
 
-        .online-profile.host {
+        .online-profile.player1 {
             border-color: var(--accent-color);
             box-shadow: 0 0 15px var(--glow-color);
         }
 
-        .online-profile.guest {
+        .online-profile.player2 {
             border-color: var(--accent-secondary);
             box-shadow: 0 0 15px var(--glow-secondary);
         }
@@ -2843,33 +2843,33 @@
 
             <!-- Players Info -->
             <div class="flex justify-between items-center mb-6 gap-4">
-                <!-- Host -->
-                <div id="host-profile" class="online-profile host flex-1">
-                    <img id="host-avatar" src="" alt="Host">
+                <!-- Player 1 -->
+                <div id="player1-profile" class="online-profile player1 flex-1">
+                    <img id="player1-avatar" src="" alt="Player 1">
                     <div class="online-profile-info">
-                        <div class="online-profile-name" id="host-name">المضيف</div>
+                        <div class="online-profile-name" id="player1-name">اللاعب 1</div>
                         <div class="online-profile-details">
-                            <span id="host-level">Lv. 1</span>
-                            <span id="host-xp">0 XP</span>
+                            <span id="player1-level">Lv. 1</span>
+                            <span id="player1-xp">0 XP</span>
                         </div>
                     </div>
-                    <div class="text-2xl font-bold" id="host-symbol" style="color: var(--accent-color);">X</div>
+                    <div class="text-2xl font-bold" id="player1-symbol" style="color: var(--accent-color);">X</div>
                 </div>
 
                 <!-- VS -->
                 <div class="text-xl font-bold" style="color: var(--text-secondary);">VS</div>
 
-                <!-- Guest -->
-                <div id="guest-profile" class="online-profile guest flex-1" style="opacity: 0.5;">
-                    <img id="guest-avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23333'/%3E%3Ccircle cx='50' cy='35' r='20' fill='%23666'/%3E%3Cellipse cx='50' cy='80' rx='30' ry='25' fill='%23666'/%3E%3C/svg%3E" alt="Waiting">
+                <!-- Player 2 -->
+                <div id="player2-profile" class="online-profile player2 flex-1" style="opacity: 0.5;">
+                    <img id="player2-avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23333'/%3E%3Ccircle cx='50' cy='35' r='20' fill='%23666'/%3E%3Cellipse cx='50' cy='80' rx='30' ry='25' fill='%23666'/%3E%3C/svg%3E" alt="Waiting">
                     <div class="online-profile-info">
-                        <div class="online-profile-name" id="guest-name">في انتظار...</div>
+                        <div class="online-profile-name" id="player2-name">في انتظار...</div>
                         <div class="online-profile-details">
-                            <span id="guest-level">-</span>
-                            <span id="guest-xp">-</span>
+                            <span id="player2-level">-</span>
+                            <span id="player2-xp">-</span>
                         </div>
                     </div>
-                    <div class="text-2xl font-bold" id="guest-symbol" style="color: var(--accent-secondary);">O</div>
+                    <div class="text-2xl font-bold" id="player2-symbol" style="color: var(--accent-secondary);">O</div>
                 </div>
             </div>
 
@@ -2883,12 +2883,12 @@
                 <h3 class="text-lg font-bold mb-3" style="color: var(--accent-color);">النتيجة</h3>
                 <div class="flex justify-between mb-2">
                     <div class="scoreboard-item flex-1 ml-2">
-                        <span>فوز المضيف</span>
-                        <span id="host-wins" class="scoreboard-value wins">0</span>
+                        <span>فوز اللاعب 1</span>
+                        <span id="player1-wins" class="scoreboard-value wins">0</span>
                     </div>
                     <div class="scoreboard-item flex-1">
-                        <span>فوز الضيف</span>
-                        <span id="guest-wins" class="scoreboard-value wins">0</span>
+                        <span>فوز اللاعب 2</span>
+                        <span id="player2-wins" class="scoreboard-value wins">0</span>
                     </div>
                 </div>
                 <div class="flex justify-between">
@@ -2968,8 +2968,8 @@
             </div>
             
             <div>
-                <label class="block mb-2" style="color: var(--text-secondary);">رمز المضيف (X أو O):</label>
-                <select id="settings-host-symbol" class="w-full p-3 rounded-lg bg-black/30 border border-gray-700 text-white">
+                <label class="block mb-2" style="color: var(--text-secondary);">رمز اللاعب 1 (X أو O):</label>
+                <select id="settings-player1-symbol" class="w-full p-3 rounded-lg bg-black/30 border border-gray-700 text-white">
                     <option value="X">X</option>
                     <option value="O">O</option>
                 </select>
@@ -3883,9 +3883,9 @@
                     <li>عدد الجولات (1, 3, 5, 7)</li>
                     <li>مدة المؤقت (3, 5, 10, 15 ثانية)</li>
                     <li>السماح بالتعادل أو منعه</li>
-                    <li>رمز المضيف (X أو O)</li>
+                    <li>رمز اللاعب 1 (X أو O)</li>
                 </ul>
-                <p class="mb-2" style="color: var(--text-primary);">نظام النقاط يحسب فوز المضيف والضيف والتعادلات. إذا انتهى وقت أحد اللاعبين، يخسر الجولة تلقائياً.</p>
+                <p class="mb-2" style="color: var(--text-primary);">نظام النقاط يحسب فوز اللاعب 1 واللاعب 2 والتعادلات. إذا انتهى وقت أحد اللاعبين، يخسر الجولة تلقائياً.</p>
 
                 <h4 class="font-bold text-white mt-3">2. مباريات مراهنات XP</h4>
                 <p class="mb-2" style="color: var(--text-primary);">اختر XP الذي تريد المخاطرة به من 100 إلى 20000. يتم وضعك في طابور انتظار حتى يجد النظام لاعباً آخر بنفس XP (أو قريب منه).</p>
@@ -4320,7 +4320,7 @@
             // Online game state
             currentRoom: null,
             currentMatch: null,
-            isHost: false,
+            isPlayer1: false,
             roomUnsubscribe: null,
             matchUnsubscribe: null,
             timerInterval: null,
@@ -4452,7 +4452,7 @@
         }
 
         function loadState() {
-            const saved = localStorage.getItem('xo-arena-v5'); // تحديث الإصدار
+            const saved = localStorage.getItem('xo-arena-v5');
             if (saved) {
                 try {
                     const parsed = JSON.parse(saved);
@@ -4978,7 +4978,8 @@
             document.getElementById('friends-online-modal').classList.remove('active');
         }
 
-        function createRoom() {
+        // ==================== CREATE ROOM (MODIFIED) ====================
+        async function createRoom() {
             if (!state.uid) {
                 showNotification('يجب تسجيل الدخول أولاً', 'error');
                 return;
@@ -4987,10 +4988,8 @@
             closeFriendsOnline();
             showLoadingScreen('جاري إنشاء الغرفة...');
             
-            // إنشاء كود عشوائي من 6 أحرف
             const roomCode = Math.random().toString(36).substring(2, 8).toUpperCase();
             
-            // التأكد من وجود db
             if (!window.db || !window.doc) {
                 hideLoadingScreen();
                 showNotification('خطأ في الاتصال بقاعدة البيانات', 'error');
@@ -4999,19 +4998,18 @@
             
             const roomRef = doc(db, 'rooms', roomCode);
             
+            // ✅ البيانات المعدلة: player1/player2 بدلاً من host/guest، وإزالة roomCode من البيانات
             const roomData = {
-                roomCode: roomCode,
-                mode: 'friends',
-                hostUID: state.uid,
-                hostName: state.profileName,
-                hostAvatar: state.profileImage || '',
-                hostLevel: state.level || 1,
-                hostXP: state.xp || 0,
-                guestUID: null,
-                guestName: null,
-                guestAvatar: null,
-                guestLevel: null,
-                guestXP: null,
+                player1: state.uid,
+                player1Name: state.profileName,
+                player1Avatar: state.profileImage || '',
+                player1Level: state.level || 1,
+                player1XP: state.xp || 0,
+                player2: null,
+                player2Name: null,
+                player2Avatar: null,
+                player2Level: null,
+                player2XP: null,
                 status: 'waiting',
                 createdAt: serverTimestamp(),
                 settings: {
@@ -5019,12 +5017,12 @@
                     timerSeconds: 5,
                     allowDraw: true,
                     soundEnabled: true,
-                    hostSymbol: 'X',
-                    guestSymbol: 'O'
+                    player1Symbol: 'X',
+                    player2Symbol: 'O'
                 },
                 scoreboard: {
-                    hostWins: 0,
-                    guestWins: 0,
+                    player1Wins: 0,
+                    player2Wins: 0,
                     draws: 0,
                     currentRound: 1
                 },
@@ -5036,23 +5034,22 @@
                 }
             };
             
-            setDoc(roomRef, roomData)
-                .then(() => {
-                    hideLoadingScreen();
-                    state.currentRoom = roomCode;
-                    state.isHost = true;
-                    navigateTo('room');
-                    setupRoomListener(roomCode);
-                    showNotification(`تم إنشاء الغرفة! الكود: ${roomCode}`, 'success');
-                })
-                .catch(error => {
-                    hideLoadingScreen();
-                    showNotification('حدث خطأ في إنشاء الغرفة', 'error');
-                    console.error('Create Room Error:', error);
-                });
+            try {
+                await setDoc(roomRef, roomData);
+                hideLoadingScreen();
+                state.currentRoom = roomCode;
+                state.isPlayer1 = true;
+                navigateTo('room');
+                setupRoomListener(roomCode);
+                showNotification(`تم إنشاء الغرفة! الكود: ${roomCode}`, 'success');
+            } catch (error) {
+                hideLoadingScreen();
+                showNotification('حدث خطأ في إنشاء الغرفة', 'error');
+                console.error('Create Room Error:', error);
+            }
         }
 
-        // ✅ دالة joinRoom المعدلة باستخدام runTransaction (من هنا)
+        // ==================== JOIN ROOM (MODIFIED with runTransaction) ====================
         async function joinRoom() {
             if (!state.uid) {
                 showNotification('يجب تسجيل الدخول أولاً', 'error');
@@ -5084,28 +5081,28 @@
                         throw new Error('الغرفة ممتلئة أو غير متاحة');
                     }
 
-                    if (roomData.hostUID === state.uid) {
+                    if (roomData.player1 === state.uid) {
                         throw new Error('لا يمكنك الانضمام إلى غرفتك الخاصة');
                     }
 
-                    if (roomData.guestUID) {
+                    if (roomData.player2) {
                         throw new Error('تم حجز الغرفة بالفعل');
                     }
 
                     transaction.update(roomRef, {
-                        guestUID: state.uid,
-                        guestName: state.profileName,
-                        guestAvatar: state.profileImage || '',
-                        guestLevel: state.level || 1,
-                        guestXP: state.xp || 0,
+                        player2: state.uid,
+                        player2Name: state.profileName,
+                        player2Avatar: state.profileImage || '',
+                        player2Level: state.level || 1,
+                        player2XP: state.xp || 0,
                         status: 'playing',
-                        'settings.guestSymbol': roomData.settings.hostSymbol === 'X' ? 'O' : 'X'
+                        'settings.player2Symbol': roomData.settings.player1Symbol === 'X' ? 'O' : 'X'
                     });
                 });
 
                 hideLoadingScreen();
                 state.currentRoom = roomCode;
-                state.isHost = false;
+                state.isPlayer1 = false;
                 navigateTo('room');
                 setupRoomListener(roomCode);
                 showNotification('تم الانضمام إلى الغرفة بنجاح!', 'success');
@@ -5113,10 +5110,9 @@
             } catch (error) {
                 hideLoadingScreen();
                 showNotification(error.message || 'حدث خطأ في الانضمام', 'error');
-                console.error(error);
+                console.error('Join Room Error:', error);
             }
         }
-        // ✅ (إلى هنا)
 
         function setupRoomListener(roomCode) {
             if (state.roomUnsubscribe) {
@@ -5134,53 +5130,53 @@
                 const roomData = docSnap.data();
                 updateRoomUI(roomData);
                 
-                // التحقق من انتهاء الوقت
                 if (roomData.status === 'playing' && roomData.game && !roomData.game.winner) {
                     handleRoomTimer(roomData);
                 }
             });
         }
 
+        // ==================== UPDATE ROOM UI (MODIFIED) ====================
         function updateRoomUI(roomData) {
-            // تحديث معلومات المضيف
-            document.getElementById('host-avatar').src = roomData.hostAvatar || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%231e293b\'/%3E%3Ccircle cx=\'50\' cy=\'35\' r=\'20\' fill=\'%2300d4ff\'/%3E%3Cellipse cx=\'50\' cy=\'80\' rx=\'30\' ry=\'25\' fill=\'%2300d4ff\'/%3E%3C/svg%3E';
-            document.getElementById('host-name').textContent = roomData.hostName;
-            document.getElementById('host-level').textContent = `Lv. ${roomData.hostLevel || 1}`;
-            document.getElementById('host-xp').textContent = `${roomData.hostXP || 0} XP`;
-            document.getElementById('host-symbol').textContent = roomData.settings.hostSymbol;
+            // تحديث معلومات اللاعب 1
+            document.getElementById('player1-avatar').src = roomData.player1Avatar || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%231e293b\'/%3E%3Ccircle cx=\'50\' cy=\'35\' r=\'20\' fill=\'%2300d4ff\'/%3E%3Cellipse cx=\'50\' cy=\'80\' rx=\'30\' ry=\'25\' fill=\'%2300d4ff\'/%3E%3C/svg%3E';
+            document.getElementById('player1-name').textContent = roomData.player1Name;
+            document.getElementById('player1-level').textContent = `Lv. ${roomData.player1Level || 1}`;
+            document.getElementById('player1-xp').textContent = `${roomData.player1XP || 0} XP`;
+            document.getElementById('player1-symbol').textContent = roomData.settings.player1Symbol;
             
-            // تحديث معلومات الضيف
-            if (roomData.guestUID) {
-                const guestProfile = document.getElementById('guest-profile');
-                guestProfile.style.opacity = '1';
-                document.getElementById('guest-avatar').src = roomData.guestAvatar || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%23333\'/%3E%3Ccircle cx=\'50\' cy=\'35\' r=\'20\' fill=\'%23666\'/%3E%3Cellipse cx=\'50\' cy=\'80\' rx=\'30\' ry=\'25\' fill=\'%23666\'/%3E%3C/svg%3E';
-                document.getElementById('guest-name').textContent = roomData.guestName;
-                document.getElementById('guest-level').textContent = `Lv. ${roomData.guestLevel || 1}`;
-                document.getElementById('guest-xp').textContent = `${roomData.guestXP || 0} XP`;
-                document.getElementById('guest-symbol').textContent = roomData.settings.guestSymbol;
+            // تحديث معلومات اللاعب 2
+            if (roomData.player2) {
+                const player2Profile = document.getElementById('player2-profile');
+                player2Profile.style.opacity = '1';
+                document.getElementById('player2-avatar').src = roomData.player2Avatar || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%23333\'/%3E%3Ccircle cx=\'50\' cy=\'35\' r=\'20\' fill=\'%23666\'/%3E%3Cellipse cx=\'50\' cy=\'80\' rx=\'30\' ry=\'25\' fill=\'%23666\'/%3E%3C/svg%3E';
+                document.getElementById('player2-name').textContent = roomData.player2Name;
+                document.getElementById('player2-level').textContent = `Lv. ${roomData.player2Level || 1}`;
+                document.getElementById('player2-xp').textContent = `${roomData.player2XP || 0} XP`;
+                document.getElementById('player2-symbol').textContent = roomData.settings.player2Symbol;
             } else {
-                const guestProfile = document.getElementById('guest-profile');
-                guestProfile.style.opacity = '0.5';
-                document.getElementById('guest-avatar').src = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%23333\'/%3E%3Ccircle cx=\'50\' cy=\'35\' r=\'20\' fill=\'%23666\'/%3E%3Cellipse cx=\'50\' cy=\'80\' rx=\'30\' ry=\'25\' fill=\'%23666\'/%3E%3C/svg%3E';
-                document.getElementById('guest-name').textContent = 'في انتظار...';
-                document.getElementById('guest-level').textContent = '-';
-                document.getElementById('guest-xp').textContent = '-';
+                const player2Profile = document.getElementById('player2-profile');
+                player2Profile.style.opacity = '0.5';
+                document.getElementById('player2-avatar').src = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%23333\'/%3E%3Ccircle cx=\'50\' cy=\'35\' r=\'20\' fill=\'%23666\'/%3E%3Cellipse cx=\'50\' cy=\'80\' rx=\'30\' ry=\'25\' fill=\'%23666\'/%3E%3C/svg%3E';
+                document.getElementById('player2-name').textContent = 'في انتظار...';
+                document.getElementById('player2-level').textContent = '-';
+                document.getElementById('player2-xp').textContent = '-';
             }
             
-            // تحديث كود الغرفة
-            if (state.isHost && roomData.status === 'waiting') {
+            // تحديث كود الغرفة (يظهر فقط للمضيف وهو player1)
+            if (state.isPlayer1 && roomData.status === 'waiting') {
                 document.getElementById('room-code-container').style.display = 'block';
-                document.getElementById('room-code-display').textContent = roomData.roomCode;
+                document.getElementById('room-code-display').textContent = state.currentRoom;
             } else {
                 document.getElementById('room-code-container').style.display = 'none';
             }
             
-            // تحديث زر الإعدادات (يظهر فقط للمضيف)
-            document.getElementById('room-settings-btn').style.display = state.isHost ? 'block' : 'none';
+            // تحديث زر الإعدادات (يظهر فقط للمضيف وهو player1)
+            document.getElementById('room-settings-btn').style.display = state.isPlayer1 ? 'block' : 'none';
             
             // تحديث النتيجة
-            document.getElementById('host-wins').textContent = roomData.scoreboard.hostWins;
-            document.getElementById('guest-wins').textContent = roomData.scoreboard.guestWins;
+            document.getElementById('player1-wins').textContent = roomData.scoreboard.player1Wins;
+            document.getElementById('player2-wins').textContent = roomData.scoreboard.player2Wins;
             document.getElementById('draws-count').textContent = roomData.scoreboard.draws;
             document.getElementById('current-round').textContent = `${roomData.scoreboard.currentRound}/${roomData.settings.rounds}`;
             
@@ -5193,13 +5189,13 @@
                 if (roomData.game.winner === 'draw') {
                     statusEl.innerHTML = '<span style="color: var(--text-secondary);">تعادل!</span>';
                 } else {
-                    const winnerName = roomData.game.winner === roomData.settings.hostSymbol ? roomData.hostName : roomData.guestName;
-                    statusEl.innerHTML = `<span style="color: ${roomData.game.winner === roomData.settings.hostSymbol ? 'var(--accent-color)' : 'var(--accent-secondary)'};">فوز ${winnerName}!</span>`;
+                    const winnerName = roomData.game.winner === roomData.settings.player1Symbol ? roomData.player1Name : roomData.player2Name;
+                    statusEl.innerHTML = `<span style="color: ${roomData.game.winner === roomData.settings.player1Symbol ? 'var(--accent-color)' : 'var(--accent-secondary)'};">فوز ${winnerName}!</span>`;
                 }
             } else {
                 const currentPlayer = roomData.game.turn;
-                const currentPlayerName = currentPlayer === roomData.settings.hostSymbol ? roomData.hostName : roomData.guestName;
-                const color = currentPlayer === roomData.settings.hostSymbol ? 'var(--accent-color)' : 'var(--accent-secondary)';
+                const currentPlayerName = currentPlayer === roomData.settings.player1Symbol ? roomData.player1Name : roomData.player2Name;
+                const color = currentPlayer === roomData.settings.player1Symbol ? 'var(--accent-color)' : 'var(--accent-secondary)';
                 statusEl.innerHTML = `دور: <span style="color: ${color};">${currentPlayerName}</span>`;
             }
             
@@ -5214,7 +5210,6 @@
         function updateRoomBoard(gameData) {
             const boardEl = document.getElementById('room-game-board');
             
-            // إنشاء اللوحة إذا كانت فارغة
             if (boardEl.children.length === 0) {
                 for (let i = 0; i < 9; i++) {
                     const btn = document.createElement('button');
@@ -5226,7 +5221,6 @@
                 }
             }
             
-            // تحديث الخلايا
             for (let i = 0; i < 9; i++) {
                 const cell = document.getElementById(`room-cell-${i}`);
                 const value = gameData.board[i];
@@ -5234,13 +5228,7 @@
                 if (value) {
                     cell.innerHTML = `<span class="animate-pop-in">${value}</span>`;
                     cell.classList.add('disabled');
-                    
-                    // تطبيق السكن
-                    if (value === 'X') {
-                        cell.className = `game-cell w-24 h-24 md:w-28 md:h-28 rounded-xl flex items-center justify-center text-4xl md:text-5xl font-display disabled ${state.currentSkin}`;
-                    } else {
-                        cell.className = `game-cell w-24 h-24 md:w-28 md:h-28 rounded-xl flex items-center justify-center text-4xl md:text-5xl font-display disabled ${state.currentSkin}`;
-                    }
+                    cell.className = `game-cell w-24 h-24 md:w-28 md:h-28 rounded-xl flex items-center justify-center text-4xl md:text-5xl font-display disabled ${state.currentSkin}`;
                 } else {
                     cell.innerHTML = '';
                     cell.className = 'game-cell w-24 h-24 md:w-28 md:h-28 rounded-xl flex items-center justify-center text-4xl md:text-5xl font-display';
@@ -5259,24 +5247,20 @@
                 
                 const roomData = docSnap.data();
                 
-                // التحقق من الصلاحية
                 if (roomData.status !== 'playing') throw new Error('اللعبة لم تبدأ بعد');
                 if (roomData.game.winner) throw new Error('انتهت اللعبة');
                 if (roomData.game.board[index]) throw new Error('هذه الخانة مشغولة');
                 
-                // تحديد دور اللاعب
-                const isHost = roomData.hostUID === state.uid;
-                const isGuest = roomData.guestUID === state.uid;
-                if (!isHost && !isGuest) throw new Error('لست مشتركاً في هذه الغرفة');
+                const isPlayer1 = roomData.player1 === state.uid;
+                const isPlayer2 = roomData.player2 === state.uid;
+                if (!isPlayer1 && !isPlayer2) throw new Error('لست مشتركاً في هذه الغرفة');
                 
-                const playerSymbol = isHost ? roomData.settings.hostSymbol : roomData.settings.guestSymbol;
+                const playerSymbol = isPlayer1 ? roomData.settings.player1Symbol : roomData.settings.player2Symbol;
                 if (roomData.game.turn !== playerSymbol) throw new Error('ليس دورك');
                 
-                // تحديث اللوحة
                 const newBoard = [...roomData.game.board];
                 newBoard[index] = playerSymbol;
                 
-                // التحقق من الفائز
                 const result = checkWinner(newBoard);
                 
                 const updates = {
@@ -5290,45 +5274,39 @@
                             updates['game.winner'] = 'draw';
                             updates['scoreboard.draws'] = roomData.scoreboard.draws + 1;
                             
-                            // التحقق من انتهاء المباراة
                             const newDraws = roomData.scoreboard.draws + 1;
                             if (newDraws >= roomData.settings.rounds) {
                                 updates['status'] = 'completed';
                             } else {
-                                // بدء جولة جديدة
                                 updates['scoreboard.currentRound'] = roomData.scoreboard.currentRound + 1;
                                 updates['game.board'] = ['','','','','','','','',''];
                                 updates['game.winner'] = null;
                                 updates['game.turn'] = 'X';
                             }
                         } else {
-                            // إذا كان التعادل غير مسموح، نعيد الجولة
                             updates['game.board'] = ['','','','','','','','',''];
                             updates['game.winner'] = null;
                             updates['game.turn'] = 'X';
                         }
                     } else {
-                        // فوز لاعب
                         const winner = result.winner;
-                        const isHostWinner = winner === roomData.settings.hostSymbol;
+                        const isPlayer1Winner = winner === roomData.settings.player1Symbol;
                         
-                        if (isHostWinner) {
-                            updates['scoreboard.hostWins'] = roomData.scoreboard.hostWins + 1;
+                        if (isPlayer1Winner) {
+                            updates['scoreboard.player1Wins'] = roomData.scoreboard.player1Wins + 1;
                         } else {
-                            updates['scoreboard.guestWins'] = roomData.scoreboard.guestWins + 1;
+                            updates['scoreboard.player2Wins'] = roomData.scoreboard.player2Wins + 1;
                         }
                         
                         updates['game.winner'] = winner;
                         
-                        // التحقق من الفوز بالمباراة
-                        const newHostWins = isHostWinner ? roomData.scoreboard.hostWins + 1 : roomData.scoreboard.hostWins;
-                        const newGuestWins = isHostWinner ? roomData.scoreboard.guestWins : roomData.scoreboard.guestWins + 1;
+                        const newPlayer1Wins = isPlayer1Winner ? roomData.scoreboard.player1Wins + 1 : roomData.scoreboard.player1Wins;
+                        const newPlayer2Wins = isPlayer1Winner ? roomData.scoreboard.player2Wins : roomData.scoreboard.player2Wins + 1;
                         
-                        if (newHostWins >= roomData.settings.rounds || newGuestWins >= roomData.settings.rounds) {
+                        if (newPlayer1Wins >= roomData.settings.rounds || newPlayer2Wins >= roomData.settings.rounds) {
                             updates['status'] = 'completed';
                             
-                            // إضافة XP للفائز (مكافأة بسيطة)
-                            if (state.uid === (isHostWinner ? roomData.hostUID : roomData.guestUID)) {
+                            if (state.uid === (isPlayer1Winner ? roomData.player1 : roomData.player2)) {
                                 state.xp += 100;
                                 state.onlineWins++;
                             } else {
@@ -5336,7 +5314,6 @@
                             }
                             saveState();
                         } else {
-                            // بدء جولة جديدة
                             updates['scoreboard.currentRound'] = roomData.scoreboard.currentRound + 1;
                             updates['game.board'] = ['','','','','','','','',''];
                             updates['game.winner'] = null;
@@ -5365,13 +5342,11 @@
                     clearInterval(state.timerInterval);
                     state.timerInterval = null;
                     
-                    // تحديد من انتهى وقته
                     const currentPlayer = roomData.game.turn;
-                    const isHostTurn = currentPlayer === roomData.settings.hostSymbol;
-                    const loserUID = isHostTurn ? roomData.hostUID : roomData.guestUID;
+                    const isPlayer1Turn = currentPlayer === roomData.settings.player1Symbol;
+                    const loserUID = isPlayer1Turn ? roomData.player1 : roomData.player2;
                     
                     if (loserUID === state.uid) {
-                        // أنت خسرت بالوقت
                         handleTimerLoss();
                     }
                 }
@@ -5389,20 +5364,19 @@
                 
                 const roomData = docSnap.data();
                 
-                // تحديد الفائز (اللاعب الآخر)
-                const isHost = roomData.hostUID === state.uid;
-                const winner = isHost ? roomData.guestUID : roomData.hostUID;
-                const winnerSymbol = isHost ? roomData.settings.guestSymbol : roomData.settings.hostSymbol;
+                const isPlayer1 = roomData.player1 === state.uid;
+                const winner = isPlayer1 ? roomData.player2 : roomData.player1;
+                const winnerSymbol = isPlayer1 ? roomData.settings.player2Symbol : roomData.settings.player1Symbol;
                 
                 const updates = {
                     'game.winner': winnerSymbol,
                     'game.turn': null
                 };
                 
-                if (isHost) {
-                    updates['scoreboard.guestWins'] = roomData.scoreboard.guestWins + 1;
+                if (isPlayer1) {
+                    updates['scoreboard.player2Wins'] = roomData.scoreboard.player2Wins + 1;
                 } else {
-                    updates['scoreboard.hostWins'] = roomData.scoreboard.hostWins + 1;
+                    updates['scoreboard.player1Wins'] = roomData.scoreboard.player1Wins + 1;
                 }
                 
                 transaction.update(roomRef, updates);
@@ -5425,27 +5399,25 @@
                 state.disconnectTimer = null;
             }
             
-            // حذف الغرفة إذا كان المضيف
-            if (state.currentRoom && state.isHost) {
+            if (state.currentRoom && state.isPlayer1) {
                 const roomRef = doc(db, 'rooms', state.currentRoom);
                 deleteDoc(roomRef).catch(console.error);
             } else if (state.currentRoom) {
-                // تحديث حالة الضيف إلى منفصل
                 const roomRef = doc(db, 'rooms', state.currentRoom);
                 updateDoc(roomRef, {
                     status: 'disconnected',
-                    guestUID: null,
-                    guestName: null
+                    player2: null,
+                    player2Name: null
                 }).catch(console.error);
             }
             
             state.currentRoom = null;
-            state.isHost = false;
+            state.isPlayer1 = false;
             navigateTo('home');
         }
 
         function showRoomSettings() {
-            if (!state.isHost) return;
+            if (!state.isPlayer1) return;
             
             document.getElementById('room-settings-overlay').classList.add('active');
             document.getElementById('room-settings-modal').classList.add('active');
@@ -5457,13 +5429,13 @@
         }
 
         function saveRoomSettings() {
-            if (!state.currentRoom || !state.isHost) return;
+            if (!state.currentRoom || !state.isPlayer1) return;
             
             const rounds = parseInt(document.getElementById('settings-rounds').value);
             const timerSeconds = parseInt(document.getElementById('settings-timer').value);
             const allowDraw = document.getElementById('settings-allow-draw').checked;
             const soundEnabled = document.getElementById('settings-sound').checked;
-            const hostSymbol = document.getElementById('settings-host-symbol').value;
+            const player1Symbol = document.getElementById('settings-player1-symbol').value;
             
             const roomRef = doc(db, 'rooms', state.currentRoom);
             
@@ -5472,8 +5444,8 @@
                 'settings.timerSeconds': timerSeconds,
                 'settings.allowDraw': allowDraw,
                 'settings.soundEnabled': soundEnabled,
-                'settings.hostSymbol': hostSymbol,
-                'settings.guestSymbol': hostSymbol === 'X' ? 'O' : 'X'
+                'settings.player1Symbol': player1Symbol,
+                'settings.player2Symbol': player1Symbol === 'X' ? 'O' : 'X'
             }).then(() => {
                 closeRoomSettings();
                 showNotification('تم حفظ الإعدادات', 'success');
@@ -5483,13 +5455,13 @@
         }
 
         function restartMatch() {
-            if (!state.currentRoom || !state.isHost) return;
+            if (!state.currentRoom || !state.isPlayer1) return;
             
             const roomRef = doc(db, 'rooms', state.currentRoom);
             
             updateDoc(roomRef, {
-                'scoreboard.hostWins': 0,
-                'scoreboard.guestWins': 0,
+                'scoreboard.player1Wins': 0,
+                'scoreboard.player2Wins': 0,
                 'scoreboard.draws': 0,
                 'scoreboard.currentRound': 1,
                 'game.board': ['','','','','','','','',''],
@@ -5503,19 +5475,19 @@
         }
 
         function kickPlayer() {
-            if (!state.currentRoom || !state.isHost) return;
+            if (!state.currentRoom || !state.isPlayer1) return;
             
             const roomRef = doc(db, 'rooms', state.currentRoom);
             
             updateDoc(roomRef, {
-                guestUID: null,
-                guestName: null,
-                guestAvatar: null,
-                guestLevel: null,
-                guestXP: null,
+                player2: null,
+                player2Name: null,
+                player2Avatar: null,
+                player2Level: null,
+                player2XP: null,
                 status: 'waiting',
-                'scoreboard.hostWins': 0,
-                'scoreboard.guestWins': 0,
+                'scoreboard.player1Wins': 0,
+                'scoreboard.player2Wins': 0,
                 'scoreboard.draws': 0,
                 'scoreboard.currentRound': 1,
                 'game.board': ['','','','','','','','',''],
@@ -5528,7 +5500,7 @@
         }
 
         function closeRoom() {
-            if (!state.currentRoom || !state.isHost) return;
+            if (!state.currentRoom || !state.isPlayer1) return;
             
             const roomRef = doc(db, 'rooms', state.currentRoom);
             deleteDoc(roomRef).then(() => {
@@ -5578,7 +5550,6 @@
         }
 
         function startMatchmaking() {
-            // التحقق من وجود xpBet
             if (!state || state.xpBet === undefined || state.xpBet === null) {
                 showNotification('الرجاء اختيار مبلغ XP أولاً', 'error');
                 return;
@@ -5592,7 +5563,6 @@
             closeOnlineMatches();
             showLoadingScreen('جار البحث عن لاعب...');
             
-            // إضافة إلى طابور الانتظار
             const queueRef = doc(db, 'matchmakingQueue', state.uid);
             
             setDoc(queueRef, {
@@ -5604,7 +5574,6 @@
                 mode: 'onlineMatches',
                 createdAt: serverTimestamp()
             }).then(() => {
-                // الاستماع للتغييرات في الطابور
                 setupMatchmakingListener();
             }).catch(error => {
                 hideLoadingScreen();
@@ -5621,10 +5590,7 @@
                     .filter(p => p.id !== state.uid && p.mode === 'onlineMatches');
                 
                 if (players.length > 0) {
-                    // العثور على لاعب مناسب
                     const matchedPlayer = players.find(p => Math.abs(p.xpBet - state.xpBet) <= 500) || players[0];
-                    
-                    // إنشاء مباراة جديدة
                     createOnlineMatch(matchedPlayer);
                 }
             });
@@ -5636,7 +5602,6 @@
             const matchId = `${state.uid}_${player2.uid}_${Date.now()}`;
             const matchRef = doc(db, 'matches', matchId);
             
-            // تحديد الرموز عشوائياً
             const player1Symbol = Math.random() < 0.5 ? 'X' : 'O';
             const player2Symbol = player1Symbol === 'X' ? 'O' : 'X';
             
@@ -5672,7 +5637,6 @@
                 }
             };
             
-            // حذف من الطابور
             deleteDoc(doc(db, 'matchmakingQueue', state.uid));
             deleteDoc(doc(db, 'matchmakingQueue', player2.uid));
             
@@ -5712,7 +5676,6 @@
         }
 
         function updateMatchUI(matchData) {
-            // تحديث صفحة المباراة (مشابه لـ updateRoomUI لكن لمباريات XP)
             // يمكن إضافة صفحة مخصصة للمباريات إذا أردت
         }
 
@@ -5759,7 +5722,6 @@
             closeDivisionOptions();
             showLoadingScreen('جار البحث عن لاعب في نفس الديفيجن...');
             
-            // إضافة إلى طابور الديفيجن
             const queueRef = doc(db, 'divisionQueue', state.uid);
             
             setDoc(queueRef, {
@@ -5796,7 +5758,6 @@
         function createDivisionMatch(player2) {
             if (!state.uid) return;
             
-            // تحديد عدد المباريات المطلوبة للفوز (Best Of)
             let bestOfWinsRequired;
             if (state.currentDivision >= 6) bestOfWinsRequired = 3;
             else if (state.currentDivision >= 4) bestOfWinsRequired = 5;
@@ -5805,7 +5766,6 @@
             const matchId = `div_${state.uid}_${player2.uid}_${Date.now()}`;
             const matchRef = doc(db, 'divisionMatches', matchId);
             
-            // تحديد الرموز عشوائياً
             const player1Symbol = Math.random() < 0.5 ? 'X' : 'O';
             const player2Symbol = player1Symbol === 'X' ? 'O' : 'X';
             
@@ -5835,7 +5795,6 @@
                 }
             };
             
-            // حذف من الطابور
             deleteDoc(doc(db, 'divisionQueue', state.uid));
             deleteDoc(doc(db, 'divisionQueue', player2.uid));
             
@@ -5875,7 +5834,6 @@
         }
 
         function updateDivisionMatchUI(matchData) {
-            // تحديث واجهة مباراة الديفيجن
             // مشابه للمباريات العادية مع عرض Best Of
         }
 
@@ -5911,7 +5869,6 @@
                 
                 if (result) {
                     if (result.winner === 'draw') {
-                        // في الديفيجن، ممنوع التعادل - نعيد الجولة
                         updates['game.board'] = ['','','','','','','','',''];
                         updates['game.turn'] = 'X';
                         updates['game.winner'] = null;
@@ -5927,14 +5884,12 @@
                         
                         updates['game.winner'] = winner;
                         
-                        // التحقق من الفوز بالمباراة
                         const newPlayer1Wins = isPlayer1Winner ? data.player1Wins + 1 : data.player1Wins;
                         const newPlayer2Wins = isPlayer1Winner ? data.player2Wins : data.player2Wins + 1;
                         
                         if (newPlayer1Wins >= data.bestOfWinsRequired || newPlayer2Wins >= data.bestOfWinsRequired) {
                             updates['status'] = 'completed';
                             
-                            // تحديث نقاط الديفيجن
                             if (isPlayer1Winner) {
                                 if (state.uid === data.player1UID) {
                                     handleDivisionWin();
@@ -5949,7 +5904,6 @@
                                 }
                             }
                         } else {
-                            // بدء جولة جديدة
                             updates['game.board'] = ['','','','','','','','',''];
                             updates['game.turn'] = 'X';
                             updates['game.winner'] = null;
@@ -5977,7 +5931,6 @@
         function handleDivisionLoss() {
             state.divisionPoints = Math.max(0, state.divisionPoints - 3);
             
-            // إذا وصل إلى 0، يهبط للديفيجن السابق
             if (state.divisionPoints === 0 && state.currentDivision < 10) {
                 state.currentDivision++;
                 state.divisionPoints = DIVISIONS.find(d => d.level === state.currentDivision).required - 1;

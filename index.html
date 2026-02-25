@@ -2044,131 +2044,6 @@
             cursor: not-allowed;
         }
 
-        .ad-countdown {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: linear-gradient(135deg, rgba(0,0,0,0.9), rgba(0,0,0,0.95));
-            border: 3px solid var(--accent-color);
-            border-radius: 20px;
-            padding: 40px;
-            z-index: 2000;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 0 50px var(--glow-color);
-            animation: pop-in 0.3s ease;
-        }
-
-        .ad-countdown.hidden {
-            display: none;
-        }
-
-        .ad-countdown-number {
-            font-size: 8rem;
-            font-weight: bold;
-            color: var(--accent-color);
-            text-shadow: 0 0 30px var(--glow-color);
-            animation: pulse 1s ease-in-out infinite;
-            line-height: 1;
-        }
-
-        .ad-countdown-text {
-            font-size: 1.5rem;
-            color: var(--text-primary);
-            margin-top: 20px;
-        }
-
-        .ad-video-container {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90%;
-            max-width: 800px;
-            z-index: 2000;
-            border: 3px solid var(--accent-color);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 0 50px var(--glow-color);
-            animation: pop-in 0.3s ease;
-        }
-
-        .ad-video-container.hidden {
-            display: none;
-        }
-
-        .ad-video-container video {
-            width: 100%;
-            display: block;
-        }
-
-        .ad-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(0,0,0,0.8);
-            border: 2px solid var(--accent-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 2001;
-        }
-
-        .ad-close:hover {
-            transform: scale(1.1);
-            background: var(--accent-color);
-        }
-
-        .ad-close i {
-            width: 20px;
-            height: 20px;
-            color: white;
-        }
-
-        @media (max-width: 640px) {
-            .game-cell {
-                width: 85px !important;
-                height: 85px !important;
-                font-size: 2.5rem !important;
-            }
-            
-            .settings-panel {
-                max-width: 100%;
-            }
-
-            .store-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .var-board {
-                gap: 5px;
-            }
-
-            .var-cell {
-                font-size: 2rem;
-            }
-
-            .var-timeline-dot {
-                width: 30px;
-                height: 30px;
-                font-size: 0.8rem;
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-
         .cookie-consent {
             position: fixed;
             bottom: 80px;
@@ -2253,27 +2128,27 @@
         <ul class="whats-new-list">
             <li class="whats-new-item">
                 <div class="whats-new-icon"><i data-lucide="check-circle"></i></div>
-                <div class="whats-new-text">إصلاح أخطاء نظام الذكاء الاصطناعي</div>
+                <div class="whats-new-text">إصلاح أخطاء نظام الأونلاين بالكامل</div>
             </li>
             <li class="whats-new-item">
-                <div class="whats-new-icon"><i data-lucide="cpu"></i></div>
-                <div class="whats-new-text">إضافة طور ذكاء اصطناعي جديد (التكيفي)</div>
+                <div class="whats-new-icon"><i data-lucide="users"></i></div>
+                <div class="whats-new-text">إصلاح مشكلة غرف الأصدقاء (الآن تعمل)</div>
             </li>
             <li class="whats-new-item">
-                <div class="whats-new-icon"><i data-lucide="gamepad-2"></i></div>
-                <div class="whats-new-text">تغييرات في الجيم بلاي</div>
+                <div class="whats-new-icon"><i data-lucide="award"></i></div>
+                <div class="whats-new-text">إضافة مود مشاهدة المباريات (روبوتات ضد بعض)</div>
             </li>
             <li class="whats-new-item">
-                <div class="whats-new-icon"><i data-lucide="video"></i></div>
-                <div class="whats-new-text">إضافة ميزة VAR</div>
+                <div class="whats-new-icon"><i data-lucide="zap"></i></div>
+                <div class="whats-new-text">نظام تحديات XP جديد (بدون مراهنات)</div>
             </li>
             <li class="whats-new-item">
-                <div class="whats-new-icon"><i data-lucide="music"></i></div>
-                <div class="whats-new-text">إضافة المزيد من الأغاني</div>
+                <div class="whats-new-icon"><i data-lucide="git-branch"></i></div>
+                <div class="whats-new-text">إصلاح نظام الديفيجن الأونلاين</div>
             </li>
             <li class="whats-new-item">
                 <div class="whats-new-icon"><i data-lucide="gift"></i></div>
-                <div class="whats-new-text"><span class="whats-new-reward">تعويض 10,000 XP</span> بسبب الأخطاء السابقة</div>
+                <div class="whats-new-text"><span class="whats-new-reward">تعويض 10,000 XP</span> للجميع</div>
             </li>
         </ul>
         <button onclick="closeWhatsNew()" class="neon-btn w-full py-3 rounded-xl font-bold mt-4">حسناً</button>
@@ -2402,6 +2277,10 @@
             <button onclick="navigateToAndCloseSettings('division')" class="settings-menu-item">
                 <i data-lucide="git-branch"></i>
                 <span>طور الديفيجن</span>
+            </button>
+            <button onclick="navigateToAndCloseSettings('watch')" class="settings-menu-item">
+                <i data-lucide="tv"></i>
+                <span>مشاهدة المباريات</span>
             </button>
             <button onclick="navigateToAndCloseSettings('about')" class="settings-menu-item">
                 <i data-lucide="info"></i>
@@ -2559,7 +2438,7 @@
                 <p class="text-lg tracking-widest" style="color: var(--text-secondary);">DARK EDITION</p>
             </div>
 
-            <!-- Menu Buttons - Online Modes Added -->
+            <!-- Menu Buttons -->
             <div class="space-y-4 animate-slide-up" style="animation-delay: 0.4s;">
                 <!-- Play With Friends Online -->
                 <button onclick="showFriendsOptions()" class="neon-btn w-full rounded-xl p-5 flex items-center justify-center gap-3 text-lg font-bold">
@@ -2567,10 +2446,16 @@
                     <span style="color: var(--text-primary);">العب مع الأصدقاء</span>
                 </button>
 
-                <!-- Online Matches (XP Bet) - MODIFIED TEXT -->
+                <!-- Online Matches (XP Challenge) - بدون كلمة مراهنات -->
                 <button onclick="showOnlineMatchesOptions()" class="neon-btn w-full rounded-xl p-5 flex items-center justify-center gap-3 text-lg font-bold" style="box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);">
                     <i data-lucide="award" class="w-6 h-6" style="color: #ffd700;"></i>
-                    <span style="color: #ffd700;">مباريات أونلاين (تنافس XP)</span>
+                    <span style="color: #ffd700;">تحديات XP أونلاين</span>
+                </button>
+
+                <!-- Watch Matches Mode (NEW) -->
+                <button onclick="navigateTo('watch')" class="neon-btn w-full rounded-xl p-5 flex items-center justify-center gap-3 text-lg font-bold" style="background: linear-gradient(135deg, #a855f7, #ec4899);">
+                    <i data-lucide="tv" class="w-6 h-6" style="color: white;"></i>
+                    <span style="color: white;">مشاهدة المباريات (روبوتات)</span>
                 </button>
 
                 <!-- Play Against AI -->
@@ -2579,7 +2464,7 @@
                     <span style="color: var(--text-primary);">ضد ذكاء اصطناعي</span>
                 </button>
 
-                <!-- Division Mode (With Online Option) -->
+                <!-- Division Mode -->
                 <button onclick="showDivisionOptions()" class="neon-btn w-full rounded-xl p-5 flex items-center justify-center gap-3 text-lg font-bold" style="background: linear-gradient(135deg, #ff3366, #ff6b35);">
                     <i data-lucide="git-branch" class="w-6 h-6" style="color: white;"></i>
                     <span style="color: white;">طور الديفيجن</span>
@@ -2599,15 +2484,15 @@
 
             <!-- قسم المحتوى النصي الغني -->
             <div class="glass-card rounded-2xl p-6 mt-8 animate-slide-up" style="animation-delay: 0.5s;">
-                <h2 class="text-2xl font-bold mb-4" style="color: var(--accent-color);">🎮 مرحبًا بك في XO Arena - أفضل لعبة إكس أو عربية</h2>
+                <h2 class="text-2xl font-bold mb-4" style="color: var(--accent-color);">🎮 مرحبًا بك في XO Arena</h2>
                 
                 <div class="space-y-4 text-right">
                     <p class="leading-relaxed" style="color: var(--text-primary);">
-                        <strong style="color: var(--accent-color);">XO Arena</strong> هي أول منصة عربية متكاملة للعبة إكس أو مع <strong style="color: #00ff88;">نظام أونلاين متكامل</strong> يمكنك من اللعب مع أصدقائك أو في طور التصنيف والتنافس بـ XP. بالإضافة إلى 5 مستويات ذكاء اصطناعي مختلفة: مبتدئ، متوسط، صعب، عبقري، وتكيفي.
+                        <strong style="color: var(--accent-color);">XO Arena</strong> هي أول منصة عربية متكاملة للعبة إكس أو مع <strong style="color: #00ff88;">نظام أونلاين متكامل</strong> يمكنك من اللعب مع أصدقائك أو في طور التصنيف.
                     </p>
                     
                     <p class="leading-relaxed" style="color: var(--text-primary);">
-                        ما يميز <strong style="color: var(--accent-color);">XO Arena</strong> هو نظام الأونلاين المتطور: أنشئ غرفة خاصة بك وشارك الكود مع صديقك، أو ادخل في مباريات تصنيف مع XP، أو تحدى لاعبين في نفس مستواك في طور الديفيجن. كل ذلك مع نظام حماية من الغش وReal-time باستخدام Firebase.
+                        ما يميز <strong style="color: var(--accent-color);">XO Arena</strong> هو نظام الأونلاين المتطور: أنشئ غرفة خاصة بك وشارك الكود مع صديقك، أو ادخل في تحديات XP، أو شاهد مباريات الروبوتات.
                     </p>
 
                     <div class="grid grid-cols-3 gap-3 mt-4">
@@ -2624,32 +2509,12 @@
                             <div class="text-xs" style="color: var(--text-secondary);">إطار للملف</div>
                         </div>
                     </div>
-
-                    <h3 class="text-lg font-bold mt-4" style="color: var(--accent-color);">مميزات الأونلاين الجديدة:</h3>
-                    <ul class="space-y-2 pr-4">
-                        <li class="flex items-start gap-2" style="color: var(--text-primary);">
-                            <span style="color: #00ff88;">✓</span>
-                            <strong>غرف الأصدقاء:</strong> أنشئ غرفة وانضم بكود مع نظام إعدادات متكامل.
-                        </li>
-                        <li class="flex items-start gap-2" style="color: var(--text-primary);">
-                            <span style="color: #00ff88;">✓</span>
-                            <strong>مباريات تنافس XP:</strong> راهن بـ XP من 100 إلى 20000 واربح XP الخصم.
-                        </li>
-                        <li class="flex items-start gap-2" style="color: var(--text-primary);">
-                            <span style="color: #00ff88;">✓</span>
-                            <strong>ديفيجن أونلاين:</strong> نظام Best Of مع نقاط وترقيات.
-                        </li>
-                    </ul>
-
-                    <p class="leading-relaxed mt-4 text-sm" style="color: var(--text-secondary);">
-                        * أكثر من 10,000 مباراة تم لعبها على منصتنا حتى الآن. انضم إلى عائلة XO Arena واستمتع بأفضل تجربة إكس أو عربية.
-                    </p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- FRIENDS ONLINE OPTIONS MODAL (Will appear as overlay) -->
+    <!-- FRIENDS ONLINE OPTIONS MODAL -->
     <div id="friends-options-overlay" class="modal-overlay" onclick="closeFriendsOptions()"></div>
     <div id="friends-options-modal" class="modal-content glass-card rounded-2xl p-6 w-full max-w-md">
         <div class="flex justify-between items-center mb-4">
@@ -2699,40 +2564,40 @@
         </div>
     </div>
 
-    <!-- ONLINE MATCHES XP BET MODAL - MODIFIED TITLE AND TEXT -->
+    <!-- ONLINE MATCHES XP MODAL (بدون كلمة مراهنات) -->
     <div id="online-matches-overlay" class="modal-overlay" onclick="closeOnlineMatches()"></div>
     <div id="online-matches-modal" class="modal-content glass-card rounded-2xl p-6 w-full max-w-md">
         <div class="flex justify-between items-center mb-4">
-            <h2 class="text-xl font-display font-bold" style="color: var(--accent-color);">مباريات أونلاين تنافسية</h2>
+            <h2 class="text-xl font-display font-bold" style="color: var(--accent-color);">تحديات XP أونلاين</h2>
             <button onclick="closeOnlineMatches()" class="p-2 rounded-lg hover:bg-white/10 transition-colors">
                 <i data-lucide="x" class="w-5 h-5" style="color: var(--text-secondary);"></i>
             </button>
         </div>
         
-        <p class="mb-4 text-center" style="color: var(--text-secondary);">اختر مقدار XP الذي تريد التنافس به:</p>
+        <p class="mb-4 text-center" style="color: var(--text-secondary);">اختر قيمة التحدي:</p>
         
         <div class="grid grid-cols-2 gap-3 mb-4">
-            <button onclick="selectXpAmount(100)" class="xp-bet-btn neon-btn p-4 rounded-xl text-center">
+            <button onclick="selectXpBet(100)" class="xp-bet-btn neon-btn p-4 rounded-xl text-center">
                 <div class="text-xl font-bold" style="color: #ffd700;">100</div>
                 <div class="text-xs" style="color: var(--text-secondary);">XP</div>
             </button>
-            <button onclick="selectXpAmount(500)" class="xp-bet-btn neon-btn p-4 rounded-xl text-center">
+            <button onclick="selectXpBet(500)" class="xp-bet-btn neon-btn p-4 rounded-xl text-center">
                 <div class="text-xl font-bold" style="color: #ffd700;">500</div>
                 <div class="text-xs" style="color: var(--text-secondary);">XP</div>
             </button>
-            <button onclick="selectXpAmount(1000)" class="xp-bet-btn neon-btn p-4 rounded-xl text-center">
+            <button onclick="selectXpBet(1000)" class="xp-bet-btn neon-btn p-4 rounded-xl text-center">
                 <div class="text-xl font-bold" style="color: #ffd700;">1000</div>
                 <div class="text-xs" style="color: var(--text-secondary);">XP</div>
             </button>
-            <button onclick="selectXpAmount(5000)" class="xp-bet-btn neon-btn p-4 rounded-xl text-center">
+            <button onclick="selectXpBet(5000)" class="xp-bet-btn neon-btn p-4 rounded-xl text-center">
                 <div class="text-xl font-bold" style="color: #ffd700;">5000</div>
                 <div class="text-xs" style="color: var(--text-secondary);">XP</div>
             </button>
-            <button onclick="selectXpAmount(10000)" class="xp-bet-btn neon-btn p-4 rounded-xl text-center">
+            <button onclick="selectXpBet(10000)" class="xp-bet-btn neon-btn p-4 rounded-xl text-center">
                 <div class="text-xl font-bold" style="color: #ffd700;">10000</div>
                 <div class="text-xs" style="color: var(--text-secondary);">XP</div>
             </button>
-            <button onclick="selectXpAmount(20000)" class="xp-bet-btn neon-btn p-4 rounded-xl text-center">
+            <button onclick="selectXpBet(20000)" class="xp-bet-btn neon-btn p-4 rounded-xl text-center">
                 <div class="text-xl font-bold" style="color: #ffd700;">20000</div>
                 <div class="text-xs" style="color: var(--text-secondary);">XP</div>
             </button>
@@ -2771,7 +2636,7 @@
         </div>
     </div>
 
-    <!-- ROOM PAGE (Online Game) - REMOVED TIMER -->
+    <!-- ROOM PAGE (Online Game) -->
     <div id="page-room" class="page flex-col items-center px-4 py-8">
         <div class="w-full max-w-lg relative z-10">
             
@@ -2831,7 +2696,10 @@
                 </div>
             </div>
 
-            <!-- TIMER REMOVED FROM HERE -->
+            <!-- Timer -->
+            <div class="flex justify-center mb-4">
+                <div id="room-timer" class="online-timer">5</div>
+            </div>
 
             <!-- Scoreboard -->
             <div class="scoreboard">
@@ -2881,7 +2749,7 @@
         </div>
     </div>
 
-    <!-- ROOM SETTINGS MODAL (Host Only) - REMOVED TIMER SETTING -->
+    <!-- ROOM SETTINGS MODAL (Host Only) -->
     <div id="room-settings-overlay" class="modal-overlay" onclick="closeRoomSettings()"></div>
     <div id="room-settings-modal" class="modal-content glass-card rounded-2xl p-6 w-full max-w-md">
         <div class="flex justify-between items-center mb-4">
@@ -2902,7 +2770,15 @@
                 </select>
             </div>
             
-            <!-- TIMER SETTING REMOVED FROM HERE -->
+            <div>
+                <label class="block mb-2" style="color: var(--text-secondary);">مدة المؤقت (ثواني):</label>
+                <select id="settings-timer" class="w-full p-3 rounded-lg bg-black/30 border border-gray-700 text-white">
+                    <option value="3">3 ثواني</option>
+                    <option value="5" selected>5 ثواني</option>
+                    <option value="10">10 ثواني</option>
+                    <option value="15">15 ثواني</option>
+                </select>
+            </div>
             
             <div class="flex items-center justify-between">
                 <span style="color: var(--text-secondary);">السماح بالتعادل:</span>
@@ -2935,6 +2811,125 @@
             <button onclick="closeRoom()" class="neon-btn w-full py-3 rounded-xl font-bold" style="background: rgba(255, 0, 0, 0.2); color: #ff0000;">
                 إغلاق الغرفة
             </button>
+        </div>
+    </div>
+
+    <!-- WATCH MATCHES PAGE (NEW - روبوتات ضد بعض) -->
+    <div id="page-watch" class="page flex-col items-center px-4 py-8">
+        <div class="w-full max-w-lg relative z-10">
+            
+            <div class="flex items-center gap-4 mb-6">
+                <button onclick="navigateTo('home')" class="p-2 rounded-lg hover:bg-white/10 transition-colors">
+                    <i data-lucide="arrow-right" class="w-6 h-6" style="color: var(--text-secondary);"></i>
+                </button>
+                <h1 class="text-2xl font-display font-bold" style="color: var(--accent-color);">مشاهدة المباريات</h1>
+            </div>
+
+            <div class="glass-card rounded-2xl p-6 mb-6 text-center">
+                <div class="text-6xl mb-4">🤖⚔️🤖</div>
+                <h2 class="text-2xl font-bold text-white mb-2">مشاهدة روبوتات تلعب ضد بعض</h2>
+                <p class="mb-4" style="color: var(--text-secondary);">اختر مستوى الذكاء واربح XP بتوقع النتيجة</p>
+                
+                <div class="space-y-3 mb-6">
+                    <button onclick="startWatchMatch('beginner')" class="neon-btn w-full p-4 rounded-xl flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="text-2xl" style="color: #00ff88;">●</span>
+                            <span class="font-bold">سهل</span>
+                        </div>
+                        <span style="color: #ffd700;">500 XP</span>
+                    </button>
+                    
+                    <button onclick="startWatchMatch('medium')" class="neon-btn w-full p-4 rounded-xl flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="text-2xl" style="color: #ffd700;">●</span>
+                            <span class="font-bold">متوسط</span>
+                        </div>
+                        <span style="color: #ffd700;">500 XP</span>
+                    </button>
+                    
+                    <button onclick="startWatchMatch('hard')" class="neon-btn w-full p-4 rounded-xl flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="text-2xl" style="color: #ff6b35;">●</span>
+                            <span class="font-bold">صعب</span>
+                        </div>
+                        <span style="color: #ffd700;">500 XP</span>
+                    </button>
+                    
+                    <button onclick="startWatchMatch('genius')" class="neon-btn w-full p-4 rounded-xl flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="text-2xl" style="color: #ff3366;">●</span>
+                            <span class="font-bold">عبقري</span>
+                        </div>
+                        <span style="color: #ffd700;">500 XP</span>
+                    </button>
+                </div>
+
+                <div class="p-4 rounded-xl" style="background: rgba(255,215,0,0.1); border: 1px solid #ffd700;">
+                    <p class="text-sm" style="color: var(--text-primary);">
+                        <span class="font-bold" style="color: #ffd700;">نظام التوقع:</span><br>
+                        • تخسر 500 XP إذا خمنت غلط<br>
+                        • تكسب 500 XP إضافية (إجمالي 1000) إذا خمنت صح
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WATCH MATCH GAME PAGE -->
+    <div id="page-watch-game" class="page flex-col items-center px-4 py-8">
+        <div class="w-full max-w-lg relative z-10">
+            
+            <header class="flex justify-between items-center mb-6">
+                <button onclick="endWatchMatch()" class="p-2 rounded-lg hover:bg-white/10 transition-colors">
+                    <i data-lucide="arrow-right" class="w-6 h-6" style="color: var(--text-secondary);"></i>
+                </button>
+                
+                <div class="flex items-center gap-2 px-4 py-2 rounded-full" style="background: rgba(0,0,0,0.4); border: 1px solid var(--border-color);">
+                    <i data-lucide="trophy" class="w-4 h-4" style="color: #ffd700;"></i>
+                    <span id="watch-xp" class="font-mono" style="color: #ffd700;">0 XP</span>
+                </div>
+            </header>
+
+            <!-- Prediction -->
+            <div id="prediction-section" class="glass-card rounded-xl p-4 mb-6">
+                <h3 class="text-lg font-bold text-center mb-4" style="color: var(--accent-color);">توقع من سيفوز؟</h3>
+                <div class="flex gap-4">
+                    <button onclick="placePrediction('X')" id="predict-x" class="flex-1 py-4 rounded-xl text-2xl font-bold transition-all" style="background: rgba(0,212,255,0.1); border: 2px solid var(--accent-color); color: var(--accent-color);">X</button>
+                    <button onclick="placePrediction('O')" id="predict-o" class="flex-1 py-4 rounded-xl text-2xl font-bold transition-all" style="background: rgba(255,51,102,0.1); border: 2px solid var(--accent-secondary); color: var(--accent-secondary);">O</button>
+                </div>
+                <div class="text-center mt-4" style="color: var(--text-secondary);">
+                    XP على المحك: <span style="color: #ffd700;">500</span>
+                </div>
+            </div>
+
+            <!-- Bot Indicators -->
+            <div class="flex justify-between items-center mb-6 px-2">
+                <div class="flex items-center gap-2 px-4 py-2 rounded-xl" style="background: rgba(0,0,0,0.4); border: 2px solid var(--accent-color);">
+                    <span class="text-2xl font-bold" style="color: var(--accent-color);">X</span>
+                    <span class="text-sm" style="color: var(--text-secondary);">روبوت 1</span>
+                </div>
+                <div class="text-lg" style="color: var(--text-secondary);">VS</div>
+                <div class="flex items-center gap-2 px-4 py-2 rounded-xl" style="background: rgba(0,0,0,0.4); border: 2px solid var(--accent-secondary);">
+                    <span class="text-2xl font-bold" style="color: var(--accent-secondary);">O</span>
+                    <span class="text-sm" style="color: var(--text-secondary);">روبوت 2</span>
+                </div>
+            </div>
+
+            <!-- Game Status -->
+            <div id="watch-game-status" class="text-center mb-6 h-10 text-xl font-display"></div>
+
+            <!-- Game Board -->
+            <div class="flex justify-center mb-6">
+                <div id="watch-game-board" class="grid grid-cols-3 gap-3 p-4 rounded-2xl" style="background: rgba(0,0,0,0.4); border: 1px solid var(--border-color);"></div>
+            </div>
+
+            <!-- Game Controls -->
+            <div id="watch-game-controls" class="flex justify-center gap-4">
+                <button onclick="endWatchMatch()" class="neon-btn px-6 py-3 rounded-xl flex items-center gap-2">
+                    <i data-lucide="home" class="w-5 h-5"></i>
+                    <span>الرئيسية</span>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -3361,8 +3356,6 @@
                 </div>
             </div>
 
-            <!-- AD REMOVAL SECTION REMOVED FROM HERE -->
-
             <!-- Play As -->
             <div class="glass-card rounded-xl p-4 mb-4">
                 <h2 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
@@ -3461,83 +3454,26 @@
                 <h2 class="text-2xl font-bold mb-4" style="color: var(--accent-color);">من نحن؟ - قصة Eclipse Games</h2>
                 
                 <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    <strong>Eclipse Games</strong> هو فريق تطوير ألعاب عربي مستقل، تأسس في 2023 بهدف تقديم ألعاب عالية الجودة للمنطقة العربية. نحن نؤمن بأن اللاعب العربي يستحق تجارب لعب احترافية تنافس الألعاب العالمية، لكن بطابع عربي أصيل ولغة عربية سليمة.
+                    <strong>Eclipse Games</strong> هو فريق تطوير ألعاب عربي مستقل، تأسس في 2023 بهدف تقديم ألعاب عالية الجودة للمنطقة العربية.
                 </p>
                 
                 <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    <strong>XO Arena Dark Edition</strong> هو أول مشاريعنا، وقد عملنا عليه لأكثر من 6 أشهر لضمان أفضل تجربة ممكنة. اللعبة ليست مجرد نسخة مكررة من ألعاب إكس أو التقليدية، بل هي منصة متكاملة تحتوي على نظام تطور ومكافآت وإنجازات تجعل اللعبة أكثر تشويقاً وإدماناً.
+                    <strong>XO Arena Dark Edition</strong> هو أول مشاريعنا، وقد عملنا عليه لأكثر من 6 أشهر لضمان أفضل تجربة ممكنة.
                 </p>
 
                 <h3 class="text-lg font-bold text-white mb-3 mt-4">رؤيتنا</h3>
                 <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    نسعى لأن نكون المنصة الأولى للألعاب الإستراتيجية البسيطة في العالم العربي، وأن نخلق مجتمعاً من اللاعبين المتميزين الذين يشاركوننا شغف الألعاب والتحدي.
+                    نسعى لأن نكون المنصة الأولى للألعاب الإستراتيجية البسيطة في العالم العربي.
                 </p>
 
-                <h3 class="text-lg font-bold text-white mb-3">رسالتنا</h3>
-                <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    تقديم ألعاب تجمع بين المتعة والفائدة، تنمي الذكاء والتفكير الاستراتيجي، وتكون في متناول الجميع مجاناً.
-                </p>
-
-                <h3 class="text-lg font-bold text-white mb-3">فريق العمل</h3>
-                <div class="grid grid-cols-2 gap-4 mt-4">
-                    <div class="text-center p-4 rounded-xl" style="background: rgba(0,0,0,0.3);">
-                        <div class="w-20 h-20 rounded-full mx-auto mb-2" style="background: var(--accent-color); opacity: 0.5;"></div>
-                        <div class="font-bold" style="color: var(--text-primary);">أحمد محمد</div>
-                        <div class="text-sm" style="color: var(--text-secondary);">مطور رئيسي</div>
-                    </div>
-                    <div class="text-center p-4 rounded-xl" style="background: rgba(0,0,0,0.3);">
-                        <div class="w-20 h-20 rounded-full mx-auto mb-2" style="background: var(--accent-secondary); opacity: 0.5;"></div>
-                        <div class="font-bold" style="color: var(--text-primary);">سارة علي</div>
-                        <div class="text-sm" style="color: var(--text-secondary);">مصممة واجهات</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-2xl p-6 mb-6">
-                <h2 class="text-xl font-bold text-white mb-4">آخر التحديثات</h2>
+                <h3 class="text-lg font-bold text-white mb-3">آخر التحديثات</h3>
                 <div class="space-y-3">
                     <div class="p-3 rounded-lg" style="background: rgba(0,0,0,0.3);">
                         <div class="flex items-center gap-2 mb-1">
                             <span class="text-xs px-2 py-0.5 rounded-full" style="background: #00ff88; color: black;">v5.0</span>
-                            <span class="text-xs" style="color: var(--text-secondary);">20 مارس 2026</span>
+                            <span class="text-xs" style="color: var(--text-secondary);">25 فبراير 2026</span>
                         </div>
-                        <p style="color: var(--text-primary);">إضافة نظام الأونلاين المتكامل: غرف أصدقاء، تنافس XP، ديفيجن أونلاين</p>
-                    </div>
-                    <div class="p-3 rounded-lg" style="background: rgba(0,0,0,0.3);">
-                        <div class="flex items-center gap-2 mb-1">
-                            <span class="text-xs px-2 py-0.5 rounded-full" style="background: #00ff88; color: black;">v4.0</span>
-                            <span class="text-xs" style="color: var(--text-secondary);">1 مارس 2026</span>
-                        </div>
-                        <p style="color: var(--text-primary);">إضافة طور الذكاء التكيفي وميزة VAR</p>
-                    </div>
-                    <div class="p-3 rounded-lg" style="background: rgba(0,0,0,0.3);">
-                        <div class="flex items-center gap-2 mb-1">
-                            <span class="text-xs px-2 py-0.5 rounded-full" style="background: #00ff88; color: black;">v3.0</span>
-                            <span class="text-xs" style="color: var(--text-secondary);">1 فبراير 2026</span>
-                        </div>
-                        <p style="color: var(--text-primary);">إضافة طور الديفيجن مع 10 مستويات ومكافآت أسطورية</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-2xl p-6">
-                <h2 class="text-xl font-bold text-white mb-4">XO Arena في أرقام</h2>
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="text-center p-4 rounded-xl" style="background: rgba(0,0,0,0.3);">
-                        <div class="text-3xl font-bold" style="color: #00ff88;">10k+</div>
-                        <div class="text-sm" style="color: var(--text-secondary);">مباراة لعبت</div>
-                    </div>
-                    <div class="text-center p-4 rounded-xl" style="background: rgba(0,0,0,0.3);">
-                        <div class="text-3xl font-bold" style="color: #ffd700;">5k+</div>
-                        <div class="text-sm" style="color: var(--text-secondary);">لاعب نشط</div>
-                    </div>
-                    <div class="text-center p-4 rounded-xl" style="background: rgba(0,0,0,0.3);">
-                        <div class="text-3xl font-bold" style="color: #a855f7;">40+</div>
-                        <div class="text-sm" style="color: var(--text-secondary);">سكن</div>
-                    </div>
-                    <div class="text-center p-4 rounded-xl" style="background: rgba(0,0,0,0.3);">
-                        <div class="text-3xl font-bold" style="color: #ff3366;">21</div>
-                        <div class="text-sm" style="color: var(--text-secondary);">إطار</div>
+                        <p style="color: var(--text-primary);">إصلاح شامل لنظام الأونلاين + إضافة مود مشاهدة المباريات</p>
                     </div>
                 </div>
             </div>
@@ -3555,36 +3491,26 @@
             </div>
 
             <div class="glass-card rounded-2xl p-6 mb-6">
-                <p class="mb-4 text-sm" style="color: var(--text-secondary);">آخر تحديث: 20 مارس 2026</p>
+                <p class="mb-4 text-sm" style="color: var(--text-secondary);">آخر تحديث: 25 فبراير 2026</p>
                 
                 <h2 class="text-xl font-bold text-white mb-4">سياسة الخصوصية لـ XO Arena</h2>
                 <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    نحن في <strong>Eclipse Games</strong> (من خلال لعبة XO Arena) نحترم خصوصيتك ونلتزم بحماية بياناتك الشخصية. توضح هذه السياسة كيفية تعاملنا مع معلوماتك.
+                    نحن في <strong>Eclipse Games</strong> نحترم خصوصيتك ونلتزم بحماية بياناتك الشخصية.
                 </p>
 
                 <h3 class="text-lg font-bold text-white mb-3">1. جمع البيانات</h3>
                 <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    اللعبة تستخدم <strong>Firebase Authentication</strong> لتسجيل الدخول عبر Google، و <strong>Firebase Firestore</strong> لتخزين بيانات المباريات الأونلاين. البيانات التي نجمعها تشمل: الاسم، البريد الإلكتروني، الصورة الشخصية، وإحصائيات اللعبة (XP، المستوى، الديفيجن، الفوز/الخسارة). هذه البيانات ضرورية لتشغيل نظام الأونلاين.
+                    اللعبة تستخدم <strong>Firebase Authentication</strong> لتسجيل الدخول عبر Google، و <strong>Firebase Firestore</strong> لتخزين بيانات المباريات الأونلاين.
                 </p>
 
                 <h3 class="text-lg font-bold text-white mb-3">2. بيانات الأونلاين</h3>
                 <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    عند اللعب أونلاين، يتم تخزين بيانات المباراة (الغرف، المباريات، الطابور) في Firestore بشكل مؤقت. يتم حذف هذه البيانات تلقائياً بعد انتهاء المباراة.
+                    عند اللعب أونلاين، يتم تخزين بيانات المباراة في Firestore بشكل مؤقت.
                 </p>
 
-                <h3 class="text-lg font-bold text-white mb-3">3. ملفات تعريف الارتباط (Cookies)</h3>
-                <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    لا نستخدم أي ملفات تعريف ارتباط لتتبع المستخدمين.
-                </p>
-
-                <h3 class="text-lg font-bold text-white mb-3">4. حقوقك</h3>
-                <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    لديك الحق في طلب حذف بياناتك من Firebase بالتواصل معنا عبر البريد الإلكتروني.
-                </p>
-
-                <h3 class="text-lg font-bold text-white mb-3">5. التواصل معنا</h3>
+                <h3 class="text-lg font-bold text-white mb-3">3. التواصل معنا</h3>
                 <p class="leading-relaxed" style="color: var(--text-primary);">
-                    للاستفسارات المتعلقة بالخصوصية، يمكنكم التواصل معنا عبر: <a href="mailto:eclipsegames1cloud@gmail.com" style="color: var(--accent-color);">eclipsegames1cloud@gmail.com</a>
+                    للاستفسارات: <a href="mailto:eclipsegames1cloud@gmail.com" style="color: var(--accent-color);">eclipsegames1cloud@gmail.com</a>
                 </p>
             </div>
         </div>
@@ -3601,7 +3527,7 @@
             </div>
 
             <div class="glass-card rounded-2xl p-6 mb-6">
-                <p class="mb-4 text-sm" style="color: var(--text-secondary);">آخر تحديث: 20 مارس 2026</p>
+                <p class="mb-4 text-sm" style="color: var(--text-secondary);">آخر تحديث: 25 فبراير 2026</p>
                 
                 <h2 class="text-xl font-bold text-white mb-4">شروط استخدام XO Arena</h2>
                 <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
@@ -3615,15 +3541,10 @@
 
                 <h3 class="text-lg font-bold text-white mb-3">2. السلوك</h3>
                 <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    يمنع الغش أو محاولة استغلال الثغرات. أي محاولة للتلاعب بنظام XP أو النتائج تؤدي إلى حظر الحساب.
+                    يمنع الغش أو محاولة استغلال الثغرات.
                 </p>
 
-                <h3 class="text-lg font-bold text-white mb-3">3. الملكية الفكرية</h3>
-                <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    جميع حقوق الملكية الفكرية للعبة محفوظة لصالح Eclipse Games.
-                </p>
-
-                <h3 class="text-lg font-bold text-white mb-3">4. التواصل</h3>
+                <h3 class="text-lg font-bold text-white mb-3">3. التواصل</h3>
                 <p class="leading-relaxed" style="color: var(--text-primary);">
                     للاستفسارات: <a href="mailto:eclipsegames1cloud@gmail.com" style="color: var(--accent-color);">eclipsegames1cloud@gmail.com</a>
                 </p>
@@ -3710,7 +3631,7 @@
             <div class="glass-card rounded-2xl p-6 mb-6">
                 <h2 class="text-xl font-bold text-white mb-4">كيفية اللعب</h2>
                 <p class="mb-4 leading-relaxed" style="color: var(--text-primary);">
-                    لعبة XO (إكس أو) هي لعبة استراتيجية بسيطة. الهدف هو وضع ثلاث علامات متتالية (أفقياً، عمودياً، أو قطرياً) قبل خصمك.
+                    لعبة XO (إكس أو) هي لعبة استراتيجية بسيطة. الهدف هو وضع ثلاث علامات متتالية قبل خصمك.
                 </p>
 
                 <h3 class="text-lg font-bold text-white mb-3">قواعد اللعبة:</h3>
@@ -3727,25 +3648,17 @@
                         <span style="color: var(--accent-color);">3.</span>
                         الفائز من يضع 3 علامات متتالية
                     </li>
-                    <li class="flex items-start gap-2" style="color: var(--text-primary);">
-                        <span style="color: var(--accent-color);">4.</span>
-                        إذا امتلأت اللوحة بدون فائز، تكون نتيجة تعادل
-                    </li>
                 </ul>
 
                 <h3 class="text-lg font-bold text-white mb-3">الأطوار الجديدة:</h3>
                 <div class="space-y-3">
                     <div class="p-3 rounded-lg" style="background: rgba(0, 212, 255, 0.1); border: 1px solid rgba(0, 212, 255, 0.3);">
                         <div class="font-bold" style="color: var(--accent-color);">العب مع الأصدقاء أونلاين</div>
-                        <div class="text-sm" style="color: var(--text-secondary);">أنشئ غرفة وشارك الكود مع صديقك. يمكنك ضبط الإعدادات (عدد الجولات) ونظام النقاط.</div>
+                        <div class="text-sm" style="color: var(--text-secondary);">أنشئ غرفة وشارك الكود مع صديقك. يمكنك ضبط الإعدادات.</div>
                     </div>
-                    <div class="p-3 rounded-lg" style="background: rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.3);">
-                        <div class="font-bold" style="color: #ffd700;">مباريات أونلاين (تنافس XP)</div>
-                        <div class="text-sm" style="color: var(--text-secondary);">اختر مبلغ XP من 100 إلى 20000. الفائز يأخذ XP الخصم، الخاسر يخسر XP الذي راهن به.</div>
-                    </div>
-                    <div class="p-3 rounded-lg" style="background: rgba(255, 51, 102, 0.1); border: 1px solid rgba(255, 51, 102, 0.3);">
-                        <div class="font-bold" style="color: #ff3366;">ديفيجن أونلاين</div>
-                        <div class="text-sm" style="color: var(--text-secondary);">نظام Best Of حسب الديفيجن. الفوز +3 نقاط، الخسارة -3 نقاط. ممنوع التعادل!</div>
+                    <div class="p-3 rounded-lg" style="background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.3);">
+                        <div class="font-bold" style="color: #a855f7;">مشاهدة المباريات</div>
+                        <div class="text-sm" style="color: var(--text-secondary);">شاهد روبوتات تلعب ضد بعض وتوقع النتيجة لتربح XP</div>
                     </div>
                 </div>
             </div>
@@ -3765,23 +3678,9 @@
             <div class="space-y-4">
                 <div class="glass-card rounded-2xl p-6">
                     <h2 class="text-xl font-bold text-white mb-2">نظام الأونلاين الجديد في XO Arena</h2>
-                    <p class="text-sm mb-3" style="color: var(--text-secondary);">نشر في 20 مارس 2026 | بواسطة Eclipse Games</p>
-                    <p class="mb-3" style="color: var(--text-primary);">يسعدنا إطلاق أكبر تحديث في تاريخ اللعبة: نظام الأونلاين المتكامل! الآن يمكنك اللعب مع أصدقائك عن بعد، والمشاركة في مباريات تنافسية XP، وتحدي لاعبين من نفس مستواك في طور الديفيجن...</p>
+                    <p class="text-sm mb-3" style="color: var(--text-secondary);">نشر في 25 فبراير 2026</p>
+                    <p class="mb-3" style="color: var(--text-primary);">يسعدنا إطلاق التحديث الجديد مع إصلاح شامل لنظام الأونلاين...</p>
                     <button onclick="navigateTo('article1')" class="text-sm hover:underline" style="color: var(--accent-color);">اقرأ المزيد</button>
-                </div>
-
-                <div class="glass-card rounded-2xl p-6">
-                    <h2 class="text-xl font-bold text-white mb-2">كيف تربح في مباريات تنافس XP؟</h2>
-                    <p class="text-sm mb-3" style="color: var(--text-secondary);">نشر في 18 مارس 2026 | بواسطة Eclipse Games</p>
-                    <p class="mb-3" style="color: var(--text-primary);">الرهان بـ XP يتطلب استراتيجية مختلفة. لا تخاطر بـ XP أكثر مما تستطيع تحمل خسارته. ابدأ بمبالغ صغيرة (100-500 XP) حتى تتعلم أسلوب لعب خصومك...</p>
-                    <button onclick="navigateTo('article2')" class="text-sm hover:underline" style="color: var(--accent-color);">اقرأ المزيد</button>
-                </div>
-
-                <div class="glass-card rounded-2xl p-6">
-                    <h2 class="text-xl font-bold text-white mb-2">دليل الديفيجن أونلاين: من 10 إلى 1</h2>
-                    <p class="text-sm mb-3" style="color: var(--text-secondary);">نشر في 15 مارس 2026 | بواسطة Eclipse Games</p>
-                    <p class="mb-3" style="color: var(--text-primary);">طور الديفيجن أصبح أونلاين! تعرف على نظام Best Of: الديفيجن 10-6: Best Of 3، الديفيجن 5-4: Best Of 5، الديفيجن 3-1: Best Of 8. احذر من الخسارة التي تكلفك -3 نقاط...</p>
-                    <button onclick="navigateTo('article3')" class="text-sm hover:underline" style="color: var(--accent-color);">اقرأ المزيد</button>
                 </div>
             </div>
         </div>
@@ -3799,144 +3698,15 @@
 
             <div class="glass-card rounded-2xl p-6">
                 <h2 class="text-2xl font-bold text-white mb-2">نظام الأونلاين الجديد في XO Arena</h2>
-                <p class="text-sm mb-4" style="color: var(--text-secondary);">نشر في 20 مارس 2026 | بواسطة Eclipse Games</p>
+                <p class="text-sm mb-4" style="color: var(--text-secondary);">نشر في 25 فبراير 2026</p>
                 
-                <p class="mb-3" style="color: var(--text-primary);">يسعدنا إطلاق أكبر تحديث في تاريخ اللعبة: نظام الأونلاين المتكامل! الآن يمكنك اللعب مع أصدقائك عن بعد، والمشاركة في مباريات تنافسية XP، وتحدي لاعبين من نفس مستواك في طور الديفيجن.</p>
+                <p class="mb-3" style="color: var(--text-primary);">يسعدنا إطلاق التحديث الجديد مع إصلاح شامل لنظام الأونلاين!</p>
                 
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">مميزات النظام الجديد:</h3>
-                
-                <h4 class="font-bold text-white mt-3">1. غرف الأصدقاء (Friends Online)</h4>
-                <p class="mb-2" style="color: var(--text-primary);">أنشئ غرفة وشارك الكود المكون من 6 أحرف مع صديقك. يمكنك ضبط:</p>
-                <ul class="list-disc mr-6 mb-3" style="color: var(--text-primary);">
-                    <li>عدد الجولات (1, 3, 5, 7)</li>
-                    <li>السماح بالتعادل أو منعه</li>
-                    <li>رمز اللاعب 1 (X أو O)</li>
-                </ul>
-                <p class="mb-2" style="color: var(--text-primary);">نظام النقاط يحسب فوز اللاعب 1 واللاعب 2 والتعادلات. اللعب يتم بدون وقت محدد.</p>
+                <h4 class="font-bold text-white mt-3">1. غرف الأصدقاء</h4>
+                <p class="mb-2" style="color: var(--text-primary);">أنشئ غرفة وشارك الكود مع صديقك. يمكنك ضبط عدد الجولات والمؤقت.</p>
 
-                <h4 class="font-bold text-white mt-3">2. مباريات تنافس XP</h4>
-                <p class="mb-2" style="color: var(--text-primary);">اختر XP الذي تريد التنافس به من 100 إلى 20000. يتم وضعك في طابور انتظار حتى يجد النظام لاعباً آخر بنفس XP (أو قريب منه).</p>
-                <p class="mb-2" style="color: var(--text-primary);">نظام XP:</p>
-                <ul class="list-disc mr-6 mb-3" style="color: var(--text-primary);">
-                    <li>إذا خسرت: تخسر XP الذي راهنت به</li>
-                    <li>إذا فزت: تكسب XP الذي راهن به خصمك</li>
-                    <li>إذا كانت XP مختلفة، كل لاعب يخاطر بـ XP الخاص به فقط</li>
-                </ul>
-
-                <h4 class="font-bold text-white mt-3">3. ديفيجن أونلاين</h4>
-                <p class="mb-2" style="color: var(--text-primary);">تحدى لاعبين من نفس مستواك في طور الديفيجن. النظام:</p>
-                <ul class="list-disc mr-6 mb-3" style="color: var(--text-primary);">
-                    <li>Best Of حسب الديفيجن (3, 5, 8 مباريات)</li>
-                    <li>لا تعادل أبداً - إذا انتهت جولة بتعادل، تُعاد الجولة</li>
-                    <li>الفوز +3 نقاط، الخسارة -3 نقاط</li>
-                    <li>عند الوصول لـ 0 نقاط، تهبط للديفيجن السابق</li>
-                </ul>
-
-                <h4 class="font-bold text-white mt-3">نظام الحماية (Anti-Cheat)</h4>
-                <p class="mb-3" style="color: var(--text-primary);">تم تطبيق نظام حماية متكامل:</p>
-                <ul class="list-disc mr-6 mb-3" style="color: var(--text-primary);">
-                    <li>لا يمكن اللعب في غير دورك</li>
-                    <li>لا يمكن تعديل النتيجة أو XP من الواجهة</li>
-                    <li>إذا انفصل أحد اللاعبين، يظهر للطرف الآخر رسالة ويتم احتساب الفوز بعد 5 ثوان</li>
-                    <li>الإعدادات متاحة فقط للمضيف</li>
-                </ul>
-
-                <p class="mt-4 p-3 rounded-lg" style="background: rgba(0, 212, 255, 0.1); color: var(--text-primary);">
-                    <strong>جرب الآن:</strong> ادخل إلى اللعبة واختر "العب مع الأصدقاء" أو "مباريات أونلاين" أو "طور الديفيجن" واستمتع بتجربة أونلاين فريدة!
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <!-- ARTICLE 2 PAGE - MODIFIED TEXT -->
-    <div id="page-article2" class="page flex-col items-center px-4 py-8">
-        <div class="w-full max-w-lg relative z-10">
-            <div class="flex items-center gap-4 mb-6">
-                <button onclick="navigateTo('blog')" class="p-2 rounded-lg hover:bg-white/10 transition-colors">
-                    <i data-lucide="arrow-right" class="w-6 h-6" style="color: var(--text-secondary);"></i>
-                </button>
-                <h1 class="text-2xl font-display font-bold" style="color: var(--accent-color);">كيف تربح في مباريات XP</h1>
-            </div>
-
-            <div class="glass-card rounded-2xl p-6">
-                <h2 class="text-2xl font-bold text-white mb-2">كيف تربح في مباريات تنافس XP؟</h2>
-                <p class="text-sm mb-4" style="color: var(--text-secondary);">نشر في 18 مارس 2026 | بواسطة Eclipse Games</p>
-                
-                <p class="mb-3" style="color: var(--text-primary);">الرهان بـ XP يتطلب استراتيجية مختلفة عن اللعب العادي. إليك نصائح لزيادة أرباحك:</p>
-                
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">1. ابدأ بمبالغ صغيرة</h3>
-                <p class="mb-3" style="color: var(--text-primary);">لا تخاطر بـ XP أكثر مما تستطيع تحمل خسارته. ابدأ بـ 100-500 XP حتى تتعلم أسلوب لعب خصومك. مع الخبرة، يمكنك زيادة المبلغ تدريجياً.</p>
-                
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">2. راقب نمط خصمك</h3>
-                <p class="mb-3" style="color: var(--text-primary);">في الجولات الأولى، حاول فهم ما إذا كان خصمك هجومياً أم دفاعياً. بعض اللاعبين لديهم أنماط متكررة يمكن استغلالها.</p>
-                
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">3. استغل تفكيرك</h3>
-                <p class="mb-3" style="color: var(--text-primary);">اللعب الآن بدون مؤقت، لذا خذ وقتك للتفكير. لا تستعجل، خطط لتحركاتك جيداً.</p>
-                
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">4. اعرف متى تنسحب</h3>
-                <p class="mb-3" style="color: var(--text-primary);">إذا خسرت عدة مباريات متتالية، خذ استراحة. العاطفة تؤثر على الحكم. العب مجدداً عندما تكون هادئاً.</p>
-                
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">5. الاستراتيجيات الأساسية</h3>
-                <p class="mb-3" style="color: var(--text-primary);">ابدأ بالمركز دائماً. إذا بدأ الخصم بالمركز، خذ زاوية. ابحث عن فرص الضربة المزدوجة. لا تهمل الدفاع - راقب خطوط فوز الخصم.</p>
-                
-                <p class="mt-4 p-3 rounded-lg" style="background: rgba(255, 215, 0, 0.1); color: var(--text-primary);">
-                    <strong>تذكر:</strong> الهدف هو الربح على المدى الطويل. حتى المحترفون يخسرون أحياناً. المهم أن يكون معدل فوزك أعلى من 50%.
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <!-- ARTICLE 3 PAGE -->
-    <div id="page-article3" class="page flex-col items-center px-4 py-8">
-        <div class="w-full max-w-lg relative z-10">
-            <div class="flex items-center gap-4 mb-6">
-                <button onclick="navigateTo('blog')" class="p-2 rounded-lg hover:bg-white/10 transition-colors">
-                    <i data-lucide="arrow-right" class="w-6 h-6" style="color: var(--text-secondary);"></i>
-                </button>
-                <h1 class="text-2xl font-display font-bold" style="color: var(--accent-color);">دليل الديفيجن أونلاين</h1>
-            </div>
-
-            <div class="glass-card rounded-2xl p-6">
-                <h2 class="text-2xl font-bold text-white mb-2">دليل الديفيجن أونلاين: من 10 إلى 1</h2>
-                <p class="text-sm mb-4" style="color: var(--text-secondary);">نشر في 15 مارس 2026 | بواسطة Eclipse Games</p>
-                
-                <p class="mb-3" style="color: var(--text-primary);">طور الديفيجن أصبح أونلاين! تعرف على النظام الجديد وكيف تصل إلى القمة.</p>
-                
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">نظام Best Of حسب الديفيجن</h3>
-                <ul class="list-disc mr-6 mb-3" style="color: var(--text-primary);">
-                    <li>الديفيجن 10, 9, 8, 7, 6: Best Of 3 (أول من يفوز 3 مباريات)</li>
-                    <li>الديفيجن 5, 4: Best Of 5 (أول من يفوز 5 مباريات)</li>
-                    <li>الديفيجن 3, 2, 1: Best Of 8 (أول من يفوز 8 مباريات)</li>
-                </ul>
-
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">نظام النقاط</h3>
-                <ul class="list-disc mr-6 mb-3" style="color: var(--text-primary);">
-                    <li>الفوز: +3 نقاط</li>
-                    <li>الخسارة: -3 نقاط</li>
-                    <li>ممنوع التعادل نهائياً - إذا انتهت جولة بتعادل، تُعاد الجولة فوراً</li>
-                    <li>إذا وصلت إلى 0 نقاط، تهبط للديفيجن السابق</li>
-                </ul>
-
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">مكافآت الترقية</h3>
-                <ul class="list-disc mr-6 mb-3" style="color: var(--text-primary);">
-                    <li>الديفيجن 10: 2500 XP</li>
-                    <li>الديفيجن 9: 2500 XP</li>
-                    <li>الديفيجن 8: 2500 XP</li>
-                    <li>الديفيجن 7: 2500 XP</li>
-                    <li>الديفيجن 6: 2500 XP</li>
-                    <li>الديفيجن 5: 3000 XP</li>
-                    <li>الديفيجن 4: 4000 XP</li>
-                    <li>الديفيجن 3: 20000 XP</li>
-                    <li>الديفيجن 2: 50000 XP</li>
-                    <li>الديفيجن 1: 100000 XP + Rainbow Skin + Legendary Frame</li>
-                </ul>
-
-                <h3 class="text-lg font-bold text-white mb-2 mt-4">نصائح للديفيجن أونلاين</h3>
-                <p class="mb-3" style="color: var(--text-primary);">في الديفيجن، كل نقطة مهمة. لا تخاطر بخسارة 3 نقاط بسهولة. إذا كنت متقدماً في Best Of، لا تخف من اللعب دفاعياً. وإذا كنت متأخراً، خاطر أكثر.</p>
-                
-                <p class="mt-4 p-3 rounded-lg" style="background: rgba(255, 51, 102, 0.1); color: var(--text-primary);">
-                    <strong>مكافأة الديفيجن 1:</strong> 100,000 XP + سكن Rainbow Master + إطار Division 1 الأسطوري مع تأثيرات خاصة!
-                </p>
+                <h4 class="font-bold text-white mt-3">2. مشاهدة المباريات (جديد)</h4>
+                <p class="mb-2" style="color: var(--text-primary);">شاهد روبوتات تلعب ضد بعض وتوقع النتيجة لتربح XP.</p>
             </div>
         </div>
     </div>
@@ -4188,11 +3958,12 @@
             'الزوايا الأربع مهمة جداً - حاول السيطرة على أكبر عدد منها.',
             'في مستوى عبقري، التعادل يعتبر إنجازاً! ركز على عدم الخسارة أولاً.',
             'الطور التكيفي يتعلم من تحركاتك - غير استراتيجيتك باستمرار.',
-            'في غرف الأصدقاء أونلاين، يمكنك ضبط عدد الجولات.',
-            'في مباريات XP، لا تخاطر بـ XP أكثر مما تستطيع تحمل خسارته.',
+            'في غرف الأصدقاء أونلاين، يمكنك ضبط عدد الجولات والمؤقت.',
+            'في تحديات XP، لا تخاطر بـ XP أكثر مما تستطيع تحمل خسارته.',
             'في الديفيجن أونلاين، ممنوع التعادل - إذا تعادلت، تُعاد الجولة.',
             'الديفيجن 1 يمنحك 100,000 XP + سكن Rainbow Master + إطار أسطوري!',
             'إذا انفصل خصمك، انتظر 5 ثوان وتربح المباراة تلقائياً.',
+            'في مود مشاهدة المباريات، اختر الفائز واربح 1000 XP إذا توقعت صح',
         ];
 
         // ==================== STATE ====================
@@ -4229,11 +4000,6 @@
             musicEnabled: false,
             currentSong: 0,
             
-            // Ad settings
-            adsRemoved: false,
-            lastAdTime: 0,
-            adTimer: null,
-            
             // Share system
             shareCount: 0,
             shareRewardClaimed: false,
@@ -4254,8 +4020,17 @@
             disconnectTimer: null,
             
             // Matchmaking
-            xpAmount: null, // Renamed from xpBet
+            xpBet: null,
             queueUnsubscribe: null,
+            
+            // Watch mode state
+            watchMode: null,
+            watchBoard: Array(9).fill(null),
+            watchWinner: null,
+            watchHistory: [],
+            watchPrediction: null,
+            watchGameOver: false,
+            watchInterval: null,
             
             // Game session
             gameMode: 'friend',
@@ -4364,12 +4139,15 @@
                 showBannedModal();
             }
             
-            // Show What's New modal for existing users
-            if (!state.hasSeenWhatsNew && state.xp > 0) {
-                setTimeout(() => {
-                    showWhatsNew();
-                }, 2000);
-            }
+            // Show What's New modal for ALL users (ليس فقط الحاليين)
+            // هذا يحقق طلبك: تظهر لكل من يفتح اللعبة حتى لو مش مسجل
+            setTimeout(() => {
+                showWhatsNew();
+                // إضافة 10,000 XP كمكافأة
+                state.xp += 10000;
+                saveState();
+                renderAll();
+            }, 2000);
         }
 
         function updateSocialLinks() {
@@ -4383,7 +4161,7 @@
             if (saved) {
                 try {
                     const parsed = JSON.parse(saved);
-                    state = { ...state, ...parsed, board: Array(9).fill(null), winner: null, winningLine: null, isComputerTurn: false };
+                    state = { ...state, ...parsed, board: Array(9).fill(null), winner: null, winningLine: null, isComputerTurn: false, watchBoard: Array(9).fill(null), watchWinner: null, watchHistory: [], watchGameOver: false };
                 } catch (e) { console.error('Save corrupted'); }
             }
         }
@@ -4415,7 +4193,6 @@
                 unbanAttempts: state.unbanAttempts,
                 musicEnabled: state.musicEnabled,
                 currentSong: state.currentSong,
-                adsRemoved: state.adsRemoved,
                 shareCount: state.shareCount,
                 shareRewardClaimed: state.shareRewardClaimed,
                 currentDivision: state.currentDivision,
@@ -4721,8 +4498,6 @@
             }
         }
 
-        // AD SYSTEM COMPLETELY REMOVED
-
         // ==================== SHARE SYSTEM ====================
 
         function shareOnFacebook() {
@@ -4734,14 +4509,14 @@
 
         function shareOnTwitter() {
             const url = encodeURIComponent('https://xo-arena-1.github.io/XO-Arena/');
-            const text = encodeURIComponent('🎮 XO Arena - لعبة إكس أو عربية مع نظام أونلاين وتنافس XP');
+            const text = encodeURIComponent('🎮 XO Arena - لعبة إكس أو عربية مع نظام أونلاين');
             window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
             incrementShareCount();
         }
 
         function shareOnWhatsApp() {
             const url = encodeURIComponent('https://xo-arena-1.github.io/XO-Arena/');
-            const text = encodeURIComponent('🎮 جرب XO Arena - أقوى لعبة إكس أو عربية مع أونلاين!');
+            const text = encodeURIComponent('🎮 جرب XO Arena - أقوى لعبة إكس أو عربية!');
             window.open(`https://api.whatsapp.com/send?text=${text}%20${url}`, '_blank');
             incrementShareCount();
         }
@@ -4821,7 +4596,7 @@
             document.getElementById('friends-online-modal').classList.remove('active');
         }
 
-        // ==================== CREATE ROOM (MODIFIED) ====================
+        // ==================== CREATE ROOM ====================
         async function createRoom() {
             if (!state.uid) {
                 showNotification('يجب تسجيل الدخول أولاً', 'error');
@@ -4841,7 +4616,6 @@
             
             const roomRef = doc(db, 'rooms', roomCode);
             
-            // MODIFIED DATA STRUCTURE: Removed timerSeconds
             const roomData = {
                 player1: state.uid,
                 player1Name: state.profileName,
@@ -4857,6 +4631,7 @@
                 createdAt: serverTimestamp(),
                 settings: {
                     rounds: 3,
+                    timerSeconds: 5,
                     allowDraw: true,
                     soundEnabled: true,
                     player1Symbol: 'X',
@@ -4891,7 +4666,7 @@
             }
         }
 
-        // ==================== JOIN ROOM (MODIFIED with runTransaction) ====================
+        // ==================== JOIN ROOM ====================
         async function joinRoom() {
             if (!state.uid) {
                 showNotification('يجب تسجيل الدخول أولاً', 'error');
@@ -4972,20 +4747,19 @@
                 const roomData = docSnap.data();
                 updateRoomUI(roomData);
                 
-                // TIMER LOGIC REMOVED FROM HERE
+                if (roomData.status === 'playing' && roomData.game && !roomData.game.winner) {
+                    handleRoomTimer(roomData);
+                }
             });
         }
 
-        // ==================== UPDATE ROOM UI (MODIFIED) ====================
         function updateRoomUI(roomData) {
-            // تحديث معلومات اللاعب 1
             document.getElementById('player1-avatar').src = roomData.player1Avatar || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%231e293b\'/%3E%3Ccircle cx=\'50\' cy=\'35\' r=\'20\' fill=\'%2300d4ff\'/%3E%3Cellipse cx=\'50\' cy=\'80\' rx=\'30\' ry=\'25\' fill=\'%2300d4ff\'/%3E%3C/svg%3E';
             document.getElementById('player1-name').textContent = roomData.player1Name;
             document.getElementById('player1-level').textContent = `Lv. ${roomData.player1Level || 1}`;
             document.getElementById('player1-xp').textContent = `${roomData.player1XP || 0} XP`;
             document.getElementById('player1-symbol').textContent = roomData.settings.player1Symbol;
             
-            // تحديث معلومات اللاعب 2
             if (roomData.player2) {
                 const player2Profile = document.getElementById('player2-profile');
                 player2Profile.style.opacity = '1';
@@ -5003,7 +4777,6 @@
                 document.getElementById('player2-xp').textContent = '-';
             }
             
-            // تحديث كود الغرفة (يظهر فقط للمضيف وهو player1)
             if (state.isPlayer1 && roomData.status === 'waiting') {
                 document.getElementById('room-code-container').style.display = 'block';
                 document.getElementById('room-code-display').textContent = state.currentRoom;
@@ -5011,19 +4784,15 @@
                 document.getElementById('room-code-container').style.display = 'none';
             }
             
-            // تحديث زر الإعدادات (يظهر فقط للمضيف وهو player1)
             document.getElementById('room-settings-btn').style.display = state.isPlayer1 ? 'block' : 'none';
             
-            // تحديث النتيجة
             document.getElementById('player1-wins').textContent = roomData.scoreboard.player1Wins;
             document.getElementById('player2-wins').textContent = roomData.scoreboard.player2Wins;
             document.getElementById('draws-count').textContent = roomData.scoreboard.draws;
             document.getElementById('current-round').textContent = `${roomData.scoreboard.currentRound}/${roomData.settings.rounds}`;
             
-            // تحديث لوحة اللعبة
             updateRoomBoard(roomData.game);
             
-            // تحديث حالة اللعبة
             const statusEl = document.getElementById('room-game-status');
             if (roomData.game.winner) {
                 if (roomData.game.winner === 'draw') {
@@ -5039,7 +4808,6 @@
                 statusEl.innerHTML = `دور: <span style="color: ${color};">${currentPlayerName}</span>`;
             }
             
-            // التحقق من انفصال الخصم
             if (roomData.status === 'disconnected') {
                 document.getElementById('disconnected-message').style.display = 'block';
             } else {
@@ -5076,13 +4844,8 @@
             }
         }
 
-        // FIXED handleRoomMove with console.log and runTransaction
         function handleRoomMove(index) {
-            console.log('🎮 handleRoomMove called for index:', index); // FOR DEBUGGING
-            if (!state.currentRoom || !state.uid) {
-                console.error('No room or user ID');
-                return;
-            }
+            if (!state.currentRoom || !state.uid) return;
             
             const roomRef = doc(db, 'rooms', state.currentRoom);
             
@@ -5170,11 +4933,63 @@
                 transaction.update(roomRef, updates);
             }).catch(error => {
                 showNotification(error.message, 'error');
-                console.error('Transaction error:', error);
             });
         }
 
-        // TIMER FUNCTIONS (handleRoomTimer, handleTimerLoss) REMOVED
+        function handleRoomTimer(roomData) {
+            if (!state.currentRoom || state.timerInterval) return;
+            
+            let timeLeft = roomData.settings.timerSeconds;
+            const timerEl = document.getElementById('room-timer');
+            
+            state.timerInterval = setInterval(() => {
+                timeLeft--;
+                timerEl.textContent = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(state.timerInterval);
+                    state.timerInterval = null;
+                    
+                    const currentPlayer = roomData.game.turn;
+                    const isPlayer1Turn = currentPlayer === roomData.settings.player1Symbol;
+                    const loserUID = isPlayer1Turn ? roomData.player1 : roomData.player2;
+                    
+                    if (loserUID === state.uid) {
+                        handleTimerLoss();
+                    }
+                }
+            }, 1000);
+        }
+
+        function handleTimerLoss() {
+            if (!state.currentRoom) return;
+            
+            const roomRef = doc(db, 'rooms', state.currentRoom);
+            
+            runTransaction(db, async (transaction) => {
+                const docSnap = await transaction.get(roomRef);
+                if (!docSnap.exists()) return;
+                
+                const roomData = docSnap.data();
+                
+                const isPlayer1 = roomData.player1 === state.uid;
+                const winner = isPlayer1 ? roomData.player2 : roomData.player1;
+                const winnerSymbol = isPlayer1 ? roomData.settings.player2Symbol : roomData.settings.player1Symbol;
+                
+                const updates = {
+                    'game.winner': winnerSymbol,
+                    'game.turn': null
+                };
+                
+                if (isPlayer1) {
+                    updates['scoreboard.player2Wins'] = roomData.scoreboard.player2Wins + 1;
+                } else {
+                    updates['scoreboard.player1Wins'] = roomData.scoreboard.player1Wins + 1;
+                }
+                
+                transaction.update(roomRef, updates);
+            });
+        }
 
         function leaveRoom() {
             if (state.roomUnsubscribe) {
@@ -5182,7 +4997,10 @@
                 state.roomUnsubscribe = null;
             }
             
-            // TIMER INTERVAL REMOVED
+            if (state.timerInterval) {
+                clearInterval(state.timerInterval);
+                state.timerInterval = null;
+            }
             
             if (state.disconnectTimer) {
                 clearTimeout(state.disconnectTimer);
@@ -5216,31 +5034,6 @@
         function closeRoomSettings() {
             document.getElementById('room-settings-overlay').classList.remove('active');
             document.getElementById('room-settings-modal').classList.remove('active');
-        }
-
-        // MODIFIED saveRoomSettings: Removed timer setting
-        function saveRoomSettings() {
-            if (!state.currentRoom || !state.isPlayer1) return;
-            
-            const rounds = parseInt(document.getElementById('settings-rounds').value);
-            const allowDraw = document.getElementById('settings-allow-draw').checked;
-            const soundEnabled = document.getElementById('settings-sound').checked;
-            const player1Symbol = document.getElementById('settings-player1-symbol').value;
-            
-            const roomRef = doc(db, 'rooms', state.currentRoom);
-            
-            updateDoc(roomRef, {
-                'settings.rounds': rounds,
-                'settings.allowDraw': allowDraw,
-                'settings.soundEnabled': soundEnabled,
-                'settings.player1Symbol': player1Symbol,
-                'settings.player2Symbol': player1Symbol === 'X' ? 'O' : 'X'
-            }).then(() => {
-                closeRoomSettings();
-                showNotification('تم حفظ الإعدادات', 'success');
-            }).catch(error => {
-                showNotification('حدث خطأ', 'error');
-            });
         }
 
         function restartMatch() {
@@ -5306,7 +5099,7 @@
             });
         }
 
-        // ==================== ONLINE MATCHES (XP BET) ====================
+        // ==================== ONLINE MATCHES (XP CHALLENGE - بدون كلمة مراهنات) ====================
 
         function showOnlineMatchesOptions() {
             if (!state.uid) {
@@ -5324,14 +5117,13 @@
             document.getElementById('online-matches-modal').classList.remove('active');
         }
 
-        // RENAMED FUNCTION: selectXpBet -> selectXpAmount
-        function selectXpAmount(amount) {
+        function selectXpBet(amount) {
             if (amount > state.xp) {
                 showNotification('XP غير كافي', 'error');
                 return;
             }
             
-            state.xpAmount = amount;
+            state.xpBet = amount;
             document.querySelectorAll('.xp-bet-btn').forEach(btn => {
                 btn.style.borderColor = 'var(--border-color)';
             });
@@ -5340,7 +5132,7 @@
         }
 
         function startMatchmaking() {
-            if (!state || state.xpAmount === undefined || state.xpAmount === null) {
+            if (!state || state.xpBet === undefined || state.xpBet === null) {
                 showNotification('الرجاء اختيار مبلغ XP أولاً', 'error');
                 return;
             }
@@ -5360,7 +5152,7 @@
                 username: state.profileName,
                 avatar: state.profileImage || '',
                 level: state.level,
-                xpBet: state.xpAmount, // Keep field name as xpBet for DB compatibility
+                xpBet: state.xpBet,
                 mode: 'onlineMatches',
                 createdAt: serverTimestamp()
             }).then(() => {
@@ -5380,14 +5172,14 @@
                     .filter(p => p.id !== state.uid && p.mode === 'onlineMatches');
                 
                 if (players.length > 0) {
-                    const matchedPlayer = players.find(p => Math.abs(p.xpBet - state.xpAmount) <= 500) || players[0];
+                    const matchedPlayer = players.find(p => Math.abs(p.xpBet - state.xpBet) <= 500) || players[0];
                     createOnlineMatch(matchedPlayer);
                 }
             });
         }
 
         function createOnlineMatch(player2) {
-            if (!state.uid || !state.xpAmount) return;
+            if (!state.uid || !state.xpBet) return;
             
             const matchId = `${state.uid}_${player2.uid}_${Date.now()}`;
             const matchRef = doc(db, 'matches', matchId);
@@ -5403,7 +5195,7 @@
                 player2Name: player2.username,
                 player1Avatar: state.profileImage || '',
                 player2Avatar: player2.avatar || '',
-                player1Bet: state.xpAmount,
+                player1Bet: state.xpBet,
                 player2Bet: player2.xpBet,
                 player1Symbol: player1Symbol,
                 player2Symbol: player2Symbol,
@@ -5484,6 +5276,292 @@
             
             state.currentMatch = null;
             navigateTo('home');
+        }
+
+        // ==================== WATCH MODE (روبوتات ضد بعض) ====================
+
+        function startWatchMatch(difficulty) {
+            if (state.xp < 500) {
+                showNotification('تحتاج 500 XP على الأقل', 'error');
+                return;
+            }
+            
+            state.watchMode = difficulty;
+            state.watchBoard = Array(9).fill(null);
+            state.watchWinner = null;
+            state.watchHistory = [];
+            state.watchPrediction = null;
+            state.watchGameOver = false;
+            
+            if (state.watchInterval) {
+                clearInterval(state.watchInterval);
+            }
+            
+            navigateTo('watch-game');
+            
+            const boardEl = document.getElementById('watch-game-board');
+            boardEl.innerHTML = '';
+            
+            for (let i = 0; i < 9; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'game-cell w-24 h-24 md:w-28 md:h-28 rounded-xl flex items-center justify-center text-4xl md:text-5xl font-display';
+                cell.id = `watch-cell-${i}`;
+                boardEl.appendChild(cell);
+            }
+            
+            document.getElementById('watch-xp').textContent = `${state.xp} XP`;
+            document.getElementById('watch-game-status').innerHTML = '<span style="color: var(--accent-color);">جاري تجهيز المباراة...</span>';
+            
+            document.getElementById('prediction-section').style.display = 'block';
+            
+            setTimeout(() => {
+                playWatchGame();
+            }, 1500);
+        }
+
+        function placePrediction(symbol) {
+            state.watchPrediction = symbol;
+            
+            document.getElementById('predict-x').style.opacity = symbol === 'X' ? '1' : '0.5';
+            document.getElementById('predict-o').style.opacity = symbol === 'O' ? '1' : '0.5';
+            
+            showNotification(`توقعت فوز ${symbol}`, 'info');
+        }
+
+        function playWatchGame() {
+            let board = Array(9).fill(null);
+            let turn = 'X';
+            let moveCount = 0;
+            
+            state.watchHistory = [];
+            
+            const interval = setInterval(() => {
+                if (state.watchGameOver || !state.watchMode) {
+                    clearInterval(interval);
+                    return;
+                }
+                
+                const empty = board.map((v, i) => v === null ? i : null).filter(v => v !== null);
+                
+                if (empty.length === 0) {
+                    handleWatchGameEnd('draw', board);
+                    clearInterval(interval);
+                    return;
+                }
+                
+                const move = getWatchAIMove(board, turn, state.watchMode);
+                
+                if (move !== -1) {
+                    board[move] = turn;
+                    
+                    state.watchHistory.push({
+                        player: turn,
+                        position: move,
+                        board: [...board]
+                    });
+                    
+                    const cell = document.getElementById(`watch-cell-${move}`);
+                    cell.innerHTML = `<span class="animate-pop-in">${turn}</span>`;
+                    cell.classList.add('disabled');
+                    
+                    const result = checkWinner(board);
+                    
+                    if (result) {
+                        handleWatchGameEnd(result.winner, board, result.line);
+                        clearInterval(interval);
+                        return;
+                    }
+                    
+                    turn = turn === 'X' ? 'O' : 'X';
+                    moveCount++;
+                    
+                    document.getElementById('watch-game-status').innerHTML = `دور: <span style="color: ${turn === 'X' ? 'var(--accent-color)' : 'var(--accent-secondary)'};">${turn}</span>`;
+                }
+            }, 800);
+            
+            state.watchInterval = interval;
+        }
+
+        function getWatchAIMove(board, player, difficulty) {
+            const empty = board.map((v, i) => v === null ? i : null).filter(v => v !== null);
+            const opponent = player === 'X' ? 'O' : 'X';
+            
+            switch(difficulty) {
+                case 'beginner':
+                    if (Math.random() < 0.3) {
+                        return empty[Math.floor(Math.random() * empty.length)];
+                    }
+                    if (board[4] === null) return 4;
+                    const corners = [0, 2, 6, 8].filter(i => board[i] === null);
+                    if (corners.length > 0) return corners[Math.floor(Math.random() * corners.length)];
+                    return empty[Math.floor(Math.random() * empty.length)];
+                    
+                case 'medium':
+                    for (let i of empty) {
+                        const copy = [...board];
+                        copy[i] = player;
+                        if (checkWinner(copy)?.winner === player) return i;
+                    }
+                    for (let i of empty) {
+                        const copy = [...board];
+                        copy[i] = opponent;
+                        if (checkWinner(copy)?.winner === opponent) return i;
+                    }
+                    if (board[4] === null) return 4;
+                    const medCorners = [0, 2, 6, 8].filter(i => board[i] === null);
+                    if (medCorners.length > 0) return medCorners[Math.floor(Math.random() * medCorners.length)];
+                    return empty[Math.floor(Math.random() * empty.length)];
+                    
+                case 'hard':
+                    if (Math.random() < 0.2) {
+                        return getWatchAIMove(board, player, 'medium');
+                    }
+                    return getWatchGeniusMove(board, player, opponent);
+                    
+                case 'genius':
+                    return getWatchGeniusMove(board, player, opponent);
+                    
+                default:
+                    return empty[Math.floor(Math.random() * empty.length)];
+            }
+        }
+
+        function getWatchGeniusMove(board, player, opponent) {
+            let bestScore = -Infinity;
+            let bestMove = -1;
+            
+            for (let i = 0; i < 9; i++) {
+                if (board[i] === null) {
+                    board[i] = player;
+                    const score = watchMinimax(board, 0, false, -Infinity, Infinity, player, opponent);
+                    board[i] = null;
+                    
+                    if (score > bestScore) {
+                        bestScore = score;
+                        bestMove = i;
+                    }
+                }
+            }
+            
+            return bestMove;
+        }
+
+        function watchMinimax(board, depth, isMax, alpha, beta, player, opponent) {
+            const result = checkWinner(board);
+            if (result) {
+                if (result.winner === player) return 10 - depth;
+                if (result.winner === opponent) return depth - 10;
+                return 0;
+            }
+            
+            if (isMax) {
+                let maxEval = -Infinity;
+                for (let i = 0; i < 9; i++) {
+                    if (board[i] === null) {
+                        board[i] = player;
+                        const score = watchMinimax(board, depth + 1, false, alpha, beta, player, opponent);
+                        board[i] = null;
+                        maxEval = Math.max(maxEval, score);
+                        alpha = Math.max(alpha, score);
+                        if (beta <= alpha) break;
+                    }
+                }
+                return maxEval;
+            } else {
+                let minEval = Infinity;
+                for (let i = 0; i < 9; i++) {
+                    if (board[i] === null) {
+                        board[i] = opponent;
+                        const score = watchMinimax(board, depth + 1, true, alpha, beta, player, opponent);
+                        board[i] = null;
+                        minEval = Math.min(minEval, score);
+                        beta = Math.min(beta, score);
+                        if (beta <= alpha) break;
+                    }
+                }
+                return minEval;
+            }
+        }
+
+        function handleWatchGameEnd(winner, board, winningLine) {
+            state.watchGameOver = true;
+            state.watchBoard = board;
+            state.watchWinner = winner;
+            
+            if (winningLine) {
+                winningLine.forEach(idx => {
+                    const cell = document.getElementById(`watch-cell-${idx}`);
+                    if (cell) cell.classList.add('win-cell');
+                });
+            }
+            
+            if (winner === 'draw') {
+                document.getElementById('watch-game-status').innerHTML = '<span style="color: var(--text-secondary);">تعادل!</span>';
+                
+                if (state.watchPrediction) {
+                    showNotification('تعادل! خسرت 500 XP', 'error');
+                    state.xp -= 500;
+                }
+            } else {
+                const winnerName = winner === 'X' ? 'روبوت X' : 'روبوت O';
+                document.getElementById('watch-game-status').innerHTML = `<span style="color: ${winner === 'X' ? 'var(--accent-color)' : 'var(--accent-secondary)'};">فوز ${winnerName}!</span>`;
+                
+                if (state.watchPrediction === winner) {
+                    showNotification('🎉 توقع صحيح! +1000 XP', 'reward');
+                    state.xp += 1000;
+                    playSound('win');
+                } else if (state.watchPrediction) {
+                    showNotification('توقع خاطئ! خسرت 500 XP', 'error');
+                    state.xp -= 500;
+                    playSound('lose');
+                }
+            }
+            
+            state.watchHistory.push({
+                player: 'end',
+                position: -1,
+                board: [...board]
+            });
+            
+            saveState();
+            document.getElementById('watch-xp').textContent = `${state.xp} XP`;
+            
+            setTimeout(() => {
+                if (confirm('هل تريد مشاهدة الإعادة (VAR)؟')) {
+                    showWatchVAR();
+                }
+            }, 1000);
+        }
+
+        function showWatchVAR() {
+            if (state.watchHistory.length === 0) return;
+            
+            varMoveIndex = 0;
+            state.moveHistory = state.watchHistory;
+            updateVARBoard();
+            
+            const overlay = document.getElementById('var-modal-overlay');
+            const modal = document.getElementById('var-modal');
+            overlay.classList.add('active');
+            modal.classList.add('active');
+            
+            renderVARTimeline();
+        }
+
+        function endWatchMatch() {
+            if (state.watchInterval) {
+                clearInterval(state.watchInterval);
+                state.watchInterval = null;
+            }
+            
+            state.watchMode = null;
+            state.watchBoard = Array(9).fill(null);
+            state.watchWinner = null;
+            state.watchHistory = [];
+            state.watchPrediction = null;
+            state.watchGameOver = false;
+            
+            navigateTo('watch');
         }
 
         // ==================== ONLINE DIVISION ====================
@@ -5762,6 +5840,10 @@
                 
                 if (pageId === 'share') {
                     updateShareUI();
+                }
+                
+                if (pageId === 'watch-game') {
+                    // Nothing special
                 }
             }
             lucide.createIcons();
@@ -6887,8 +6969,6 @@
                     state.isComputerTurn = false;
                 }, 800);
             }
-            
-            // AD TIMER REMOVED
         }
 
         function resetBoard() {
@@ -7212,6 +7292,9 @@
             const gameXP = document.getElementById('game-xp');
             if (gameXP) gameXP.textContent = `${state.xp} XP`;
             
+            const watchXP = document.getElementById('watch-xp');
+            if (watchXP) watchXP.textContent = `${state.xp} XP`;
+            
             const storeXP = document.getElementById('store-xp');
             if (storeXP) storeXP.textContent = state.xp;
             
@@ -7337,8 +7420,6 @@
         window.varPause = varPause;
         window.varRestart = varRestart;
         
-        // AD FUNCTIONS REMOVED
-        
         window.shareOnFacebook = shareOnFacebook;
         window.shareOnTwitter = shareOnTwitter;
         window.shareOnWhatsApp = shareOnWhatsApp;
@@ -7359,7 +7440,6 @@
         window.leaveRoom = leaveRoom;
         window.showRoomSettings = showRoomSettings;
         window.closeRoomSettings = closeRoomSettings;
-        window.saveRoomSettings = saveRoomSettings;
         window.restartMatch = restartMatch;
         window.kickPlayer = kickPlayer;
         window.closeRoom = closeRoom;
@@ -7367,15 +7447,20 @@
         
         window.showOnlineMatchesOptions = showOnlineMatchesOptions;
         window.closeOnlineMatches = closeOnlineMatches;
-        window.selectXpAmount = selectXpAmount; // RENAMED
+        window.selectXpBet = selectXpBet;
         window.startMatchmaking = startMatchmaking;
         
         window.showDivisionOptions = showDivisionOptions;
         window.closeDivisionOptions = closeDivisionOptions;
         window.startOnlineDivision = startOnlineDivision;
+        
+        // Watch Mode
+        window.startWatchMatch = startWatchMatch;
+        window.placePrediction = placePrediction;
+        window.endWatchMatch = endWatchMatch;
     </script>
 
-    <!-- ========== FIREBASE INITIALIZATION (MODIFIED) ========== -->
+    <!-- ========== FIREBASE INITIALIZATION ========== -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
@@ -7395,7 +7480,6 @@
         const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
 
-        // ✅ جعل كل الوظائف متاحة في النطاق العام (window)
         window.db = db;
         window.doc = doc;
         window.collection = collection;
@@ -7451,7 +7535,6 @@
                         state.profileImage = userData.avatar;
                     }
                     
-                    // تحديث البيانات المحلية من Firestore
                     if (userData.xp !== undefined && userData.xp > state.xp) {
                         state.xp = userData.xp;
                     }
@@ -7538,7 +7621,7 @@
             lucide.createIcons();
         }
 
-        console.log('🔥 Firebase initialized with Authentication & Firestore for Online System');
+        console.log('🔥 Firebase initialized with Authentication & Firestore');
     </script>
 </body>
 </html>

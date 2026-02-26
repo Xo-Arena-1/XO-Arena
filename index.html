@@ -4978,7 +4978,8 @@
             document.getElementById('friends-online-modal').classList.remove('active');
         }
 
-        function createRoom() {
+        // ==================== ✅ دالة createRoom المصححة ====================
+        window.createRoom = async function() {
             if (!state.uid) {
                 showNotification('يجب تسجيل الدخول أولاً', 'error');
                 return;
@@ -4987,16 +4988,7 @@
             closeFriendsOnline();
             showLoadingScreen('جاري إنشاء الغرفة...');
             
-            // إنشاء كود عشوائي من 6 أحرف
             const roomCode = Math.random().toString(36).substring(2, 8).toUpperCase();
-            
-            // التأكد من وجود db
-            if (!window.db || !window.doc) {
-                hideLoadingScreen();
-                showNotification('خطأ في الاتصال بقاعدة البيانات', 'error');
-                return;
-            }
-            
             const roomRef = doc(db, 'rooms', roomCode);
             
             const roomData = {
@@ -5031,29 +5023,27 @@
                 game: {
                     board: ['','','','','','','','',''],
                     turn: 'X',
-                    winner: null,
-                    roundFinished: false
+                    winner: null
                 }
             };
             
-            setDoc(roomRef, roomData)
-                .then(() => {
-                    hideLoadingScreen();
-                    state.currentRoom = roomCode;
-                    state.isHost = true;
-                    navigateTo('room');
-                    setupRoomListener(roomCode);
-                    showNotification(`تم إنشاء الغرفة! الكود: ${roomCode}`, 'success');
-                })
-                .catch(error => {
-                    hideLoadingScreen();
-                    showNotification('حدث خطأ في إنشاء الغرفة', 'error');
-                    console.error('Create Room Error:', error);
-                });
-        }
+            try {
+                await setDoc(roomRef, roomData);
+                hideLoadingScreen();
+                state.currentRoom = roomCode;
+                state.isHost = true;
+                navigateTo('room');
+                setupRoomListener(roomCode);
+                showNotification(`تم إنشاء الغرفة! الكود: ${roomCode}`, 'success');
+            } catch (error) {
+                hideLoadingScreen();
+                console.error('Create Room Error:', error);
+                showNotification('حدث خطأ في إنشاء الغرفة', 'error');
+            }
+        };
 
-        // ✅ دالة joinRoom المعدلة باستخدام runTransaction (من هنا)
-        async function joinRoom() {
+        // ==================== ✅ دالة joinRoom المصححة ====================
+        window.joinRoom = async function() {
             if (!state.uid) {
                 showNotification('يجب تسجيل الدخول أولاً', 'error');
                 return;
@@ -5068,39 +5058,41 @@
             closeFriendsOnline();
             showLoadingScreen('جاري الانضمام إلى الغرفة...');
 
-            const roomRef = doc(db, 'rooms', roomCode);
-
             try {
-                await runTransaction(db, async (transaction) => {
-                    const docSnap = await transaction.get(roomRef);
+                const roomRef = doc(db, 'rooms', roomCode);
+                const roomSnap = await getDoc(roomRef);
 
-                    if (!docSnap.exists()) {
-                        throw new Error('الغرفة غير موجودة');
-                    }
+                if (!roomSnap.exists()) {
+                    hideLoadingScreen();
+                    showNotification('الغرفة غير موجودة', 'error');
+                    return;
+                }
 
-                    const roomData = docSnap.data();
+                const roomData = roomSnap.data();
 
-                    if (roomData.status !== 'waiting') {
-                        throw new Error('الغرفة ممتلئة أو غير متاحة');
-                    }
+                if (roomData.status !== 'waiting') {
+                    hideLoadingScreen();
+                    showNotification('الغرفة ممتلئة أو المباراة بدأت بالفعل', 'error');
+                    return;
+                }
 
-                    if (roomData.hostUID === state.uid) {
-                        throw new Error('لا يمكنك الانضمام إلى غرفتك الخاصة');
-                    }
+                if (roomData.hostUID === state.uid) {
+                    hideLoadingScreen();
+                    showNotification('لا يمكنك الانضمام إلى غرفتك الخاصة', 'error');
+                    return;
+                }
 
-                    if (roomData.guestUID) {
-                        throw new Error('تم حجز الغرفة بالفعل');
-                    }
-
-                    transaction.update(roomRef, {
-                        guestUID: state.uid,
-                        guestName: state.profileName,
-                        guestAvatar: state.profileImage || '',
-                        guestLevel: state.level || 1,
-                        guestXP: state.xp || 0,
-                        status: 'playing',
-                        'settings.guestSymbol': roomData.settings.hostSymbol === 'X' ? 'O' : 'X'
-                    });
+                // تحديث الغرفة
+                await updateDoc(roomRef, {
+                    guestUID: state.uid,
+                    guestName: state.profileName,
+                    guestAvatar: state.profileImage || '',
+                    guestLevel: state.level || 1,
+                    guestXP: state.xp || 0,
+                    status: 'playing',
+                    'game.board': ['','','','','','','','',''],
+                    'game.turn': 'X',
+                    'game.winner': null
                 });
 
                 hideLoadingScreen();
@@ -5112,13 +5104,149 @@
 
             } catch (error) {
                 hideLoadingScreen();
-                showNotification(error.message || 'حدث خطأ في الانضمام', 'error');
-                console.error(error);
+                console.error('Join Room Error:', error);
+                showNotification('حدث خطأ في الانضمام إلى الغرفة', 'error');
+            }
+        };
+
+        // ==================== ✅ دالة handleRoomMove المصححة ====================
+        window.handleRoomMove = async function(index) {
+            if (!state.currentRoom || !state.uid) return;
+
+            try {
+                const roomRef = doc(db, 'rooms', state.currentRoom);
+                const roomSnap = await getDoc(roomRef);
+                
+                if (!roomSnap.exists()) {
+                    showNotification('الغرفة غير موجودة', 'error');
+                    return;
+                }
+
+                const roomData = roomSnap.data();
+
+                // التحقق من الشروط
+                if (roomData.status !== 'playing') {
+                    showNotification('اللعبة لم تبدأ بعد', 'error');
+                    return;
+                }
+
+                if (roomData.game.winner) {
+                    showNotification('انتهت الجولة', 'error');
+                    return;
+                }
+
+                if (roomData.game.board[index]) {
+                    showNotification('هذه الخانة مشغولة', 'error');
+                    return;
+                }
+
+                // تحديد دور اللاعب
+                const isHost = roomData.hostUID === state.uid;
+                const isGuest = roomData.guestUID === state.uid;
+                
+                if (!isHost && !isGuest) {
+                    showNotification('لست مشتركاً في هذه الغرفة', 'error');
+                    return;
+                }
+
+                const playerSymbol = isHost ? roomData.settings.hostSymbol : roomData.settings.guestSymbol;
+                
+                if (roomData.game.turn !== playerSymbol) {
+                    showNotification('ليس دورك', 'error');
+                    return;
+                }
+
+                // تحديث اللوحة
+                const newBoard = [...roomData.game.board];
+                newBoard[index] = playerSymbol;
+
+                // التحقق من الفائز
+                const result = checkWinner(newBoard);
+                
+                let updates = {
+                    'game.board': newBoard,
+                    'game.turn': playerSymbol === 'X' ? 'O' : 'X'
+                };
+
+                if (result) {
+                    if (result.winner === 'draw') {
+                        if (roomData.settings.allowDraw) {
+                            updates['game.winner'] = 'draw';
+                            updates['scoreboard.draws'] = (roomData.scoreboard.draws || 0) + 1;
+                            
+                            // بدء جولة جديدة بعد التعادل
+                            setTimeout(() => {
+                                startNewRound(roomRef, roomData);
+                            }, 2000);
+                        } else {
+                            // إعادة الجولة إذا كان التعادل غير مسموح
+                            updates['game.board'] = ['','','','','','','','',''];
+                            updates['game.turn'] = 'X';
+                            updates['game.winner'] = null;
+                        }
+                    } else if (result.winner) {
+                        // فوز لاعب
+                        const isHostWinner = result.winner === roomData.settings.hostSymbol;
+                        
+                        if (isHostWinner) {
+                            updates['scoreboard.hostWins'] = (roomData.scoreboard.hostWins || 0) + 1;
+                        } else {
+                            updates['scoreboard.guestWins'] = (roomData.scoreboard.guestWins || 0) + 1;
+                        }
+                        
+                        updates['game.winner'] = result.winner;
+                        
+                        // التحقق من انتهاء المباراة
+                        const newHostWins = isHostWinner ? (roomData.scoreboard.hostWins || 0) + 1 : (roomData.scoreboard.hostWins || 0);
+                        const newGuestWins = isHostWinner ? (roomData.scoreboard.guestWins || 0) : (roomData.scoreboard.guestWins || 0) + 1;
+                        
+                        if (newHostWins >= roomData.settings.rounds || newGuestWins >= roomData.settings.rounds) {
+                            updates['status'] = 'completed';
+                            
+                            // إضافة XP للفائز
+                            if (isHostWinner && state.uid === roomData.hostUID) {
+                                state.xp += 100;
+                                state.onlineWins = (state.onlineWins || 0) + 1;
+                            } else if (!isHostWinner && state.uid === roomData.guestUID) {
+                                state.xp += 100;
+                                state.onlineWins = (state.onlineWins || 0) + 1;
+                            } else {
+                                state.onlineLosses = (state.onlineLosses || 0) + 1;
+                            }
+                            saveState();
+                        } else {
+                            // بدء جولة جديدة بعد الفوز
+                            setTimeout(() => {
+                                startNewRound(roomRef, roomData);
+                            }, 2000);
+                        }
+                    }
+                }
+
+                await updateDoc(roomRef, updates);
+
+            } catch (error) {
+                console.error('Handle Move Error:', error);
+                showNotification('حدث خطأ في تنفيذ الحركة', 'error');
+            }
+        };
+
+        // ✅ دالة مساعدة لبدء جولة جديدة
+        async function startNewRound(roomRef, roomData) {
+            try {
+                await updateDoc(roomRef, {
+                    'game.board': ['','','','','','','','',''],
+                    'game.turn': 'X',
+                    'game.winner': null,
+                    'scoreboard.currentRound': (roomData.scoreboard.currentRound || 1) + 1
+                });
+            } catch (error) {
+                console.error('Start New Round Error:', error);
             }
         }
-        // ✅ (إلى هنا)
 
-        function setupRoomListener(roomCode) {
+        // ==================== ✅ دالة setupRoomListener المصححة ====================
+        window.setupRoomListener = function(roomCode) {
             if (state.roomUnsubscribe) {
                 state.roomUnsubscribe();
             }
@@ -5134,82 +5262,96 @@
                 const roomData = docSnap.data();
                 updateRoomUI(roomData);
                 
-                // التحقق من انتهاء الوقت
-                if (roomData.status === 'playing' && roomData.game && !roomData.game.winner) {
-                    handleRoomTimer(roomData);
+                // تحديث المؤقت إذا لزم الأمر
+                if (roomData.status === 'playing' && !roomData.game.winner) {
+                    // يمكنك إضافة منطق المؤقت هنا
                 }
+            }, (error) => {
+                console.error('Room Listener Error:', error);
+                showNotification('خطأ في الاتصال بالغرفة', 'error');
             });
-        }
+        };
 
-        function updateRoomUI(roomData) {
-            // تحديث معلومات المضيف
-            document.getElementById('host-avatar').src = roomData.hostAvatar || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%231e293b\'/%3E%3Ccircle cx=\'50\' cy=\'35\' r=\'20\' fill=\'%2300d4ff\'/%3E%3Cellipse cx=\'50\' cy=\'80\' rx=\'30\' ry=\'25\' fill=\'%2300d4ff\'/%3E%3C/svg%3E';
-            document.getElementById('host-name').textContent = roomData.hostName;
-            document.getElementById('host-level').textContent = `Lv. ${roomData.hostLevel || 1}`;
-            document.getElementById('host-xp').textContent = `${roomData.hostXP || 0} XP`;
-            document.getElementById('host-symbol').textContent = roomData.settings.hostSymbol;
-            
-            // تحديث معلومات الضيف
-            if (roomData.guestUID) {
-                const guestProfile = document.getElementById('guest-profile');
-                guestProfile.style.opacity = '1';
-                document.getElementById('guest-avatar').src = roomData.guestAvatar || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%23333\'/%3E%3Ccircle cx=\'50\' cy=\'35\' r=\'20\' fill=\'%23666\'/%3E%3Cellipse cx=\'50\' cy=\'80\' rx=\'30\' ry=\'25\' fill=\'%23666\'/%3E%3C/svg%3E';
-                document.getElementById('guest-name').textContent = roomData.guestName;
-                document.getElementById('guest-level').textContent = `Lv. ${roomData.guestLevel || 1}`;
-                document.getElementById('guest-xp').textContent = `${roomData.guestXP || 0} XP`;
-                document.getElementById('guest-symbol').textContent = roomData.settings.guestSymbol;
-            } else {
-                const guestProfile = document.getElementById('guest-profile');
-                guestProfile.style.opacity = '0.5';
-                document.getElementById('guest-avatar').src = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%23333\'/%3E%3Ccircle cx=\'50\' cy=\'35\' r=\'20\' fill=\'%23666\'/%3E%3Cellipse cx=\'50\' cy=\'80\' rx=\'30\' ry=\'25\' fill=\'%23666\'/%3E%3C/svg%3E';
-                document.getElementById('guest-name').textContent = 'في انتظار...';
-                document.getElementById('guest-level').textContent = '-';
-                document.getElementById('guest-xp').textContent = '-';
+        // ==================== ✅ دالة updateRoomUI المصححة ====================
+        window.updateRoomUI = function(roomData) {
+            try {
+                // تحديث معلومات المضيف
+                document.getElementById('host-avatar').src = roomData.hostAvatar || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%231e293b\'/%3E%3Ccircle cx=\'50\' cy=\'35\' r=\'20\' fill=\'%2300d4ff\'/%3E%3Cellipse cx=\'50\' cy=\'80\' rx=\'30\' ry=\'25\' fill=\'%2300d4ff\'/%3E%3C/svg%3E';
+                document.getElementById('host-name').textContent = roomData.hostName;
+                document.getElementById('host-level').textContent = `Lv. ${roomData.hostLevel || 1}`;
+                document.getElementById('host-xp').textContent = `${roomData.hostXP || 0} XP`;
+                document.getElementById('host-symbol').textContent = roomData.settings.hostSymbol;
+                
+                // تحديث معلومات الضيف
+                if (roomData.guestUID) {
+                    const guestProfile = document.getElementById('guest-profile');
+                    guestProfile.style.opacity = '1';
+                    document.getElementById('guest-avatar').src = roomData.guestAvatar || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%23333\'/%3E%3Ccircle cx=\'50\' cy=\'35\' r=\'20\' fill=\'%23666\'/%3E%3Cellipse cx=\'50\' cy=\'80\' rx=\'30\' ry=\'25\' fill=\'%23666\'/%3E%3C/svg%3E';
+                    document.getElementById('guest-name').textContent = roomData.guestName;
+                    document.getElementById('guest-level').textContent = `Lv. ${roomData.guestLevel || 1}`;
+                    document.getElementById('guest-xp').textContent = `${roomData.guestXP || 0} XP`;
+                    document.getElementById('guest-symbol').textContent = roomData.settings.guestSymbol;
+                } else {
+                    const guestProfile = document.getElementById('guest-profile');
+                    guestProfile.style.opacity = '0.5';
+                    document.getElementById('guest-avatar').src = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%23333\'/%3E%3Ccircle cx=\'50\' cy=\'35\' r=\'20\' fill=\'%23666\'/%3E%3Cellipse cx=\'50\' cy=\'80\' rx=\'30\' ry=\'25\' fill=\'%23666\'/%3E%3C/svg%3E';
+                    document.getElementById('guest-name').textContent = 'في انتظار...';
+                    document.getElementById('guest-level').textContent = '-';
+                    document.getElementById('guest-xp').textContent = '-';
+                }
+                
+                // تحديث كود الغرفة
+                if (state.isHost && roomData.status === 'waiting') {
+                    document.getElementById('room-code-container').style.display = 'block';
+                    document.getElementById('room-code-display').textContent = roomData.roomCode;
+                } else {
+                    document.getElementById('room-code-container').style.display = 'none';
+                }
+                
+                // تحديث النتيجة
+                document.getElementById('host-wins').textContent = roomData.scoreboard?.hostWins || 0;
+                document.getElementById('guest-wins').textContent = roomData.scoreboard?.guestWins || 0;
+                document.getElementById('draws-count').textContent = roomData.scoreboard?.draws || 0;
+                document.getElementById('current-round').textContent = `${roomData.scoreboard?.currentRound || 1}/${roomData.settings?.rounds || 3}`;
+                
+                // تحديث لوحة اللعبة
+                updateRoomBoard(roomData.game);
+                
+                // تحديث حالة اللعبة
+                updateRoomStatus(roomData);
+                
+            } catch (error) {
+                console.error('Update Room UI Error:', error);
             }
-            
-            // تحديث كود الغرفة
-            if (state.isHost && roomData.status === 'waiting') {
-                document.getElementById('room-code-container').style.display = 'block';
-                document.getElementById('room-code-display').textContent = roomData.roomCode;
-            } else {
-                document.getElementById('room-code-container').style.display = 'none';
-            }
-            
-            // تحديث زر الإعدادات (يظهر فقط للمضيف)
-            document.getElementById('room-settings-btn').style.display = state.isHost ? 'block' : 'none';
-            
-            // تحديث النتيجة
-            document.getElementById('host-wins').textContent = roomData.scoreboard.hostWins;
-            document.getElementById('guest-wins').textContent = roomData.scoreboard.guestWins;
-            document.getElementById('draws-count').textContent = roomData.scoreboard.draws;
-            document.getElementById('current-round').textContent = `${roomData.scoreboard.currentRound}/${roomData.settings.rounds}`;
-            
-            // تحديث لوحة اللعبة
-            updateRoomBoard(roomData.game);
-            
-            // تحديث حالة اللعبة
+        };
+
+        // ✅ دالة updateRoomStatus
+        window.updateRoomStatus = function(roomData) {
             const statusEl = document.getElementById('room-game-status');
-            if (roomData.game.winner) {
+            if (!statusEl) return;
+            
+            if (roomData.game?.winner) {
                 if (roomData.game.winner === 'draw') {
                     statusEl.innerHTML = '<span style="color: var(--text-secondary);">تعادل!</span>';
                 } else {
-                    const winnerName = roomData.game.winner === roomData.settings.hostSymbol ? roomData.hostName : roomData.guestName;
-                    statusEl.innerHTML = `<span style="color: ${roomData.game.winner === roomData.settings.hostSymbol ? 'var(--accent-color)' : 'var(--accent-secondary)'};">فوز ${winnerName}!</span>`;
+                    const winnerName = roomData.game.winner === roomData.settings?.hostSymbol ? roomData.hostName : roomData.guestName;
+                    const color = roomData.game.winner === roomData.settings?.hostSymbol ? 'var(--accent-color)' : 'var(--accent-secondary)';
+                    statusEl.innerHTML = `<span style="color: ${color};">فوز ${winnerName}!</span>`;
                 }
-            } else {
-                const currentPlayer = roomData.game.turn;
-                const currentPlayerName = currentPlayer === roomData.settings.hostSymbol ? roomData.hostName : roomData.guestName;
-                const color = currentPlayer === roomData.settings.hostSymbol ? 'var(--accent-color)' : 'var(--accent-secondary)';
+            } else if (roomData.status === 'playing') {
+                const currentPlayer = roomData.game?.turn;
+                const currentPlayerName = currentPlayer === roomData.settings?.hostSymbol ? roomData.hostName : roomData.guestName;
+                const color = currentPlayer === roomData.settings?.hostSymbol ? 'var(--accent-color)' : 'var(--accent-secondary)';
                 statusEl.innerHTML = `دور: <span style="color: ${color};">${currentPlayerName}</span>`;
+            } else if (roomData.status === 'waiting') {
+                statusEl.innerHTML = '<span style="color: var(--text-secondary);">في انتظار لاعب آخر...</span>';
+            } else if (roomData.status === 'completed') {
+                const hostWins = roomData.scoreboard?.hostWins || 0;
+                const guestWins = roomData.scoreboard?.guestWins || 0;
+                const winner = hostWins > guestWins ? roomData.hostName : roomData.guestName;
+                statusEl.innerHTML = `<span style="color: #ffd700;">انتهت المباراة - الفائز: ${winner}</span>`;
             }
-            
-            // التحقق من انفصال الخصم
-            if (roomData.status === 'disconnected') {
-                document.getElementById('disconnected-message').style.display = 'block';
-            } else {
-                document.getElementById('disconnected-message').style.display = 'none';
-            }
-        }
+        };
 
         function updateRoomBoard(gameData) {
             const boardEl = document.getElementById('room-game-board');
@@ -5246,109 +5388,6 @@
                     cell.className = 'game-cell w-24 h-24 md:w-28 md:h-28 rounded-xl flex items-center justify-center text-4xl md:text-5xl font-display';
                 }
             }
-        }
-
-        function handleRoomMove(index) {
-            if (!state.currentRoom || !state.uid) return;
-            
-            const roomRef = doc(db, 'rooms', state.currentRoom);
-            
-            runTransaction(db, async (transaction) => {
-                const docSnap = await transaction.get(roomRef);
-                if (!docSnap.exists()) throw new Error('الغرفة غير موجودة');
-                
-                const roomData = docSnap.data();
-                
-                // التحقق من الصلاحية
-                if (roomData.status !== 'playing') throw new Error('اللعبة لم تبدأ بعد');
-                if (roomData.game.winner) throw new Error('انتهت اللعبة');
-                if (roomData.game.board[index]) throw new Error('هذه الخانة مشغولة');
-                
-                // تحديد دور اللاعب
-                const isHost = roomData.hostUID === state.uid;
-                const isGuest = roomData.guestUID === state.uid;
-                if (!isHost && !isGuest) throw new Error('لست مشتركاً في هذه الغرفة');
-                
-                const playerSymbol = isHost ? roomData.settings.hostSymbol : roomData.settings.guestSymbol;
-                if (roomData.game.turn !== playerSymbol) throw new Error('ليس دورك');
-                
-                // تحديث اللوحة
-                const newBoard = [...roomData.game.board];
-                newBoard[index] = playerSymbol;
-                
-                // التحقق من الفائز
-                const result = checkWinner(newBoard);
-                
-                const updates = {
-                    'game.board': newBoard,
-                    'game.turn': playerSymbol === 'X' ? 'O' : 'X'
-                };
-                
-                if (result) {
-                    if (result.winner === 'draw') {
-                        if (roomData.settings.allowDraw) {
-                            updates['game.winner'] = 'draw';
-                            updates['scoreboard.draws'] = roomData.scoreboard.draws + 1;
-                            
-                            // التحقق من انتهاء المباراة
-                            const newDraws = roomData.scoreboard.draws + 1;
-                            if (newDraws >= roomData.settings.rounds) {
-                                updates['status'] = 'completed';
-                            } else {
-                                // بدء جولة جديدة
-                                updates['scoreboard.currentRound'] = roomData.scoreboard.currentRound + 1;
-                                updates['game.board'] = ['','','','','','','','',''];
-                                updates['game.winner'] = null;
-                                updates['game.turn'] = 'X';
-                            }
-                        } else {
-                            // إذا كان التعادل غير مسموح، نعيد الجولة
-                            updates['game.board'] = ['','','','','','','','',''];
-                            updates['game.winner'] = null;
-                            updates['game.turn'] = 'X';
-                        }
-                    } else {
-                        // فوز لاعب
-                        const winner = result.winner;
-                        const isHostWinner = winner === roomData.settings.hostSymbol;
-                        
-                        if (isHostWinner) {
-                            updates['scoreboard.hostWins'] = roomData.scoreboard.hostWins + 1;
-                        } else {
-                            updates['scoreboard.guestWins'] = roomData.scoreboard.guestWins + 1;
-                        }
-                        
-                        updates['game.winner'] = winner;
-                        
-                        // التحقق من الفوز بالمباراة
-                        const newHostWins = isHostWinner ? roomData.scoreboard.hostWins + 1 : roomData.scoreboard.hostWins;
-                        const newGuestWins = isHostWinner ? roomData.scoreboard.guestWins : roomData.scoreboard.guestWins + 1;
-                        
-                        if (newHostWins >= roomData.settings.rounds || newGuestWins >= roomData.settings.rounds) {
-                            updates['status'] = 'completed';
-                            
-                            // إضافة XP للفائز (مكافأة بسيطة)
-                            if (state.uid === (isHostWinner ? roomData.hostUID : roomData.guestUID)) {
-                                state.xp += 100;
-                                state.onlineWins++;
-                            } else {
-                                state.onlineLosses++;
-                            }
-                            saveState();
-                        } else {
-                            // بدء جولة جديدة
-                            updates['scoreboard.currentRound'] = roomData.scoreboard.currentRound + 1;
-                            updates['game.board'] = ['','','','','','','','',''];
-                            updates['game.winner'] = null;
-                            updates['game.turn'] = 'X';
-                        }
-                    }
-                }
-                
-                transaction.update(roomRef, updates);
-            }).catch(error => {
-                showNotification(error.message, 'error');
-            });
         }
 
         function handleRoomTimer(roomData) {
@@ -7236,7 +7275,8 @@
             updateGameStatus();
         }
 
-        function checkWinner(board) {
+        // ✅ دالة checkWinner في النطاق العام
+        window.checkWinner = function(board) {
             const lines = [
                 [0, 1, 2], [3, 4, 5], [6, 7, 8],
                 [0, 3, 6], [1, 4, 7], [2, 5, 8],
@@ -7249,12 +7289,12 @@
                 }
             }
             
-            if (board.every(c => c !== null)) {
+            if (board.every(cell => cell !== '' && cell !== null)) {
                 return { winner: 'draw', line: null };
             }
             
             return null;
-        }
+        };
 
         function handleGameEnd(result) {
             document.getElementById('game-controls').style.opacity = '1';
@@ -7636,7 +7676,7 @@
         window.startOnlineDivision = startOnlineDivision;
     </script>
 
-    <!-- ========== FIREBASE INITIALIZATION (MODIFIED) ========== -->
+    <!-- ========== FIREBASE INITIALIZATION ========== -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";

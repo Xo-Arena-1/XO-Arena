@@ -5185,7 +5185,6 @@
             
             const roomRef = doc(db, 'rooms', roomCode);
             
-            // ✅ البيانات المعدلة: player1/player2 بدلاً من host/guest، وإزالة roomCode من البيانات
             const roomData = {
                 player1: state.uid,
                 player1Name: state.profileName,
@@ -5325,14 +5324,12 @@
 
         // ==================== UPDATE ROOM UI (MODIFIED) ====================
         function updateRoomUI(roomData) {
-            // تحديث معلومات اللاعب 1
             document.getElementById('player1-avatar').src = roomData.player1Avatar || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%231e293b\'/%3E%3Ccircle cx=\'50\' cy=\'35\' r=\'20\' fill=\'%2300d4ff\'/%3E%3Cellipse cx=\'50\' cy=\'80\' rx=\'30\' ry=\'25\' fill=\'%2300d4ff\'/%3E%3C/svg%3E';
             document.getElementById('player1-name').textContent = roomData.player1Name;
             document.getElementById('player1-level').textContent = `Lv. ${roomData.player1Level || 1}`;
             document.getElementById('player1-xp').textContent = `${roomData.player1XP || 0} XP`;
             document.getElementById('player1-symbol').textContent = roomData.settings.player1Symbol;
             
-            // تحديث معلومات اللاعب 2
             if (roomData.player2) {
                 const player2Profile = document.getElementById('player2-profile');
                 player2Profile.style.opacity = '1';
@@ -5350,7 +5347,6 @@
                 document.getElementById('player2-xp').textContent = '-';
             }
             
-            // تحديث كود الغرفة (يظهر فقط للمضيف وهو player1)
             if (state.isPlayer1 && roomData.status === 'waiting') {
                 document.getElementById('room-code-container').style.display = 'block';
                 document.getElementById('room-code-display').textContent = state.currentRoom;
@@ -5358,19 +5354,15 @@
                 document.getElementById('room-code-container').style.display = 'none';
             }
             
-            // تحديث زر الإعدادات (يظهر فقط للمضيف وهو player1)
             document.getElementById('room-settings-btn').style.display = state.isPlayer1 ? 'block' : 'none';
             
-            // تحديث النتيجة
             document.getElementById('player1-wins').textContent = roomData.scoreboard.player1Wins;
             document.getElementById('player2-wins').textContent = roomData.scoreboard.player2Wins;
             document.getElementById('draws-count').textContent = roomData.scoreboard.draws;
             document.getElementById('current-round').textContent = `${roomData.scoreboard.currentRound}/${roomData.settings.rounds}`;
             
-            // تحديث لوحة اللعبة
             updateRoomBoard(roomData.game);
             
-            // تحديث حالة اللعبة
             const statusEl = document.getElementById('room-game-status');
             if (roomData.game.winner) {
                 if (roomData.game.winner === 'draw') {
@@ -5386,7 +5378,6 @@
                 statusEl.innerHTML = `دور: <span style="color: ${color};">${currentPlayerName}</span>`;
             }
             
-            // التحقق من انفصال الخصم
             if (roomData.status === 'disconnected') {
                 document.getElementById('disconnected-message').style.display = 'block';
             } else {
@@ -5423,6 +5414,7 @@
             }
         }
 
+        // ==================== HANDLE ROOM MOVE (MODIFIED - FULL FIX) ====================
         async function handleRoomMove(index) {
             if (!state.currentRoom || !state.uid) return;
             
@@ -5435,54 +5427,68 @@
                     
                     const roomData = docSnap.data();
                     
-                    // التحقق من أن اللاعبين موجودين
+                    // التحقق من أن اللعبة في حالة صحيحة
                     if (roomData.status !== 'playing') throw new Error('اللعبة لم تبدأ بعد');
                     if (!roomData.player2) throw new Error('في انتظار لاعب آخر');
-                    if (roomData.game.winner) throw new Error('انتهت اللعبة');
-                    if (roomData.game.board[index]) throw new Error('هذه الخانة مشغولة');
+                    if (roomData.game.winner) throw new Error('انتهت هذه الجولة');
                     
+                    // تحديد اللاعب الحالي ورمزه
                     const isPlayer1 = roomData.player1 === state.uid;
                     const isPlayer2 = roomData.player2 === state.uid;
                     if (!isPlayer1 && !isPlayer2) throw new Error('لست مشتركاً في هذه الغرفة');
                     
                     const playerSymbol = isPlayer1 ? roomData.settings.player1Symbol : roomData.settings.player2Symbol;
+                    
+                    // التحقق من أن الدور صحيح
                     if (roomData.game.turn !== playerSymbol) throw new Error('ليس دورك');
                     
+                    // التحقق من أن الخلية فارغة
+                    if (roomData.game.board[index]) throw new Error('هذه الخانة مشغولة');
+                    
+                    // تنفيذ الحركة
                     const newBoard = [...roomData.game.board];
                     newBoard[index] = playerSymbol;
                     
+                    // التحقق من النتيجة
                     const result = checkWinner(newBoard);
                     
+                    // تحديثات أساسية: اللوحة والدور
                     const updates = {
                         'game.board': newBoard,
                         'game.turn': playerSymbol === 'X' ? 'O' : 'X'
                     };
                     
+                    // إذا كانت هناك نتيجة (فوز أو تعادل)
                     if (result) {
                         if (result.winner === 'draw') {
+                            // حالة التعادل
                             if (roomData.settings.allowDraw) {
                                 updates['game.winner'] = 'draw';
                                 updates['scoreboard.draws'] = roomData.scoreboard.draws + 1;
                                 
+                                // التحقق مما إذا كانت هذه الجولة هي الأخيرة في المباراة
                                 const newDraws = roomData.scoreboard.draws + 1;
                                 if (newDraws >= roomData.settings.rounds) {
                                     updates['status'] = 'completed';
                                 } else {
+                                    // بدء جولة جديدة
                                     updates['scoreboard.currentRound'] = roomData.scoreboard.currentRound + 1;
                                     updates['game.board'] = ['','','','','','','','',''];
                                     updates['game.winner'] = null;
                                     updates['game.turn'] = 'X';
                                 }
                             } else {
-                                // إعادة الجولة
+                                // إذا كان التعادل غير مسموح به، نعيد الجولة
                                 updates['game.board'] = ['','','','','','','','',''];
                                 updates['game.winner'] = null;
                                 updates['game.turn'] = 'X';
                             }
                         } else {
+                            // حالة الفوز (X أو O)
                             const winner = result.winner;
                             const isPlayer1Winner = winner === roomData.settings.player1Symbol;
                             
+                            // تحديث النقاط
                             if (isPlayer1Winner) {
                                 updates['scoreboard.player1Wins'] = roomData.scoreboard.player1Wins + 1;
                             } else {
@@ -5491,13 +5497,15 @@
                             
                             updates['game.winner'] = winner;
                             
+                            // حساب عدد مرات الفوز الجديدة
                             const newPlayer1Wins = isPlayer1Winner ? roomData.scoreboard.player1Wins + 1 : roomData.scoreboard.player1Wins;
                             const newPlayer2Wins = isPlayer1Winner ? roomData.scoreboard.player2Wins : roomData.scoreboard.player2Wins + 1;
                             
+                            // التحقق مما إذا كان أحد اللاعبين قد حقق العدد المطلوب من مرات الفوز للفوز بالمباراة
                             if (newPlayer1Wins >= roomData.settings.rounds || newPlayer2Wins >= roomData.settings.rounds) {
                                 updates['status'] = 'completed';
                                 
-                                // إضافة XP للفائز
+                                // إضافة XP للفائز (اختياري)
                                 if (state.uid === (isPlayer1Winner ? roomData.player1 : roomData.player2)) {
                                     state.xp += 100;
                                     state.onlineWins++;
@@ -5506,6 +5514,7 @@
                                 }
                                 saveState();
                             } else {
+                                // بدء جولة جديدة
                                 updates['scoreboard.currentRound'] = roomData.scoreboard.currentRound + 1;
                                 updates['game.board'] = ['','','','','','','','',''];
                                 updates['game.winner'] = null;
@@ -5514,6 +5523,7 @@
                         }
                     }
                     
+                    // تطبيق جميع التحديثات
                     transaction.update(roomRef, updates);
                 });
             } catch(error) {
@@ -5639,7 +5649,6 @@
             const soundEnabled = document.getElementById('settings-sound').checked;
             const player1Symbol = document.getElementById('settings-player1-symbol').value;
             
-            // تحقق من صحة القيم
             if (rounds < 1 || rounds > 7) {
                 showNotification('عدد الجولات يجب أن يكون بين 1 و 7', 'error');
                 return;
@@ -5666,7 +5675,6 @@
                 closeRoomSettings();
                 showNotification('تم حفظ الإعدادات', 'success');
                 
-                // إعادة تعيين لوحة اللعبة بالإعدادات الجديدة
                 const newGame = {
                     board: ['','','','','','','','',''],
                     turn: 'X',
@@ -5833,7 +5841,6 @@
 
         // ==================== ONLINE MATCH FUNCTIONS (FIXED) ====================
 
-        // تحديث createOnlineMatch لفتح الصفحة الصحيحة
         function createOnlineMatch(player2) {
             if (!state.uid || !state.xpBet) return;
             
@@ -5875,7 +5882,6 @@
                 }
             };
             
-            // حذف من طابور الانتظار
             deleteDoc(doc(db, 'matchmakingQueue', state.uid)).catch(console.error);
             deleteDoc(doc(db, 'matchmakingQueue', player2.uid)).catch(console.error);
             
@@ -5897,7 +5903,6 @@
                 });
         }
 
-        // إعداد مستمع للمباراة العادية
         function setupOnlineMatchListener(matchId) {
             if (state.matchUnsubscribe) {
                 state.matchUnsubscribe();
@@ -5919,32 +5924,25 @@
             });
         }
 
-        // تحديث واجهة المباراة العادية
         function updateOnlineMatchUI(matchData) {
-            // تحديث معلومات اللاعب 1
             document.getElementById('online-player1-avatar').src = matchData.player1Avatar || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%231e293b\'/%3E%3Ccircle cx=\'50\' cy=\'35\' r=\'20\' fill=\'%2300d4ff\'/%3E%3Cellipse cx=\'50\' cy=\'80\' rx=\'30\' ry=\'25\' fill=\'%2300d4ff\'/%3E%3C/svg%3E';
             document.getElementById('online-player1-name').textContent = matchData.player1Name;
             document.getElementById('online-player1-level').textContent = `Lv. ${matchData.player1Level || 1}`;
             document.getElementById('online-player1-symbol').textContent = matchData.player1Symbol;
             
-            // تحديث معلومات اللاعب 2
             document.getElementById('online-player2-avatar').src = matchData.player2Avatar || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%23333\'/%3E%3Ccircle cx=\'50\' cy=\'35\' r=\'20\' fill=\'%23666\'/%3E%3Cellipse cx=\'50\' cy=\'80\' rx=\'30\' ry=\'25\' fill=\'%23666\'/%3E%3C/svg%3E';
             document.getElementById('online-player2-name').textContent = matchData.player2Name;
             document.getElementById('online-player2-level').textContent = `Lv. ${matchData.player2Level || 1}`;
             document.getElementById('online-player2-symbol').textContent = matchData.player2Symbol;
             
-            // تحديث الرهان
             document.getElementById('online-match-bet').textContent = `${matchData.player1Bet} XP`;
             document.getElementById('online-match-xp').textContent = `${state.xp} XP`;
             
-            // تحديث النتيجة
             document.getElementById('online-player1-wins').textContent = matchData.scoreboard.player1Wins;
             document.getElementById('online-player2-wins').textContent = matchData.scoreboard.player2Wins;
             
-            // تحديث لوحة اللعبة
             updateOnlineMatchBoard(matchData.game);
             
-            // تحديث حالة اللعبة
             const statusEl = document.getElementById('online-match-status');
             if (matchData.game.winner) {
                 if (matchData.game.winner === 'draw') {
@@ -5961,16 +5959,13 @@
                 statusEl.innerHTML = `دور: <span style="color: ${color};">${currentPlayerName}</span>`;
             }
             
-            // تحديث المؤقت
             if (!matchData.game.winner) {
                 startOnlineMatchTimer(matchData);
             }
             
-            // التحقق من الانفصال
             if (matchData.status === 'disconnected') {
                 document.getElementById('online-match-disconnected').style.display = 'block';
                 
-                // إذا انفصل الخصم، اربح المباراة بعد 5 ثوان
                 if (!state.disconnectTimer) {
                     state.disconnectTimer = setTimeout(() => {
                         handleOnlineMatchDisconnectWin(matchData);
@@ -5985,7 +5980,6 @@
             }
         }
 
-        // تحديث لوحة المباراة العادية
         function updateOnlineMatchBoard(gameData) {
             const boardEl = document.getElementById('online-match-board');
             
@@ -6015,7 +6009,6 @@
             }
         }
 
-        // التعامل مع حركة في المباراة العادية
         async function handleOnlineMatchMove(index) {
             if (!state.currentMatch || !state.uid) return;
             
@@ -6077,16 +6070,13 @@
                             if (newPlayer1Wins >= matchData.settings.rounds || newPlayer2Wins >= matchData.settings.rounds) {
                                 updates['status'] = 'completed';
                                 
-                                // تحديث XP
                                 if (state.uid === (isPlayer1Winner ? matchData.player1UID : matchData.player2UID)) {
-                                    // الفائز يأخذ XP الخصم
                                     const winnerBet = isPlayer1Winner ? matchData.player1Bet : matchData.player2Bet;
                                     const loserBet = isPlayer1Winner ? matchData.player2Bet : matchData.player1Bet;
                                     
                                     state.xp += loserBet;
                                     state.onlineWins++;
                                 } else {
-                                    // الخاسر يخسر XP الذي راهن به
                                     const loserBet = isPlayer1Winner ? matchData.player2Bet : matchData.player1Bet;
                                     state.xp = Math.max(0, state.xp - loserBet);
                                     state.onlineLosses++;
@@ -6103,7 +6093,6 @@
             }
         }
 
-        // بدء مؤقت المباراة العادية
         function startOnlineMatchTimer(matchData) {
             if (state.timerInterval) {
                 clearInterval(state.timerInterval);
@@ -6136,7 +6125,6 @@
             }, 1000);
         }
 
-        // التعامل مع انتهاء الوقت
         async function handleOnlineMatchTimerLoss() {
             if (!state.currentMatch) return;
             
@@ -6171,7 +6159,6 @@
             }
         }
 
-        // التعامل مع فوز بسبب انفصال الخصم
         async function handleOnlineMatchDisconnectWin(matchData) {
             if (!state.currentMatch) return;
             
@@ -6187,7 +6174,6 @@
                     'scoreboard.player2Wins': isPlayer1 ? matchData.scoreboard.player2Wins : matchData.scoreboard.player2Wins + 1
                 });
                 
-                // إضافة XP
                 const bet = isPlayer1 ? matchData.player2Bet : matchData.player1Bet;
                 state.xp += bet;
                 state.onlineWins++;
@@ -6199,7 +6185,6 @@
             }
         }
 
-        // مغادرة المباراة العادية
         function leaveOnlineMatch() {
             if (state.matchUnsubscribe) {
                 state.matchUnsubscribe();
@@ -6288,7 +6273,6 @@
 
         // ==================== DIVISION MATCH FUNCTIONS ====================
 
-        // تحديث createDivisionMatch لفتح الصفحة الصحيحة
         function createDivisionMatch(player2) {
             if (!state.uid) return;
             
@@ -6329,7 +6313,6 @@
                 }
             };
             
-            // حذف من طابور الديفيجن
             deleteDoc(doc(db, 'divisionQueue', state.uid)).catch(console.error);
             deleteDoc(doc(db, 'divisionQueue', player2.uid)).catch(console.error);
             
@@ -6351,7 +6334,6 @@
                 });
         }
 
-        // إعداد مستمع لمباراة الديفيجن
         function setupDivisionMatchListener(matchId) {
             if (state.matchUnsubscribe) {
                 state.matchUnsubscribe();
@@ -6373,39 +6355,31 @@
             });
         }
 
-        // تحديث واجهة مباراة الديفيجن
         function updateDivisionMatchUI(matchData) {
-            // تحديث معلومات اللاعب 1
             document.getElementById('division-player1-avatar').src = matchData.player1Avatar || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%231e293b\'/%3E%3Ccircle cx=\'50\' cy=\'35\' r=\'20\' fill=\'%2300d4ff\'/%3E%3Cellipse cx=\'50\' cy=\'80\' rx=\'30\' ry=\'25\' fill=\'%2300d4ff\'/%3E%3C/svg%3E';
             document.getElementById('division-player1-name').textContent = matchData.player1Name;
             document.getElementById('division-player1-division').textContent = `Div ${matchData.player1Division}`;
             document.getElementById('division-player1-symbol').textContent = matchData.player1Symbol;
             
-            // تحديث معلومات اللاعب 2
             document.getElementById('division-player2-avatar').src = matchData.player2Avatar || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%23333\'/%3E%3Ccircle cx=\'50\' cy=\'35\' r=\'20\' fill=\'%23666\'/%3E%3Cellipse cx=\'50\' cy=\'80\' rx=\'30\' ry=\'25\' fill=\'%23666\'/%3E%3C/svg%3E';
             document.getElementById('division-player2-name').textContent = matchData.player2Name;
             document.getElementById('division-player2-division').textContent = `Div ${matchData.player2Division}`;
             document.getElementById('division-player2-symbol').textContent = matchData.player2Symbol;
             
-            // تحديث معلومات الديفيجن
             document.getElementById('division-match-division').textContent = `Division ${matchData.division}`;
             document.getElementById('division-needed-wins').textContent = `المطلوب للفوز: ${matchData.bestOfWinsRequired}`;
             
-            // تحديث النتيجة
             document.getElementById('division-player1-wins').textContent = matchData.player1Wins;
             document.getElementById('division-player2-wins').textContent = matchData.player2Wins;
             
-            // تحديث لوحة اللعبة
             updateDivisionMatchBoard(matchData.game);
             
-            // تحديث حالة اللعبة
             const statusEl = document.getElementById('division-match-status');
             if (matchData.game.winner) {
                 const winnerName = matchData.game.winner === matchData.player1Symbol ? matchData.player1Name : matchData.player2Name;
                 const color = matchData.game.winner === matchData.player1Symbol ? 'var(--accent-color)' : 'var(--accent-secondary)';
                 statusEl.innerHTML = `<span style="color: ${color};">فوز ${winnerName} في هذه الجولة!</span>`;
                 
-                // بعد ثانيتين، ابدأ جولة جديدة إذا لم تنته المباراة
                 if (matchData.status === 'inGame') {
                     setTimeout(() => {
                         const newGameRef = doc(db, 'divisionMatches', state.currentMatch);
@@ -6423,12 +6397,10 @@
                 statusEl.innerHTML = `دور: <span style="color: ${color};">${currentPlayerName}</span>`;
             }
             
-            // تحديث المؤقت
             if (!matchData.game.winner) {
                 startDivisionMatchTimer(matchData);
             }
             
-            // التحقق من الانفصال
             if (matchData.status === 'disconnected') {
                 document.getElementById('division-match-disconnected').style.display = 'block';
                 
@@ -6446,7 +6418,6 @@
             }
         }
 
-        // تحديث لوحة مباراة الديفيجن
         function updateDivisionMatchBoard(gameData) {
             const boardEl = document.getElementById('division-match-board');
             
@@ -6476,7 +6447,6 @@
             }
         }
 
-        // التعامل مع حركة في مباراة الديفيجن
         async function handleDivisionMatchMove(index) {
             if (!state.currentMatch || !state.uid) return;
             
@@ -6510,7 +6480,6 @@
                     
                     if (result) {
                         if (result.winner === 'draw') {
-                            // في الديفيجن، التعادل يعني إعادة الجولة
                             updates['game.board'] = ['','','','','','','','',''];
                             updates['game.turn'] = 'X';
                             updates['game.winner'] = null;
@@ -6532,7 +6501,6 @@
                             if (newPlayer1Wins >= matchData.bestOfWinsRequired || newPlayer2Wins >= matchData.bestOfWinsRequired) {
                                 updates['status'] = 'completed';
                                 
-                                // تحديث نقاط الديفيجن
                                 if (isPlayer1Winner) {
                                     if (state.uid === matchData.player1UID) {
                                         handleDivisionWin();
@@ -6557,7 +6525,6 @@
             }
         }
 
-        // بدء مؤقت مباراة الديفيجن
         function startDivisionMatchTimer(matchData) {
             if (state.timerInterval) {
                 clearInterval(state.timerInterval);
@@ -6590,7 +6557,6 @@
             }, 1000);
         }
 
-        // التعامل مع انتهاء الوقت في الديفيجن
         async function handleDivisionMatchTimerLoss() {
             if (!state.currentMatch) return;
             
@@ -6633,7 +6599,6 @@
             }
         }
 
-        // التعامل مع فوز بسبب انفصال الخصم في الديفيجن
         async function handleDivisionMatchDisconnectWin(matchData) {
             if (!state.currentMatch) return;
             
@@ -6651,7 +6616,7 @@
                 if (isPlayer1) {
                     handleDivisionWin();
                 } else {
-                    handleDivisionWin(); // الفائز هو اللاعب الآخر
+                    handleDivisionWin();
                 }
                 
                 showNotification('فزت! الخصم انفصل', 'success');
@@ -6660,7 +6625,6 @@
             }
         }
 
-        // إصلاح دالة leaveDivisionMatch الموجودة
         function leaveDivisionMatch() {
             if (state.matchUnsubscribe) {
                 state.matchUnsubscribe();
@@ -6701,17 +6665,13 @@
             if (target) {
                 target.classList.add('active');
                 
-                // تحديث الصفحات الخاصة
                 if (pageId === 'share') {
                     updateShareUI();
                 } else if (pageId === 'online-match') {
-                    // لا تفعل شيئاً خاصاً
                 } else if (pageId === 'division-match') {
-                    // لا تفعل شيئاً خاصاً
                 }
             } else {
                 console.error(`Page ${pageId} not found`);
-                // ارجع للصفحة الرئيسية إذا كانت الصفحة غير موجودة
                 document.getElementById('page-home').classList.add('active');
             }
             
@@ -8269,7 +8229,6 @@
             init();
         };
 
-        // جعل الدوال متاحة عالمياً
         window.toggleSettingsPanel = toggleSettingsPanel;
         window.navigateToAndCloseSettings = navigateToAndCloseSettings;
         window.openSettingsAndNavigate = openSettingsAndNavigate;
@@ -8352,7 +8311,6 @@
         window.closeDivisionOptions = closeDivisionOptions;
         window.startOnlineDivision = startOnlineDivision;
         
-        // دوال المباريات عبر الإنترنت
         window.createOnlineMatch = createOnlineMatch;
         window.setupOnlineMatchListener = setupOnlineMatchListener;
         window.updateOnlineMatchUI = updateOnlineMatchUI;
@@ -8363,7 +8321,6 @@
         window.handleOnlineMatchDisconnectWin = handleOnlineMatchDisconnectWin;
         window.leaveOnlineMatch = leaveOnlineMatch;
         
-        // دوال مباريات الديفيجن
         window.createDivisionMatch = createDivisionMatch;
         window.setupDivisionMatchListener = setupDivisionMatchListener;
         window.updateDivisionMatchUI = updateDivisionMatchUI;
@@ -8374,7 +8331,6 @@
         window.handleDivisionMatchDisconnectWin = handleDivisionMatchDisconnectWin;
         window.leaveDivisionMatch = leaveDivisionMatch;
         
-        // دوال الديفيجن
         window.handleDivisionWin = handleDivisionWin;
         window.handleDivisionLoss = handleDivisionLoss;
     </script>
@@ -8399,7 +8355,6 @@
         const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
 
-        // ✅ جعل كل الوظائف متاحة في النطاق العام (window)
         window.db = db;
         window.doc = doc;
         window.collection = collection;
@@ -8455,7 +8410,6 @@
                         state.profileImage = userData.avatar;
                     }
                     
-                    // تحديث البيانات المحلية من Firestore
                     if (userData.xp !== undefined && userData.xp > state.xp) {
                         state.xp = userData.xp;
                     }
